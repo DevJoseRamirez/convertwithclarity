@@ -1,0 +1,258 @@
+{% style %}
+  #CWC_social_proof-{{ section.id }} {
+  --section-bg: {{ section.settings.bg_color }};
+  --text-color: {{ section.settings.text_color }};
+  --padding-top: {{ section.settings.padding_top }}px;
+  --padding-bottom: {{ section.settings.padding_bottom }}px;
+  --padding-top-mobile: {{ section.settings.padding_top | times: 0.5 }}px;
+  --padding-bottom-mobile: {{ section.settings.padding_bottom | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_social_proof.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  # Determine source: metaobject or blocks
+  assign use_metaobject = false
+  assign image_items = section.blocks
+
+  if section.settings.social_proof_image_list != blank
+    assign social_proof_image_list = section.settings.social_proof_image_list
+    if social_proof_image_list.list.value.count > 0
+      assign use_metaobject = true
+      assign image_items = social_proof_image_list.list.value
+    endif
+  endif
+%}
+
+<section id="CWC_social_proof-{{ section.id }}" class="cwc-social-proof">
+  <div class="cwc-social-proof__wrapper">
+    {% if section.settings.show_stars %}
+      {% comment %} #az_reviews {% endcomment %}
+      <a
+        {% if section.settings.star_link != blank %}
+          href="{{ section.settings.star_link }}"
+        {% endif %}
+        class="cwc-social-proof__stars"
+      >
+        {% render 'CWC_trust_stars' %}
+      </a>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <div
+        class="cwc-social-proof__heading"
+        style="--accent-color: {{ section.settings.bold_color }};"
+      >
+        {{ section.settings.heading }}
+      </div>
+    {% endif %}
+
+    {% if section.settings.text != blank %}
+      <div class="cwc-social-proof__text">{{ section.settings.text }}</div>
+    {% endif %}
+
+    <div class="cwc_social-proof-carousel">
+      <div class="cwc_carousel-track">
+        {% if use_metaobject %}
+          {% comment %} Render from metaobject {% endcomment %}
+          {% for item in image_items %}
+            {% assign item_image = item.image.value %}
+            {% if item_image != blank %}
+              <div class="cwc_carousel-item">
+                <img src="{{ item_image | img_url: '100x' }}" alt="Social Proof">
+              </div>
+            {% endif %}
+          {% endfor %}
+          {% comment %} Duplication for infinite motion {% endcomment %}
+          {% for item in image_items %}
+            {% assign item_image = item.image.value %}
+            {% if item_image != blank %}
+              <div class="cwc_carousel-item">
+                <img src="{{ item_image | img_url: '100x' }}" alt="Social Proof">
+              </div>
+            {% endif %}
+          {% endfor %}
+          {% for item in image_items %}
+            {% assign item_image = item.image.value %}
+            {% if item_image != blank %}
+              <div class="cwc_carousel-item">
+                <img src="{{ item_image | img_url: '100x' }}" alt="Social Proof">
+              </div>
+            {% endif %}
+          {% endfor %}
+          {% for item in image_items %}
+            {% assign item_image = item.image.value %}
+            {% if item_image != blank %}
+              <div class="cwc_carousel-item">
+                <img src="{{ item_image | img_url: '100x' }}" alt="Social Proof">
+              </div>
+            {% endif %}
+          {% endfor %}
+
+          {% comment %} Render from blocks (fallback) {% endcomment %}
+        {% else %}
+          {% for block in section.blocks %}
+            {% if block.settings.image != blank %}
+              <div class="cwc_carousel-item" {{ block.shopify_attributes }}>
+                <img src="{{ block.settings.image | img_url: '100x' }}" alt="Social Proof">
+              </div>
+            {% endif %}
+          {% endfor %}
+          {% comment %} Duplication for infinite motion {% endcomment %}
+          {% for block in section.blocks %}
+            {% if block.settings.image != blank %}
+              <div class="cwc_carousel-item">
+                <img src="{{ block.settings.image | img_url: '100x' }}" alt="Social Proof">
+              </div>
+            {% endif %}
+          {% endfor %}
+          {% for block in section.blocks %}
+            {% if block.settings.image != blank %}
+              <div class="cwc_carousel-item">
+                <img src="{{ block.settings.image | img_url: '100x' }}" alt="Social Proof">
+              </div>
+            {% endif %}
+          {% endfor %}
+          {% for block in section.blocks %}
+            {% if block.settings.image != blank %}
+              <div class="cwc_carousel-item">
+                <img src="{{ block.settings.image | img_url: '100x' }}" alt="Social Proof">
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ 'CWC_social_proof.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "CWC Social Proof",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Configure images using either the metaobject list below OR the blocks at the bottom. Metaobject takes priority if set."
+    },
+    {
+      "type": "metaobject",
+      "id": "social_proof_image_list",
+      "label": "Social Proof Image List",
+      "metaobject_type": "social_proof_image_list",
+      "info": "Select a metaobject list of type 'social_proof_image_list'. Falls back to blocks if not set."
+    },
+    {
+      "type": "header",
+      "content": "Display Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stars",
+      "label": "Show star rating",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "star_link",
+      "label": "Star Link"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<h3>Real Stories, <b>Real Results</b></h3>"
+    },
+    {
+      "type": "color",
+      "id": "bold_color",
+      "label": "Bold Text Color",
+      "default": "#125657"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Subtext",
+      "default": "<p>See What customer Are Saying About Simply Revival</p>"
+    },
+    {
+      "type": "header",
+      "content": "Style Settings"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#FFFEE3"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "default": 40,
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "default": 20,
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Carousel Image (Fallback)",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "These blocks are only used if no metaobject is selected above."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Upload image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Social Proof",
+      "category": "Custom",
+      "settings": {
+        "show_stars": true,
+        "heading": "<p>Real Stories, Real Results</p>",
+        "text": "<p>See What customer Are Saying About Simply Revival</p>",
+        "bg_color": "#FAF9F6",
+        "text_color": "#111111",
+        "padding_top": 40,
+        "padding_bottom": 20
+      },
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

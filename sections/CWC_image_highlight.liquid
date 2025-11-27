@@ -1,0 +1,158 @@
+{% comment %}
+  Section: CWC_image_highlight
+  Highlight key product features around a central image.
+{% endcomment %}
+
+{% style %}
+  #CWC_image_highlight-{{ section.id }} {
+  --section-bg: {{ section.settings.background_color }};
+  --title-color: {{ section.settings.title_color }};
+  --padding-top: {{ section.settings.padding_top }}px;
+  --padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_image_highlight.css' | asset_url | stylesheet_tag }}
+
+<div id="CWC_image_highlight-{{ section.id }}" class="cwc_image_highlight">
+  <div class="cwc_image_highlight-inner">
+    {% if section.settings.title != blank %}
+      <h2 class="highlight-title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    <div class="highlight-columns">
+      <!-- LEFT COLUMN: first half of blocks -->
+      <div class="highlight-column highlight-column--left">
+        {% for block in section.blocks limit: 3 %}
+          <div class="highlight-item" {{ block.shopify_attributes }}>
+            {% if block.settings.icon %}
+              <div class="highlight-icon">
+                <img src="{{ block.settings.icon | image_url }}" alt="">
+              </div>
+            {% endif %}
+            <h3 class="highlight-item-title">{{ block.settings.title }}</h3>
+            <p class="highlight-item-text">{{ block.settings.text }}</p>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- CENTER COLUMN: main featured image -->
+      <div class="highlight-column highlight-column--center">
+        <div class="highlight-main-image">
+          {% if section.settings.featured_image %}
+            <img src="{{ section.settings.featured_image | image_url }}" alt="">
+          {% else %}
+            <img src="{{ 'placeholder.png' | asset_url }}" alt="Placeholder image">
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: remaining blocks -->
+      <div class="highlight-column highlight-column--right">
+        {% for block in section.blocks offset: 3 %}
+          <div class="highlight-item" {{ block.shopify_attributes }}>
+            {% if block.settings.icon %}
+              <div class="highlight-icon">
+                <img src="{{ block.settings.icon | image_url }}" alt="">
+              </div>
+            {% endif %}
+            <h3 class="highlight-item-title">{{ block.settings.title }}</h3>
+            <p class="highlight-item-text">{{ block.settings.text }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image Highlight",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Lorem Ipsum Dolor Sit Amet"
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_image",
+      "label": "Featured Center Image"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "highlight_item",
+      "name": "Highlight Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon or Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Item Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Item Text",
+          "default": "Describe this feature in one or two lines."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Image Highlight",
+      "category": "Custom",
+      "blocks": [
+        { "type": "highlight_item" },
+        { "type": "highlight_item" },
+        { "type": "highlight_item" },
+        { "type": "highlight_item" },
+        { "type": "highlight_item" },
+        { "type": "highlight_item" }
+      ]
+    }
+  ]
+}
+{% endschema %}

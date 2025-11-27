@@ -1,0 +1,143 @@
+{% style %}
+  #CWC_product_highlight_grid-{{ section.id }} {
+  --section-bg: {{ section.settings.background_color }};
+  --section-padding-top: {{ section.settings.padding_top }}px;
+  --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+  --section-padding-top-mobile: {{ section.settings.padding_top | times: 0.5 }}px;
+  --section-padding-bottom-mobile: {{ section.settings.padding_bottom | times: 0.5 }}px;
+  --title-color: {{ section.settings.title_color }};
+  }
+{% endstyle %}
+
+{{ 'CWC_product_highlight_grid.css' | asset_url | stylesheet_tag }}
+
+<div id="CWC_product_highlight_grid-{{ section.id }}" class="CWC_product_highlight_grid">
+  <div class="CWC_product_highlight_grid-inner {{ section.settings.image_position }}">
+    <!-- LEFT SIDE: TEXT + ICON GRID -->
+    <div class="CWC_product_highlight_grid-content">
+      {% if section.settings.title != blank %}
+        <h2 class="title">{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.subtext != blank %}
+        <div class="subtext">{{ section.settings.subtext }}</div>
+      {% endif %}
+
+      <div class="CWC_product_highlight_grid-feature-grid">
+        {% for block in section.blocks %}
+          <div class="feature-block" {{ block.shopify_attributes }}>
+            {% if block.settings.icon %}
+              <img src="{{ block.settings.icon | image_url }}" alt="Feature Icon">
+            {% else %}
+              <img src="{{ 'icon-placeholder.png' | asset_url }}" alt="Placeholder image">
+            {% endif %}
+            <p>{{ block.settings.text }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE: FEATURED IMAGE -->
+    <div class="CWC_product_highlight_grid-image">
+      {% if section.settings.featured_image %}
+        <img src="{{ section.settings.featured_image | image_url }}" alt="Featured Image">
+      {% else %}
+        <img src="{{ 'placeholder.png' | asset_url }}" alt="Placeholder image">
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "**Product Highlight Grid",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Why People Love Our Product"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>$3M+ Raised by People Who Actually Give a F*ck About Bags</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_image",
+      "label": "Featured Image"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Position",
+      "default": "right",
+      "options": [
+        { "value": "right", "label": "Image on Right" },
+        { "value": "left", "label": "Image on Left" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Feature Text",
+          "default": "Highlight Description"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Product Highlight Grid",
+      "category": "Custom",
+      "blocks": [{ "type": "feature" }, { "type": "feature" }, { "type": "feature" }, { "type": "feature" }]
+    }
+  ]
+}
+{% endschema %}

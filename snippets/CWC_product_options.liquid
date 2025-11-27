@@ -1,0 +1,163 @@
+{% comment %}
+  cwc-featured-product__options with custom block images
+{% endcomment %}
+
+{{ 'CWC_product_options.css' | asset_url | stylesheet_tag }}
+
+{% assign sel = product.selected_or_first_available_variant %}
+
+{% for option in product.options_with_values %}
+  <div class="cwc-featured-product__option">
+    {% comment %} <label class="cwc-option-label">{{ option.name }}</label> {% endcomment %}
+
+    <div class="cwc-featured-product__option_buttons">
+      {% comment %} <div class="cwc-option-buttons"> {% endcomment %}
+      {% for value in option.values %}
+        {%- comment -%}
+          Candidate variant for this button:
+          - Set this option to "value"
+          - Keep other options set to the current selection (sel)
+        {%- endcomment -%}
+        {% assign candidate = null %}
+        {% for v in product.variants %}
+          {% assign match = true %}
+          {% if option.position == 1 %}
+            {% if v.option1 != value %}{% assign match = false %}{% endif %}
+            {% if product.options.size > 1 and v.option2 != sel.option2 %}{% assign match = false %}{% endif %}
+            {% if product.options.size > 2 and v.option3 != sel.option3 %}{% assign match = false %}{% endif %}
+          {% elsif option.position == 2 %}
+            {% if v.option2 != value %}{% assign match = false %}{% endif %}
+            {% if v.option1 != sel.option1 %}{% assign match = false %}{% endif %}
+            {% if product.options.size > 2 and v.option3 != sel.option3 %}{% assign match = false %}{% endif %}
+          {% else %}
+            {% if v.option3 != value %}{% assign match = false %}{% endif %}
+            {% if v.option1 != sel.option1 %}{% assign match = false %}{% endif %}
+            {% if v.option2 != sel.option2 %}{% assign match = false %}{% endif %}
+          {% endif %}
+          {% if match -%}
+            {%- assign candidate = v -%}
+            {%- break -%}
+          {%- endif %}
+        {% endfor %}
+
+        {%- assign is_selected = false -%}
+        {% if option.position == 1 and sel.option1 == value -%}
+          {%- assign is_selected = true %}
+        {% elsif option.position == 2 and sel.option2 == value -%}
+          {%- assign is_selected = true %}
+        {% elsif option.position == 3 and sel.option3 == value -%}
+          {%- assign is_selected = true %}
+        {% endif %}
+
+        {%- comment -%} price / savings {%- endcomment -%}
+        {% assign show_compare = false %}
+        {% assign save_money = 0 %}
+        {% assign save_pct = 0 %}
+        {% if candidate and candidate.compare_at_price and candidate.compare_at_price > candidate.price %}
+          {% assign show_compare = true %}
+          {% assign save_money = candidate.compare_at_price | minus: candidate.price %}
+          {% assign save_pct = save_money | times: 100 | divided_by: candidate.compare_at_price %}
+        {% endif %}
+
+        {%- comment -%}
+          Determine thumbnail URL:
+          1. Try custom block images first (based on forloop index)
+          2. Fall back to variant featured image
+        {%- endcomment -%}
+        {%- comment -%} thumbnail url - custom images first, then variant image {%- endcomment -%}
+        {% assign thumb_url = null %}
+        {% assign option_index = forloop.index0 %}
+
+        {% if option_index == 0 and block.settings.image1 != blank %}
+          {% assign thumb_url = block.settings.image1 | image_url: width: 56 %}
+        {% elsif option_index == 1 and block.settings.image2 != blank %}
+          {% assign thumb_url = block.settings.image2 | image_url: width: 56 %}
+        {% elsif option_index == 2 and block.settings.image3 != blank %}
+          {% assign thumb_url = block.settings.image3 | image_url: width: 56 %}
+        {% elsif candidate and candidate.featured_image %}
+          {% assign thumb_url = candidate.featured_image | image_url: width: 56 %}
+        {% elsif candidate and candidate.image %}
+          {% assign thumb_url = candidate.image | image_url: width: 56 %}
+        {% endif %}
+
+        {% comment %} Use custom image if available, otherwise fall back to variant image {% endcomment %}
+        {% if custom_image_url %}
+          {% assign thumb_url = custom_image_url %}
+        {% elsif candidate and candidate.featured_image %}
+          {% assign thumb_url = candidate.featured_image | image_url: width: 56 %}
+        {% elsif candidate and candidate.image %}
+          {% assign thumb_url = candidate.image | image_url: width: 56 %}
+        {% endif %}
+
+        {% comment %}
+          ======================
+           START OF OPTIONS BUTTON
+          ======================
+        {% endcomment %}
+
+        <button
+          type="button"
+          class="cwc-featured-product__option_button{% if is_selected %} selected{% endif %}{% unless candidate and candidate.available %} disabled{% endunless %}"
+          data-option-index="{{ option.position | minus: 1 }}"
+          data-option-name="{{ option.name | escape }}"
+          data-value="{{ value | escape }}"
+          {% if candidate %}
+            data-variant-id="{{ candidate.id }}"
+          {% endif %}
+          {% if candidate %}
+            data-price="{{ candidate.price }}"
+          {% endif %}
+          {% if candidate %}
+            data-compare="{{ candidate.compare_at_price | default: 0 }}"
+          {% endif %}
+          {% comment %} Remove all carousel-related data attributes {% endcomment %}
+          {% if thumb_url %}
+            data-thumb="{{ thumb_url }}"
+          {% endif %}
+          {% unless candidate and candidate.available %}
+            disabled aria-disabled="true"
+          {% endunless %}
+        >
+          {% if thumb_url %}
+            <span class="cwc-featured-product__option_button_thumb-wrap">
+              <img
+                class="cwc-featured-product__option_button_thumb"
+                src="{{ thumb_url }}"
+                alt="{{ candidate.title | escape }}"
+              >
+            </span>
+          {% endif %}
+
+          <div class="cwc-featured-product__option_button_value_wrap">
+            <span class="cwc-featured-product__option_button_value">{{ value }}</span>
+            <span class="cwc-featured-product__option_button_save_perc">You Save {{ save_pct }}%</span>
+          </div>
+
+          {% if candidate %}
+            <span class="cwc-featured-product__option_button_prices">
+              <span class="cwc-featured-product__option_button_price">{{ candidate.price | money }}</span>
+              {% if show_compare %}
+                <span class="cwc-featured-product__option_button_compare_price">
+                  {{- candidate.compare_at_price | money -}}
+                </span>
+                {% comment %} <span class="cwc-ob__save">Save {{ save_money | money }} ({{ save_pct }}%)</span> {% endcomment %}
+              {% endif %}
+            </span>
+          {% else %}
+            <span class="cwc-featured-product__option_button_prices">
+              <span class="cwc-featured-product__option_button_unavalible">Unavailable</span>
+            </span>
+          {% endif %}
+        </button>
+      {% endfor %}
+    </div>
+
+    <input
+      type="hidden"
+      name="options[{{ option.name | escape }}]"
+      class="cwc-featured-product__option-input"
+      data-option-index="{{ option.position | minus: 1 }}"
+      value="{% if option.position == 1 %}{{ sel.option1 }}{% elsif option.position == 2 %}{{ sel.option2 }}{% else %}{{ sel.option3 }}{% endif %}"
+    >
+  </div>
+{% endfor %}

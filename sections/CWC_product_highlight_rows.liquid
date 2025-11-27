@@ -1,0 +1,165 @@
+{% style %}
+  #CWC_product_highlight_rows-{{ section.id }} {
+    --padding-top: {{ section.settings.padding_top }}px;
+    --padding-bottom: {{ section.settings.padding_bottom }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | times: 0.5 }}px;
+    --section-bg: {{ section.settings.background_color }};
+    --title-color: {{ section.settings.title_color }};
+    --subtitle-color: {{ section.settings.subtitle_color }};
+  }
+{% endstyle %}
+
+{{ 'CWC_product_highlight_rows.css' | asset_url | stylesheet_tag }}
+
+<div
+  id="CWC_product_highlight_rows-{{ section.id }}"
+  class="cwc_product_highlight_rows {% if section.settings.reverse_order %}reverse{% endif %}"
+>
+  <div class="cwc_product_highlight_rows-inner">
+    <!-- IMAGE COLUMN -->
+    <div class="cwc_product_highlight_rows-image">
+      {% if section.settings.featured_image %}
+        <img src="{{ section.settings.featured_image | image_url }}" alt="Featured Product">
+      {% else %}
+        <img src="{{ 'placeholder.png' | asset_url }}" alt="Placeholder image">
+      {% endif %}
+    </div>
+
+    <!-- TEXT COLUMN -->
+    <div class="cwc_product_highlight_rows-content">
+      {% if section.settings.subtitle != blank %}
+        <p class="subtitle">{{ section.settings.subtitle }}</p>
+      {% endif %}
+
+      {% if section.settings.title != blank %}
+        <h2 class="title">{{ section.settings.title }}</h2>
+      {% endif %}
+
+      <div class="feature-row-list">
+        {% for block in section.blocks %}
+          <div class="feature-row-block" {{ block.shopify_attributes }}>
+            <div class="icon-wrapper">
+              {% if block.settings.icon %}
+                <img src="{{ block.settings.icon | image_url }}" alt="Feature Icon">
+              {% else %}
+                <img src="{{ 'icon-placeholder.png' | asset_url }}" alt="Placeholder image">
+              {% endif %}
+            </div>
+
+            <div class="text-wrapper">
+              {% if block.settings.title %}
+                <h4>{{ block.settings.title }}</h4>
+              {% endif %}
+              {% if block.settings.text %}
+                <div class="description">{{ block.settings.text }}</div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Highlight Rows",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "featured_image",
+      "label": "Featured Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse_order",
+      "label": "Image on Right (Reverse Layout)",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Great Product Highlihgts"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Product detials and features highlight why customer love it!"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle Text Color",
+      "default": "#888888"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "highlight",
+      "name": "Highlight Row",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Fuul Grain I-talian Leather"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Description",
+          "default": "<p>Only quality materials.</p>"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Product Highlight Rows",
+      "category": "Custom",
+      "blocks": [{ "type": "highlight" }, { "type": "highlight" }, { "type": "highlight" }]
+    }
+  ]
+}
+{% endschema %}

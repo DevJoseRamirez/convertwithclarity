@@ -1,0 +1,99 @@
+{% assign current_variant = product %}
+
+{% assign on_sale = false %}
+{% if current_variant.compare_at_price > current_variant.price %}
+  {% assign on_sale = true %}
+{% endif %}
+
+{% if settings.show_currency_code %}
+  {% assign variant_compare_at_price = current_variant.compare_at_price | money_with_currency %}
+{% else %}
+  {% assign variant_compare_at_price = current_variant.compare_at_price | money %}
+{% endif %}
+
+{% comment %}
+  {% liquid
+  if settings.product_card_max_lines > 0
+  if settings.product_card_max_lines == 1
+  assign truncate_value = 20
+  elsif settings.product_card_max_lines == 2
+  assign truncate_value = 40
+  elsif settings.product_card_max_lines == 3
+  assign truncate_value = 60
+  elsif settings.product_card_max_lines == 4
+  assign truncate_value = 80
+  endif
+  endif
+  %}
+{% endcomment %}
+
+{% assign truncate_value = 60 %}
+
+<a
+  href="{{ product.url | within: collection }}"
+  title="{{ product.title }}"
+  class="grid__image grid__image__match {% if settings.product-grid == 'natural' %} image-height--natural{% endif %}"
+  tabindex="-1"
+  data-product-card-link
+>
+  <div class="aspect-ratio aspect-ratio--square">
+    {% if product.media.size > 0 %}
+      {% assign image = product.featured_media %}
+      {% assign img_alt = image.alt %}
+      {% if img_alt == product.title %}
+        {% assign img_alt = '' %}
+      {% endif %}
+      {% render 'responsive-image' with image,
+        alt: img_alt,
+        allow_stretch: image_stretch,
+        blur: false,
+        props: 'data-product-card-image',
+        loading: loading,
+        class: 'block-radius'
+      %}
+    {% endif %}
+  </div>
+</a>
+
+<div class="product-grid--title product-grid--title-font-body">
+  <a class="text-truncate--line" href="{{ product.url }}" data-product-card-link="">
+    {{- product.title | truncate: truncate_value -}}
+  </a>
+</div>
+
+<div class="cwc_product-card-price">
+  {% comment %} ===== PRODUCT PRICE ===== {% endcomment %}
+  <div
+    data-updates-on-change
+    data-update-id="featured-product-price-{{ section.id }}"
+    data-block-id="featured-product-price-{{ section.id }}"
+    class="product-price-group-container"
+  >
+    <div class="product-price-size--{{ section.settings.price_font }} product-price-group">
+      {% if on_sale %}
+        <span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
+        <p id="ComparePrice" class="compare-at-price sale-price{% if on_sale %} on-sale{% else %} js{% endif %}">
+          <span class="money">{{ variant_compare_at_price }}</span>
+        </p>
+      {% endif %}
+      {% render 'product-pricing', current_variant: current_variant %}
+    </div>
+  </div>
+</div>
+
+{% comment %} ============================================= {% endcomment %}
+
+{% if settings.show_product_rating %}
+  {%
+    render 'reviews-star-rating' with
+    rating_product: product,
+    star_color: settings.star_rating_color,
+    classes: alignment_class,
+    star_size: settings.star_size,
+    no_reviews_label: settings.no_reviews_label,
+    show_rating_as: settings.show_rating_as,
+    show_product_rating_if_no_reviews: settings.show_product_rating_if_no_reviews,
+    color_scheme: section_color_scheme,
+    wrapper_class: 'product-grid--rating'
+  %}
+{% endif %}

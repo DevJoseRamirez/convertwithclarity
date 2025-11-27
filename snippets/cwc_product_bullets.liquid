@@ -1,0 +1,94 @@
+{% style %}
+  .cwc_product-bullets-block {
+  }
+  .cwc_product-bullets-block .product-bullets-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .cwc_product-bullets-block .product-bullets-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0rem;
+  }
+
+  .cwc_product-bullets-block .product-bullets-list svg {
+    flex-shrink: 0;
+    width: 21px;
+    height: 21px;
+  }
+
+  /*  MOBILE ========================================= */
+
+  @media screen and (max-width: 768px) {
+    .cwc_product-bullets-block .product-bullets-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .cwc_product-bullets-block .product-bullets-list li {
+      gap: 0.65rem;
+      font-size: 0.9rem;
+    }
+    .cwc_product-bullets-block .product-bullets-list svg {
+      flex-shrink: 0;
+      width: 21px;
+      height: 21px;
+    }
+  }
+{% endstyle %}
+
+{% capture bullet_icon %}
+<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
+    <circle cx="10.5" cy="10.5" r="9.77586" fill="#00C40F" stroke="white" stroke-width="1.44828" />
+    <path d="M5.80078 11.019L8.63636 14.7998L16.1979 6.76562" stroke="white" stroke-width="1.89038" />
+</svg>
+{% endcapture %}
+
+<div class="cwc_product-bullets-block" {{ block.shopify_attributes }}>
+  <ul class="product-bullets-list">
+    {% if block.settings.bullet_1 != blank %}
+      <li>
+        {{ bullet_icon }}
+        <span>{{ block.settings.bullet_1 }}</span>
+      </li>
+    {% endif %}
+    {% if block.settings.bullet_2 != blank %}
+      <li>
+        {{ bullet_icon }}
+        <span>{{ block.settings.bullet_2 }}</span>
+      </li>
+    {% endif %}
+    {% if block.settings.bullet_3 != blank %}
+      <li>
+        {{ bullet_icon }}
+        <span>{{ block.settings.bullet_3 }}</span>
+      </li>
+    {% endif %}
+    {% if block.settings.bullet_4 != blank %}
+      <li>
+        {{ bullet_icon }}
+        <span>{{ block.settings.bullet_4 }}</span>
+      </li>
+    {% endif %}
+    {% if block.settings.bullet_5 != blank %}
+      <li>
+        {{ bullet_icon }}
+        <span>{{ block.settings.bullet_5 }}</span>
+      </li>
+    {% endif %}
+  </ul>
+</div>

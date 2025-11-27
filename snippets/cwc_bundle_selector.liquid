@@ -1,0 +1,153 @@
+{% style %}
+  .cwc_bundle {
+    padding: 2rem 0rem;
+  }
+  .cwc_bundle-selector {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    padding-top: 1.5rem;
+  }
+
+  .cwc_bundle-selector .bundle-option {
+    position: relative;
+    border: 2px solid #e3e3e3;
+    border-radius: 6px;
+    padding: 0.5rem 0rem 0.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.25s ease;
+    background: #fff;
+    flex: 1;
+  }
+
+  .cwc_bundle-selector .bundle-option img {
+    width: 100%;
+    height: auto;
+    max-height: 130px;
+    object-fit: contain;
+  }
+
+  .cwc_bundle-selector .bundle-label {
+    /* margin-top: 0.75rem; */
+    margin-top: 0rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    line-height: 1.2;
+    letter-spacing: 0.3px;
+  }
+
+  .cwc_bundle-selector .bundle-badge {
+    position: absolute;
+    bottom: 100%;
+    bottom: 101%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--badge-bg, #eaeaea);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.3rem 0.7rem;
+    border-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    white-space: nowrap;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    z-index: -1;
+  }
+  .cwc_bundle-selector .bundle-option.three .bundle-badge {
+    color: black;
+  }
+  .bundle-block-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0rem;
+    text-align: left;
+  }
+  .cwc_bundle-selector .bundle-option.active {
+    border-color: rgba(36 36 36 / 1) !important;
+    transition: all 0s;
+  }
+  @media screen and (max-width: 768px) {
+  }
+{% endstyle %}
+
+<div class="cwc_bundle" {{ block.shopify_attributes }}>
+  {% if block.settings.title != blank %}
+    <h3 class="bundle-block-title">{{ block.settings.title }}</h3>
+  {% endif %}
+
+  <div class="cwc_bundle-selector" data-product-id="{{ product.id }}">
+    <div class="bundle-option one active" data-qty="{{ block.settings.option_1_quantity }}">
+      <div class="bundle-label">{{ block.settings.option_1_label }}</div>
+
+      {% if block.settings.option_1_badge != blank %}
+        <span class="bundle-badge" style="background-color: {{ block.settings.option_1_badge_color }}">
+          {{ block.settings.option_1_badge }}
+        </span>
+      {% endif %}
+      <img src="{{ block.settings.option_1_image | image_url }}" alt="{{ block.settings.option_1_label }}">
+    </div>
+
+    <div
+      class="bundle-option two"
+      data-qty="{{ block.settings.option_2_quantity }}"
+      style="border-color: {{ block.settings.option_2_badge_color }}"
+    >
+      <div class="bundle-label">{{ block.settings.option_2_label }}</div>
+
+      {% if block.settings.option_2_badge != blank %}
+        <span
+          class="bundle-badge"
+          style="background-color: {{ block.settings.option_2_badge_color }}; border-color: {{ block.settings.option_2_badge_color }}"
+        >
+          {{ block.settings.option_2_badge }}
+        </span>
+      {% endif %}
+      <img src="{{ block.settings.option_2_image | image_url }}" alt="{{ block.settings.option_2_label }}">
+    </div>
+
+    <div
+      class="bundle-option three"
+      data-qty="{{ block.settings.option_3_quantity }}"
+      style="border-color: {{ block.settings.option_3_badge_color }}"
+    >
+      <div class="bundle-label">{{ block.settings.option_3_label }}</div>
+
+      {% if block.settings.option_3_badge != blank %}
+        <span class="bundle-badge" style="background-color: {{ block.settings.option_3_badge_color }};">
+          {{ block.settings.option_3_badge }}
+        </span>
+      {% endif %}
+      <img src=" {{ block.settings.option_3_image | image_url }}" alt="{{ block.settings.option_3_label }}">
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const bundleOptions = document.querySelectorAll('.bundle-option');
+    const quantityInput = document.querySelector('.bundle-quantity-input');
+
+    // console.log('quantity input:', quantityInput);
+
+    if (!bundleOptions.length || !quantityInput) return;
+
+    bundleOptions.forEach((option) => {
+      option.addEventListener('click', () => {
+        const qty = option.dataset.qty;
+        // console.log('qty selected:', qty);
+
+        if (!qty) return;
+
+        quantityInput.value = qty;
+
+        bundleOptions.forEach((opt) => opt.classList.remove('active'));
+        option.classList.add('active');
+      });
+    });
+  });
+</script>

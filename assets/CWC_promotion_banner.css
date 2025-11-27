@@ -1,0 +1,231 @@
+/* ==========================================================================
+   CWC_promotion_banner.css
+   Scoped styling for the Promotion Banner section
+   ========================================================================== */
+
+.cwc_promotion_banner {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: var(--padding-top, 0px);
+  padding-bottom: var(--padding-bottom, 0px);
+}
+
+.cwc_promotion_banner-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* === Two‐Column Layout (Desktop with featured_image) === */
+.cwc_promotion_banner-columns {
+  display: flex;
+  /* flex-wrap: wrap; */
+  align-items: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Left side (Content) */
+.cwc_promotion_banner-content {
+  flex: 0 0 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+/* Full‐width content (no image) */
+.cwc_promotion_banner-content-full {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Right side (Image) */
+.cwc_promotion_banner-image {
+  flex: 0 0 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.cwc_promotion_banner-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  display: block;
+  object-fit: contain;
+}
+
+/* === Title + Subtext === */
+.promo-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.promo-subtext p {
+  margin: 0rem;
+}
+
+.promo-subtext {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  line-height: 1.4;
+}
+
+/* === Bulletin Highlights Container === */
+.promo-bullets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  /* margin-bottom: 2rem; */
+  margin-bottom: 1rem;
+}
+
+/* Each “bullet” */
+.promo-bullet {
+  display: inline-flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, var(--bullet-bg-opacity));
+  color: var(--bullet-text-color);
+  border-radius: 6px;
+  padding: 1rem 1rem;
+  font-size: 1rem;
+  line-height: 1.3;
+  box-sizing: border-box;
+  width: fit-content;
+}
+
+/* Icon inside bullet */
+.bullet-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+.bullet-icon img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+/* Bullet text */
+.bullet-text {
+  font-weight: 500;
+  text-align: left;
+  font-size: 1rem;
+}
+
+/* === CTA Button === */
+.promo-button-wrapper {
+  /* margin-top: 0.5rem; */
+}
+
+.promo-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.9rem 1.75rem;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+
+  border-radius: 7px;
+  background: linear-gradient(180deg, #eda774 0%, #c5542d 100%);
+  box-shadow: 6px 6px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 1.1rem 3.6rem;
+  padding: 1.1rem 4.5rem;
+
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+
+}
+
+.promo-button:hover {
+  filter: brightness(1.1);
+}
+
+.promo-button-arrow {
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
+  line-height: 1;
+  display: flex;
+}
+
+/* === Responsive: Mobile & Tablet === */
+@media screen and (max-width: 768px) {
+
+  /* Bullet text */
+  .bullet-text {
+    font-size: 0.8rem;
+  }
+
+  .cwc_promotion_banner {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .cwc_promotion_banner {
+    padding: 0 1rem;
+  }
+
+  .cwc_promotion_banner-inner {}
+
+  /* Collapse two‐column to stacked */
+  .cwc_promotion_banner-columns {
+    flex-direction: column-reverse;
+  }
+
+  .cwc_promotion_banner-content,
+  .cwc_promotion_banner-content-full {
+    width: 100%;
+    text-align: center;
+  }
+
+  .cwc_promotion_banner-image {
+    width: 100%;
+    margin-bottom: 0rem;
+  }
+
+  .promo-title {
+    font-size: 1.5rem;
+  }
+
+  .promo-subtext {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .promo-bullets {
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .promo-bullet {
+    justify-content: center;
+    padding: 0.75rem;
+  }
+
+  .promo-button {
+    width: 100%;
+    justify-content: center;
+
+  }
+}

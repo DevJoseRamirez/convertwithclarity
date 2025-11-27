@@ -1,0 +1,202 @@
+{% comment %}
+  Section: CWC_faq
+  Purpose: Frequently Asked Questions with optional featured image and collapsible items.
+{% endcomment %}
+
+{% style %}
+  /* Define CSS variables scoped to this section instance */
+  #CWC_faq-{{ section.id }} {
+  --section-bg: {{ section.settings.background_color }};
+  --block-bg: {{ section.settings.block_background_color }};
+  --block-text: {{ section.settings.block_text_color }};
+  --padding-top: {{ section.settings.padding_top }}px;
+  --padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_faq.css' | asset_url | stylesheet_tag }}
+
+<div
+  id="CWC_faq-{{ section.id }}"
+  class="cwc_faq cwc_faq-{{ section.id }}"
+  style="background-color: var(--section-bg); padding-top: var(--padding-top); padding-bottom: var(--padding-bottom);"
+>
+  <div class="cwc_faq-inner">
+    {% comment %}
+      Choose layout based on whether a featured_image exists
+    {% endcomment %}
+    {% if section.settings.featured_image != blank %}
+      <div class="cwc_faq-columns">
+        <!-- IMAGE COLUMN -->
+        <div class="cwc_faq-image">
+          <img src="{{ section.settings.featured_image | image_url }}" alt="FAQ Featured Image" loading="lazy">
+        </div>
+
+        <!-- CONTENT COLUMN -->
+        <div class="cwc_faq-content">
+          {% if section.settings.title != blank %}
+            <h2 class="cwc_faq-title" style="color: {{ section.settings.title_color }};">
+              {{ section.settings.title }}
+            </h2>
+          {% endif %}
+          {% if section.settings.subtext != blank %}
+            <div class="cwc_faq-subtext">
+              {{ section.settings.subtext }}
+            </div>
+          {% endif %}
+
+          <div class="cwc_faq-items">
+            {% for block in section.blocks %}
+              <div class="cwc_faq-item" {{ block.shopify_attributes }}>
+                <details>
+                  <summary class="cwc_faq-question">
+                    {{ block.settings.question }}
+                    <span class="cwc_faq-icon" aria-hidden="true">
+                      {% render 'icon-chev', fill: '#000' %}
+                    </span>
+                  </summary>
+                  <div class="cwc_faq-answer">
+                    {{ block.settings.answer }}
+                  </div>
+                </details>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% else %}
+      {%- comment -%}
+        No featured image: stack title, subtext, then FAQ blocks full-width
+      {%- endcomment -%}
+      <div class="cwc_faq-content-full">
+        {% if section.settings.title != blank %}
+          <h2 class="cwc_faq-title" style="color: {{ section.settings.title_color }};">
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
+        {% if section.settings.subtext != blank %}
+          <div class="cwc_faq-subtext">
+            {{ section.settings.subtext }}
+          </div>
+        {% endif %}
+
+        <div class="cwc_faq-items">
+          {% for block in section.blocks %}
+            <div class="cwc_faq-item" {{ block.shopify_attributes }}>
+              <details>
+                <summary class="cwc_faq-question">
+                  {{ block.settings.question }}
+                  <span class="cwc_faq-icon" aria-hidden="true">
+                    {% render 'icon-chev', fill: '#000' %}
+                  </span>
+                </summary>
+                <div class="cwc_faq-answer">
+                  {{ block.settings.answer }}
+                </div>
+              </details>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "FAQS",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "featured_image",
+      "label": "Featured Image (optional)",
+      "info": "If left blank, the FAQ list will span full width."
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "FAQ’s"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext (a short description)",
+      "default": "<p>Questions? Find that answer here OR read more on our FAQ’s page.</p>"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Text Color",
+      "default": "#D67941"
+    },
+    {
+      "type": "color",
+      "id": "block_background_color",
+      "label": "FAQ Block Background Color",
+      "default": "#E2EBED"
+    },
+    {
+      "type": "color",
+      "id": "block_text_color",
+      "label": "FAQ Block Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top (px)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom (px)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What is the best way to use this product?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer (Rich Text)",
+          "default": "<p>You can mix it in with coffee, tea, smoothies, or simply stir into water.</p>"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "FAQS",
+      "category": "Custom",
+      "blocks": [{ "type": "faq" }, { "type": "faq" }, { "type": "faq" }]
+    }
+  ]
+}
+{% endschema %}

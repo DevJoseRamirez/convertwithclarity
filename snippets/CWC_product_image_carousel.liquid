@@ -1,0 +1,223 @@
+{% style %}
+  .cwc-product-carousel-{{ section_id }} {
+    --badge-bg: {{ block.settings.badge_bg_color | default: '#60a1a2' }};
+    --badge-text: {{ block.settings.badge_text_color | default: '#ffffff' }};
+    --sold-badge-bg: {{ block.settings.badge_sold_bg_color | default: '#ffffff' }};
+    --sold-badge-text: {{ block.settings.badge_sold_text_color | default: '#000000' }};
+  }
+{% endstyle %}
+
+{{ 'CWC_product_image_carousel.css' | asset_url | stylesheet_tag }}
+
+<div class="cwc-product-carousel cwc-product-carousel-{{ section_id }}">
+  <!-- Main Carousel -->
+  <div class="swiper cwc-product-main-carousel" id="product-carousel-{{ section_id }}">
+    <div class="swiper-wrapper">
+      {% if product.images.size > 0 %}
+        {% for image in product.images %}
+          <div class="swiper-slide" data-slide-index="{{ forloop.index0 }}">
+            {% comment %} Add badges only to the first slide with a specific class {% endcomment %}
+            {% if forloop.first %}
+              {% if block.settings.badge_text != blank %}
+                <div
+                  class="cwc-product_template__image-badge cwc-badge-first-only"
+                  style="background: {{ block.settings.badge_bg_color }}; color: {{ block.settings.badge_text_color }}; opacity: 1; visibility: visible;"
+                >
+                  {% render 'CWC_icon-crown', fill_color: block.settings.badge_text_color %}
+                  {{ block.settings.badge_text }}
+                </div>
+              {% endif %}
+
+              {% if block.settings.badge_sold_text != blank %}
+                <div
+                  class="cwc-product_template__image-badge-sold cwc-badge-first-only"
+                  style="background: {{ block.settings.badge_sold_bg_color }}; color: {{ block.settings.badge_sold_text_color }}; opacity: 1; visibility: visible;"
+                >
+                  {{ block.settings.badge_sold_text }}
+                </div>
+              {% endif %}
+            {% endif %}
+
+            <img
+              src="{{ image | image_url: width: 700 }}"
+              alt="{{ image.alt | default: product.title }}"
+              width="{{ image.width }}"
+              height="{{ image.height }}"
+              fetchpriority="{% if forloop.first %}high{% else %}low{% endif %}"
+              loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+            >
+          </div>
+        {% endfor %}
+      {% else %}
+        <!-- Fallback if no images -->
+        <div class="swiper-slide">
+          {% comment %} Add badges to placeholder slide if needed {% endcomment %}
+          {% if block.settings.badge_text != blank %}
+            <div
+              class="cwc-product_template__image-badge cwc-badge-first-only"
+              style="background: {{ block.settings.badge_bg_color }}; color: {{ block.settings.badge_text_color }}"
+            >
+              {% render 'CWC_icon-crown', fill_color: block.settings.badge_text_color %}
+              {{ block.settings.badge_text }}
+            </div>
+          {% endif %}
+
+          {% if block.settings.badge_sold_text != blank %}
+            <div
+              class="cwc-product_template__image-badge-sold cwc-badge-first-only"
+              style="background: {{ block.settings.badge_sold_bg_color }}; color: {{ block.settings.badge_sold_text_color }}"
+            >
+              {{ block.settings.badge_sold_text }}
+            </div>
+          {% endif %}
+
+          <img
+            src="{{ 'placeholder.png' | asset_url }}"
+            alt="Product placeholder"
+            fetchpriority="high"
+            loading="eager"
+          >
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Thumbnail Navigation -->
+  {% if product.images.size > 1 %}
+    <div class="cwc-product-thumbnails" id="product-thumbnails-{{ section_id }}">
+      <!-- Navigation arrows for thumbnails -->
+      <div class="swiper-button-next cwc-product-thumbnails_next"></div>
+      <div class="swiper-button-prev cwc-product-thumbnails_prev"></div>
+
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          {% for image in product.images %}
+            <div class="swiper-slide">
+              <div
+                class="cwc-product-thumbnail {% if forloop.first %}active{% endif %}"
+                data-slide="{{ forloop.index0 }}"
+              >
+                <img
+                  src="{{ image | image_url: width: 135 }}"
+                  alt="{{ image.alt | default: product.title }}"
+                  width="{{ image.width }}"
+                  height="{{ image.height }}"
+                  loading="lazy"
+                >
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+{% comment %} {{ 'CWC_product_image_carousel.js' | asset_url | script_tag }} {% endcomment %}
+
+<!-- Initialize Swiper -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const carousel = document.getElementById('product-carousel-{{ section_id }}');
+    const thumbnails = document.getElementById('product-thumbnails-{{ section_id }}');
+
+    let mainSwiper, thumbSwiper;
+
+    if (carousel) {
+      // Thumbnail swiper (initialize first)
+      if (thumbnails) {
+        const thumbSwiperEl = thumbnails.querySelector('.swiper');
+        if (thumbSwiperEl) {
+          thumbSwiper = new Swiper(thumbSwiperEl, {
+            slidesPerView: 5,
+            spaceBetween: 4,
+            watchSlidesProgress: true,
+            slideToClickedSlide: true,
+            grabCursor: true,
+            navigation: {
+              nextEl: '.cwc-product-carousel-{{ section_id }} .cwc-product-thumbnails_next',
+              prevEl: '.cwc-product-carousel-{{ section_id }} .cwc-product-thumbnails_prev',
+            },
+            breakpoints: {
+              768: {
+                slidesPerView: 5,
+                spaceBetween: 4,
+              }
+            }
+          });
+        }
+      }
+
+      // Main carousel
+      mainSwiper = new Swiper(carousel, {
+        loop: {% if product.images.size > 1 %}true{% else %}false{% endif %},
+        keyboard: {
+          enabled: true,
+        },
+        grabCursor: true,
+        effect: 'slide',
+        speed: 400,
+        {% if product.images.size > 1 %}
+        thumbs: {
+          swiper: thumbSwiper,
+        },
+        {% endif %}
+        on: {
+          init: function() {
+            // Get all original badges (not in cloned slides)
+            const originalBadges = carousel.querySelectorAll('.swiper-slide:not(.swiper-slide-duplicate) .cwc-badge-first-only');
+
+            // Hide all badges initially except if we're on slide 0
+            if (this.realIndex !== 0) {
+              originalBadges.forEach(badge => {
+                badge.style.opacity = '0';
+                badge.style.visibility = 'hidden';
+              });
+            }
+          },
+          slideChange: function () {
+            // Update thumbnail active state manually
+            if (thumbnails) {
+              const thumbnailItems = thumbnails.querySelectorAll('.cwc-product-thumbnail');
+              thumbnailItems.forEach((thumb, index) => {
+                thumb.classList.toggle('active', index === this.realIndex);
+              });
+
+              // Center the active thumbnail in view
+              if (thumbSwiper && this.realIndex < thumbnailItems.length) {
+                thumbSwiper.slideTo(Math.max(0, this.realIndex));
+              }
+            }
+
+            // Handle badge visibility - only show on first image with smooth transition
+            const originalBadges = carousel.querySelectorAll('.swiper-slide:not(.swiper-slide-duplicate) .cwc-badge-first-only');
+            originalBadges.forEach(badge => {
+              if (this.realIndex === 0) {
+                badge.style.opacity = '1';
+                badge.style.visibility = 'visible';
+              } else {
+                badge.style.opacity = '0';
+                badge.style.visibility = 'hidden';
+              }
+            });
+          }
+        }
+      });
+
+      // Manual thumbnail click handlers (as backup)
+      if (thumbnails) {
+        const thumbnailItems = thumbnails.querySelectorAll('.cwc-product-thumbnail');
+        thumbnailItems.forEach((thumb, index) => {
+          thumb.addEventListener('click', () => {
+            if (mainSwiper) {
+              mainSwiper.slideTo(index);
+            }
+            // Update active states
+            thumbnailItems.forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+          });
+        });
+      }
+    }
+  });
+</script>

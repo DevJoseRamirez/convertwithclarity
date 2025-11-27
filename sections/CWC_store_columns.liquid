@@ -1,0 +1,167 @@
+{% comment %}
+
+  {% style %}
+  #CWC_hero_overlay-{{ section.id }} {
+  --gradient-custom: linear-gradient(
+  90deg,
+  {{ section.settings.gradient_start | color_modify: 'alpha', section.settings.gradient_start_opacity }} 35.58%,
+  {{ section.settings.gradient_end | color_modify: 'alpha', section.settings.gradient_end_opacity }} 70.67%
+  );
+  --padding-top: {{ section.settings.padding_top }}px;
+  --padding-bottom: {{ section.settings.padding_bottom }}px;
+  --padding-top-mobile: {{ section.settings.padding_top | times: 0.5 }}px;
+  --padding-bottom-mobile: {{ section.settings.padding_bottom | times: 0.5 }}px;
+  --benefit-bg: {{ section.settings.benefit_bg }};
+  --benefit-text: {{ section.settings.benefit_text }};
+  }
+  {% endstyle %}
+{% endcomment %}
+
+{%- style -%}
+  #CWC_store_columns-{{ section.id }} {
+  background: {{ section.settings.background_color }};
+  color: {{ section.settings.text_color }};
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+  margin-top: {{ section.settings.margin_top }}px;
+  }
+{%- endstyle -%}
+
+{{ 'CWC_store_columns.css' | asset_url | stylesheet_tag }}
+
+<div id="CWC_store_columns-{{ section.id }}" class="CWC_store_columns CWC_store_columns-{{ section.id }}">
+  {% if section.settings.top_border_style == 'concave-rounded' %}
+    <div class="section-top-svg">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0003/6601/8596/files/curve_064a7bea-d9fb-4443-8a32-fe8db44d3f82.svg?v=1747947736"
+        alt="Top Curve"
+        style="width: 100%; display: block;"
+        loading="lazy"
+      >
+    </div>
+  {% endif %}
+
+  <div class="CWC_store_columns-wrapper">
+    <div class="CWC_store_columns-inner">
+      <div class="CWC_store_columns-grid-wrapper">
+        <div class="CWC_store_columns-grid" id="carousel-{{ section.id }}">
+          {% for block in section.blocks %}
+            <div class="CWC_store_columns-block" {{ block.shopify_attributes }}>
+              {% if block.settings.icon_image != blank %}
+                <img src="{{ block.settings.icon_image | image_url: width: 64 }}" alt="" class="icon" loading="lazy">
+              {% elsif block.settings.icon_emoji != blank %}
+                <span class="icon">{{ block.settings.icon_emoji }}</span>
+              {% endif %}
+              <div class="label">{{ block.settings.label }}</div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="CWC_store_columns-nav">
+          <button onclick="scrollCarousel('{{ section.id }}', -1)">❮</button>
+          <button onclick="scrollCarousel('{{ section.id }}', 1)">❯</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function scrollCarousel(sectionId, direction) {
+    const container = document.getElementById(`carousel-${sectionId}`);
+    const block = container.querySelector('.CWC_store_columns-block');
+    if (!block) return;
+    const scrollAmount = block.offsetWidth + 24; // include gap
+    container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Store Benefit Columns",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "radio",
+      "id": "top_border_style",
+      "label": "Top Border Style",
+      "options": [
+        { "value": "flat", "label": "Flat" },
+        { "value": "concave-rounded", "label": "Concave Rounded" }
+      ],
+      "default": "flat"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Top Margin",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon Image"
+        },
+        {
+          "type": "text",
+          "id": "icon_emoji",
+          "label": "Emoji Icon"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label Text",
+          "default": "Benefit Label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Store Benefit Columns",
+      "category": "Custom",
+      "blocks": [{ "type": "benefit" }, { "type": "benefit" }, { "type": "benefit" }, { "type": "benefit" }]
+    }
+  ]
+}
+{% endschema %}

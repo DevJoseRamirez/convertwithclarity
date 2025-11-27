@@ -1,0 +1,158 @@
+{% comment %}
+  🔧 SECTION TEMPLATE: CWC_compare_rows.liquid
+  Compare Enrichd vs other brands with icon-based table rows.
+{% endcomment %}
+
+{{ 'CWC_compare_rows.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #cwc_compare_rows-{{ section.id }} {
+  --section-bg: {{ section.settings.background_color }};
+  --text-color: {{ section.settings.text_color }};
+  --padding-top: {{ section.settings.padding_top }}px;
+  --padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{% endstyle %}
+
+<div
+  id="cwc_compare_rows-{{ section.id }}"
+  class="cwc_compare_rows"
+  style="--section-bg: {{ section.settings.background_color }}; --padding-top: {{ section.settings.padding_top }}px; --padding-bottom: {{ section.settings.padding_bottom }}px; --text-color: {{ section.settings.text_color }}"
+>
+  <div class="cwc_compare_rows-inner">
+    {% if section.settings.title != blank %}
+      <h2 class="cwc_compare_rows-title">{{ section.settings.title }}</h2>
+    {% endif %}
+    {% if section.settings.subtext != blank %}
+      <div class="cwc_compare_rows-subtext">{{ section.settings.subtext }}</div>
+    {% endif %}
+
+    <div class="cwc_compare_rows-table">
+      <div class="cwc_compare_rows-header-row">
+        <div class="col data">{{ section.settings.column1_title }}</div>
+        <div class="col brand">{{ section.settings.column2_title }}</div>
+        <div class="col vs">Vs.</div>
+        <div class="col op">{{ section.settings.column3_title }}</div>
+      </div>
+
+      {% for block in section.blocks %}
+        <div
+          class="compare-row"
+          style="background-color: {{ block.settings.row_color }};"
+          {{ block.shopify_attributes }}
+        >
+          <div class="col">{{ block.settings.row_label }}</div>
+          <div class="col check">{% render 'check-icon' %}</div>
+          <div class="col x">{% render 'x-icon' %}</div>
+        </div>
+      {% endfor %}
+
+      <div class="col data-m">{{ section.settings.column1_title }}</div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Compare Rows",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Stop Settling. Start Enriching"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>See why thousands trust ENRICHD over the rest.</p>"
+    },
+    {
+      "type": "text",
+      "id": "column1_title",
+      "label": "Column 1 Title (Feature)",
+      "default": "Support Your Body, Mind, & Spirit"
+    },
+    {
+      "type": "text",
+      "id": "column2_title",
+      "label": "Column 2 Title (Your Brand)",
+      "default": "ENRICHD"
+    },
+    {
+      "type": "text",
+      "id": "column3_title",
+      "label": "Column 3 Title (Competitor)",
+      "default": "Other Brands"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "compare_row",
+      "name": "Comparison Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "row_label",
+          "label": "Row Label",
+          "default": "Only Fruiting Body"
+        },
+        {
+          "type": "color",
+          "id": "row_color",
+          "label": "Row Background Color",
+          "default": "#E2EBED"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Compare Rows",
+      "category": "Custom",
+      "blocks": [
+        { "type": "compare_row" },
+        { "type": "compare_row" },
+        { "type": "compare_row" },
+        { "type": "compare_row" },
+        { "type": "compare_row" },
+        { "type": "compare_row" }
+      ]
+    }
+  ]
+}
+{% endschema %}

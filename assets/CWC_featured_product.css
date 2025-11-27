@@ -1,0 +1,170 @@
+/* ================================
+   CWC Featured Product Styles
+   ================================ */
+
+.cwc-featured-product {
+    background: var(--section-bg);
+    padding-top: var(--padding-top);
+    padding-bottom: var(--padding-bottom);
+
+
+
+}
+
+#cwc-featured-product--anchor {
+    visibility: hidden;
+    position: relative;
+    top: -4rem;
+    height: 3px;
+    /* background: red; */
+    /* visibility: visible; */
+}
+
+.cwc-featured-product__wrapper {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 3rem;
+    padding: 0 3.125rem;
+}
+
+.cwc-featured-product__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 49.5% 50.5%;
+    /* gap: 4rem; */
+    /* gap: 2.56rem; */
+    align-items: start;
+}
+
+/* ================================
+   Left Column
+   ================================ */
+
+.cwc-featured-product__left {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    gap: 0rem;
+}
+
+/* image carosel */
+.cwc-featured-product__image_carousel {
+    margin-bottom: 1rem;
+
+}
+
+
+/* ================================
+   Right Column
+   ================================ */
+
+.cwc-featured-product__right {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    gap: 0rem;
+    padding-left: 2.5625rem;
+}
+
+.cwc-featured-product__text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #111111;
+
+    /* margin-bottom: 1rem; */
+}
+
+/* ================================
+   Benefits
+   ================================ */
+.cwc-featured-product__title {
+    margin-bottom: 1rem;
+}
+
+
+
+/* ================================
+   Content
+   ================================ */
+
+.cwc-featured-product__desc {
+    margin-bottom: 1rem;
+}
+
+
+/* ================================
+   Add to Cart Form & Button
+   ================================ */
+
+.cwc-featured-product__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    gap: 0rem;
+}
+
+
+
+@media (max-width: 991px) {
+    .cwc-featured-product__grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        gap: 0rem;
+    }
+
+    .cwc-featured-product__right {
+        padding-left: 0rem;
+    }
+
+    .cwc-featured-product__wrapper {
+        padding: 0 1.25rem;
+    }
+
+
+    .cwc-featured-product__image_carousel {
+        margin-bottom: .5rem;
+
+    }
+
+}
+
+
+/* ================================
+   Mobile Styles
+   ================================ */
+
+
+@media (max-width: 768px) {
+    .cwc-featured-product {
+        padding-top: var(--padding-top-mobile);
+        padding-bottom: var(--padding-bottom-mobile);
+    }
+
+    .cwc-featured-product__wrapper {
+        padding: 0 1rem;
+    }
+
+
+    .cwc-featured-product__left {
+        gap: 1.5rem;
+    }
+
+    .cwc-featured-product__right {
+        gap: 1.25rem;
+    }
+
+    .cwc-featured-product__text h1,
+    .cwc-featured-product__text h2 {
+        font-size: 1.75rem;
+    }
+
+    .cwc-featured-product__price-current {
+        font-size: 1.75rem;
+
+    }
+
+
+
+
+
+}

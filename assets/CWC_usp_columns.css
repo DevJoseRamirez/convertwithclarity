@@ -1,0 +1,117 @@
+/* == CWC USP Columns == */
+.cwc_usp_columns {
+  background-color: var(--section-bg);
+  color: var(--text-color);
+  padding-top: var(--padding-top);
+  padding-bottom: var(--padding-bottom);
+  /* padding-left: 2rem; */
+  /* padding-right: 2rem; */
+  /* padding: 1.076875rem 0; */
+}
+
+.cwc_usp_columns-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 1200px;
+  max-width: 1500px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  /* allows wrapping if too many items */
+
+}
+
+.cwc_usp_columns-container {
+
+  padding: 0 3.125rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 43px;
+  gap: 2.6875rem;
+  width: 100%;
+
+}
+
+.cwc_usp_columns .usp-item {
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  padding: 0.75rem 1.25rem;
+  flex: 1 1 auto;
+  min-width: 200px;
+  text-align: center; */
+
+  border: 1.3px solid #fff;
+  color: #fff;
+  padding: 7px 18px;
+  border-radius: 6.9px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  background: transparent;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+
+  gap: 0.625rem;
+}
+
+.cwc_usp_columns .usp-icon img {
+  width: 27px;
+  height: 27px;
+  object-fit: contain;
+}
+
+
+.cwc_usp_columns .usp-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+/* Mobile Styles */
+
+@media screen and (max-width: 991px) {
+  .cwc_usp_columns-container {
+    padding: 0 1.25rem;
+  }
+
+  .cwc_usp_columns {
+    padding-top: 1.076875rem;
+    padding-bottom: 1.076875rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+
+  .cwc_usp_columns .usp-text {
+    font-size: 0.65rem;
+  }
+
+  .cwc_usp_columns .usp-item {
+    border: 1.01px solid #fff;
+    padding: 7px 8px 9px 5px;
+    border-radius: 5.05px;
+    font-size: 9.14px;
+    text-align: left;
+    line-height: 12px;
+    gap: .5rem;
+  }
+
+  .cwc_usp_columns-container {
+    gap: 6px;
+  }
+
+  .cwc_usp_columns .usp-icon img {
+    min-width: 33px;
+    height: 33px;
+  }
+
+}

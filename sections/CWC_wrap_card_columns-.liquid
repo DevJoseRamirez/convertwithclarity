@@ -1,0 +1,203 @@
+{% style %}
+  #CWC_wrap_card_columns-{{ section.id }} {
+  --section-bg: {{ section.settings.background_color }};
+  --text-color: {{ section.settings.text_color }};
+  --card-container-bg: {{ section.settings.card_container_bg_color }};
+  --card-bg: {{ section.settings.card_bg_color }};
+  --padding-top: {{ section.settings.padding_top }}px;
+  --padding-bottom: {{ section.settings.padding_bottom }}px;
+  --padding-top-mobile: {{ section.settings.padding_top | times: 0.5 }}px;
+  --padding-bottom-mobile: {{ section.settings.padding_bottom | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_wrap_card_columns.css' | asset_url | stylesheet_tag }}
+
+<section id="CWC_wrap_card_columns-{{ section.id }}" class="cwc_wrap_card_columns">
+  <div class="cwc_wrap_card_columns-wrapper">
+    {% if section.settings.heading != blank or section.settings.subtext != blank %}
+      <div class="cwc_wrap_card_columns-header">
+        {% if section.settings.heading != blank %}
+          <div class="cwc_wrap_card_columns-heading">{{ section.settings.heading }}</div>
+        {% endif %}
+        {% if section.settings.subtext != blank %}
+          <div class="cwc_wrap_card_columns-subtext">{{ section.settings.subtext }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="cwc_wrap_card_columns-card-container">
+      {% if section.settings.card_title != blank %}
+        <div class="cwc_wrap_card_columns-card-title">{{ section.settings.card_title }}</div>
+      {% endif %}
+
+      <div class="cwc_wrap_card_columns-cards">
+        {% for block in section.blocks %}
+          <div class="cwc_wrap_card_columns-card" {{ block.shopify_attributes }}>
+            {% if block.settings.image != blank %}
+              <div class="cwc_card-image">
+                <img
+                  src="{{ block.settings.image | image_url: width: 300 }}"
+                  alt="{{ block.settings.title | default: 'Card image' }}"
+                  width="{{ block.settings.image.width }}"
+                  height="{{ block.settings.image.height }}"
+                  loading="lazy"
+                >
+              </div>
+            {% endif %}
+
+            <div class="cwc_card-content">
+              {% if block.settings.title != blank %}
+                <h3 class="cwc_card-title">{{ block.settings.title }}</h3>
+              {% endif %}
+
+              {% if block.settings.text != blank %}
+                <div class="cwc_card-text">{{ block.settings.text }}</div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CWC Wrap Card Columns",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "<h3>What's Inside - And Why It Matters</h3>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Section Subtext",
+      "default": "<p>10 of the most nutrient-dense fruits and veggies on the planet, blended for real food benefits in one easy scoop.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "card_title",
+      "label": "Card Container Title",
+      "default": "<h4>Super Fruits:</h4>"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "card_container_bg_color",
+      "label": "Card Container Background",
+      "default": "#FFE8E0"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card Title",
+          "default": "Acai"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Card Text",
+          "default": "Powerful antioxidant for cellular protection"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Wrap Card Columns",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "title": "Acai",
+            "text": "Powerful antioxidant for cellular protection"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Avocado",
+            "text": "Healthy fats + potassium"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Apple",
+            "text": "Natural fiber for gut health"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Blueberry",
+            "text": "Brain + immune support"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Raspberry",
+            "text": "Rich in vitamin C and anti-inflammatory compounds"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

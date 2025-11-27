@@ -1,0 +1,108 @@
+{%- style -%}
+  #CWC_best_sellers-{{ section.id }} {
+  background: {{ section.settings.background_color }};
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{%- endstyle -%}
+
+{{ 'CWC_best_sellers.css' | asset_url | stylesheet_tag }}
+
+<div id="CWC_best_sellers-{{ section.id }}" class="CWC_best_sellers">
+  <div class="CWC_best_sellers-wrapper">
+    <div class="CWC_best_sellers-inner">
+      <div class="CWC_best_sellers-header">
+        <h2>{{ section.settings.title }}</h2>
+        {% if section.settings.collection != blank %}
+          <a href="{{ collections[section.settings.collection].url }}" class="CWC_best_sellers-button-desktop"
+            >Shop All</a
+          >
+        {% endif %}
+      </div>
+
+      {% if section.settings.collection != blank %}
+        {% assign collection = collections[section.settings.collection] %}
+      {% else %}
+        {% assign collection = collections['best-sellers'] %}
+      {% endif %}
+
+      {% if collection.products.size > 0 %}
+        <div class="CWC_best_sellers-grid">
+          {% for product in collection.products limit: section.settings.product_limit %}
+            <div class="cwc_product-card">
+              {% render 'CWC_product-card', product: product %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if section.settings.collection != blank %}
+        <div class="CWC_best_sellers-button-mobile">
+          <a href="{{ collections[section.settings.collection].url }}" class="CWC_best_sellers-button-mobile"
+            >Shop All</a
+          >
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Best Sellers",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "What Our Customers Are Loving Right Now"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Product Collection"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "label": "Number of Products to Show",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Best Sellers",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

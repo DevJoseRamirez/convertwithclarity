@@ -1,0 +1,250 @@
+{% style %}
+  #CWC_testimonial_grid-{{ section.id }} {
+  --section-bg: {{ section.settings.background_color }};
+  --text-color: {{ section.settings.text_color }};
+  --star-color: {{ section.settings.star_color }};
+  --card-bg: {{ section.settings.card_background_color }};
+  --button-bg: {{ section.settings.button_bg_color }};
+  --button-text: {{ section.settings.button_text_color }};
+  --text-align: {{ section.settings.text_alignment }};
+  --padding-top: {{ section.settings.padding_top }}px;
+  --padding-bottom: {{ section.settings.padding_bottom }}px;
+  --padding-top-mobile: {{ section.settings.padding_top | times: 0.5 }}px;
+  --padding-bottom-mobile: {{ section.settings.padding_bottom | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_testimonial_grid.css' | asset_url | stylesheet_tag }}
+
+<section id="CWC_testimonial_grid-{{ section.id }}" class="cwc_testimonial_grid">
+  <div cwc_max-width class="cwc_testimonial_grid-wrapper">
+    {% if section.settings.heading != blank or section.settings.subtext != blank %}
+      <div class="cwc_testimonial_grid-header">
+        {% if section.settings.caption != blank %}
+          <div
+            class="cwc_testimonial_grid-caption"
+            style="
+              --title_color: {{ section.settings.title_color }};
+              --bold_color: {{ section.settings.bold_color }};
+            "
+          >
+            {{ section.settings.caption }}
+          </div>
+        {% endif %}
+        {% if section.settings.heading != blank %}
+          <div class="cwc_testimonial_grid-heading">{{ section.settings.heading }}</div>
+        {% endif %}
+        {% if section.settings.subtext != blank %}
+          <div class="cwc_testimonial_grid-subtext">{{ section.settings.subtext }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="cwc_testimonial_grid-container">
+      {% for block in section.blocks %}
+        <div
+          class="cwc_testimonial-card{% if forloop.index > 6 %} hidden{% endif %}"
+          {{ block.shopify_attributes }}
+        >
+          <div class="cwc_testimonial-stars">
+            {% render 'CWC_rating_stars', fill_color: section.settings.star_color %}
+          </div>
+
+          {% if block.settings.title != blank %}
+            <div class="cwc_testimonial-title">{{ block.settings.title }}</div>
+          {% endif %}
+
+          {% if block.settings.text != blank %}
+            <div class="cwc_testimonial-text">{{ block.settings.text }}</div>
+          {% endif %}
+
+          {% if block.settings.author != blank or block.settings.author_image != blank %}
+            <div class="cwc_testimonial-author">
+              {% if block.settings.author_image != blank %}
+                <div class="cwc_author-image">
+                  <img
+                    src="{{ block.settings.author_image | image_url: width: 60 }}"
+                    alt="{{ block.settings.author | default: 'Customer photo' }}"
+                    width="60"
+                    height="60"
+                    loading="lazy"
+                  >
+                </div>
+              {% endif %}
+              {% if block.settings.author != blank %}
+                <cite class="cwc_author-name">– {{ block.settings.author }}</cite>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if section.blocks.size > 6 %}
+      <div class="cwc_testimonial_grid-button-wrap">
+        <button class="cwc_view-more-button" id="viewMoreBtn-{{ section.id }}">
+          <span class="button-text-show">{{ section.settings.button_text }}</span>
+          <span class="button-text-hide" style="display: none;">View Less Reviews</span>
+        </button>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{{ 'CWC_testimonial_grid.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "CWC Testimonial Grid",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "caption",
+      "label": "Caption",
+      "default": "<h5>Real reviews from real customers who love our products.</h5>"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "bold_color",
+      "label": "Bold Color",
+      "default": "#526D05"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<h3>What Our Customers Say</h3>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Real reviews from real customers who love our products.</p>"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#FAF9F6"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star Color",
+      "default": "#F97316"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Card Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Show More"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#125657"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Review Title (Optional)"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Review Text",
+          "default": "<p>This product has completely changed my daily routine for the better. I feel more energized and focused throughout the day.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "author_image",
+          "label": "Customer Photo (Optional)"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Customer Name",
+          "default": "Sarah M."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Testimonial Grid",
+      "category": "Custom",
+      "blocks": [
+        { "type": "testimonial" },
+        { "type": "testimonial" },
+        { "type": "testimonial" },
+        { "type": "testimonial" },
+        { "type": "testimonial" },
+        { "type": "testimonial" }
+      ]
+    }
+  ]
+}
+{% endschema %}

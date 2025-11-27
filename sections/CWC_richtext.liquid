@@ -1,0 +1,189 @@
+{% style %}
+  #CWC_richtext-{{ section.id }} {
+    --section-bg: {{ section.settings.background_color }};
+    --padding-top: {{ section.settings.padding_top }}px;
+    --padding-bottom: {{ section.settings.padding_bottom }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_richtext.css' | asset_url | stylesheet_tag }}
+
+<section id="CWC_richtext-{{ section.id }}" class="cwc_richtext">
+  <div class="cwc_richtext-wrapper">
+    <div class="cwc_richtext-content">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'caption' %}
+            {% if block.settings.text != blank %}
+              <div
+                class="cwc_richtext-caption"
+                {{ block.shopify_attributes }}
+                style="
+                  --caption_bold_color: {{ block.settings.bold_color }};
+                  --caption_color: {{ block.settings.text_color }}
+                "
+              >
+                {{ block.settings.text }}
+              </div>
+            {% endif %}
+
+          {% when 'heading' %}
+            {% if block.settings.text != blank %}
+              <div
+                class="cwc_richtext-heading"
+                {{ block.shopify_attributes }}
+                style="
+                  --heading_bold_color: {{ block.settings.bold_color }};
+                  --heading_color: {{ block.settings.text_color }}
+                "
+              >
+                {{ block.settings.text }}
+              </div>
+            {% endif %}
+
+          {% when 'text' %}
+            {% if block.settings.text != blank %}
+              <div
+                class="cwc_richtext-text"
+                {{ block.shopify_attributes }}
+                style="
+                  --text_bold_color: {{ block.settings.bold_color }};
+                  --text_color: {{ block.settings.text_color }}
+                "
+              >
+                {{ block.settings.text }}
+              </div>
+            {% endif %}
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CWC Richtext",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "caption",
+      "name": "Caption",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Caption Text",
+          "default": "<h6>Real reviews from real customers who love our products.</h6>"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Title Color",
+          "default": "#2B2B2B"
+        },
+        {
+          "type": "color",
+          "id": "bold_color",
+          "label": "Highlight Text Color",
+          "default": "#5C8B5A"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Heading Text",
+          "default": "<h3>What People Are Saying About <strong>Yo Fruits Yo Veggies</strong></h3>"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Title Color",
+          "default": "#2B2B2B"
+        },
+        {
+          "type": "color",
+          "id": "bold_color",
+          "label": "Highlight Text Color",
+          "default": "#202020"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text Content",
+          "default": "<p>From <strong>clearer skin</strong> to <strong>calmer minds</strong> and <strong>fewer sick days</strong> — Yo Fruits Yo Veggies is making healthy easier for real people like you.</p>"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Title Color",
+          "default": "#2B2B2B"
+        },
+        {
+          "type": "color",
+          "id": "bold_color",
+          "label": "Highlight Text Color",
+          "default": "#202020"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Richtext",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "caption"
+        },
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

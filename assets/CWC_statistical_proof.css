@@ -1,0 +1,255 @@
+/* ================================
+   CWC Statistical Proof Styles
+   ================================ */
+
+.cwc-statistical-proof {
+    padding-top: var(--padding-top);
+    padding-bottom: var(--padding-bottom);
+    color: var(--text-color, #111);
+    position: relative;
+}
+
+
+/* ================================
+   Background Image Divs
+   ================================ */
+.cwc-statistical-proof__bg-desktop,
+.cwc-statistical-proof__bg-mobile {
+    position: absolute;
+    /* IMPORTANT: Makes the divs fill the parent */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+    pointer-events: none;
+    background-size: 100% 100%;
+
+    /* Allows clicks to pass through to content */
+
+    padding: 40px 0px 60px;
+    text-align: center;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Desktop: Show desktop background, hide mobile */
+.cwc-statistical-proof__bg-desktop {
+    display: block;
+}
+
+.cwc-statistical-proof__bg-mobile {
+    display: none;
+}
+
+.cwc-statistical-proof__wrapper {
+    max-width: 1500px;
+    max-width: 1000px;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 3rem;
+    padding: 0 3.125rem;
+    text-align: center;
+    box-sizing: border-box;
+
+    z-index: 1;
+    position: relative;
+}
+
+.cwc-statistical-proof__item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.cwc-statistical-proof__heading {
+    margin-bottom: 1rem;
+
+}
+
+.cwc-statistical-proof__heading .cwc_heading--block * {
+    margin-bottom: 0rem;
+    line-height: 40px;
+}
+
+.cwc-statistical-proof__heading>* {
+    line-height: normal;
+    font-weight: 600;
+    margin-bottom: 0rem;
+}
+
+.cwc-statistical-proof__heading strong {
+    font-weight: 600;
+}
+
+.cwc-statistical-desc {
+    margin-bottom: 2.5rem;
+}
+
+.cwc-statistical-proof__grid {
+    align-items: flex-end;
+    justify-content: center;
+    margin: auto;
+    text-align: left;
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(calc(50% - 40px), 1fr));
+    gap: 15px 80px;
+}
+
+.cwc-statistical-proof__seperator {
+    width: 100%;
+    height: 1px;
+    background: black;
+    opacity: .6;
+    display: block !important;
+    margin-top: 1rem;
+}
+
+.cwc-statistical-proof__stat-item {
+    text-align: left;
+}
+
+.cwc-statistical-proof__stat-number {
+    color: var(--highlight-color, #009370);
+    font-weight: 500;
+    font-weight: 600;
+    font-size: 33.54px;
+    line-height: 35px;
+    letter-spacing: 0;
+    margin-bottom: 2px;
+}
+
+.cwc-statistical-proof__stat-title {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.cwc-statistical-proof__stat-text {
+    font-size: 0.95rem;
+    color: var(--text-color, #111);
+    margin-bottom: 0.8rem;
+}
+
+/* Progress bar */
+.cwc-statistical-proof__progress {
+    height: 100%;
+    /* background: var(--highlight-color, #009370); */
+    width: 100%;
+    transition: width .6s ease;
+    border-radius: 6px;
+    background: white;
+    margin-top: 17px;
+    border: rgb(219, 219, 219) solid .2px;
+}
+
+.cwc-statistical-proof__progress-bar {
+    width: 100%;
+    height: 10px;
+    background: #e0e0e0;
+    /* border-radius: 6px; */
+    overflow: hidden;
+}
+
+.cwc-statistical-proof__title {
+    margin-bottom: 4px;
+
+}
+
+.cwc-statistical-proof__title>* {
+    font-weight: 600;
+    line-height: 1;
+    line-height: normal;
+    font-size: 1rem;
+    font-size: 0.9rem;
+    letter-spacing: 0;
+}
+
+.cwc-statistical-proof__text .cwc-statistical-proof__text>* {
+    font-size: .95rem;
+
+}
+
+.cwc-statistical-proof__desc {}
+
+.cwc-statistical-proof__desc>* {
+    font-weight: 400;
+    font-size: 15px;
+    font-size: 0.9375rem;
+    font-size: 0.88rem;
+    line-height: 1;
+    line-height: normal;
+    letter-spacing: 0;
+}
+
+
+/* ================================
+   Mobile
+   ================================ */
+@media (max-width: 991px) {
+    .cwc-statistical-proof__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cwc-statistical-proof__item {
+        border-bottom: .3px solid rgba(0, 0, 0, 0.3);
+        padding-bottom: 15px;
+    }
+
+    .cwc-statistical-proof__wrapper {
+        padding: 0 1.25rem;
+    }
+
+    .cwc-statistical-proof__text,
+    .cwc-statistical-proof__text>* {
+        margin-bottom: 39px;
+        margin-top: 0;
+        padding-top: 0;
+        max-width: 292px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: normal;
+    }
+
+    .cwc-statistical-proof__heading .cwc_heading--block * {
+        line-height: normal;
+        margin-bottom: 0rem;
+        font-size: 1.625rem;
+    }
+
+    .cwc-statistical-proof__item:last-child {
+        border: none;
+    }
+}
+
+@media (max-width: 768px) {
+
+
+
+    /* Hide desktop background on mobile */
+    .cwc-statistical-proof__bg-desktop {
+        display: none;
+    }
+
+    /* Show mobile background on mobile */
+    .cwc-statistical-proof__bg-mobile {
+        display: block;
+    }
+
+
+    .cwc-statistical-proof__wrapper {}
+
+    .cwc-statistical-proof__grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .stat-item .stat-number {
+        font-size: 1.5rem;
+    }
+}

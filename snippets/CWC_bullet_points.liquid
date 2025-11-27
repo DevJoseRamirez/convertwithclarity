@@ -1,0 +1,150 @@
+{% style %}
+  .cwc_image_text__bullets_points-wrap {
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+  .cwc_bullet_points {
+    /* margin: 1rem 0; */
+  }
+
+  .cwc_bullet_points-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    /* gap: 1rem; */
+  }
+
+  .cwc_bullet_points-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .cwc_bullet_points-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.125rem; /* Slight adjustment to align with text */
+  }
+  .cwc_bullet_points-icon svg {
+  }
+
+  .cwc_bullet_points-text {
+    flex: 1;
+    color: var(--text-color);
+    line-height: 1.5;
+  }
+
+  .cwc_bullet_points-text p {
+    margin: 0;
+    /* font-size: 1rem; */
+    line-height: inherit;
+  }
+
+  .cwc_bullet_points-text strong {
+    font-weight: 600;
+  }
+
+  /* Mobile styles */
+  @media screen and (max-width: 768px) {
+    .cwc_bullet_points-item {
+      gap: 0.75rem;
+    }
+
+    .cwc_bullet_points-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .cwc_bullet_points-text {
+      /* font-size: 0.95rem; */
+    }
+    .cwc_bullet_points-text p {
+      font-size: 0.9rem;
+    }
+  }
+{% endstyle %}
+{% comment %}
+  <div class="cwc_image_text__bullets_points" {{ block.shopify_attributes }}>
+    {% render 'CWC_icon-check_fill', fill_color: {{ block.setting.icon_color }} %}
+  </div>
+{% endcomment %}
+
+<div
+  class="cwc_bullet_points"
+  style="--text-color: {{ block.settings.text_color }}; --icon-color: {{ block.settings.icon_color }};"
+>
+  <ul class="cwc_bullet_points-list">
+    {% if block.settings.bullet_1 != blank %}
+      <li class="cwc_bullet_points-item">
+        <div class="cwc_bullet_points-icon">
+          {% render 'CWC_icon-check_fill', fill_color: block.settings.icon_color %}
+        </div>
+        <div class="cwc_bullet_points-text">
+          {{ block.settings.bullet_1 }}
+        </div>
+      </li>
+    {% endif %}
+
+    {% if block.settings.bullet_2 != blank %}
+      <li class="cwc_bullet_points-item">
+        <div class="cwc_bullet_points-icon">
+          {% render 'CWC_icon-check_fill', fill_color: block.settings.icon_color %}
+        </div>
+        <div class="cwc_bullet_points-text">
+          {{ block.settings.bullet_2 }}
+        </div>
+      </li>
+    {% endif %}
+
+    {% if block.settings.bullet_3 != blank %}
+      <li class="cwc_bullet_points-item">
+        <div class="cwc_bullet_points-icon">
+          {% render 'CWC_icon-check_fill', fill_color: block.settings.icon_color %}
+        </div>
+        <div class="cwc_bullet_points-text">
+          {{ block.settings.bullet_3 }}
+        </div>
+      </li>
+    {% endif %}
+
+    {% if block.settings.bullet_4 != blank %}
+      <li class="cwc_bullet_points-item">
+        <div class="cwc_bullet_points-icon">
+          {% render 'CWC_icon-check_fill', fill_color: block.settings.icon_color %}
+        </div>
+        <div class="cwc_bullet_points-text">
+          {{ block.settings.bullet_4 }}
+        </div>
+      </li>
+    {% endif %}
+
+    {% if block.settings.bullet_5 != blank %}
+      <li class="cwc_bullet_points-item">
+        <div class="cwc_bullet_points-icon">
+          {% render 'CWC_icon-check_fill', fill_color: block.settings.icon_color %}
+        </div>
+        <div class="cwc_bullet_points-text">
+          {{ block.settings.bullet_5 }}
+        </div>
+      </li>
+    {% endif %}
+
+    {% if block.settings.bullet_6 != blank %}
+      <li class="cwc_bullet_points-item">
+        <div class="cwc_bullet_points-icon">
+          {% render 'CWC_icon-check_fill', fill_color: block.settings.icon_color %}
+        </div>
+        <div class="cwc_bullet_points-text">
+          {{ block.settings.bullet_6 }}
+        </div>
+      </li>
+    {% endif %}
+  </ul>
+</div>

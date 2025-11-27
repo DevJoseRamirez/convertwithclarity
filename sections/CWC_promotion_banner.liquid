@@ -1,0 +1,227 @@
+{% comment %}
+Section: CWC_promotion_banner
+Purpose: Showcase a promotional banner with title, subtext, bullet highlights, CTA button, and featured image.
+{% endcomment %}
+
+{% style %}
+#CWC_promotion_banner-{{ section.id }} {
+--bg-start: {{ section.settings.gradient_start }};
+--bg-end: {{ section.settings.gradient_end }};
+--title-color: {{ section.settings.title_color }};
+--subtext-color: {{ section.settings.subtext_color }};
+--button-bg: {{ section.settings.button_color }};
+--button-text: {{ section.settings.button_text_color }};
+--padding-top: {{ section.settings.padding_top }}px;
+--padding-bottom: {{ section.settings.padding_bottom }}px;
+--bullet-bg-opacity: 0.6;
+--bullet-text-color: #000000;
+}
+{% endstyle %}
+
+{{ 'CWC_promotion_banner.css' | asset_url | stylesheet_tag }}
+
+<div id="CWC_promotion_banner-{{ section.id }}" class="cwc_promotion_banner cwc_promotion_banner-{{ section.id }}"
+    style="
+    background: linear-gradient(
+      to right,
+      var(--bg-start),
+      var(--bg-end)
+    );
+    padding-top: var(--padding-top);
+    padding-bottom: var(--padding-bottom);
+  ">
+    <div class="cwc_promotion_banner-inner">
+        {% comment %}
+        If featured_image exists, show two columns; otherwise stack vertically
+        {% endcomment %}
+        {% comment %} {% if section.settings.featured_image != blank %} {% endcomment %}
+        <div class="cwc_promotion_banner-columns">
+            <!-- LEFT: Content (Title / Subtext / Bullets / Button) -->
+            <div class="cwc_promotion_banner-content">
+                {% if section.settings.title != blank %}
+                <h2 class="promo-title" style="color: var(--title-color);">
+                    {{ section.settings.title }}
+                </h2>
+                {% endif %}
+                {% if section.settings.subtext != blank %}
+                <div class="promo-subtext" style="color: var(--subtext-color);">
+                    {{ section.settings.subtext }}
+                </div>
+                {% endif %}
+
+                <div class="promo-bullets">
+                    {% for block in section.blocks %}
+                    <div class="promo-bullet" {{ block.shopify_attributes }}>
+                        {% if block.settings.icon %}
+                        <div class="bullet-icon">
+                            <img src="{{ block.settings.icon | image_url }}" alt="" loading="lazy" />
+                        </div>
+                        {% endif %}
+                        <div class="bullet-text">
+                            {{ block.settings.text }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+                <div class="promo-button-wrapper">
+                    <a href="{{ section.settings.button_link }}" class="promo-button" style="
+                  background-color: var(--button-bg);
+                  color: var(--button-text);
+                ">
+                        {{ section.settings.button_label }}
+                        <span class="promo-button-arrow">
+                            {% render 'icon-arrow' fill: '#ffffff' %}
+                        </span>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- RIGHT: Featured Image -->
+            <div class="cwc_promotion_banner-image">
+                {% if section.settings.featured_image %}
+                <img src="{{ section.settings.featured_image | image_url }}" alt="Promotional Image" loading="lazy" />
+                {% else %}
+                <img src="{{ 'placeholder.png' | asset_url }}" alt="Placeholder image">
+                {% endif %}
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% schema %}
+{
+"name": "Promotion Banner",
+"tag": "section",
+"settings": [
+{
+"type": "image_picker",
+"id": "featured_image",
+"label": "Featured Image (optional)"
+},
+{
+"type": "text",
+"id": "title",
+"label": "Section Title",
+"default": "From Fog to Flow"
+},
+{
+"type": "richtext",
+"id": "subtext",
+"label": "Subtext (a short description)",
+"default": "<p>You’re not broken. You’re just depleted. Here’s how we help you rebuild.</p>"
+},
+{
+"type": "color",
+"id": "gradient_start",
+"label": "Gradient Start Color",
+"default": "#A3B9B9"
+},
+{
+"type": "color",
+"id": "gradient_end",
+"label": "Gradient End Color",
+"default": "#6E8999"
+},
+{
+"type": "color",
+"id": "title_color",
+"label": "Title Text Color",
+"default": "#FFFFFF"
+},
+{
+"type": "color",
+"id": "subtext_color",
+"label": "Subtext Color",
+"default": "#FFFFFF"
+},
+{
+"type": "text",
+"id": "button_label",
+"label": "Button Label",
+"default": "Try Enrichd Today"
+},
+{
+"type": "url",
+"id": "button_link",
+"label": "Button Link"
+},
+{
+"type": "color",
+"id": "button_color",
+"label": "Button Background Color",
+"default": "#E9727C"
+},
+{
+"type": "color",
+"id": "button_text_color",
+"label": "Button Text Color",
+"default": "#FFFFFF"
+},
+{
+"type": "range",
+"id": "padding_top",
+"label": "Padding Top (px)",
+"min": 0,
+"max": 200,
+"step": 4,
+"unit": "px",
+"default": 40
+},
+{
+"type": "range",
+"id": "padding_bottom",
+"label": "Padding Bottom (px)",
+"min": 0,
+"max": 200,
+"step": 4,
+"unit": "px",
+"default": 40
+}
+],
+"blocks": [
+{
+"type": "highlight",
+"name": "Promotion Highlight",
+"settings": [
+{
+"type": "image_picker",
+"id": "icon",
+"label": "Icon/Image"
+},
+{
+"type": "text",
+"id": "text",
+"label": "Highlight Text",
+"default": "Organic Wild‐grown"
+}
+]
+}
+],
+"max_blocks": 6,
+"presets": [
+{
+"name": "Promotion Banner",
+"category": "Custom",
+"blocks": [
+{
+"type": "highlight"
+},
+{
+"type": "highlight"
+},
+{
+"type": "highlight"
+},
+{
+"type": "highlight"
+}
+]
+}
+]
+}
+{% endschema %}

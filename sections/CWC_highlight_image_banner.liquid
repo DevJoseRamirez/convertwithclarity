@@ -1,0 +1,267 @@
+{% comment %}
+  🔧 SECTION TEMPLATE: CWC_highlight_image_banner.liquid
+  Highlight key collection or offer with image + overlaid content.
+{% endcomment %}
+
+{{ 'CWC_highlight_image_banner.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #cwc_highlight_image_banner-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    color: {{ section.settings.text_color }};
+    background-image: url({{ section.settings.background_image | image_url: width: 2000 }});
+    background-size: cover;
+    background-position: center;
+  }
+
+  @media screen and (max-width: 768px) {
+    #cwc_highlight_image_banner-{{ section.id }} {
+      {% if section.settings.background_image_mobile %}
+        background-image: url({{ section.settings.background_image_mobile | image_url: width: 1000 }});
+      {% endif %}
+    }
+  }
+
+  #cwc_highlight_image_banner-{{ section.id }}::before {
+    background: linear-gradient(to right, {{ section.settings.gradient_color }} {{ section.settings.gradient_percent }}%, transparent 100%);
+  }
+
+  #cwc_highlight_image_banner-{{ section.id }} .cta-button {
+    background: {{ section.settings.button_color }};
+    color: {{ section.settings.button_text_color }};
+  }
+{%- endstyle -%}
+
+<div
+  id="cwc_highlight_image_banner-{{ section.id }}"
+  class="cwc_highlight_banner valign-{{ section.settings.vertical_alignment }} halign-{{ section.settings.horizontal_alignment }}"
+>
+  <div class="cwc_highlight_banner-content align-{{ section.settings.text_alignment }}">
+    {% if section.settings.show_review_stars %}
+      <div class="cwc_highlight_banner-review">
+        <div class="cwc_highlight_banner-review-stars">★★★★★</div>
+        <span>{{ section.settings.review_text }}</span>
+      </div>
+    {% endif %}
+
+    {% if section.settings.title != blank %}
+      <h2>{{ section.settings.title }}</h2>
+    {% endif %}
+
+    {% if section.settings.subtext != blank %}
+      <div class="subtext">{{ section.settings.subtext }}</div>
+    {% endif %}
+
+    {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+      <a href="{{ section.settings.button_link }}" class="cta-button">
+        {{ section.settings.button_label }}
+      </a>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="cwc_highlight_banner-bullets">
+        {% for block in section.blocks %}
+          <div class="bullet" {{ block.shopify_attributes }}>
+            {{ block.settings.text }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Highlight Image Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Mobile Background Image (optional)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_review_stars",
+      "label": "Show Review Stars",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "review_text",
+      "label": "Review Line Text",
+      "default": "Rated 4.91/5 on 250+ Healthy Customers"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Functional Mushrooms & Potent Adaptogens"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Feel Stronger, Clearer, and More Resilient Every Day</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Try Enrichd Today →"
+    },
+    {
+      "type": "select",
+      "id": "horizontal_alignment",
+      "label": "Horizontal Content Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "label": "Vertical Content Alignment",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Middle"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button Background Color",
+      "default": "#DE6E3D"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "gradient_color",
+      "label": "Gradient Overlay Color",
+      "default": "rgba(0, 0, 0, 0.6)"
+    },
+    {
+      "type": "range",
+      "id": "gradient_percent",
+      "label": "Gradient Coverage % (Left to Right)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top Padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom Padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bullet",
+      "name": "Bullet Point",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Bullet Text",
+          "default": "Boost Immunity"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Highlight Image Banner",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "bullet"
+        },
+        {
+          "type": "bullet"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -9,7 +9,6 @@
 {% endstyle %}
 
 {{ 'CWC_featured_product.css' | asset_url | stylesheet_tag }}
-
 {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
 
 {% if section.settings.product != blank %}
@@ -45,6 +44,24 @@
               <div class="cwc-featured-product__faq desktop__only" {{ block.shopify_attributes }}>
                 {% render 'CWC_faq_blocks', product: product, section_id: section.id, block: block %}
               </div>
+
+            {% when 'review' %}
+              <div class="cwc-featured-product__review desktop__only" {{ block.shopify_attributes }}>
+                {% render 'CWC_faq_blocks', product: product, section_id: section.id, block: block %}
+                <div class="">
+                  <span class="star">
+                    {% render 'CWC_rating_stars', fill_color: block.settings.star_color %}
+                  </span>
+                  <span>
+                    {{ block.settings.reivew }}
+                  </span>
+                  <span>
+                    {{ block.settings.author }}
+                  </span>
+                </div>
+              </div>
+              {% comment %}
+              {% endcomment %}
           {% endcase %}
         {% endfor %}
       </div>
@@ -90,12 +107,16 @@
                   </div>
 
                 {% when 'title' %}
-                  <div class="cwc-featured-product__title" {{ block.shopify_attributes }}>
-                    {{ block.settings.title }}
+                  <div class="cwc-featured-product__title rte" {{ block.shopify_attributes }}>
+                    {% if block.settings.title != blank %}
+                      {{ block.settings.title }}
+                    {% elsif product.title != blank %}
+                      {{ product.title }}
+                    {% endif %}
                   </div>
 
                 {% when 'desc' %}
-                  <div class="cwc-featured-product__desc" {{ block.shopify_attributes }}>
+                  <div class="cwc-featured-product__desc rte" {{ block.shopify_attributes }}>
                     {% if block.settings.desc != blank %}
                       {{ block.settings.desc }}
                     {% else %}
@@ -114,14 +135,27 @@
                   </div>
 
                 {% when 'price_display' %}
-                  <div class="cwc-featured-product__price" {{ block.shopify_attributes }}>
+                  <div
+                    class="
+                      cwc-featured-product__price
+                      {% if block.settings.fallback_markup_percent != 0 %}show_save{% endif %}
+                    "
+                    {{ block.shopify_attributes }}
+                  >
                     {% render 'CWC_price_display', product: product, section_id: section.id, block: block %}
                   </div>
 
-                {% when 'product_options' %}
+                {% when 'product_options_size' %}
                   {% if product.variants.size > 1 %}
-                    <div class="cwc-featured-product__options" {{ block.shopify_attributes }}>
-                      {% render 'CWC_product_options', product: product, section_id: section.id, block: block %}
+                    <div class="cwc-featured-product__options_size" {{ block.shopify_attributes }}>
+                      {% render 'CWC_product_options_size', product: product, section_id: section.id, block: block %}
+                    </div>
+                  {% endif %}
+
+                {% when 'product_options_type' %}
+                  {% if product.variants.size > 1 %}
+                    <div class="cwc-featured-product__options_type" {{ block.shopify_attributes }}>
+                      {% render 'CWC_product_options_type', product: product, section_id: section.id, block: block %}
                     </div>
                   {% endif %}
 
@@ -292,6 +326,22 @@
           "id": "badge_sold_bg_color",
           "label": "Sold Badge Background Color",
           "default": "#fff"
+        },
+        {
+          "type": "checkbox",
+          "id": "mobile_thumbs",
+          "label": "Show thumbnails on mobile",
+          "default": false,
+          "info": "Display thumbnail navigation on mobile/tablet devices"
+        },
+        {
+          "type": "range",
+          "id": "img_limit",
+          "label": "Image Limit",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "default": 8
         }
       ]
     },
@@ -301,10 +351,10 @@
       "name": "FAQ",
       "settings": [
         {
-          "type": "text",
+          "type": "richtext",
           "id": "title",
           "label": "Question",
-          "default": "Description"
+          "default": "<p>Featured & Benefits</p>"
         },
         {
           "type": "richtext",
@@ -321,7 +371,7 @@
           "type": "richtext",
           "id": "text",
           "label": "Rating Text",
-          "default": "<p>Rated 4.9 Excellent | 323 Reviews</p>"
+          "default": "<p>Rated 4.9 Excellent | 32,398 Reviews</p>"
         }
       ]
     },
@@ -345,7 +395,7 @@
           "type": "richtext",
           "id": "title",
           "label": "Title",
-          "default": "<h3>Natural DHT Blocker</h3>"
+          "default": "<h3>{{ product.title | default: 'Custom Product Title' }}</h3>"
         }
       ]
     },
@@ -368,6 +418,22 @@
           "type": "richtext",
           "id": "content",
           "label": "Content"
+        }
+      ]
+    },
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "review",
+          "label": "Review text"
+        },
+        {
+          "type": "richtext",
+          "id": "author",
+          "label": "Review author"
         }
       ]
     },
@@ -440,26 +506,323 @@
     {
       "type": "price_display",
       "name": "Price Display",
-      "settings": []
+      "settings": [
+        {
+          "type": "header",
+          "content": "Compare Price Settings"
+        },
+        {
+          "type": "paragraph",
+          "content": "If the product doesn't have a compare price, a visual markup will be calculated for display purposes only. This does not affect the actual product price."
+        },
+        {
+          "type": "range",
+          "id": "fallback_markup_percent",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "label": "Fallback Markup Percentage",
+          "default": 30,
+          "info": "Used only when product has no compare_at_price. Example: 30% means if price is $10, display will show $13 as compare price."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_save_amount",
+          "label": "Show save amount",
+          "default": true
+        }
+      ]
     },
     {
-      "type": "product_options",
-      "name": "Product Options",
+      "type": "product_options_size",
+      "name": "Product Options - Size",
       "settings": [
+        {
+          "type": "header",
+          "content": "Option Selection"
+        },
+        {
+          "type": "text",
+          "id": "option_name",
+          "label": "Option Name",
+          "default": "Size",
+          "info": "Enter the exact option name (case-sensitive). Usually 'Size' or 'Quantity'."
+        },
+        {
+          "type": "text",
+          "id": "option_label",
+          "label": "Display Label",
+          "default": "Choose Your Size",
+          "info": "Label shown above the options"
+        },
+        {
+          "type": "header",
+          "content": "Layout Settings"
+        },
+        {
+          "type": "select",
+          "id": "layout_mode",
+          "label": "Layout Mode",
+          "options": [
+            {
+              "value": "vertical",
+              "label": "Vertical (Stacked)"
+            },
+            {
+              "value": "horizontal",
+              "label": "Horizontal (Side-by-Side)"
+            }
+          ],
+          "default": "vertical",
+          "info": "Choose how options are displayed"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_images",
+          "label": "Show option images",
+          "default": true,
+          "info": "Display product images alongside each option"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_savings",
+          "label": "Show option savings",
+          "default": true,
+          "info": "Display product price savings"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_prices",
+          "label": "Show option prices",
+          "default": true,
+          "info": "Display product price & compare price"
+        },
+        {
+          "type": "header",
+          "content": "Option Images"
+        },
+        {
+          "type": "paragraph",
+          "content": "Upload images for each size option (optional). Images appear in order."
+        },
         {
           "type": "image_picker",
           "id": "image1",
-          "label": "Options Image 1"
+          "label": "Option 1 Image"
+        },
+        {
+          "type": "text",
+          "id": "value_text1",
+          "label": "Custom Option Label"
+        },
+        {
+          "type": "text",
+          "id": "variant_text1",
+          "label": "X Uses",
+          "default": "XX Uses"
+        },
+        {
+          "type": "text",
+          "id": "variant_text1_1",
+          "label": "For X",
+          "default": "For X"
         },
         {
           "type": "image_picker",
           "id": "image2",
-          "label": "Options Image 2"
+          "label": "Option 2 Image"
+        },
+        {
+          "type": "text",
+          "id": "value_text2",
+          "label": "Custom Option Label"
+        },
+        {
+          "type": "text",
+          "id": "variant_text2",
+          "label": "X Uses",
+          "default": "XX Uses"
+        },
+        {
+          "type": "text",
+          "id": "variant_text2_1",
+          "label": "For X",
+          "default": "For X"
         },
         {
           "type": "image_picker",
           "id": "image3",
-          "label": "Options Image 3"
+          "label": "Option 3 Image"
+        },
+        {
+          "type": "text",
+          "id": "value_text3",
+          "label": "Custom Option Label"
+        },
+        {
+          "type": "text",
+          "id": "variant_text3",
+          "label": "X Uses",
+          "default": "XX Uses"
+        },
+        {
+          "type": "text",
+          "id": "variant_text3_1",
+          "label": "For X",
+          "default": "For X"
+        },
+        {
+          "type": "image_picker",
+          "id": "image4",
+          "label": "Option 4 Image"
+        },
+        {
+          "type": "text",
+          "id": "value_text4",
+          "label": "Custom Option Label"
+        },
+        {
+          "type": "text",
+          "id": "variant_text4",
+          "label": "X Uses",
+          "default": "XX Uses"
+        },
+        {
+          "type": "text",
+          "id": "variant_text4_1",
+          "label": "For X",
+          "default": "For X"
+        }
+      ]
+    },
+    {
+      "type": "product_options_type",
+      "name": "Product Option Type",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Option Selection"
+        },
+        {
+          "type": "paragraph",
+          "content": "This block displays ONE product option. Add multiple blocks to show multiple options (e.g., one for Size, another for Flavor)."
+        },
+        {
+          "type": "text",
+          "id": "option_name",
+          "label": "Option Name",
+          "default": "Flavor",
+          "info": "Enter the exact option name (case-sensitive). Find this in your product's variants section."
+        },
+        {
+          "type": "text",
+          "id": "option_label",
+          "label": "Display Label (Optional)",
+          "placeholder": "Size",
+          "info": "Custom label to show above the options. Leave empty to hide."
+        },
+        {
+          "type": "header",
+          "content": "Layout Settings"
+        },
+        {
+          "type": "select",
+          "id": "layout_mode",
+          "label": "Layout Mode",
+          "options": [
+            {
+              "value": "vertical",
+              "label": "Vertical (Stacked)"
+            },
+            {
+              "value": "horizontal",
+              "label": "Horizontal (Side-by-Side)"
+            }
+          ],
+          "default": "horizontal",
+          "info": "Choose how options are displayed"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_images",
+          "label": "Show option images",
+          "default": true,
+          "info": "Display product images alongside each option"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_savings",
+          "label": "Show option savings",
+          "default": true,
+          "info": "Display product price savings"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_prices",
+          "label": "Show option prices",
+          "default": true,
+          "info": "Display product price & compare price"
+        },
+
+        {
+          "type": "header",
+          "content": "Option Images"
+        },
+        {
+          "type": "paragraph",
+          "content": "Upload images for each size option (optional). Images appear in order."
+        },
+        {
+          "type": "checkbox",
+          "id": "type_desc",
+          "label": "Show type description",
+          "default": true,
+          "info": "Display variant type description"
+        },
+        {
+          "type": "image_picker",
+          "id": "image1",
+          "label": "Option 1 Image"
+        },
+        {
+          "type": "text",
+          "id": "variant_text1",
+          "label": "Varints description",
+          "default": "Unique variant description"
+        },
+        {
+          "type": "image_picker",
+          "id": "image2",
+          "label": "Option 2 Image"
+        },
+        {
+          "type": "text",
+          "id": "variant_text2",
+          "label": "Varints description",
+          "default": "Unique variant description"
+        },
+        {
+          "type": "image_picker",
+          "id": "image3",
+          "label": "Option 3 Image"
+        },
+        {
+          "type": "text",
+          "id": "variant_text3",
+          "label": "Varints description",
+          "default": "Unique variant description"
+        },
+        {
+          "type": "image_picker",
+          "id": "image4",
+          "label": "Option 4 Image"
+        },
+        {
+          "type": "text",
+          "id": "variant_text4",
+          "label": "Varints description",
+          "default": "Unique variant description"
         }
       ]
     },
@@ -533,6 +896,32 @@
           "id": "button_text_color",
           "label": "Button Text Color",
           "default": "#ffffff"
+        },
+        {
+          "type": "product",
+          "id": "bundle_product_1",
+          "label": "Product 1"
+        },
+        {
+          "type": "product",
+          "id": "bundle_product_2",
+          "label": "Product 2"
+        },
+        {
+          "type": "product",
+          "id": "bundle_product_3",
+          "label": "Product 3"
+        },
+        {
+          "type": "product",
+          "id": "bundle_product_4",
+          "label": "Product 4"
+        },
+        {
+          "type": "checkbox",
+          "id": "skip_cart",
+          "label": "Skip cart & send to checkout",
+          "default": false
         }
       ]
     },
@@ -560,7 +949,7 @@
       "category": "Custom",
       "blocks": [
         {
-          "type": "product_image"
+          "type": "image_carousel"
         },
         {
           "type": "rating"
@@ -575,7 +964,16 @@
           "type": "price_display"
         },
         {
-          "type": "product_options"
+          "type": "product_options_type",
+          "settings": {
+            "option_name": "Flavor"
+          }
+        },
+        {
+          "type": "product_options_size",
+          "settings": {
+            "option_name": "Size"
+          }
         },
         {
           "type": "subscription_toggle"

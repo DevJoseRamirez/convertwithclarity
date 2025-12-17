@@ -34,18 +34,7 @@
 }
 
 .cwc_usp_columns .usp-item {
-  /* display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  border: 1px solid currentColor;
-  border-radius: 6px;
-  padding: 0.75rem 1.25rem;
-  flex: 1 1 auto;
-  min-width: 200px;
-  text-align: center; */
 
-  border: 1.3px solid #fff;
   color: #fff;
   padding: 7px 18px;
   border-radius: 6.9px;
@@ -71,9 +60,11 @@
 .cwc_usp_columns .usp-text {
   font-size: 0.9rem;
   font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.5px;
   text-transform: uppercase;
   line-height: 1.2;
+  color: var(--text-color);
 }
 
 /* Mobile Styles */
@@ -90,13 +81,18 @@
 }
 
 @media screen and (max-width: 767px) {
+  .cwc_usp_columns {
+    padding-top: var(--padding-top-mobile);
+    padding-bottom: var(--padding-bottom-mobile);
+  }
+
 
   .cwc_usp_columns .usp-text {
     font-size: 0.65rem;
   }
 
   .cwc_usp_columns .usp-item {
-    border: 1.01px solid #fff;
+    /* border: 1.01px solid #fff; */
     padding: 7px 8px 9px 5px;
     border-radius: 5.05px;
     font-size: 9.14px;
@@ -112,6 +108,10 @@
   .cwc_usp_columns .usp-icon img {
     min-width: 33px;
     height: 33px;
+  }
+
+  .cwc_usp_columns-container {
+    padding: 0 1rem;
   }
 
 }

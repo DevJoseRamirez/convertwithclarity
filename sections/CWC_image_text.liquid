@@ -1,116 +1,115 @@
 {% style %}
   #CWC_image_text-{{ section.id }} {
-  --section-bg: {{ section.settings.background_color }};
-  --text-color: {{ section.settings.text_color }};
-  --padding-top: {{ section.settings.padding_top }}px;
-  --padding-bottom: {{ section.settings.padding_bottom }}px;
-  --padding-top-mobile: {{ section.settings.padding_top | times: 0.5 }}px;
-  --padding-bottom-mobile: {{ section.settings.padding_bottom | times: 0.5 }}px;
+    --section-bg: {{ section.settings.background_color | default: '#ffffff' }};
+    --text-color: {{ section.settings.text_color | default: '#202020' }};
+    --padding-top: {{ section.settings.padding_top | default: 60 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 60 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | times: 0.5 }}px;
   }
 {% endstyle %}
 
 {{ 'CWC_image_text.css' | asset_url | stylesheet_tag }}
-{% comment %}
-  <h1>adjusting font sizes</h1>
-  <h2>adjusting font sizes</h2>
-  <h3>adjusting font sizes</h3>
-  <h4>adjusting font sizes</h4>
-  <h5>adjusting font sizes</h5>
-  <h6>adjusting font sizes</h6>
-  <p>adjusting font sizes</p>
 
-  Reference notes:
-   - cwc_max-width - applies max with in base css file
-   - apply always at the "wrapper" level
-{% endcomment %}
+<section
+  id="CWC_image_text-{{ section.id }}"
+  class="cwc_image_text{% if section.settings.image_position == 'right' %} reverse{% endif %}"
+>
+  <div class="cwc_image_text__container">
+    <div class="cwc_image_text__wrapper">
+      {% comment %}
+        ==============================
+        Image Column
+        ==============================
+      {% endcomment %}
+      <div class="cwc_image_text__image">
+        {% if section.settings.image != blank %}
+          <img
+            src="{{ section.settings.image | image_url: width: 600 }}"
+            alt="{{ section.settings.image.alt | default: section.settings.title | escape }}"
+            width="{{ section.settings.image.width }}"
+            height="{{ section.settings.image.height }}"
+            loading="eager"
+            fetchpriority="high"
+          >
+        {% else %}
+          <div class="placeholder-image">
+            <span>Add an image</span>
+          </div>
+        {% endif %}
+      </div>
 
-<section id="CWC_image_text-{{ section.id }}" class="cwc_image_text" cwc_max-width>
-  <div
-    cwc_max-width
-    class="cwc_image_text-wrapper{% if section.settings.image_position == 'right' %} reverse{% endif %}"
-  >
-    <div class="cwc_image_text-image">
-      {% if section.settings.image %}
-        <img
-          fetchpriority="medium"
-          loading="lazy"
-          src="{{ section.settings.image | image_url }}"
-          alt="{{ section.settings.title | escape }}"
-          height="{{ section.settings.image.height }}"
-          width="{{ section.settings.image.width }}"
-        >
-      {% else %}
-        <img src="{{ 'placeholder.png' | asset_url }}" alt="Placeholder image">
-      {% endif %}
-    </div>
+      {% comment %}
+        ==============================
+        Content Column
+        ==============================
+      {% endcomment %}
+      <div class="cwc_image_text__content">
+        {% for block in section.blocks %}
+          {% case block.type %}
+              {% comment %} Title Block {% endcomment %}
+            {% when 'title' %}
+              {% if block.settings.text != blank %}
+                <div class="cwc_image_text__title rte" {{ block.shopify_attributes }}>
+                  {{ block.settings.text }}
+                </div>
+              {% endif %}
 
-    <div class="cwc_image_text-content">
-      {% for block in section.blocks %}
-        {% case block.type %}
-          {% when 'caption' %}
-            <div
-              {{ block.shopify_attributes }}
-              class="cwc_image_text__caption"
-              style="
-                --caption_color: {{ block.settings.text_color }};
-                --caption_bold_color: {{ block.settings.bold_color }};
-              "
-            >
-              {{ block.settings.caption }}
-            </div>
-          {% when 'title' %}
-            <div
-              class="cwc_image_text__title"
-              {{ block.shopify_attributes }}
+              {% comment %} Text Block {% endcomment %}
+            {% when 'text' %}
+              {% if block.settings.text != blank %}
+                <div class="cwc_image_text__text rte" {{ block.shopify_attributes }}>
+                  {{ block.settings.text }}
+                </div>
+              {% endif %}
 
-              style="
-                --text_color: {{ block.settings.text_color }};
-                --bold_color: {{ block.settings.bold_color }};
-              "
-            >
-              {{ block.settings.text }}
-            </div>
-          {% when 'text' %}
-            <div class="cwc_image_text__text" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
-
-          {% when 'bullet_points' %}
-            <div class="cwc_image_text__bullets_points-wrap" {{ block.shopify_attributes }}>
-              {{ block.settings.text }}
-              {% render 'CWC_bullet_points', section: section, block: block %}
-            </div>
-
-          {% when 'button' %}
-            {% if block.settings.button_text != blank %}
-              <div class="cwc_image-text__button-wrap" {{ block.shopify_attributes }}>
-                <a
-                  href="{{ block.settings.button_link }}"
-                  class="cwc_image-text__button"
-                  style="
-                    --button_text_color: {{ block.settings.button_text_color }};
-                    --button_bg_color: {{ block.settings.button_bg_color }};
-                  "
-                >
-                  {{ block.settings.button_text }}
-                </a>
-                {% if block.settings.button_note != blank %}
-                  <div class="cwc_image-text__button-note">
-                    {% render 'CWC_icon-shield', fill: block.settings.button_bg_color %}
-                    {{ block.settings.button_note }}
-                  </div>
-                {% endif %}
-              </div>
-            {% endif %}
-        {% endcase %}
-      {% endfor %}
+              {% comment %} Button Block {% endcomment %}
+            {% when 'button' %}
+              {% if block.settings.text != blank %}
+                <div class="cwc_image_text__button" {{ block.shopify_attributes }}>
+                  {% render 'CWC_button', product: product, section_id: section.id, block: block %}
+                </div>
+              {% endif %}
+          {% endcase %}
+        {% endfor %}
+      </div>
     </div>
   </div>
 </section>
 
 {% schema %}
 {
-  "name": "CWC Image Text",
-  "tag": "section",
+  "name": "Image + Text",
   "settings": [
+    {
+      "type": "header",
+      "content": "Image Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Featured Image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
     {
       "type": "color",
       "id": "background_color",
@@ -124,195 +123,89 @@
       "default": "#202020"
     },
     {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Featured Image"
-    },
-    {
-      "type": "select",
-      "id": "image_position",
-      "label": "Image Position",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "right", "label": "Right" }
-      ],
-      "default": "right"
+      "type": "header",
+      "content": "Spacing"
     },
     {
       "type": "range",
       "id": "padding_top",
-      "label": "Padding Top",
       "min": 0,
-      "max": 100,
-      "step": 4,
+      "max": 120,
+      "step": 10,
       "unit": "px",
-      "default": 40
+      "label": "Padding Top",
+      "default": 60
     },
     {
       "type": "range",
       "id": "padding_bottom",
-      "label": "Padding Bottom",
       "min": 0,
-      "max": 100,
-      "step": 4,
+      "max": 120,
+      "step": 10,
       "unit": "px",
-      "default": 40
+      "label": "Padding Bottom",
+      "default": 60
     }
   ],
   "blocks": [
     {
-      "type": "caption",
-      "name": "Caption",
-      "settings": [
-        {
-          "type": "richtext",
-          "id": "caption",
-          "label": "Caption",
-          "default": "<h5>Are You One of Them?</h5>"
-        },
-        {
-          "type": "color",
-          "id": "text_color",
-          "label": "Title Color",
-          "default": "#2B2B2B"
-        },
-        {
-          "type": "color",
-          "id": "bold_color",
-          "label": "Bold Color",
-          "default": "#526D05"
-        }
-      ]
-    },
-    {
       "type": "title",
       "name": "Title",
+      "limit": 1,
       "settings": [
         {
           "type": "richtext",
           "id": "text",
           "label": "Title",
-          "default": "<h3>Your Section Title</h3>"
-        },
-        {
-          "type": "color",
-          "id": "text_color",
-          "label": "Title Color",
-          "default": "#2B2B2B"
-        },
-        {
-          "type": "color",
-          "id": "bold_color",
-          "label": "Bold Color",
-          "default": "#526D05"
+          "default": "<h2>Your Section Title</h2>"
         }
       ]
     },
     {
       "type": "text",
-      "name": "Subtext",
+      "name": "Text",
       "settings": [
         {
           "type": "richtext",
           "id": "text",
-          "label": "Text",
-          "default": "<p>Some paragraph of subtext or supporting message here.</p>"
-        }
-      ]
-    },
-    {
-      "type": "bullet_points",
-      "name": "Bullet Points",
-      "settings": [
-        {
-          "type": "color",
-          "id": "text_color",
-          "label": "Title Color",
-          "default": "#2B2B2B"
-        },
-        {
-          "type": "color",
-          "id": "icon_color",
-          "label": "Bold Color",
-          "default": "#6dbf55"
-        },
-        {
-          "type": "richtext",
-          "id": "bullet_1",
-          "label": "Text One",
-          "default": "<p>Are You One of Them?</p>"
-        },
-        {
-          "type": "richtext",
-          "id": "bullet_2",
-          "label": "Text One",
-          "default": "<p>Are You One of Them?</p>"
-        },
-        {
-          "type": "richtext",
-          "id": "bullet_3",
-          "label": "Text One",
-          "default": "<p>Are You One of Them?</p>"
-        },
-        {
-          "type": "richtext",
-          "id": "bullet_4",
-          "label": "Text One",
-          "default": "<p>Are You One of Them?</p>"
-        },
-        {
-          "type": "richtext",
-          "id": "bullet_5",
-          "label": "Text One",
-          "default": "<p>Are You One of Them?</p>"
-        },
-        {
-          "type": "richtext",
-          "id": "bullet_6",
-          "label": "Text One",
-          "default": "<p>Are You One of Them?</p>"
+          "label": "Text Content",
+          "default": "<p>Add your supporting text or description here.</p>"
         }
       ]
     },
     {
       "type": "button",
-      "name": "CTA Button",
+      "name": "Button",
       "settings": [
         {
           "type": "text",
-          "id": "button_text",
+          "id": "text",
           "label": "Button Text",
           "default": "Try Risk-Free Today"
         },
         {
           "type": "url",
-          "id": "button_link",
+          "id": "link",
           "label": "Button Link"
         },
         {
           "type": "color",
           "id": "button_bg_color",
           "label": "Button Background Color",
-          "default": "#6DBF55"
+          "default": "#125657"
         },
         {
           "type": "color",
           "id": "button_text_color",
           "label": "Button Text Color",
           "default": "#ffffff"
-        },
-        {
-          "type": "text",
-          "id": "button_note",
-          "label": "Button Note Text",
-          "default": "120-Day Money-Back Guarantee"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Image Text Split",
+      "name": "Image + Text",
       "category": "Custom",
       "blocks": [
         {
@@ -320,9 +213,6 @@
         },
         {
           "type": "text"
-        },
-        {
-          "type": "button"
         },
         {
           "type": "button"

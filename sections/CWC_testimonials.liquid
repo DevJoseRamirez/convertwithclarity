@@ -8,135 +8,203 @@
   --padding-bottom: {{ section.settings.padding_bottom | default: 60 }}px;
   }
 {% endstyle %}
-
 {{ 'CWC_testimonials.css' | asset_url | stylesheet_tag }}
 {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
-
-{% comment %}
-  UNIFIED DATA ASSIGNMENT
-  Create consistent data structure regardless of source
-{% endcomment %}
-{% if section.settings.testimonials_collection %}
-  {% comment %} Use metaobject data {% endcomment %}
-  {% assign customer_testimonial_list = section.settings.testimonials_collection.testimonials.value %}
-{% else %}
-  {% comment %} Use section blocks data {% endcomment %}
-  {% assign customer_testimonial_list = section.blocks %}
-{% endif %}
 
 <section id="CWC_testimonials-{{ section.id }}" class="cwc-testimonials">
   <div class="cwc-testimonials__wrapper">
     <div class="swiper cwc-testimonials__carousel">
+      {% if section.settings.section_title != blank %}
+        <div class="cwc-testimonials__carousel__head-stars">
+          {% render 'CWC_trust_stars' %}
+        </div>
+
+        <div class="cwc-testimonials__section-title rte">
+          {{ section.settings.section_title }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.section_subtitle != blank %}
+        <div class="cwc-testimonials__section-subtitle rte">
+          {{ section.settings.section_subtitle }}
+        </div>
+      {% endif %}
+
       <div class="swiper-wrapper cwc-testimonials__carousel_swiper-wrapper">
-        {% for customer_testimonial in customer_testimonial_list %}
+        {% if section.settings.testimonials_collection != blank %}
           {% comment %}
-            UNIFIED VARIABLE ASSIGNMENT
-            Assign variables based on data source
+            ========================================
+            METAOBJECT RENDER PATH
+            ========================================
           {% endcomment %}
-          {% if section.settings.testimonials_collection %}
-            {% comment %} Metaobject source {% endcomment %}
-            {% assign rating = customer_testimonial.rating %}
-            {% assign title = customer_testimonial.title %}
-            {% assign text = customer_testimonial.text %}
-            {% assign author = customer_testimonial.author %}
-            {% assign tag1 = customer_testimonial.tag1 %}
-            {% assign tag2 = customer_testimonial.tag2 %}
-            {% assign img_value = customer_testimonial.profile_image %}
-            {% assign img_url = customer_testimonial.profile_image | image_url: width: 36 %}
+          {% assign customer_testimonial_list = section.settings.testimonials_collection.testimonials.value %}
 
-            {% comment %} {{ customer_testimonial_list | json }} {% endcomment %}
-          {% else %}
-            {% comment %} Block source {% endcomment %}
-            {% assign rating = customer_testimonial.settings.star_rating %}
-            {% assign title = customer_testimonial.settings.title %}
-            {% assign text = customer_testimonial.settings.text %}
-            {% assign author = customer_testimonial.settings.author_name %}
-            {% assign tag1 = customer_testimonial.settings.feature_one %}
-            {% assign tag2 = customer_testimonial.settings.feature_two %}
-            {% assign img_value = customer_testimonial.settings.author_image %}
-            {% assign img_url = customer_testimonial.settings.author_image | image_url: width: 36 %}
-          {% endif %}
-          {% comment %}
-            SINGLE RENDER SECTION
-            Everything below uses the same unified variables
-          {% endcomment %}
-          <div class="swiper-slide cwc-testimonials__carousel_swiper-slide">
-            <div class="cwc-testimonial-card" {{ block.shopify_attributes }}>
-              <div class="cwc-testimonials__testimonial-top">
-                <div class="cwc-testimonial-rating">
-                  <span class="cwc-testimonial-rating_text">{{ rating }}</span>
-                  {% render 'CWC_trust_stars' %}
+          {% comment %} {{ customer_testimonial_list | json }} {% endcomment %}
+
+          {% for customer_testimonial in customer_testimonial_list %}
+            <div class="swiper-slide cwc-testimonials__carousel_swiper-slide">
+              <div class="cwc-testimonial-card">
+                <div class="cwc-testimonials__testimonial-top">
+                  <div class="cwc-testimonial-rating">
+                    <span class="cwc-testimonial-rating_text">{{ customer_testimonial.rating }}</span>
+                    {% render 'CWC_trust_stars' %}
+                  </div>
+
+                  {% if customer_testimonial.title != blank %}
+                    <h3 class="cwc-testimonials__testimonial-title">"{{ customer_testimonial.title }}"</h3>
+                  {% endif %}
+
+                  {% if customer_testimonial.text != blank %}
+                    <p class="cwc-testimonials__testimonial-text">{{ customer_testimonial.text }}</p>
+                  {% endif %}
                 </div>
 
-                {% if title != blank %}
-                  <h3 class="cwc-testimonials__testimonial-title">"{{ title }}"</h3>
-                {% endif %}
+                <div class="cwc-testimonials__testimonial-bottom">
+                  <div class="cwc-testimonials__testimonial-author_wrapper">
+                    <div
+                      class="cwc-testimonials__testimonial-author"
+                    >
+                      {% if customer_testimonial.profile_image != blank %}
+                        <img
+                          loading="lazy"
+                          fetchpriority="low"
+                          src="{{ customer_testimonial.profile_image | image_url: width: 36 }}"
+                          alt="{{ customer_testimonial.author }}"
+                          width="36"
+                          height="36"
+                        >
 
-                {% if text != blank %}
-                  <p class="cwc-testimonials__testimonial-text">{{ text }}</p>
-                {% endif %}
-              </div>
+                      {% elsif customer_testimonial.author != blank %}
+                        <div
+                          class="cwc-testimonials__testimonial-author--letter_hold"
+                          style="background: {% cycle '#2EB67D','#E01E5A','#36C5F0','#ECB22E'%}"
+                        >
+                          {{ customer_testimonial.author | slice: 0 }}
+                        </div>
 
-              <div class="cwc-testimonials__testimonial-bottom">
-                <div class="cwc-testimonials__testimonial-author_wrapper">
-                  <div class="cwc-testimonials__testimonial-author">
-                    {% if img_value != blank %}
-                      <img
-                        loading="lazy"
-                        fetchpriority="low"
-                        src="{{ img_url }}"
-                        alt="{{ author }}"
-                        width="36"
-                        height="36"
-                      >
-                    {% else %}
-                      <img
-                        fetchpriority="low"
-                        src="{{ 'icon-placeholder.png' | asset_url }}"
-                        alt="Author placeholder"
-                        width="36"
-                        height="36"
-                      >
+                      {% else %}
+                        <img
+                          fetchpriority="low"
+                          src="{{ 'icon-placeholder.png' | asset_url }}"
+                          alt="Author placeholder"
+                          width="36"
+                          height="36"
+                        >
+                      {% endif %}
+                      <span class="author-name">{{ customer_testimonial.author }}</span>
+                    </div>
+
+                    <div class="cwc-testimonials__testimonial-author-verified">
+                      <span class="cwc-testimonials__testimonial-author-verified-icon">
+                        {%- render 'CWC_icon-check_badge', fill_color: '#009370' -%}
+                      </span>
+                      <span class="cwc-testimonials__testimonial-author-verified-text"> Verified Customer </span>
+                    </div>
+                  </div>
+
+                  <div class="cwc-testimonials__testimonial-tags">
+                    {% if customer_testimonial.tag1 != blank %}
+                      <span class="tag">{{ customer_testimonial.tag1 }}</span>
                     {% endif %}
-                    <span class="author-name">{{ author }}</span>
+                    {% if customer_testimonial.tag2 != blank %}
+                      <span class="tag">{{ customer_testimonial.tag2 }}</span>
+                    {% endif %}
                   </div>
-
-                  <div class="cwc-testimonials__testimonial-author-verified">
-                    <span class="cwc-testimonials__testimonial-author-verified-icon">
-                      {%- render 'CWC_icon-check_badge', fill: '#009370' -%}
-                    </span>
-                    <span class="cwc-testimonials__testimonial-author-verified-text"> Verified Customer </span>
-                  </div>
-                </div>
-
-                <div class="cwc-testimonials__testimonial-tags">
-                  {% if tag1 != blank %}
-                    <span class="tag">{{ tag1 }}</span>
-                  {% endif %}
-                  {% if tag2 != blank %}
-                    <span class="tag">{{ tag2 }}</span>
-                  {% endif %}
                 </div>
               </div>
             </div>
-          </div>
-        {% endfor %}
+          {% endfor %}
+
+        {% else %}
+          {% comment %}
+            ========================================
+            BLOCKS RENDER PATH
+            ========================================
+          {% endcomment %}
+
+          {% for block in section.blocks %}
+            <div class="swiper-slide cwc-testimonials__carousel_swiper-slide">
+              <div class="cwc-testimonial-card" {{ block.shopify_attributes }}>
+                <div class="cwc-testimonials__testimonial-top">
+                  <div class="cwc-testimonial-rating">
+                    <span class="cwc-testimonial-rating_text">{{ block.settings.star_rating }}</span>
+                    {% render 'CWC_trust_stars' %}
+                  </div>
+
+                  {% if block.settings.title != blank %}
+                    <h3 class="cwc-testimonials__testimonial-title">"{{ block.settings.title }}"</h3>
+                  {% endif %}
+
+                  {% if block.settings.text != blank %}
+                    <p class="cwc-testimonials__testimonial-text">{{ block.settings.text }}</p>
+                  {% endif %}
+                </div>
+
+                <div class="cwc-testimonials__testimonial-bottom">
+                  <div class="cwc-testimonials__testimonial-author_wrapper">
+                    <div class="cwc-testimonials__testimonial-author">
+                      {% if block.settings.author_image != blank %}
+                        <img
+                          loading="lazy"
+                          fetchpriority="low"
+                          src="{{ block.settings.author_image | image_url: width: 36 }}"
+                          alt="{{ block.settings.author_name }}"
+                          width="36"
+                          height="36"
+                        >
+                      {% else %}
+                        <img
+                          fetchpriority="low"
+                          src="{{ 'icon-placeholder.png' | asset_url }}"
+                          alt="Author placeholder"
+                          width="36"
+                          height="36"
+                        >
+                      {% endif %}
+                      <span class="author-name">{{ block.settings.author_name }}</span>
+                    </div>
+
+                    <div class="cwc-testimonials__testimonial-author-verified">
+                      <span class="cwc-testimonials__testimonial-author-verified-icon">
+                        {%- render 'CWC_icon-check_badge', fill: '#009370' -%}
+                      </span>
+                      <span class="cwc-testimonials__testimonial-author-verified-text"> Verified Customer </span>
+                    </div>
+                  </div>
+
+                  <div class="cwc-testimonials__testimonial-tags">
+                    {% if block.settings.feature_one != blank %}
+                      <span class="tag">{{ block.settings.feature_one }}</span>
+                    {% endif %}
+                    {% if block.settings.feature_two != blank %}
+                      <span class="tag">{{ block.settings.feature_two }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
       </div>
     </div>
   </div>
 
-  <!-- Progress bar -->
   <div class="cwc-testimonials__carousel-progress">
     <div class="cwc-testimonials__progress-bar"></div>
   </div>
 
-  <!-- Swiper controls -->
+  {% comment %}
+    - ** Add show arrow settings
+  {% endcomment %}
   <div class="cwc-testimonials__carousel-controls">
-    <div class="swiper-button-prev cwc-testimonials__carousel-prev"></div>
-    <div class="swiper-button-next cwc-testimonials__carousel-next"></div>
+    <div class="swiper-button-prev cwc-testimonials__carousel-prev">
+      {% render 'CWC_icon-arrow-chev', fill_color: section.settings.text_color | default: '#6b7280' %}
+    </div>
+    <div class="swiper-button-next cwc-testimonials__carousel-next">
+      {% render 'CWC_icon-arrow-chev', fill_color: section.settings.text_color |default: '#6b7280' %}
+    </div>
   </div>
 </section>
-
 {{ 'CWC_testimonials.js' | asset_url | script_tag }}
 
 {% schema %}
@@ -145,11 +213,16 @@
   "tag": "section",
   "settings": [
     {
-      "type": "metaobject",
-      "id": "testimonials_collection",
-      "label": "Testimonials Collection",
-      "metaobject_type": "testimonial_collections",
-      "info": "Select a testimonial collection metaobject. Leave blank to use individual blocks below."
+      "type": "richtext",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "<h2>The Ollie Advantage: Right Concentration, Right Shape, Right Price</h2>"
+    },
+    {
+      "type": "richtext",
+      "id": "section_subtitle",
+      "label": "Section Subtitle",
+      "default": "<p>Not all hydroxyapatite toothpastes are created equal. Here's what makes Ollie different.</p>"
     },
     {
       "type": "color",
@@ -183,7 +256,7 @@
       "max": 200,
       "step": 4,
       "unit": "px",
-      "default": 20
+      "default": 40
     },
     {
       "type": "range",
@@ -194,6 +267,13 @@
       "step": 4,
       "unit": "px",
       "default": 40
+    },
+    {
+      "type": "metaobject",
+      "id": "testimonials_collection",
+      "label": "Testimonials Collection",
+      "metaobject_type": "testimonial_collections",
+      "info": "Select a testimonial collection metaobject. Leave blank to use individual blocks below."
     }
   ],
   "blocks": [
@@ -265,3 +345,112 @@
   ]
 }
 {% endschema %}
+
+{% comment %}
+  {% if section.settings.testimonials_collection %}
+    {% assign customer_testimonial_list = section.settings.testimonials_collection.testimonials.value %}
+  {% else %}
+    {% assign customer_testimonial_list = section.blocks %}
+  {% endif %}
+
+  <section id="CWC_testimonials-{{ section.id }}" class="cwc-testimonials">
+    <div class="cwc-testimonials__wrapper">
+      <div class="swiper cwc-testimonials__carousel">
+
+        <div class="swiper-wrapper cwc-testimonials__carousel_swiper-wrapper">
+          {% for customer_testimonial in customer_testimonial_list %}
+            {% if section.settings.testimonials_collection %}
+              {% assign rating = customer_testimonial.rating %}
+              {% assign title = customer_testimonial.title %}
+              {% assign text = customer_testimonial.text %}
+              {% assign author = customer_testimonial.author %}
+              {% assign tag1 = customer_testimonial.tag1 %}
+              {% assign tag2 = customer_testimonial.tag2 %}
+              {% assign img_value = customer_testimonial.profile_image %}
+              {% assign img_url = customer_testimonial.profile_image | image_url: width: 36 %}
+
+            {% else %}
+              {% assign rating = customer_testimonial.settings.star_rating %}
+              {% assign title = customer_testimonial.settings.title %}
+              {% assign text = customer_testimonial.settings.text %}
+              {% assign author = customer_testimonial.settings.author_name %}
+              {% assign tag1 = customer_testimonial.settings.feature_one %}
+              {% assign tag2 = customer_testimonial.settings.feature_two %}
+              {% assign img_value = customer_testimonial.settings.author_image %}
+              {% assign img_url = customer_testimonial.settings.author_image | image_url: width: 36 %}
+            {% endif %}
+            <div class="swiper-slide cwc-testimonials__carousel_swiper-slide">
+              <div class="cwc-testimonial-card" {{ block.shopify_attributes }}>
+                <div class="cwc-testimonials__testimonial-top">
+                  <div class="cwc-testimonial-rating">
+                    <span class="cwc-testimonial-rating_text">{{ rating }}</span>
+                    {% render 'CWC_trust_stars' %}
+                  </div>
+
+                  {% if title != blank %}
+                    <h3 class="cwc-testimonials__testimonial-title">"{{ title }}"</h3>
+                  {% endif %}
+
+                  {% if text != blank %}
+                    <p class="cwc-testimonials__testimonial-text">{{ text }}</p>
+                  {% endif %}
+                </div>
+
+                <div class="cwc-testimonials__testimonial-bottom">
+                  <div class="cwc-testimonials__testimonial-author_wrapper">
+                    <div class="cwc-testimonials__testimonial-author">
+                      {% if img_value != blank %}
+                        <img
+                          loading="lazy"
+                          fetchpriority="low"
+                          src="{{ img_url }}"
+                          alt="{{ author }}"
+                          width="36"
+                          height="36"
+                        >
+                      {% else %}
+                        <img
+                          fetchpriority="low"
+                          src="{{ 'icon-placeholder.png' | asset_url }}"
+                          alt="Author placeholder"
+                          width="36"
+                          height="36"
+                        >
+                      {% endif %}
+                      <span class="author-name">{{ author }}</span>
+                    </div>
+
+                    <div class="cwc-testimonials__testimonial-author-verified">
+                      <span class="cwc-testimonials__testimonial-author-verified-icon">
+                        {%- render 'CWC_icon-check_badge', fill: '#009370' -%}
+                      </span>
+                      <span class="cwc-testimonials__testimonial-author-verified-text"> Verified Customer </span>
+                    </div>
+                  </div>
+
+                  <div class="cwc-testimonials__testimonial-tags">
+                    {% if tag1 != blank %}
+                      <span class="tag">{{ tag1 }}</span>
+                    {% endif %}
+                    {% if tag2 != blank %}
+                      <span class="tag">{{ tag2 }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="cwc-testimonials__carousel-progress">
+      <div class="cwc-testimonials__progress-bar"></div>
+    </div>
+
+    <div class="cwc-testimonials__carousel-controls">
+      <div class="swiper-button-prev cwc-testimonials__carousel-prev"></div>
+      <div class="swiper-button-next cwc-testimonials__carousel-next"></div>
+    </div>
+  </section>
+{% endcomment %}

@@ -1,11 +1,9 @@
 {% style %}
   #CWC_product_card_options-{{ section.id }} {
-    --section-bg: {{ section.settings.bg_color | default: '#ffffff' }};
-    --card-bg: {{ section.settings.card_bg_color | default: '#f9f9f9' }};
-    --price-color: {{ section.settings.price_color | default: '#8b5cf6' }};
+    --section-bg: {{ section.settings.bg_color | default: '#F3F4F6' }};
+    --card-bg: {{ section.settings.card_bg_color | default: '#ffffff' }};
     --text-color: {{ section.settings.text_color | default: '#111111' }};
-    --button-bg: {{ section.settings.button_color | default: '#8b5cf6' }};
-    --button-text: {{ section.settings.button_text_color | default: '#ffffff' }};
+    --accent-color: {{ section.settings.accent_color | default: '#10b981' }};
     --padding-top: {{ section.settings.padding_top | default: 60 }}px;
     --padding-bottom: {{ section.settings.padding_bottom | default: 60 }}px;
     --padding-top-mobile: {{ section.settings.padding_top | times: 0.5 }}px;
@@ -14,11 +12,11 @@
 {% endstyle %}
 
 {{ 'CWC_product_card_options.css' | asset_url | stylesheet_tag }}
-{{ 'CWC_product_card_options.js' | asset_url | script_tag }}
 
 {% liquid
   assign selected_product = section.settings.product
   assign section_id = section.id
+  assign selling_plan_groups = selected_product.selling_plan_groups
 %}
 
 {% comment %} Developer Mode - Show Variant IDs (for setup) -UTILITY{% endcomment %}
@@ -37,6 +35,8 @@
     </p>
   </div>
 {% endif %}
+{% comment %} Developer Mode - Show Variant IDs (for setup) -UTILITY{% endcomment %}
+<div id="cwc-product-cards--anchor__OFF"></div>
 
 <section
   id="CWC_product_card_options-{{ section_id }}"
@@ -44,132 +44,189 @@
   data-section-id="{{ section_id }}"
   data-product-id="{{ selected_product.id }}"
   data-variants="{{ selected_product.variants | json | escape }}"
+  data-selling-plans="{{ selling_plan_groups | json | escape }}"
+  data-skip-cart="{{ section.settings.skip_cart }}"
 >
-  <div id="cwc-product-cards--anchor"></div>
   <div class="cwc-product-cards__container">
-    {% if section.settings.section_title != blank %}
-      <div class="cwc-product-cards__section-title rte">
-        {{ section.settings.section_title }}
+    {% comment %} Section Header {% endcomment %}
+    {% if section.settings.title != blank %}
+      <div class="cwc-product-cards__title rte">
+        {{ section.settings.title }}
       </div>
     {% endif %}
 
-    {% if section.settings.section_subtitle != blank %}
-      <div class="cwc-product-cards__section-subtitle rte">
-        {{ section.settings.section_subtitle }}
+    {% if section.settings.subtext != blank %}
+      <div class="cwc-product-cards__subtext rte">
+        {{ section.settings.subtext }}
       </div>
     {% endif %}
 
+    {% comment %} Subscription Toggle {% endcomment %}
+    {% if selling_plan_groups.size > 0 %}
+      <div class="cwc-product-cards__toggle-wrapper">
+        <span class="cwc-product-cards__toggle-label">One-Time Purchase</span>
+
+        <label class="cwc-product-cards__toggle">
+          <input
+            type="checkbox"
+            id="subscription-toggle-{{ section_id }}"
+            class="cwc-product-cards__toggle-input"
+            checked
+          >
+          <span class="cwc-product-cards__toggle-slider"></span>
+        </label>
+
+        <span class="cwc-product-cards__toggle-label cwc-product-cards__toggle-label--active">
+          {{ section.settings.subscribe_text }}
+        </span>
+      </div>
+    {% endif %}
+
+    {% comment %} Product Cards Grid {% endcomment %}
     {% if selected_product and section.blocks.size > 0 %}
       <form
         action="/cart/add"
         method="post"
         enctype="multipart/form-data"
-        class="cwc-product-cards__section__form"
-        id="cwc-product-cards__section-{{ section.id }}"
+        class="cwc-product-cards__form"
+        id="product-form-{{ section_id }}"
       >
         <input
           type="hidden"
           name="id"
-          value="{{ product.selected_or_first_available_variant.id }}"
+          value="{{ selected_product.selected_or_first_available_variant.id }}"
           class="variant-id-input"
         >
+        <input
+          type="hidden"
+          name="selling_plan"
+          value=""
+          class="selling-plan-input"
+        >
+
         <div class="cwc-product-cards__grid cwc-product-cards__grid--{{ section.blocks.size }}">
           {% for block in section.blocks %}
-            {% liquid
-              assign block_variant_id = block.settings.variant_id | times: 1
-              assign variant = selected_product.variants | where: 'id', block_variant_id | first
-            %}
+            {% assign variant_id = block.settings.variant_id | plus: 0 %}
+            {% assign target_variant = null %}
+            {% for variant in selected_product.variants %}
+              {% if variant.id == variant_id %}
+                {% assign target_variant = variant %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
 
-            {% if variant %}
-              {% comment %} Badge text {% endcomment %}
-              {% comment %}
-                <div class="cwc-product-card__badge">
-                  {% if forloop.index0 == 1 %}
-                    {{ forloop.index0 }}
-
-                  {% elsif forloop.index0 == 2 %}
-                    {{ forloop.index0 }}
-                  {% endif %}
-                </div>
-              {% endcomment %}
-
+            {% if target_variant %}
               <div
-                class="cwc-product-card"
-                data-variant-id="{{ variant.id }}"
-                data-available="{{ variant.available }}"
+                class="
+                  cwc-product-cards__card
+
+                  {% if forloop.index == 1 %} cwc-product-cards__card--1{% endif %}
+                  {% if forloop.index == 2 %} cwc-product-cards__card--2{% endif %}
+                  {% if forloop.index == 3 %} cwc-product-cards__card--3{% endif %}
+                "
+                data-variant-id="{{ target_variant.id }}"
+                data-price="{{ target_variant.price }}"
+                data-compare="{{ target_variant.compare_at_price }}"
+                data-available="{{ target_variant.available }}"
                 {{ block.shopify_attributes }}
               >
-                {% comment %} Badge from block {% endcomment %}
+                {% comment %} Badge {% endcomment %}
                 {% if block.settings.badge != blank %}
-                  <div class="cwc-product-card__badge">
+                  <div class="cwc-product-cards__badge">
                     {{ block.settings.badge }}
                   </div>
                 {% endif %}
 
-                {% comment %} Title from block or variant {% endcomment %}
-                <div class="cwc-product-card__title">
-                  {% if block.settings.title != blank %}
+                {% comment %} Title {% endcomment %}
+                {% if block.settings.title != blank %}
+                  <div class="cwc-product-cards__card-title">
                     {{ block.settings.title }}
-                  {% else %}
-                    {{ variant.title }}
-                  {% endif %}
-                </div>
-
-                {% comment %} Pricing from Shopify {% endcomment %}
-                <div class="cwc-product-card__pricing">
-                  {% if variant.compare_at_price > variant.price %}
-                    <span class="cwc-product-card__compare-price">
-                      {{ variant.compare_at_price | money }}
-                    </span>
-                  {% endif %}
-                  <span class="cwc-product-card__price">
-                    {{ variant.price | money }}
-                  </span>
-
-                  {% comment %} Calculate savings {% endcomment %}
-                  {% if variant.compare_at_price > variant.price %}
-                    {% assign savings = variant.compare_at_price | minus: variant.price %}
-                    {% assign savings_percent = savings | times: 100.0 | divided_by: variant.compare_at_price | round %}
-                    <span class="cwc-product-card__savings"> Save {{ savings_percent }}% </span>
-                  {% endif %}
-                </div>
-
-                {% comment %} Bullets {% endcomment %}
-                {% liquid
-                  assign has_bullets = false
-                  if block.settings.bullet_1 != blank or block.settings.bullet_2 != blank or block.settings.bullet_3 != blank or block.settings.bullet_4 != blank or block.settings.bullet_5 != blank
-                    assign has_bullets = true
-                  endif
-                %}
-
-                {% if has_bullets %}
-                  <ul class="cwc-product-card__bullets">
-                    {% if block.settings.bullet_1 != blank %}
-                      <li class="cwc-product-card__bullet rte">{{ block.settings.bullet_1 }}</li>
-                    {% endif %}
-                    {% if block.settings.bullet_2 != blank %}
-                      <li class="cwc-product-card__bullet rte">{{ block.settings.bullet_2 }}</li>
-                    {% endif %}
-                    {% if block.settings.bullet_3 != blank %}
-                      <li class="cwc-product-card__bullet rte">{{ block.settings.bullet_3 }}</li>
-                    {% endif %}
-                    {% if block.settings.bullet_4 != blank %}
-                      <li class="cwc-product-card__bullet rte">{{ block.settings.bullet_4 }}</li>
-                    {% endif %}
-                    {% if block.settings.bullet_5 != blank %}
-                      <li class="cwc-product-card__bullet rte">{{ block.settings.bullet_5 }}</li>
-                    {% endif %}
-                  </ul>
+                  </div>
+                {% else %}
+                  <div class="cwc-product-cards__card-title">
+                    {{ target_variant.title }}
+                  </div>
                 {% endif %}
 
-                {% comment %} Button - uses variant URL as fallback for add-to-cart {% endcomment %}
+                {% comment %} Product Image {% endcomment %}
+                <div class="cwc-product-cards__image">
+                  {% if block.settings.custom_image != blank %}
+                    {%- comment -%} Use custom image from block settings {%- endcomment -%}
+                    <img
+                      src="{{ block.settings.custom_image | image_url: width: 400 }}"
+                      alt="{{ block.settings.custom_image.alt | default: target_variant.title }}"
+                      loading="lazy"
+                      priority="meduim"
+                      class="cwc-product-cards__img"
+                      height="{{ block.settings.custom_image.height }}"
+                      width="{{ block.settings.custom_image.width }}"
+                    >
+                  {% elsif target_variant.featured_image %}
+                    {%- comment -%} Use variant's featured image {%- endcomment -%}
+                    <img
+                      src="{{ target_variant.featured_image | image_url: width: 400 }}"
+                      alt="{{ target_variant.featured_image.alt | default: target_variant.title }}"
+                      loading="lazy"
+                      priority="meduim"
+
+                      class="cwc-product-cards__img"
+                      height="{{ target_variant.featured_image.height }}"
+                      width="{{ target_variant.featured_image.width }}"
+                    >
+                  {% elsif selected_product.featured_image %}
+                    {%- comment -%} Fallback to product's featured image {%- endcomment -%}
+                    <img
+                      src="{{ selected_product.featured_image | image_url: width: 400 }}"
+                      alt="{{ selected_product.featured_image.alt | default: selected_product.title }}"
+                      loading="lazy"
+                      class="cwc-product-cards__img"
+                      height="{{ selected_product.featured_image.height }}"
+                      width="{{ selected_product.featured_image.width }}"
+                    >
+                  {% endif %}
+                </div>
+
+                {% comment %} Pricing {% endcomment %}
+                <div class="cwc-product-cards__pricing">
+                  <div class="cwc-product-cards__price-main" data-price-display>
+                    {{ target_variant.price | money }}
+                  </div>
+
+                  {% if block.settings.price_subtext != blank or block.settings.price_subtext_onetime != blank %}
+                    <div
+                      class="cwc-product-cards__price-subtext"
+                      data-subtext-subscription="{{ block.settings.price_subtext | escape }}"
+                      data-subtext-onetime="{{ block.settings.price_subtext_onetime | escape }}"
+                    >
+                      {%- comment -%} Default to subscription text if toggle starts checked {%- endcomment -%}
+                      {{ block.settings.price_subtext }}
+                    </div>
+                  {% endif %}
+                </div>
+
+                {% comment %} Description Text {% endcomment %}
+                {% if block.settings.text != blank %}
+                  <div class="cwc-product-cards__card-text rte">
+                    {{ block.settings.text }}
+                  </div>
+                {% endif %}
+
+                {% comment %} Button {% endcomment %}
+
                 {% if block.settings.button_text != blank %}
                   <button
                     type="button"
-                    class="cwc-product-card__button"
-                    data-variant-id="{{ variant.id }}"
+                    class="cwc-product-cards__button"
+                    data-variant-id="{{ target_variant.id }}"
+                    {% unless target_variant.available %}
+                      disabled
+                    {% endunless %}
                   >
-                    {{ block.settings.button_text }}
+                    {% if target_variant.available %}
+                      {{ block.settings.button_text }}
+                    {% else %}
+                      Sold Out
+                    {% endif %}
                   </button>
                 {% endif %}
               </div>
@@ -177,26 +234,24 @@
           {% endfor %}
         </div>
       </form>
-
     {% else %}
-      <p style="text-align: center; padding: 40px;">
+      <h3 class="rte" style="text-align: center; padding: 40px;">
         Please select a product and configure blocks in the section settings.
-      </p>
+      </h3>
     {% endif %}
   </div>
 </section>
+{{ 'CWC_product_card_options.js' | asset_url | script_tag }}
 
 {% schema %}
 {
   "name": "Product Card Options",
-  "tag": "section",
-  "class": "section",
   "settings": [
     {
       "type": "product",
       "id": "product",
       "label": "Select Product",
-      "info": "The variants of this product will be used for the cards."
+      "info": "Product variants will be used for the cards"
     },
     {
       "type": "checkbox",
@@ -211,37 +266,44 @@
     },
     {
       "type": "richtext",
-      "id": "section_title",
+      "id": "title",
       "label": "Section Title",
-      "default": "<h2>Choose Your Comeback Plan</h2>"
+      "default": "<h2>Ready to Start Healing Your Teeth?</h2>"
     },
     {
       "type": "richtext",
-      "id": "section_subtitle",
-      "label": "Section Subtitle",
-      "default": "<p>Exclusive pricing for customers who want to restart their progress.</p>"
+      "id": "subtext",
+      "label": "Section Subtext",
+      "default": "<p>Choose the option that works best for you. All orders include free shipping and our 365-day guarantee.</p>"
+    },
+    {
+      "type": "text",
+      "id": "subscribe_text",
+      "label": "Subscribe text",
+      "default": "Subscribe & Save 25%"
+    },
+    {
+      "type": "checkbox",
+      "id": "skip_cart",
+      "label": "Skip cart and go directly to checkout",
+      "default": false,
+      "info": "When enabled, customers will be redirected to checkout immediately after adding to cart"
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "Colors & Spacing"
     },
     {
       "type": "color",
       "id": "bg_color",
       "label": "Background color",
-      "default": "#ffffff"
+      "default": "#F3F4F6"
     },
     {
       "type": "color",
       "id": "card_bg_color",
       "label": "Card background color",
-      "default": "#f9f9f9"
-    },
-    {
-      "type": "color",
-      "id": "price_color",
-      "label": "Price color",
-      "default": "#8b5cf6"
+      "default": "#ffffff"
     },
     {
       "type": "color",
@@ -251,15 +313,9 @@
     },
     {
       "type": "color",
-      "id": "button_color",
-      "label": "Button background color",
-      "default": "#8b5cf6"
-    },
-    {
-      "type": "color",
-      "id": "button_text_color",
-      "label": "Button text color",
-      "default": "#ffffff"
+      "id": "accent_color",
+      "label": "Accent color (toggle, outlines)",
+      "default": "#10b981"
     },
     {
       "type": "range",
@@ -282,64 +338,68 @@
       "default": 60
     }
   ],
-  "max_blocks": 3,
   "blocks": [
     {
       "type": "product_option",
-      "name": "Product Option",
+      "name": "Product Option Card",
+      "limit": 3,
       "settings": [
         {
           "type": "paragraph",
-          "content": "Enter the Variant ID for this option card. Use the 'Show Variant IDs' toggle above for help."
+          "content": "This card will display a specific product variant based on the option value you enter below."
         },
         {
           "type": "text",
           "id": "variant_id",
           "label": "Variant ID",
-          "info": "Required - Must match a variant ID from the selected product"
+          "info": "Enter the variant ID (enable Developer Mode above to see IDs)"
         },
         {
           "type": "text",
           "id": "badge",
           "label": "Badge Text",
-          "info": "e.g., 'MOST POPULAR' or 'BEST VALUE'"
+          "info": "e.g., 'Most Popular' or 'Best Value'"
         },
         {
-          "type": "richtext",
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Image (Optional)",
+          "info": "Override variant image. Leave blank to use variant's featured image."
+        },
+        {
+          "type": "text",
+          "id": "icon_text",
+          "label": "Icon/Label Text",
+          "info": "e.g., '1 Tube', '2 Tubes'"
+        },
+        {
+          "type": "text",
           "id": "title",
-          "label": "Custom Title",
-          "info": "Optional - Overrides variant title if provided"
+          "label": "Card Title",
+          "info": "Leave blank to use variant title"
         },
         {
           "type": "richtext",
-          "id": "bullet_1",
-          "label": "Bullet Point 1"
+          "id": "text",
+          "label": "Description Text"
         },
         {
-          "type": "richtext",
-          "id": "bullet_2",
-          "label": "Bullet Point 2"
+          "type": "text",
+          "id": "price_subtext_onetime",
+          "label": "Price Subtext (One-Time)",
+          "info": "Text below price for one-time purchase (e.g., 'One-time purchase' or leave blank)"
         },
         {
-          "type": "richtext",
-          "id": "bullet_3",
-          "label": "Bullet Point 3"
-        },
-        {
-          "type": "richtext",
-          "id": "bullet_4",
-          "label": "Bullet Point 4"
-        },
-        {
-          "type": "richtext",
-          "id": "bullet_5",
-          "label": "Bullet Point 5"
+          "type": "text",
+          "id": "price_subtext",
+          "label": "Price Subtext",
+          "info": "Text below price (e.g., 'Delivered every 60 days')"
         },
         {
           "type": "text",
           "id": "button_text",
           "label": "Button Text",
-          "default": "Get This Deal"
+          "info": "Get Started"
         }
       ]
     }
@@ -348,7 +408,37 @@
     {
       "name": "Product Card Options",
       "category": "Custom",
-      "blocks": [{ "type": "product_option" }, { "type": "product_option" }, { "type": "product_option" }]
+      "blocks": [
+        {
+          "type": "product_option",
+          "settings": {
+            "title": "Single Tube",
+            "icon_text": "1 Tube",
+            "price_subtext_onetime": "Clinically Backed",
+            "price_subtext": "Delivered every 60 days"
+          }
+        },
+        {
+          "type": "product_option",
+          "settings": {
+            "badge": "Most Popular",
+            "title": "2-Pack Bundle",
+            "icon_text": "2 Tubes",
+            "price_subtext_onetime": "$13.50/tube",
+            "price_subtext": "$13.50/tube • Every 120 days"
+          }
+        },
+        {
+          "type": "product_option",
+          "settings": {
+            "badge": "Best Value",
+            "title": "3-Pack Bundle",
+            "icon_text": "3 Tubes",
+            "price_subtext_onetime": "$12.67/tube",
+            "price_subtext": "$12.67/tube • Every 180 days"
+          }
+        }
+      ]
     }
   ]
 }

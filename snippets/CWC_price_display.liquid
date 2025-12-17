@@ -9,13 +9,21 @@
     align-items: center;
     justify-content: flex-start;
     margin: 0rem 0 1rem 0;
-    border-top: 0.55px solid rgba(0, 0, 0, 0.2);
-    border-bottom: 0.55px solid rgba(0, 0, 0, 0.2);
+
     font-size: 1.3125rem;
     width: 100%;
     gap: 3rem;
     padding: 0.74rem 0rem;
     padding: 0.7rem 0rem;
+    padding: 0rem;
+  }
+
+  .cwc_product-template__price.show_save,
+  .cwc-featured-product__price.show_save {
+    border-top: 0.55px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 0.55px solid rgba(0, 0, 0, 0.2);
+    padding: 0.7rem 0rem;
+    margin: 0rem 0 1rem 0;
   }
 
   .cwc-featured-product__price-current {
@@ -42,6 +50,7 @@
     background: #60a1a2;
     border-radius: 5px;
     gap: 8px;
+    gap: 6px;
   }
   .cwc-featured-product__price-save span {
     font-size: inherit;
@@ -84,18 +93,85 @@
     }
   }
 {% endstyle %}
+{% comment %}
+  CWC Price Display - Complete Version
+  Features:
+  - Uses real compare_at_price if available
+  - Calculates visual markup if no compare_at_price exists
+  - Configurable markup percentage
+  - Toggle for showing/hiding save amount and percentage
+{% endcomment %}
+
+{% liquid
+  # Get settings
+  assign markup_percent = block.settings.fallback_markup_percent
+  assign show_save_amount = block.settings.show_save_amount
+  assign show_save_percent = block.settings.show_save_percent
+
+  # Check if product has a real compare_at_price
+  if product.compare_at_price and product.compare_at_price > product.price
+    # Use actual compare price from product
+    assign prod_compare_at_price = product.compare_at_price
+    assign has_real_compare = true
+  else
+    # Calculate markup for display purposes only
+    # Convert percent to multiplier (e.g., 30% = 1.30)
+    assign markup_decimal = markup_percent | times: 0.01
+    assign markup_multiplier = 1 | plus: markup_decimal
+    assign prod_compare_at_price = product.price | times: markup_multiplier | round
+    assign has_real_compare = false
+  endif
+
+  # Calculate savings
+  assign save_amount = prod_compare_at_price | minus: product.price
+  assign save_percent = save_amount | times: 100 | divided_by: prod_compare_at_price | round
+%}
 
 <span class="cwc-featured-product__price-current" id="current-price-{{ section_id }}">
   {{ product.price | money }}
 </span>
-{% if product.compare_at_price > product.price %}
+
+{% if prod_compare_at_price > product.price %}
   <span class="cwc-featured-product__price-compare" id="compare-price-{{ section_id }}">
-    {{ product.compare_at_price | money }}
+    {{ prod_compare_at_price | money }}
   </span>
-  <div class="cwc-featured-product__price-save" id="save-amount-{{ section_id }}">
-    <span>Save</span>
-    <span>
-      {{ product.compare_at_price | minus: product.price | money }}
-    </span>
-  </div>
+
+  {% if show_save_amount or show_save_percent %}
+    <div class="cwc-featured-product__price-save" id="save-amount-{{ section_id }}">
+      <span>Save</span>
+      {% if show_save_amount %}
+        <span class="cwc-featured-product__price-save-amount">
+          {{ save_amount | money }}
+        </span>
+      {% endif %}
+      {% comment %}
+        {% if show_save_percent %}
+          <span class="cwc-featured-product__price-save-percent"> ({{ save_percent }}%) </span>
+        {% endif %}
+      {% endcomment %}
+    </div>
+  {% endif %}
 {% endif %}
+
+{% comment %}
+  {% if product.compare_at_price %}
+    {% assign prod_compare_at_price = product.compare_at_price %}
+  {% else %}
+    {% assign prod_compare_at_price = product.compare_at_price %}
+  {% endif %}
+
+  <span class="cwc-featured-product__price-current" id="current-price-{{ section_id }}">
+    {{ product.price | money }}
+  </span>
+  {% if prod_compare_at_price > product.price %}
+    <span class="cwc-featured-product__price-compare" id="compare-price-{{ section_id }}">
+      {{ prod_compare_at_price | money }}
+    </span>
+    <div class="cwc-featured-product__price-save" id="save-amount-{{ section_id }}">
+      <span>Save</span>
+      <span>
+        {{ prod_compare_at_price | minus: product.price | money }}
+      </span>
+    </div>
+  {% endif %}
+{% endcomment %}

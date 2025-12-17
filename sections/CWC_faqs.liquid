@@ -15,13 +15,13 @@
 <section id="CWC_faqs-{{ section.id }}" class="cwc-faqs">
   <div class="cwc-faqs__wrapper">
     {% if section.settings.heading != blank %}
-      <div class="cwc-faqs__heading">
+      <div class="cwc-faqs__heading rte">
         {{ section.settings.heading }}
       </div>
     {% endif %}
 
     {% if section.settings.text != blank %}
-      <div class="cwc-faqs__text">
+      <div class="cwc-faqs__text rte">
         {{ section.settings.text }}
       </div>
     {% endif %}

@@ -1,198 +1,177 @@
-{% comment %}
-  🔧 SECTION TEMPLATE: cwc_review_tabs.liquid
-  Displays different sets of customer reviews by category tabs.
-{% endcomment %}
-
-<style>
-  .cwc_review_tabs-wrapper {
-    padding: 2rem 1.5rem;
+{% style %}
+  #CWC_review_tabs-{{ section.id }} {
+    --section-bg: {{ section.settings.background_color | default: '#ffffff' }};
+    --text-color: {{ section.settings.text_color | default: '#000000' }};
+    --card-bg: {{ section.settings.card_background_color | default: '#E2EBED' }};
+    --star-color: {{ section.settings.star_color | default: '#F97316' }};
+    --button-active-bg: {{ section.settings.button_active_color | default: '#d47442' }};
+    --button-active-text: {{ section.settings.button_active_text_color | default: '#ffffff' }};
+    --padding-top: {{ section.settings.padding_top | default: 60 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 60 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | times: 0.5 }}px;
   }
+{% endstyle %}
 
-  .cwc_review_tabs-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+{{ 'CWC_review_tabs.css' | asset_url | stylesheet_tag }}
 
-  .cwc_review_tabs-heading {
-    text-align: center;
-    margin-bottom: 1.5rem;
-  }
+{% comment %} ================================
+   SECTION: CWC Review Tabs
+   Purpose: Tabbed customer reviews by category
+   ================================ {% endcomment %}
 
-  .cwc_review_tabs-heading h2 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-  }
+<section
+  id="CWC_review_tabs-{{ section.id }}"
+  class="cwc-review-tabs"
+  data-section-id="{{ section.id }}"
+>
+  <div class="cwc-review-tabs__container">
+    {% comment %} ==============================
+       Section Header
+       ============================== {% endcomment %}
+    {% if section.settings.heading != blank or section.settings.subtext != blank %}
+      <div class="cwc-review-tabs__header">
+        {% if section.settings.heading != blank %}
+          <h2 class="cwc-review-tabs__heading">
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
 
-  .cwc_review_tabs-heading p {
-    margin: 0 auto;
-    max-width: 600px;
-    font-size: 1rem;
-  }
-
-  .cwc_review_tabs-buttons {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .cwc_review_tabs-button {
-    border: 1px solid #c8c8c8;
-    background: #fff;
-    padding: 0.75rem 1.5rem;
-    cursor: pointer;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    color: #000;
-    transition: all 0.3s ease;
-  }
-
-  .cwc_review_tabs-button.active {
-    background: #d47442;
-    color: #fff;
-  }
-
-  .cwc_review_tabs-grid {
-    display: none;
-    gap: 1.5rem;
-  }
-
-  .cwc_review_tabs-grid.active {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .cwc_review_tabs-card {
-    border: 1px solid #c8c8c8;
-    border-radius: 0.5rem;
-    background: var(--card-bg, #e2ebed);
-    padding: 1.5rem;
-  }
-
-  .cwc_review_tabs-stars {
-    color: var(--star-color, #f97316);
-    margin-bottom: 0.5rem;
-  }
-
-  .cwc_review_tabs-card h4 {
-    font-size: 1rem;
-    font-weight: 700;
-    font-style: italic;
-    margin-bottom: 0.75rem;
-  }
-
-  .cwc_review_tabs-card p {
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-
-  .cwc_review_tabs-card cite {
-    display: block;
-    margin-top: 1rem;
-    font-size: 0.875rem;
-    font-style: normal;
-  }
-
-  @media screen and (max-width: 767px) {
-    .cwc_review_tabs-heading h2 {
-      font-size: 1.5rem;
-    }
-
-    .cwc_review_tabs-wrapper {
-      padding: 2rem 1rem;
-    }
-
-    .cwc_review_tabs-grid.active {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-  }
-</style>
-
-{%- style -%}
-  #cwc_review_tabs-{{ section.id }} {
-  background: {{ section.settings.background_color }};
-  color: {{ section.settings.text_color }};
-  }
-  #cwc_review_tabs-{{ section.id }} .cwc_review_tabs-card {
-  --card-bg: {{ section.settings.card_background_color }};
-  --star-color: {{ section.settings.star_color }};
-  }
-{%- endstyle -%}
-
-<div id="cwc_review_tabs-{{ section.id }}" class="cwc_review_tabs">
-  <div class="cwc_review_tabs-wrapper">
-    <div class="cwc_review_tabs-inner">
-      <div class="cwc_review_tabs-heading">
-        <h2>{{ section.settings.heading }}</h2>
-        <p>{{ section.settings.subtext }}</p>
+        {% if section.settings.subtext != blank %}
+          <p class="cwc-review-tabs__subtext">
+            {{ section.settings.subtext }}
+          </p>
+        {% endif %}
       </div>
+    {% endif %}
 
-      <div class="cwc_review_tabs-buttons">
+    {% comment %} ==============================
+       Tab Buttons
+       ============================== {% endcomment %}
+    {% if section.blocks.size > 0 %}
+      <div class="cwc-review-tabs__buttons">
         {% for block in section.blocks %}
-          <button class="cwc_review_tabs-button{% if forloop.first %} active{% endif %}" data-tab="{{ block.id }}">
-            {{ block.settings.tab_title }}
-          </button>
+          {% if block.settings.tab_title != blank %}
+            <button
+              class="cwc-review-tabs__button{% if forloop.first %} active{% endif %}"
+              data-tab="{{ block.id }}"
+              aria-label="{{ block.settings.tab_title }}"
+            >
+              {{ block.settings.tab_title }}
+            </button>
+          {% endif %}
         {% endfor %}
       </div>
 
+      {% comment %} ==============================
+         Tab Content (Review Grids)
+         ============================== {% endcomment %}
       {% for block in section.blocks %}
         <div
-          class="cwc_review_tabs-grid{% if forloop.first %} active{% endif %}"
+          class="cwc-review-tabs__grid{% if forloop.first %} active{% endif %}"
           data-content="{{ block.id }}"
           {{ block.shopify_attributes }}
         >
-          <div class="cwc_review_tabs-card">
-            <div class="cwc_review_tabs-stars">★★★★★</div>
-            <h4>{{ block.settings.review_title_1 }}</h4>
-            <p>{{ block.settings.review_text_1 }}</p>
-            <cite>– {{ block.settings.review_author_1 }}</cite>
-          </div>
+          {% comment %} Review Card 1 {% endcomment %}
+          {% if block.settings.review_title_1 != blank or block.settings.review_text_1 != blank %}
+            <div class="cwc-review-tabs__card">
+              <div class="cwc-review-tabs__stars" aria-label="5 star rating">
+                ★★★★★
+              </div>
 
-          <div class="cwc_review_tabs-card">
-            <div class="cwc_review_tabs-stars">★★★★★</div>
-            <h4>{{ block.settings.review_title_2 }}</h4>
-            <p>{{ block.settings.review_text_2 }}</p>
-            <cite>– {{ block.settings.review_author_2 }}</cite>
-          </div>
+              {% if block.settings.review_title_1 != blank %}
+                <h4 class="cwc-review-tabs__card-title">
+                  {{ block.settings.review_title_1 }}
+                </h4>
+              {% endif %}
 
-          <div class="cwc_review_tabs-card">
-            <div class="cwc_review_tabs-stars">★★★★★</div>
-            <h4>{{ block.settings.review_title_3 }}</h4>
-            <p>{{ block.settings.review_text_3 }}</p>
-            <cite>– {{ block.settings.review_author_3 }}</cite>
-          </div>
+              {% if block.settings.review_text_1 != blank %}
+                <p class="cwc-review-tabs__card-text">
+                  {{ block.settings.review_text_1 }}
+                </p>
+              {% endif %}
+
+              {% if block.settings.review_author_1 != blank %}
+                <cite class="cwc-review-tabs__card-author">
+                  – {{ block.settings.review_author_1 }}
+                </cite>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {% comment %} Review Card 2 {% endcomment %}
+          {% if block.settings.review_title_2 != blank or block.settings.review_text_2 != blank %}
+            <div class="cwc-review-tabs__card">
+              <div class="cwc-review-tabs__stars" aria-label="5 star rating">
+                ★★★★★
+              </div>
+
+              {% if block.settings.review_title_2 != blank %}
+                <h4 class="cwc-review-tabs__card-title">
+                  {{ block.settings.review_title_2 }}
+                </h4>
+              {% endif %}
+
+              {% if block.settings.review_text_2 != blank %}
+                <p class="cwc-review-tabs__card-text">
+                  {{ block.settings.review_text_2 }}
+                </p>
+              {% endif %}
+
+              {% if block.settings.review_author_2 != blank %}
+                <cite class="cwc-review-tabs__card-author">
+                  – {{ block.settings.review_author_2 }}
+                </cite>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {% comment %} Review Card 3 {% endcomment %}
+          {% if block.settings.review_title_3 != blank or block.settings.review_text_3 != blank %}
+            <div class="cwc-review-tabs__card">
+              <div class="cwc-review-tabs__stars" aria-label="5 star rating">
+                ★★★★★
+              </div>
+
+              {% if block.settings.review_title_3 != blank %}
+                <h4 class="cwc-review-tabs__card-title">
+                  {{ block.settings.review_title_3 }}
+                </h4>
+              {% endif %}
+
+              {% if block.settings.review_text_3 != blank %}
+                <p class="cwc-review-tabs__card-text">
+                  {{ block.settings.review_text_3 }}
+                </p>
+              {% endif %}
+
+              {% if block.settings.review_author_3 != blank %}
+                <cite class="cwc-review-tabs__card-author">
+                  – {{ block.settings.review_author_3 }}
+                </cite>
+              {% endif %}
+            </div>
+          {% endif %}
         </div>
       {% endfor %}
-    </div>
+    {% else %}
+      <div class="cwc-review-tabs__empty">
+        <p>Add review tab blocks to display customer reviews.</p>
+      </div>
+    {% endif %}
   </div>
-</div>
+</section>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const buttons = document.querySelectorAll('.cwc_review_tabs-button');
-    const grids = document.querySelectorAll('.cwc_review_tabs-grid');
-
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const tab = button.getAttribute('data-tab');
-
-        buttons.forEach((btn) => btn.classList.remove('active'));
-        grids.forEach((grid) => grid.classList.remove('active'));
-
-        button.classList.add('active');
-        document.querySelector(`.cwc_review_tabs-grid[data-content="${tab}"]`).classList.add('active');
-      });
-    });
-  });
-</script>
+{{ 'CWC_review_tabs.js' | asset_url | script_tag }}
 
 {% schema %}
 {
   "name": "Review Tabs",
   "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
     {
       "type": "text",
       "id": "heading",
@@ -200,10 +179,14 @@
       "default": "People Love ENRICHD"
     },
     {
-      "type": "text",
+      "type": "textarea",
       "id": "subtext",
       "label": "Subtext",
       "default": "Backed by hundreds of customers who feel the difference every day."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
     },
     {
       "type": "color",
@@ -228,6 +211,42 @@
       "id": "star_color",
       "label": "Star Color",
       "default": "#F97316"
+    },
+    {
+      "type": "color",
+      "id": "button_active_color",
+      "label": "Active Tab Button Color",
+      "default": "#d47442"
+    },
+    {
+      "type": "color",
+      "id": "button_active_text_color",
+      "label": "Active Tab Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
     }
   ],
   "blocks": [
@@ -236,60 +255,80 @@
       "name": "Review Tab",
       "settings": [
         {
+          "type": "paragraph",
+          "content": "Each tab displays 3 customer reviews in a grid layout."
+        },
+        {
           "type": "text",
           "id": "tab_title",
-          "label": "Tab Title",
-          "default": "Protein"
+          "label": "Tab Button Title",
+          "default": "Category Name",
+          "info": "Text shown on the tab button"
+        },
+        {
+          "type": "header",
+          "content": "Review 1"
         },
         {
           "type": "text",
           "id": "review_title_1",
-          "label": "Review Title 1",
-          "default": "Amazing energy"
+          "label": "Review Title",
+          "default": "Amazing product"
         },
         {
           "type": "textarea",
           "id": "review_text_1",
-          "label": "Review Text 1"
+          "label": "Review Text",
+          "default": "This product exceeded my expectations. Highly recommend!"
         },
         {
           "type": "text",
           "id": "review_author_1",
-          "label": "Author 1",
+          "label": "Author Name",
           "default": "Sam H."
+        },
+        {
+          "type": "header",
+          "content": "Review 2"
         },
         {
           "type": "text",
           "id": "review_title_2",
-          "label": "Review Title 2",
+          "label": "Review Title",
           "default": "My new favorite"
         },
         {
           "type": "textarea",
           "id": "review_text_2",
-          "label": "Review Text 2"
+          "label": "Review Text",
+          "default": "Can't imagine my routine without this now."
         },
         {
           "type": "text",
           "id": "review_author_2",
-          "label": "Author 2",
+          "label": "Author Name",
           "default": "Julie S."
+        },
+        {
+          "type": "header",
+          "content": "Review 3"
         },
         {
           "type": "text",
           "id": "review_title_3",
-          "label": "Review Title 3",
-          "default": "Best sleep ever"
+          "label": "Review Title",
+          "default": "Best decision"
         },
         {
           "type": "textarea",
           "id": "review_text_3",
-          "label": "Review Text 3"
+          "label": "Review Text",
+          "default": "Worth every penny. Results speak for themselves."
         },
         {
           "type": "text",
           "id": "review_author_3",
-          "label": "Author 3",
+          "label": "Author Name",
           "default": "Nat T."
         }
       ]
@@ -301,13 +340,22 @@
       "category": "Custom",
       "blocks": [
         {
-          "type": "tab"
+          "type": "tab",
+          "settings": {
+            "tab_title": "Protein"
+          }
         },
         {
-          "type": "tab"
+          "type": "tab",
+          "settings": {
+            "tab_title": "Greens"
+          }
         },
         {
-          "type": "tab"
+          "type": "tab",
+          "settings": {
+            "tab_title": "Collagen"
+          }
         }
       ]
     }

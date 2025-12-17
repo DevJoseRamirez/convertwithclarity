@@ -2,12 +2,16 @@
 
 <div class="cwc-subscription-checkbox">
   <div class="cwc-subscription-checkbox-wrapper">
-    <input
-      type="checkbox"
-      id="auto-refill-{{ section.id }}"
-      class="cwc-auto-refill-checkbox"
-      checked
-    >
+    <div class="cwc-auto-refill-checkbox__wrapper">
+      <input
+        type="checkbox"
+        id="auto-refill-{{ section.id }}"
+        class="cwc-auto-refill-checkbox"
+        checked
+      >
+      {% render 'CWC_icon-check', fill_color: '#ffffff' %}
+    </div>
+
     <label for="auto-refill-{{ section.id }}" class="cwc-checkbox-label"> </label>
   </div>
   <div class="">

@@ -33,19 +33,75 @@
    ========================================================================== */
 
 /* Main checkbox input */
-input[type='checkbox'].cwc-auto-refill-checkbox {
+input[type=checkbox].cwc-auto-refill-checkbox:checked:before {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.cwc-auto-refill-checkbox__wrapper {
     top: -0.625rem;
+    top: -6px;
+
     accent-color: #00937026;
     height: 1rem;
     width: 1rem;
-    padding: 1rem;
-
-    background: #095946;
-    background-image: url(https://cdn.shopify.com/s/files/1/0583/9637/7159/files/Done.svg);
+    /* background: #095946; */
     background-size: 12.425px;
     background-repeat: no-repeat;
     background-position: center;
-    border-color: #095946;
+    /* border-color: #095946; */
+    display: block;
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+    cursor: pointer;
+    background: none;
+    border: none;
+    position: relative;
+    height: 20px;
+    width: 20px;
+    background: transparent;
+
+    transition: all .1s ease-in-out;
+
+
+}
+
+
+
+input[type=checkbox].cwc-auto-refill-checkbox {
+    height: 20px;
+    width: 20px;
+    border: none;
+    background: none;
+    /*  */
+    position: absolute;
+    background: transparent;
+    border: 1px solid;
+    border-color: #125657;
+    transition: all .1s ease-in-out;
+    border-radius: 2px;
+}
+
+input[type=checkbox].cwc-auto-refill-checkbox:checked {
+    background: #125657;
+    transition: all .1s ease-in-out;
+}
+
+
+.cwc-auto-refill-checkbox__wrapper svg {
+    top: -0.625rem;
+    top: 3px;
+    right: 3px;
+    accent-color: #00937026;
+    height: 14px;
+    width: 14px;
+    /* background: #095946; */
+    background-size: 12.425px;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* border-color: #095946; */
 
     display: block;
     position: relative;
@@ -53,6 +109,25 @@ input[type='checkbox'].cwc-auto-refill-checkbox {
     opacity: 1;
     visibility: visible;
     cursor: pointer;
+    background: none;
+    border: none;
+    position: absolute;
+    display: none;
+    transition: all .1s ease-in-out;
+
+}
+
+/* Default state - hide SVG */
+input.cwc-auto-refill-checkbox+svg {
+    display: none;
+    transition: all .1s ease-in-out;
+
+}
+
+/* When checked - show SVG */
+input.cwc-auto-refill-checkbox:checked+svg {
+    transition: all .1s ease-in-out;
+    display: flex;
 }
 
 /* ==========================================================================

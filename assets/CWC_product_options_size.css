@@ -1,0 +1,513 @@
+/* ================================
+   Product Options Size - Base Styles
+   ================================ */
+
+.cwc_product-template__options,
+.cwc-featured-product__option_size {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1rem 0rem;
+}
+
+.cwc-featured-product__option_size-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-size: 0.875rem;
+    color: #111111;
+}
+
+/* ================================
+   Buttons Container - VERTICAL Layout (Default)
+   ================================ */
+
+.cwc-featured-product__option_size.layout-vertical .cwc-featured-product__option_size_buttons {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 16px;
+    cursor: pointer;
+}
+
+/* ================================
+   Buttons Container - HORIZONTAL Layout
+   ================================ */
+
+.cwc-featured-product__option_size.layout-horizontal .cwc-featured-product__option_size_buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+    cursor: pointer;
+    /*  */
+    /* max-width: 150px; */
+}
+
+
+
+.cwc-featured-product__option_size.layout-horizontal .cwc-featured-product__option_size_button_prices {
+    flex-direction: row;
+    gap: 6px;
+}
+
+/* ================================
+   Button - Base Styles
+   ================================ */
+
+.cwc-featured-product__option_size_button {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    padding: 12px 20px;
+    background: white;
+    color: #374151;
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 80px;
+    position: relative;
+    outline: none;
+    box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
+    border-radius: 4px;
+    border-radius: 8px;
+    /*  */
+    border: 1px solid rgb(0 0 0 / 13%);
+    border: 2px solid rgb(0 0 0 / 13%);
+
+}
+
+.cwc-featured-product__option_size_button:active,
+.cwc-featured-product__option_size_button:focus {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: none;
+}
+
+. cwc-featured-product__option_size_button:hover {
+    border-color: #10b981;
+    color: #10b981;
+
+    /* hover */
+}
+
+.cwc-featured-product__option_size_button.selected {
+    border: 1.3px solid #125657;
+    /* background-color: #0f92ae26; */
+    border: 2px solid #000000;
+    border: 1.3px solid #125657;
+    border: 2px solid #125657;
+}
+
+.cwc-featured-product__option_size_button.selected::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 12px;
+    height: 8px;
+}
+
+/* ================================
+   Button - VERTICAL Layout Styles
+   ================================ */
+
+.cwc-featured-product__option_size.layout-vertical .cwc-featured-product__option_size_button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 3rem 0.86rem 1.86rem;
+    gap: 1.5rem;
+}
+
+/* Vertical with Images */
+.cwc-featured-product__option_size.layout-vertical.show-images .cwc-featured-product__option_size_button {
+    justify-content: flex-start;
+}
+
+/* Vertical without Images */
+.cwc-featured-product__option_size.layout-vertical.hide-images .cwc-featured-product__option_size_button {
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    /*  */
+    min-height: 72px;
+}
+
+/* ================================
+   Button - HORIZONTAL Layout Styles
+   ================================ */
+
+.cwc-featured-product__option_size.layout-horizontal .cwc-featured-product__option_size_button {
+    width: auto;
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    gap: 0.5rem;
+    text-align: center;
+}
+
+/* Horizontal with Images */
+.cwc-featured-product__option_size.layout-horizontal.show-images .cwc-featured-product__option_size_button {
+    min-width: 140px;
+
+    /*  */
+    flex: 1;
+    height: stretch;
+}
+
+/* Horizontal without Images */
+.cwc-featured-product__option_size.layout-horizontal.hide-images .cwc-featured-product__option_size_button {
+    min-width: 100px;
+    padding: 0.75rem 1.25rem;
+    /*  */
+    flex: 1;
+    height: stretch;
+    padding: 1rem 1.25rem;
+
+}
+
+.cwc-featured-product__option_size.layout-horizontal .cwc-featured-product__option_size_button_variant-subtitle {
+    font-size: .95rem;
+    /* font-size: 1rem; */
+}
+
+/* ================================
+   Button Content - Values
+   ================================ */
+
+.cwc-featured-product__option_size_button_value_wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+/* Horizontal mode - center text */
+.cwc-featured-product__option_size.layout-horizontal .cwc-featured-product__option_size_button_value_wrap {
+    align-items: center;
+    width: 100%;
+    /*  */
+    flex: 1;
+    height: stretch;
+}
+
+.cwc-featured-product__option_size.layout-horizontal .cwc-featured-product__option_size_button_value {
+    font-size: .9rem;
+    text-transform: uppercase;
+}
+
+/* Vertical mode - grow to fill space */
+.cwc-featured-product__option_size.layout-vertical .cwc-featured-product__option_size_button_value_wrap {
+    flex: 1;
+}
+
+.cwc-featured-product__option_size_button_value {
+    font-weight: 600;
+    font-size: 0.8125rem;
+    /* text-transform: uppercase; */
+}
+
+.cwc-featured-product__option_size_button_save_perc {
+    font-size: 0.8125rem;
+    color: #6B7280;
+}
+
+/* ================================
+   Button Content - Variant Text (Badge + Subtitle)
+   ================================ */
+
+.cwc-featured-product__option_size_button_variant-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    gap: .5rem;
+}
+
+/* Vertical layout - align to start */
+.cwc-featured-product__option_size.layout-vertical .cwc-featured-product__option_size_button_variant-text {
+    align-items: flex-start;
+}
+
+/* Badge style - colored background with white text */
+.cwc-featured-product__option_size_button_variant-badge {
+    background: #125657;
+    color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    /*  */
+    padding: 4px 8px;
+    padding: 6px 10px;
+    line-height: 100%;
+    /*  */
+    font-size: .8rem;
+    background: #60a1a2;
+
+}
+
+/* Subtitle style - italic text */
+.cwc-featured-product__option_size_button_variant-subtitle {
+    font-size: 0.75rem;
+    font-style: italic;
+    color: #6B7280;
+    line-height: 1.2;
+    white-space: nowrap;
+    /*  */
+    font-size: 0.85rem;
+
+}
+
+/* ================================
+   Button Content - Prices
+   ================================ */
+
+.cwc-featured-product__option_size_button_prices {
+    color: #125657;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* Horizontal mode - center prices */
+.cwc-featured-product__option_size.layout-horizontal .cwc-featured-product__option_size_button_prices {
+    align-items: center;
+}
+
+.cwc-featured-product__option_size_button_price {
+    color: inherit;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.cwc-featured-product__option_size_button_compare_price {
+    font-weight: 400;
+    color: inherit;
+    font-size: 0.96rem;
+    text-decoration: line-through;
+    opacity: .8;
+}
+
+/* ================================
+   Button Content - Images
+   ================================ */
+
+.cwc-featured-product__option_size_button_thumb-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 74px;
+}
+
+.cwc-featured-product__option_size_button_thumb {
+    max-width: 74px;
+    height: auto;
+    width: 100%;
+    object-fit: contain;
+}
+
+/* Image sizing for vertical layout */
+.cwc-featured-product__option_size.layout-vertical .cwc-featured-product__option_size_buttons .cwc-featured-product__option_size_button:nth-child(1) .cwc-featured-product__option_size_button_thumb {
+    height: 3.375rem;
+}
+
+.cwc-featured-product__option_size.layout-vertical .cwc-featured-product__option_size_buttons .cwc-featured-product__option_size_button:nth-child(2) .cwc-featured-product__option_size_button_thumb {
+    height: 3.5625rem;
+}
+
+.cwc-featured-product__option_size.layout-vertical .cwc-featured-product__option_size_buttons .cwc-featured-product__option_size_button:nth-child(3) .cwc-featured-product__option_size_button_thumb {
+    height: 3.0625rem;
+}
+
+/* Image sizing for horizontal layout */
+.cwc-featured-product__option_size.layout-horizontal .cwc-featured-product__option_size_button_thumb-wrap {
+    max-width: 80px;
+}
+
+.cwc-featured-product__option_size.layout-horizontal .cwc-featured-product__option_size_button_thumb {
+    /* max-width: 80px; */
+    /* height: 60px; */
+    /* object-fit: contain; */
+}
+
+/* Hide images when hide-images class is present */
+.cwc-featured-product__option_size.hide-images .cwc-featured-product__option_size_button_thumb-wrap {
+    display: none;
+}
+
+/* ================================
+   Badges - "Most Popular", "Free Shipping"
+   ================================ */
+
+
+.cwc-featured-product__option_size.layout-vertical .cwc-featured-product__option_size_buttons .cwc-featured-product__option_size_button:nth-child(2)::before {
+    content: 'Most Popular';
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    background: #125657;
+    color: #fff;
+    padding: 1px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.cwc-featured-product__option_size.layout-vertical .cwc-featured-product__option_size_buttons .cwc-featured-product__option_size_button:nth-child(3)::before {
+    content: 'Free Shipping';
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    background: #125657;
+    color: #fff;
+    padding: 1px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Horizontal layout badges */
+.cwc-featured-product__option_size.layout-horizontal .cwc-featured-product__option_size_buttons .cwc-featured-product__option_size_button:nth-child(2)::before,
+.cwc-featured-product__option_size.layout-horizontal .cwc-featured-product__option_size_buttons .cwc-featured-product__option_size_button:nth-child(3)::before {
+    top: -8px;
+    right: 50%;
+    transform: translateX(50%);
+}
+
+.cwc-featured-product__option_size.layout-horizontal .cwc-featured-product__option_size_buttons .cwc-featured-product__option_size_button:nth-child(2)::before {
+    content: "Most Popular";
+    position: absolute;
+    top: -10px;
+    word-break: keep-all;
+    background: #125657;
+    color: #fff;
+    padding: 2px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    width: max-content;
+    transform: translate(50%);
+}
+
+.cwc-featured-product__option_size.layout-horizontal .cwc-featured-product__option_size_buttons .cwc-featured-product__option_size_button:nth-child(3)::before {
+    content: 'Free Shipping';
+    position: absolute;
+    top: -10px;
+    word-break: keep-all;
+    background: #125657;
+    color: #fff;
+    padding: 2px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    width: max-content;
+    transform: translate(50%);
+}
+
+
+/* ================================
+   Tablet Responsive (max-width: 991px)
+   ================================ */
+
+@media (max-width: 991px) {
+
+    /* Vertical layout image sizing */
+    .cwc-featured-product__option_size.layout-vertical .cwc-featured-product__option_size_buttons .cwc-featured-product__option_size_button:nth-child(1) .cwc-featured-product__option_size_button_thumb {
+        height: 2.875rem;
+    }
+
+    .cwc-featured-product__option_size.layout-vertical .cwc-featured-product__option_size_buttons .cwc-featured-product__option_size_button:nth-child(2) .cwc-featured-product__option_size_button_thumb {
+        height: 3.125rem;
+    }
+
+    .cwc-featured-product__option_size.layout-vertical .cwc-featured-product__option_size_buttons .cwc-featured-product__option_size_button:nth-child(3) .cwc-featured-product__option_size_button_thumb {
+        height: 2.6875rem;
+    }
+
+    /* Badge sizing */
+    .cwc-featured-product__option_size_buttons .cwc-featured-product__option_size_button:nth-child(2)::before,
+    .cwc-featured-product__option_size_buttons .cwc-featured-product__option_size_button:nth-child(3)::before {
+        font-size: 11px;
+        right: 10px;
+        padding: 0px 16px;
+    }
+
+    /* Horizontal layout adjustments */
+    .cwc-featured-product__option_size.layout-horizontal .cwc-featured-product__option_size_button {
+        min-width: 100px;
+    }
+
+    .cwc-featured-product__option_size.layout-horizontal.show-images .cwc-featured-product__option_size_button {
+        min-width: 120px;
+    }
+}
+
+/* ================================
+   Mobile Responsive (max-width: 768px)
+   ================================ */
+
+@media (max-width: 768px) {
+
+    /* Vertical layout */
+    .cwc-featured-product__option_size.layout-vertical .cwc-featured-product__option_size_button {
+        padding: 0.875rem 0.875rem 0.75rem 0.5625rem;
+        gap: 6px;
+    }
+
+    /* Horizontal layout - force vertical on small mobile */
+    .cwc-featured-product__option_size.layout-horizontal .cwc-featured-product__option_size_buttons {
+        flex-direction: column;
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .cwc-featured-product__option_size.layout-horizontal .cwc-featured-product__option_size_button {
+        width: 100%;
+    }
+
+    /* Variant text - smaller font sizes on mobile */
+    .cwc-featured-product__option_size_button_variant-badge {
+        font-size: 0.6875rem;
+        padding: 1px 6px;
+    }
+
+    .cwc-featured-product__option_size_button_variant-subtitle {
+        font-size: 0.6875rem;
+    }
+}
+
+
+
+
+/* *******ORGANIZING STYLES FOR EVERY MAIN LAYOUT INSTANCE
+ - FIRST BROKEN DOWN MY MEDIAM QUEIRTY FIRST LAYER
+ - THEN BROKEN DOWN BY THE LAYOUT TYPE
+ 
+ NO MEDIA QUERY MEAN REGULAR DEFALT DESKTOP VIEW
+  - THEN 991 THEN 764 ECT... AS NEEDED N HAVE
+
+  THEN BORKNE INTO TWO BETTWEN - HORIZONTAOL LAYOUT / AND VERTICAL LAYOUT
+   - AND WITHING THOSE BORKEN DOWN AGAIN 
+    ------ SHOW IMAGE / AND NO IMAGES
+
+    ANY TAHT FALL OUTSIDE OR THIS FOR EAMPLE SAY THE HOUSING CONTINER OR WRAP OF THE BLOCK  CAN JUST BIT ABOVE ALL THIS 
+     - IN ITS TYPICAL HIERCHY GIVE STRUCTURE / ELEMENTS
+ */

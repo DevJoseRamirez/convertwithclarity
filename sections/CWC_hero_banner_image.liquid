@@ -35,7 +35,7 @@
           <img
             loading="eager"
             fetchpriority="high"
-            src="{{ section.settings.image | image_url }}"
+            src="{{ section.settings.image | image_url: width: 600 }}"
             alt="{{ section.settings.image.alt | default: section.settings.alt_text }}"
             width="{{ section.settings.image.width }}"
             height="{{ section.settings.image.height }}"
@@ -53,14 +53,18 @@
         >
       {% else %}
         <!-- No images uploaded -->
-        <img
-          loading="lazy"
-          fetchpriority="low"
-          src="{{ 'placeholder.png' | asset_url }}"
-          alt="Placeholder image"
-          width="100%"
-          height="100%"
-        >
+
+        <div class="CWC_hero_banner_image-placeholder">placeholder image</div>
+        {% comment %}
+          <img
+            loading="lazy"
+            fetchpriority="low"
+            src="{{ 'placeholder.png' | asset_url }}"
+            alt="Placeholder image"
+            width="100%"
+            height="100%"
+          >
+        {% endcomment %}
       {% endif %}
     </div>
 
@@ -96,7 +100,11 @@
 
           {% when 'headline' %}
             {% if block.settings.text != blank %}
-              <div class="hero-headline" {{ block.shopify_attributes }}>
+              <div
+                style="--bold_color: {{ block.settings.bold-color }}"
+                class="hero-headline"
+                {{ block.shopify_attributes }}
+              >
                 {{ block.settings.text }}
               </div>
             {% endif %}
@@ -145,7 +153,7 @@
           {% when 'button' %}
             {% if block.settings.text != blank %}
               <div
-                class="hero-button"
+                class="CWC_hero_banner_image-wrap"
                 {{ block.shopify_attributes }}
               >
                 {% render 'CWC_button',  section_id; section.id, block: block %}
@@ -216,7 +224,6 @@
       "id": "alt_text",
       "label": "Image Alt Text"
     },
-
     {
       "type": "range",
       "id": "padding_top",
@@ -283,7 +290,7 @@
           "type": "richtext",
           "id": "text",
           "label": "Headline Text",
-          "default": "<h3>The #1 Natural DHT Blocker for Hair Loss</h3  >"
+          "default": "<h3>The #1 Natural Product for Customer Problem</h3  >"
         }
       ]
     },
@@ -342,8 +349,15 @@
           "type": "color",
           "id": "button_bg_color",
           "label": "Button Background Color",
-          "default": "#125657"
+          "default": "#3DC8C5"
         },
+        {
+          "type": "color",
+          "id": "button_bg_color_hover",
+          "label": "Button Background Color",
+          "default": "#24b5ab"
+        },
+
         {
           "type": "color",
           "id": "button_text_color",

@@ -1,0 +1,463 @@
+/* ================================
+   Product Options Size - Base Styles
+   ================================ */
+
+.cwc_product-template__options,
+.cwc-featured-product__option_type {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1rem 0rem;
+}
+
+.cwc-featured-product__option_type-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-size: 0.875rem;
+    color: #111111;
+}
+
+/* ================================
+   Buttons Container - VERTICAL Layout (Default)
+   ================================ */
+
+.cwc-featured-product__option_type.layout-vertical .cwc-featured-product__option_type_buttons {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 16px;
+    cursor: pointer;
+}
+
+/* ================================
+   Buttons Container - HORIZONTAL Layout
+   ================================ */
+
+.cwc-featured-product__option_type.layout-horizontal .cwc-featured-product__option_type_buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+    /* cursor: pointer; */
+    /*  */
+
+
+}
+
+
+
+.cwc-featured-product__option_type.layout-horizontal .cwc-featured-product__option_type_button_prices {
+    flex-direction: row;
+    gap: 6px;
+}
+
+/* ================================
+   Button - Base Styles
+   ================================ */
+
+.cwc-featured-product__option_type_button {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    padding: 12px 20px;
+    background: white;
+    color: #374151;
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    min-width: 80px;
+    position: relative;
+    border-radius: 4px;
+    outline: none;
+    box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
+    /*  */
+    /* background: none; */
+    /* border: none; */
+}
+
+.cwc-featured-product__option_type_button:active,
+.cwc-featured-product__option_type_button:focus {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: none;
+}
+
+. cwc-featured-product__option_type_button:hover {
+    border-color: #10b981;
+    color: #10b981;
+
+    /* hover */
+}
+
+.cwc-featured-product__option_type_button.selected {
+    border: 1.3px solid #125657;
+    background-color: #0f92ae26;
+}
+
+.cwc-featured-product__option_type_button.selected::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 12px;
+    height: 8px;
+}
+
+/* ================================
+   Button - VERTICAL Layout Styles
+   ================================ */
+
+.cwc-featured-product__option_type.layout-vertical .cwc-featured-product__option_type_button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 3rem 0.86rem 1.86rem;
+    gap: 1.5rem;
+}
+
+/* Vertical with Images */
+.cwc-featured-product__option_type.layout-vertical.show-images .cwc-featured-product__option_type_button {
+    justify-content: flex-start;
+}
+
+/* Vertical without Images */
+.cwc-featured-product__option_type.layout-vertical.hide-images .cwc-featured-product__option_type_button {
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    /*  */
+    min-height: 72px;
+}
+
+/* ================================
+   Button - HORIZONTAL Layout Styles
+   ================================ */
+
+.cwc-featured-product__option_type.layout-horizontal .cwc-featured-product__option_type_button {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    gap: 0.5rem;
+    text-align: center;
+    /*  */
+    /* min-width: 120px; */
+}
+
+/* Horizontal with Images */
+.cwc-featured-product__option_type.layout-horizontal.show-images .cwc-featured-product__option_type_button {
+    /* min-width: 140px; */
+
+    /* flex: 1; */
+    height: stretch;
+    padding: 0rem;
+    max-width: 150px;
+
+    background: none;
+    border: none;
+    padding-right: 1rem;
+}
+
+.layout-horizontal .cwc-featured-product__option_type_button.selected .cwc-featured-product__option_type_button_thumb-wrap {
+    background-color: #0f92ae26;
+    border: 1.5px solid #125657;
+    border: 2px solid #000000;
+    border: 2px solid #125657;
+}
+
+.layout-horizontal .cwc-featured-product__option_type_button .cwc-featured-product__option_type_button_thumb-wrap {
+    border: .5px solid rgba(0, 0, 0, .3);
+    border: 2px solid rgb(0 0 0 / 13%);
+    /* border: 1.5px solid transparent; */
+
+}
+
+
+.cwc-featured-product__option_type.layout-horizontal.show-images .cwc-featured-product__option_type_button_thumb-wrap {
+    background-color: white;
+    border-radius: 50%;
+
+    /*  */
+    /* padding: 1rem; */
+    /* aspect-ratio: 1/1; */
+
+}
+
+.cwc-featured-product__option_type.layout-horizontal.show-images .cwc-featured-product__option_type_button.selected {
+    background: none;
+    border: none;
+}
+
+/* Horizontal without Images */
+.cwc-featured-product__option_type.layout-horizontal.hide-images .cwc-featured-product__option_type_button {
+    min-width: 100px;
+    padding: 0.75rem 1.25rem;
+
+}
+
+/* ================================
+   Button Content - Values
+   ================================ */
+
+.cwc-featured-product__option_type_button_value_wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+/* Horizontal mode - center text */
+.cwc-featured-product__option_type.layout-horizontal .cwc-featured-product__option_type_button_value_wrap {
+    align-items: center;
+    width: 100%;
+    /*  */
+    flex: 1;
+    height: stretch;
+}
+
+/* Vertical mode - grow to fill space */
+.cwc-featured-product__option_type.layout-vertical .cwc-featured-product__option_type_button_value_wrap {
+    flex: 1;
+}
+
+.cwc-featured-product__option_type_button_value {
+    font-weight: 600;
+    font-size: 0.8125rem;
+}
+
+.cwc-featured-product__option_type_button_save_perc {
+    font-size: 0.8125rem;
+    color: #6B7280;
+}
+
+/* ================================
+   Button Content - Prices
+   ================================ */
+
+.cwc-featured-product__option_type_button_prices {
+    color: #125657;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* Horizontal mode - center prices */
+.cwc-featured-product__option_type.layout-horizontal .cwc-featured-product__option_type_button_prices {
+    align-items: center;
+}
+
+.cwc-featured-product__option_type_button_price {
+    color: inherit;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.cwc-featured-product__option_type_button_compare_price {
+    font-weight: 400;
+    color: inherit;
+    font-size: 0.96rem;
+    text-decoration: line-through;
+    opacity: .8;
+}
+
+/* ================================
+   Button Content - Images
+   ================================ */
+
+.cwc-featured-product__option_type_button_thumb-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 74px;
+}
+
+.cwc-featured-product__option_type_button_thumb {
+    max-width: 74px;
+    height: auto;
+    width: 100%;
+    object-fit: contain;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    /*  */
+    max-width: none;
+    /*  */
+    width: 74px;
+    height: 74px;
+}
+
+/* Image sizing for vertical layout */
+.cwc-featured-product__option_type.layout-vertical .cwc-featured-product__option_type_buttons .cwc-featured-product__option_type_button:nth-child(1) .cwc-featured-product__option_type_button_thumb {
+    height: 3.375rem;
+}
+
+.cwc-featured-product__option_type.layout-vertical .cwc-featured-product__option_type_buttons .cwc-featured-product__option_type_button:nth-child(2) .cwc-featured-product__option_type_button_thumb {
+    height: 3.5625rem;
+}
+
+.cwc-featured-product__option_type.layout-vertical .cwc-featured-product__option_type_buttons .cwc-featured-product__option_type_button:nth-child(3) .cwc-featured-product__option_type_button_thumb {
+    height: 3.0625rem;
+}
+
+/* Image sizing for horizontal layout */
+.cwc-featured-product__option_type.layout-horizontal .cwc-featured-product__option_type_button_thumb-wrap {
+    max-width: 80px;
+}
+
+.cwc-featured-product__option_type.layout-horizontal .cwc-featured-product__option_type_button_thumb {
+    /* max-width: 80px; */
+    /* height: 60px; */
+    /* object-fit: contain; */
+    /*  */
+    border-radius: 50%;
+}
+
+/* Hide images when hide-images class is present */
+.cwc-featured-product__option_type.hide-images .cwc-featured-product__option_type_button_thumb-wrap {
+    display: none;
+}
+
+/* ================================
+   Badges - "Most Popular", "Free Shipping"
+   ================================ */
+
+.cwc-featured-product__option_type.layout-vertical .cwc-featured-product__option_type_buttons .cwc-featured-product__option_type_button:nth-child(2)::before {
+    content: 'Most Popular';
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    background: #125657;
+    color: #fff;
+    padding: 1px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.cwc-featured-product__option_type.layout-vertical .cwc-featured-product__option_type_buttons .cwc-featured-product__option_type_button:nth-child(3)::before {
+    content: 'Free Shipping';
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    background: #125657;
+    color: #fff;
+    padding: 1px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Horizontal layout badges */
+.cwc-featured-product__option_type.layout-horizontal .cwc-featured-product__option_type_buttons .cwc-featured-product__option_type_button:nth-child(2)::before,
+.cwc-featured-product__option_type.layout-horizontal .cwc-featured-product__option_type_buttons .cwc-featured-product__option_type_button:nth-child(3)::before {
+    top: -8px;
+    right: 50%;
+    transform: translateX(50%);
+}
+
+
+/* ================================
+   Selected Option Display
+   ================================ */
+
+.cwc-featured-product__option_type_selected-display {
+    padding: 1rem;
+    background: #F9FAFB;
+    border-radius: 8px;
+    border: 1px solid #E5E7EB;
+    background: white;
+    border: 1px solid rgba(228, 228, 228, 1);
+    border: 2px solid rgba(228, 228, 228, 1);
+    /* margin-bottom: 1rem; */
+    padding: .75rem;
+
+}
+
+.cwc-featured-product__option_type_selected-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+    /*  */
+    line-height: 100%;
+    /*  */
+    font-size: 1rem;
+
+}
+
+.cwc-featured-product__option_type_selected-description {
+    font-size: 0.875rem;
+    color: #6B7280;
+    line-height: 1.5;
+}
+
+/* ================================
+   Tablet Responsive (max-width: 991px)
+   ================================ */
+
+@media (max-width: 991px) {
+
+    /* Vertical layout image sizing */
+    .cwc-featured-product__option_type.layout-vertical .cwc-featured-product__option_type_buttons .cwc-featured-product__option_type_button:nth-child(1) .cwc-featured-product__option_type_button_thumb {
+        height: 2.875rem;
+    }
+
+    .cwc-featured-product__option_type.layout-vertical .cwc-featured-product__option_type_buttons .cwc-featured-product__option_type_button:nth-child(2) .cwc-featured-product__option_type_button_thumb {
+        height: 3.125rem;
+    }
+
+    .cwc-featured-product__option_type.layout-vertical .cwc-featured-product__option_type_buttons .cwc-featured-product__option_type_button:nth-child(3) .cwc-featured-product__option_type_button_thumb {
+        height: 2.6875rem;
+    }
+
+    /* Badge sizing */
+    .cwc-featured-product__option_type_buttons .cwc-featured-product__option_type_button:nth-child(2)::before,
+    .cwc-featured-product__option_type_buttons .cwc-featured-product__option_type_button:nth-child(3)::before {
+        font-size: 11px;
+        right: 10px;
+        padding: 0px 16px;
+    }
+
+    /* Horizontal layout adjustments */
+    .cwc-featured-product__option_type.layout-horizontal .cwc-featured-product__option_type_button {
+        /* min-width: 100px; */
+    }
+
+    .cwc-featured-product__option_type.layout-horizontal.show-images .cwc-featured-product__option_type_button {
+        /* min-width: 120px; */
+    }
+}
+
+/* ================================
+   Mobile Responsive (max-width: 768px)
+   ================================ */
+
+@media (max-width: 768px) {
+
+    /* Vertical layout */
+    .cwc-featured-product__option_type.layout-vertical .cwc-featured-product__option_type_button {
+        padding: 0.875rem 0.875rem 0.75rem 0.5625rem;
+        gap: 6px;
+    }
+
+    /* Horizontal layout - force vertical on small mobile */
+    .cwc-featured-product__option_type.layout-horizontal .cwc-featured-product__option_type_buttons {
+        flex-direction: column;
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .cwc-featured-product__option_type.layout-horizontal .cwc-featured-product__option_type_button {
+        /* width: 100%; */
+    }
+}

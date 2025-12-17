@@ -9,12 +9,68 @@
 }
 
 .cwc-testimonials__wrapper {
-    max-width: 1200px;
-    max-width: 1500px;
     margin: 0 auto;
     padding: 0 1rem;
     padding: 0 3rem;
     padding: 0 3.125rem;
+    padding: 0 2rem;
+    max-width: 1500px;
+    max-width: 1200px;
+}
+
+/* ================================
+   Section Header
+   ================================ */
+
+.cwc-testimonials__section-title {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.cwc-testimonials__section-title h1,
+.cwc-testimonials__section-title h2,
+.cwc-testimonials__section-title h3,
+.cwc-testimonials__section-title p {
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+    color: inherit;
+}
+
+.cwc-testimonials__section-title>* strong {
+    color: var(--highlight-color);
+}
+
+
+.cwc-testimonials__section-subtitle {
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cwc-testimonials__section-subtitle p {
+    font-size: 1.125rem;
+    line-height: 1.5;
+    margin: 0;
+    color: #6B7280;
+}
+
+
+.cwc-testimonials__carousel__head-stars {
+    margin-bottom: .75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cwc-testimonials__carousel__head-stars svg {
+    /* width: 7.5rem; */
+    width: 100%;
+    /* max-width: 120px; */
+    max-width: 8rem;
+    height: auto;
 }
 
 /* ==============================
@@ -86,15 +142,15 @@
 }
 
 .cwc-testimonials__testimonial-title {
-    font-size: 1.25rem;
     font-weight: 600;
-    margin-bottom: 0.75rem;
-    font-size: 18px;
-    line-height: 110%;
-    letter-spacing: 0;
+    /* letter-spacing: 0; */
     text-align: left;
     margin-bottom: 20px;
+    margin-bottom: .75rem;
     font-size: 1.125rem;
+    /* testing */
+    line-height: 130%;
+    margin-bottom: .5rem;
 }
 
 .cwc-testimonials__testimonial-text {
@@ -157,6 +213,7 @@
     display: flex;
     align-items: center;
     grid-gap: 2px;
+    grid-gap: 3px;
 }
 
 
@@ -165,6 +222,22 @@
     width: 24px;
     height: 24px;
     object-fit: cover;
+}
+
+.cwc-testimonials__testimonial-author div {
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    /* testing */
+    /* background: red; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: .9rem;
+    line-height: 100%;
+    color: white;
 }
 
 .cwc-testimonials__testimonial-author .author-name {
@@ -323,6 +396,9 @@
         overflow: visible;
     }
 
+    .cwc-testimonials__wrapper {
+        padding: 0 1rem;
+    }
 
 }
 

@@ -15,6 +15,7 @@
     align-items: center;
     /* gap: 2rem; */
     max-width: 1500px;
+    max-width: 1300px;
     margin: 0 auto;
     flex-direction: row;
 
@@ -29,28 +30,21 @@
 }
 
 /* === CTA Button === */
-.hero-button .cwc-reasons__btn {
+.CWC_hero_banner_image-wrap>a {
     display: inline-block;
     padding: 1rem 2rem;
     font-weight: 600;
     font-size: 1rem;
-    border-radius: 6px;
     text-decoration: none;
     transition: all 0.3s ease-in-out;
     text-align: center;
     /* text-transform: uppercase; */
     border: 2px solid transparent;
-
     padding: 1.02875rem;
     line-height: 1.211875rem;
     width: 100%;
     max-width: 336px;
-}
-
-.hero-button .cwc-reasons__btn:hover {
-    background-color: transparent !important;
-    /* border-color: currentColor !important; */
-    /* color: inherit !important; */
+    font-size: 1.15rem;
 }
 
 
@@ -85,6 +79,8 @@
     max-width: 476px;
     margin: 0 auto;
     width: 100%;
+    max-width: 525px;
+
 }
 
 /* === Content Column === */
@@ -107,22 +103,38 @@
     line-height: 1;
     grid-gap: 0.65875rem;
     justify-content: center;
+    margin-bottom: 1rem;
 
 }
 
 .CWC_hero_banner_image-content .hero-headline {
     margin-bottom: 1.13625rem;
+    margin-bottom: 1rem;
 }
 
 .CWC_hero_banner_image-content .hero-headline,
 .CWC_hero_banner_image-content .hero-headline * {
     font-size: 2.5rem;
-    /* font-weight: 700; */
+    font-weight: 700;
+    /* font-weight: 600; */
     line-height: 1.2;
     font-size: 2.499375rem;
     line-height: 2.72625rem;
     letter-spacing: 0%;
     text-align: center;
+
+    /* testing */
+    letter-spacing: 0%;
+    text-align: center;
+    font-size: 42px;
+    font-weight: 700;
+    /* margin: 10px 0 10px; */
+    color: #303030;
+    line-height: 130%;
+}
+
+.CWC_hero_banner_image-content .hero-headline>strong {
+    color: var(--bold_color);
 }
 
 
@@ -199,7 +211,10 @@
 .hero-stars,
 .hero-text {
     display: inline;
+    display: flex;
     line-height: 1;
+
+
 }
 
 .hero-stars svg {
@@ -211,6 +226,7 @@
 
 .hero-text>p {
     font-size: 0.988125rem;
+    font-size: 1rem;
 }
 
 .hero-text strong {
@@ -218,14 +234,35 @@
 }
 
 
+.CWC_hero_banner_image-image .CWC_hero_banner_image-placeholder {
+    height: 450px;
+    width: 500px;
+    background-color: #e3e3e3;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    margin: 1rem 0rem;
+    aspect-ratio: 4 / 3;
+    background: #f5f5f5;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 1rem;
+}
+
 
 
 @media screen and (max-width: 991px) {
     .CWC_hero_banner_image {
 
         /* padding: 0 1.125rem; */
-        padding-left: 1.125rem;
-        padding-right: 1.125rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
 
         padding-top: var(--padding-top-mobile);
         padding-bottom: var(--padding-bottom-mobile);
@@ -247,7 +284,7 @@
     }
 
     .CWC_hero_banner_image-content .hero-note {
-        margin: 0rem;
+        /* margin: 0rem; */
     }
 
     .hero-stars svg {
@@ -277,6 +314,7 @@
 
     .hero-text>p {
         font-size: .815rem;
+        font-size: .95rem;
     }
 
     .CWC_hero_banner_image-wrapper {
@@ -289,8 +327,7 @@
 
     .CWC_hero_banner_image-content .hero-headline,
     .CWC_hero_banner_image-content .hero-headline * {
-        font-size: 33px;
-        line-height: 36px;
+        font-size: 2.0625rem;
         max-width: 330px;
         margin-left: auto;
         margin-right: auto;
@@ -299,6 +336,18 @@
 
 /* === Mobile Styles === */
 @media screen and (max-width: 767px) {
+    .CWC_hero_banner_image-content .hero-review {
+        margin-bottom: .75rem;
+        margin-bottom: .5rem;
+    }
+
+    .CWC_hero_banner_image-wrapper.reverse {
+        flex-direction: column;
+    }
+
+    .CWC_hero_banner_image-wrap {
+        margin-bottom: 1rem;
+    }
 
     .CWC_hero_banner_image-content .hero-headline {
         margin-bottom: 1rem;
@@ -307,10 +356,16 @@
     .CWC_hero_banner_image-content .hero-headline *,
     .CWC_hero_banner_image-content .hero-headline {
         max-width: 100%;
+        font-size: 1.6rem;
+        line-height: 130%;
+    }
+
+    .CWC_hero_banner_image-content .hero-headline {
+        margin-bottom: .75rem;
     }
 
     .CWC_hero_banner_image-content .hero-subtext>p {
-        /* font-size: 1rem; */
+        font-size: 1rem;
     }
 
     .CWC_hero_banner_image-content .hero-note {
@@ -328,4 +383,25 @@
     .CWC_hero_banner_image-image img {
         max-width: 355px;
     }
+
+    .hero-stars svg {
+        max-width: 100%;
+        width: 100%;
+        max-height: 16px;
+        max-height: 14px;
+    }
+
+    .CWC_hero_banner_image-content .hero-subtext,
+    .CWC_hero_banner_image-content .hero-headline {
+        margin-bottom: .75rem;
+    }
+
+    .CWC_hero_banner_image-content .hero-headline {
+        margin-bottom: .5rem;
+    }
+
+    .CWC_hero_banner_image-content {
+        padding-top: .75rem;
+    }
+
 }

@@ -38,10 +38,10 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups) {
 
   // Product option controls (buttons and inputs)
   const optionButtons = section.querySelectorAll(
-    ".cwc-featured-product__option_button"
+    ".cwc-featured-product__option_button, .cwc-featured-product__option_type_button, .cwc-featured-product__option_size_button"
   );
   const optionInputs = section.querySelectorAll(
-    ".cwc-featured-product__option-input"
+    ".cwc-featured-product__option-input, .cwc-featured-product__option_type-input, .cwc-featured-product__option_size-input"
   ); // These are <input name="options[...]">
 
   // Cart and pricing elements
@@ -114,19 +114,23 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups) {
      ----------------------------------------------------- */
   function updateSellingPlan() {
     // Update the selling plan input based on subscription checkbox state
+    // Safety check: Only proceed if selling plan input exists
+    if (!finalSellingPlanInput) {
+      console.log("No selling plan input found - skipping");
+      return;
+    }
+
     const isAutoRefill = autoRefillCheckbox && autoRefillCheckbox.checked;
 
     if (isAutoRefill && sellingPlanGroups.length > 0) {
       const sellingPlanId = sellingPlanGroups[0]?.selling_plans?.[0]?.id;
-      if (sellingPlanId && finalSellingPlanInput) {
+      if (sellingPlanId) {
         finalSellingPlanInput.value = sellingPlanId;
-        console.log("Set selling plan input to:", sellingPlanId);
+        // console.log("Set selling plan input to:", sellingPlanId);
       }
     } else {
-      if (finalSellingPlanInput) {
-        finalSellingPlanInput.value = "";
-        console.log("Cleared selling plan input");
-      }
+      finalSellingPlanInput.value = "";
+      // console.log("Cleared selling plan input");
     }
   }
 
@@ -220,10 +224,16 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups) {
 
     // If no variant passed, try to find it from selected options
     if (!variant) {
-      const selectedOptions = Array.from(optionInputs).map(
-        (input) => input.value
-      );
-      variant = findVariant(selectedOptions);
+      // Safety check: If there are no option inputs, use the first/current variant
+      if (optionInputs.length === 0) {
+        // Product has no options, use the only variant or current variant
+        variant = variants[0] || findVariantById(variantIdInput?.value);
+      } else {
+        const selectedOptions = Array.from(optionInputs).map(
+          (input) => input.value
+        );
+        variant = findVariant(selectedOptions);
+      }
     }
 
     const isAutoRefill = autoRefillCheckbox && autoRefillCheckbox.checked;
@@ -234,6 +244,40 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups) {
     }
 
     console.log("Updating to variant:", variant.id, "Price:", variant.price);
+
+    /* -----------------------------------------------------
+       UPDATE TYPE OPTION SELECTED DISPLAYS
+       ----------------------------------------------------- */
+    // Update any product_options_type selected displays
+    optionInputs.forEach((input) => {
+      const currentValue = input.value;
+
+      // Find the wrapper for this option
+      const wrapper = input.closest("[data-option-position]");
+      if (!wrapper) return;
+
+      // Check if this is a type option (has selected display)
+      const selectedName = wrapper.querySelector(
+        ".cwc-featured-product__option_type_selected-name"
+      );
+      const selectedDesc = wrapper.querySelector(
+        ".cwc-featured-product__option_type_selected-description"
+      );
+
+      if (selectedName && selectedDesc) {
+        // Find the button with the current value to get its description
+        const buttons = wrapper.querySelectorAll(
+          ".cwc-featured-product__option_type_button"
+        );
+        buttons.forEach((button) => {
+          if (button.dataset.value === currentValue) {
+            const description = button.dataset.variantDescription || "";
+            selectedName.textContent = currentValue;
+            selectedDesc.textContent = description;
+          }
+        });
+      }
+    });
 
     /* -----------------------------------------------------
        UPDATE FORM INPUTS
@@ -277,7 +321,7 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups) {
 
     if (priceElement) {
       priceElement.textContent = formatPrice(displayPrice);
-      console.log("Updated price element to:", formatPrice(displayPrice));
+      // console.log("Updated price element to:", formatPrice(displayPrice));
     }
 
     /* -----------------------------------------------------
@@ -292,10 +336,6 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups) {
 
     if (buttonCurrentPriceEl) {
       buttonCurrentPriceEl.textContent = formatPrice(displayPrice);
-      console.log(
-        "Updated button current price to:",
-        formatPrice(displayPrice)
-      );
     }
 
     if (displayComparePrice && displayComparePrice > displayPrice) {
@@ -409,9 +449,9 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups) {
 
       console.log("Button data:", { optionIndex, value, variantId });
 
-      // Update visual selection state
+      // Update visual selection state - find all buttons in this option group
       const siblings = this.parentNode.querySelectorAll(
-        ".cwc-featured-product__option_button"
+        ".cwc-featured-product__option_button, .cwc-featured-product__option_type_button, .cwc-featured-product__option_size_button"
       );
       siblings.forEach((sibling) => sibling.classList.remove("selected"));
       this.classList.add("selected");
@@ -421,23 +461,23 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups) {
         `input[data-option-index="${optionIndex}"]`
       );
       if (hiddenInput) {
-        console.log(
-          "Updating option input from",
-          hiddenInput.value,
-          "to",
-          value
-        );
+        // console.log(
+        //   "Updating option input from",
+        //   hiddenInput.value,
+        //   "to",
+        //   value
+        // );
         hiddenInput.value = value;
       }
 
       // IMPORTANT: Update the main variant ID hidden input
       if (variantId && variantIdInput) {
-        console.log(
-          "Updating main variant input from",
-          variantIdInput.value,
-          "to",
-          variantId
-        );
+        // console.log(
+        //   "Updating main variant input from",
+        //   variantIdInput.value,
+        //   "to",
+        //   variantId
+        // );
         variantIdInput.value = variantId;
       }
 
@@ -445,13 +485,13 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups) {
       if (variantId) {
         const variant = findVariantById(variantId);
         if (variant) {
-          console.log("Found variant by ID:", variant);
+          // console.log("Found variant by ID:", variant);
           updateVariant(variant);
         } else {
-          console.warn("Variant not found for ID:", variantId);
+          // console.warn("Variant not found for ID:", variantId);
         }
       } else {
-        console.warn("No variant ID on button");
+        // console.warn("No variant ID on button");
         updateVariant(); // Fallback to old method
       }
     });
@@ -476,34 +516,194 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups) {
     });
   }
 
+  /* =====================================================
+   BUNDLE & STANDARD ADD TO CART - UPDATED SECTION ONLY
+   =====================================================
+   Replace the add-to-cart section in CWC_product_template.js
+   ===================================================== */
+
   /* -----------------------------------------------------
-     ADD TO CART BUTTON SETUP
+     BUNDLE MODE DETECTION
      ----------------------------------------------------- */
-  // Store original button text for later use
-  const buttonText = addToCartButton.querySelector(".cwc-button-text");
-  if (buttonText && !buttonText.dataset.originalText) {
-    buttonText.dataset.originalText = buttonText.textContent;
+  const isBundleMode =
+    addToCartButton &&
+    (addToCartButton.dataset.bundleVariant1 ||
+      addToCartButton.dataset.bundleVariant2 ||
+      addToCartButton.dataset.bundleVariant3 ||
+      addToCartButton.dataset.bundleVariant4);
+
+  console.log("Bundle mode detected:", isBundleMode);
+  if (isBundleMode) {
+    console.log("Bundle variants:", {
+      v1: addToCartButton.dataset.bundleVariant1,
+      v2: addToCartButton.dataset.bundleVariant2,
+      v3: addToCartButton.dataset.bundleVariant3,
+      v4: addToCartButton.dataset.bundleVariant4,
+    });
   }
 
-  /* -----------------------------------------------------
-     ADD TO CART FUNCTIONALITY
-     ----------------------------------------------------- */
-  addToCartButton.addEventListener("click", function () {
+  /* =====================================================
+     BUNDLE ADD TO CART FUNCTIONALITY
+     ===================================================== */
+  function handleBundleAddToCart() {
+    console.log("=== Bundle Add to Cart Started ===");
+
+    if (!variantIdInput || !variantIdInput.value) {
+      console.warn("Bundle: No main variant ID");
+      return;
+    }
+
+    const mainVariantId = Number(variantIdInput.value);
+    const skipCart = addToCartButton.dataset.skipCart === "true";
+
+    console.log("Main variant ID:", mainVariantId);
+    console.log("Skip cart mode:", skipCart);
+
+    if (!Number.isFinite(mainVariantId)) {
+      console.warn("Bundle: Invalid main variant ID:", variantIdInput.value);
+      return;
+    }
+
+    // Get selling plan ID
+    const sellingPlanId =
+      finalSellingPlanInput && finalSellingPlanInput.value
+        ? Number(finalSellingPlanInput.value)
+        : null;
+
+    console.log("Selling plan ID:", sellingPlanId);
+
+    // Enforce subscription-only for bundle (optional - remove if not needed)
+    // if (!Number.isFinite(sellingPlanId)) {
+    //   console.warn("Bundle: No selling plan selected");
+    //   alert("Please select the subscription option to add this bundle.");
+    //   return;
+    // }
+
+    const items = [];
+
+    // Collect bundle products from data attributes
+    // Check for bundleVariant1, bundleVariant2, bundleVariant3, bundleVariant4
+    [
+      "bundleVariant1",
+      "bundleVariant2",
+      "bundleVariant3",
+      "bundleVariant4",
+    ].forEach((key) => {
+      const value = addToCartButton.dataset[key];
+      if (value && !isNaN(value)) {
+        items.push({
+          id: Number(value),
+          quantity: 1,
+        });
+        console.log(`Added ${key}:`, value);
+      }
+    });
+
+    // Add main product with subscription
+    const mainItem = {
+      id: mainVariantId,
+      quantity: 1,
+      selling_plan: sellingPlanId,
+    };
+
+    items.push(mainItem);
+    console.log("Main product added:", mainItem);
+
+    console.log("Final items payload:", items);
+
+    if (!items.length) {
+      console.warn("Bundle: No items to add to cart");
+      return;
+    }
+
+    // Show loading state
+    addToCartButton.disabled = true;
+    addToCartButton.classList.add("loading_hk");
+
+    // Send to Shopify cart API
+    fetch("/cart/add.js", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ items }),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to add bundle to cart");
+        return res.json();
+      })
+      .then((data) => {
+        console.log("Bundle added successfully:", data);
+
+        const btnText = addToCartButton.querySelector(".cwc-button-text");
+        const originalText =
+          btnText?.dataset.originalText || "Add Bundle to Cart";
+
+        // If skip-cart mode, redirect to checkout
+        if (skipCart) {
+          console.log("Redirecting to checkout...");
+          window.location.href = "/checkout";
+          return;
+        }
+
+        // Show success message
+        if (btnText) {
+          if (!btnText.dataset.originalText) {
+            btnText.dataset.originalText = btnText.textContent;
+          }
+          btnText.textContent = "Bundle Added!";
+          setTimeout(() => {
+            btnText.textContent = originalText;
+          }, 2000);
+        }
+
+        // Dispatch custom event
+        document.dispatchEvent(
+          new CustomEvent("cwc:item-added-to-cart", {
+            detail: {
+              items,
+              sectionId,
+              isBundle: true,
+            },
+          })
+        );
+      })
+      .catch((err) => {
+        console.error("Bundle add-to-cart error:", err);
+        alert(
+          "There was an issue adding the bundle to your cart. Please try again."
+        );
+      })
+      .finally(() => {
+        addToCartButton.disabled = false;
+        addToCartButton.classList.remove("loading_hk");
+      });
+  }
+
+  /* =====================================================
+     STANDARD ADD TO CART FUNCTIONALITY
+     ===================================================== */
+  function handleStandardAddToCart() {
+    console.log("=== Standard Add to Cart Started ===");
+
     const selectedVariantId = variantIdInput.value;
-    const sellingPlanId = finalSellingPlanInput.value;
+    const sellingPlanId = finalSellingPlanInput
+      ? finalSellingPlanInput.value
+      : "";
     const variant = findVariantById(selectedVariantId);
 
-    console.log("Add to cart clicked:", {
-      selectedVariantId,
-      sellingPlanId,
-      variant: variant
-        ? { id: variant.id, available: variant.available }
-        : null,
-    });
+    // console.log("Add to cart clicked:", {
+    //   selectedVariantId,
+    //   sellingPlanId,
+    //   variant: variant
+    //     ? { id: variant.id, available: variant.available }
+    //     : null,
+    // });
 
     // Validation
     if (!variant) {
-      console.warn("No variant found for ID:", selectedVariantId);
+      // console.warn("No variant found for ID:", selectedVariantId);
       return;
     }
 
@@ -515,18 +715,18 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups) {
     // Show loading state
     addToCartButton.classList.add("loading_hk");
 
-    // Build cart data from hidden inputs
+    // Build cart data
     const data = {
       quantity: 1,
       id: selectedVariantId,
     };
 
-    // Add selling plan if checkbox is checked and selling plan exists
+    // Add selling plan if subscription is selected
     if (sellingPlanId) {
       data.selling_plan = sellingPlanId;
-      console.log("Adding with selling plan:", sellingPlanId);
+      // console.log("Adding with selling plan:", sellingPlanId);
     } else {
-      console.log("Adding as regular purchase (no selling plan)");
+      // console.log("Adding as regular purchase (no selling plan)");
     }
 
     // Make the request to Shopify's cart API
@@ -568,7 +768,28 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups) {
           "An error occurred while processing your request. Please try again."
         );
       });
-  });
+  }
+
+  /* -----------------------------------------------------
+     ADD TO CART BUTTON SETUP & EVENT LISTENER
+     ----------------------------------------------------- */
+  // Store original button text for later use
+  const buttonText = addToCartButton.querySelector(".cwc-button-text");
+  if (buttonText && !buttonText.dataset.originalText) {
+    buttonText.dataset.originalText = buttonText.textContent;
+  }
+
+  // Attach the correct handler based on mode
+  if (isBundleMode) {
+    console.log("Attaching BUNDLE add-to-cart handler");
+    addToCartButton.addEventListener("click", handleBundleAddToCart);
+
+    // Expose global handler for external triggers (like CWC_bundle_included section)
+    window.CWCBundleAddToCart = handleBundleAddToCart;
+  } else {
+    console.log("Attaching STANDARD add-to-cart handler");
+    addToCartButton.addEventListener("click", handleStandardAddToCart);
+  }
 
   /* =====================================================
      FAQ FUNCTIONALITY

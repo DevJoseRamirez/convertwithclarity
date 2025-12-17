@@ -56,9 +56,11 @@
 .CWC_scrolling_banner-text {
     font-size: 1rem;
     font-weight: 500;
+    font-weight: 600;
     line-height: normal;
     line-height: 1;
-
+    opacity: 1;
+    letter-spacing: 0.5px;
 }
 
 /* ================================

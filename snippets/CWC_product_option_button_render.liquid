@@ -1,0 +1,109 @@
+{% comment %}
+  CWC Product Option Button Render
+  Reusable button rendering logic
+{% endcomment %}
+
+{% liquid
+  assign candidate = candidate
+  assign value = value
+  assign option = option
+  assign sel = sel
+  assign block = block
+  assign forloop_index = forloop_index
+  assign is_variant_mode = is_variant_mode | default: false
+  assign is_selected_override = is_selected
+%}
+
+{% comment %} Determine if selected {% endcomment %}
+{% assign is_selected = false %}
+{% if is_variant_mode %}
+  {% assign is_selected = is_selected_override %}
+{% elsif option %}
+  {% if option.position == 1 and sel.option1 == value %}
+    {% assign is_selected = true %}
+  {% elsif option.position == 2 and sel.option2 == value %}
+    {% assign is_selected = true %}
+  {% elsif option.position == 3 and sel.option3 == value %}
+    {% assign is_selected = true %}
+  {% endif %}
+{% endif %}
+
+{% comment %} Calculate savings {% endcomment %}
+{% assign show_compare = false %}
+{% assign save_money = 0 %}
+{% assign save_pct = 0 %}
+{% if candidate and candidate.compare_at_price and candidate.compare_at_price > candidate.price %}
+  {% assign show_compare = true %}
+  {% assign save_money = candidate.compare_at_price | minus: candidate.price %}
+  {% assign save_pct = save_money | times: 100 | divided_by: candidate.compare_at_price %}
+{% endif %}
+
+{% comment %} Get thumbnail URL {% endcomment %}
+{% assign thumb_url = null %}
+{% if forloop_index == 0 and block.settings.image1 != blank %}
+  {% assign thumb_url = block.settings.image1 | image_url: width: 56 %}
+{% elsif forloop_index == 1 and block.settings.image2 != blank %}
+  {% assign thumb_url = block.settings.image2 | image_url: width: 56 %}
+{% elsif forloop_index == 2 and block.settings.image3 != blank %}
+  {% assign thumb_url = block.settings.image3 | image_url: width: 56 %}
+{% elsif forloop_index == 3 and block.settings.image4 != blank %}
+  {% assign thumb_url = block.settings.image4 | image_url: width: 56 %}
+{% elsif candidate and candidate.featured_image %}
+  {% assign thumb_url = candidate.featured_image | image_url: width: 56 %}
+{% elsif candidate and candidate.image %}
+  {% assign thumb_url = candidate.image | image_url: width: 56 %}
+{% endif %}
+
+{% comment %} Render Button {% endcomment %}
+<button
+  type="button"
+  class="cwc-featured-product__option_button{% if is_selected %} selected{% endif %}{% unless candidate and candidate.available %} disabled{% endunless %}"
+  {% unless is_variant_mode %}
+    data-option-index="{{ option.position | minus: 1 }}"
+    data-option-name="{{ option.name | escape }}"
+    data-value="{{ value | escape }}"
+  {% endunless %}
+  {% if candidate %}
+    data-variant-id="{{ candidate.id }}"
+    data-price="{{ candidate.price }}"
+    data-compare="{{ candidate.compare_at_price | default: 0 }}"
+  {% endif %}
+  {% if thumb_url %}
+    data-thumb="{{ thumb_url }}"
+  {% endif %}
+  {% unless candidate and candidate.available %}
+    disabled aria-disabled="true"
+  {% endunless %}
+>
+  {% if thumb_url %}
+    <span class="cwc-featured-product__option_button_thumb-wrap">
+      <img
+        class="cwc-featured-product__option_button_thumb"
+        src="{{ thumb_url }}"
+        alt="{{ value | escape }}"
+      >
+    </span>
+  {% endif %}
+
+  <div class="cwc-featured-product__option_button_value_wrap">
+    <span class="cwc-featured-product__option_button_value">{{ value }}</span>
+    {% if save_pct > 0 %}
+      <span class="cwc-featured-product__option_button_save_perc">You Save {{ save_pct }}%</span>
+    {% endif %}
+  </div>
+
+  {% if candidate %}
+    <span class="cwc-featured-product__option_button_prices">
+      <span class="cwc-featured-product__option_button_price">{{ candidate.price | money }}</span>
+      {% if show_compare %}
+        <span class="cwc-featured-product__option_button_compare_price">
+          {{- candidate.compare_at_price | money -}}
+        </span>
+      {% endif %}
+    </span>
+  {% else %}
+    <span class="cwc-featured-product__option_button_prices">
+      <span class="cwc-featured-product__option_button_unavalible">Unavailable</span>
+    </span>
+  {% endif %}
+</button>

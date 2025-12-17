@@ -16,18 +16,38 @@
 <section id="CWC_video_testimonials-{{ section.id }}" class="cwc-video-testimonials">
   <div class="cwc-video-testimonials__wrapper">
     {% if section.settings.heading != blank %}
-      <div class="cwc-video-testimonials__heading">
+      <div class="cwc-video-testimonials__heading rte">
         {{ section.settings.heading }}
       </div>
     {% endif %}
 
     {% if section.settings.text != blank %}
-      <div class="cwc-video-testimonials__text">{{ section.settings.text }}</div>
+      <div class="cwc-video-testimonials__text rte">{{ section.settings.text }}</div>
     {% endif %}
 
-    <div class="swiper cwc-video-testimonials__carousel">
+    {%- liquid
+      assign video_count = 0
+
+      if section.settings.video_testimonials_collection != blank
+        assign video_count = section.settings.video_testimonials_collection.testimonial_list.value.size
+      else
+        for block in section.blocks
+          if block.type == 'testimonial'
+            assign video_count = video_count | plus: 1
+          endif
+        endfor
+      endif
+    -%}
+
+    <div
+      class="swiper cwc-video-testimonials__carousel"
+      data-video-count="{{ video_count }}"
+      data-max-desktop-slides="{{ section.settings.max_desktop_slides | default: 4 }}"
+      data-max-tablet-slides="{{ section.settings.max_tablet_slides | default: 3 }}"
+      data-max-mobile-slides="{{ section.settings.max_mobile_slides | default: 1.5 }}"
+    >
       <div class="swiper-wrapper cwc-video-testimonials__swiper-wrapper">
-        {% if section.settings.video_testimonials_collection %}
+        {% if section.settings.video_testimonials_collection != blank %}
           {% comment %} METAOBJECT LOOP {% endcomment %}
           {% for video_testimonial in section.settings.video_testimonials_collection.testimonial_list.value %}
             <div class="swiper-slide cwc-video-testimonials__swiper-slide">
@@ -79,16 +99,18 @@
                   </div>
                 {% endif %}
 
-                <div class="cwc-video-testimonials__video-author">
-                  <span class="cwc-video-testimonials__author-name">{{ video_testimonial.author }}</span>
+                {% unless section.settings.hide_video_footer %}
+                  <div class="cwc-video-testimonials__video-author">
+                    <span class="cwc-video-testimonials__author-name">{{ video_testimonial.author }}</span>
 
-                  <div class="cwc-video-testimonials__verified">
-                    <span class="cwc-video-testimonials__verified-icon">
-                      {%- render 'CWC_icon-check_badge', fill: '#009370' -%}
-                    </span>
-                    <span class="cwc-video-testimonials__verified-text"> Verified Customer </span>
+                    <div class="cwc-video-testimonials__verified">
+                      <span class="cwc-video-testimonials__verified-icon">
+                        {%- render 'CWC_icon-check_badge', fill_color: '#009370' -%}
+                      </span>
+                      <span class="cwc-video-testimonials__verified-text"> Verified Customer </span>
+                    </div>
                   </div>
-                </div>
+                {% endunless %}
               </div>
             </div>
           {% endfor %}
@@ -175,18 +197,42 @@
                         </svg>
                       </button>
                     </div>
-                  {% endif %}
-
-                  <div class="cwc-video-testimonials__video-author" {{ block.shopify_attributes }}>
-                    <span class="cwc-video-testimonials__author-name">{{ block.settings.author_name }}</span>
-
-                    <div class="cwc-video-testimonials__verified">
-                      <span class="cwc-video-testimonials__verified-icon">
-                        {%- render 'CWC_icon-check_badge', fill: '#009370' -%}
-                      </span>
-                      <span class="cwc-video-testimonials__verified-text"> Verified Customer </span>
+                  {% else %}
+                    <div class="cwc-video-testimonials__video-wrapper">
+                      <div>video placeholder</div>
+                      <button class="cwc-custom-play-button" aria-label="Play video">
+                        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <foreignObject x="-7.62703" y="-7.61355" width="59.9436" height="59.9436">
+                              <div xmlns="http://www.w3.org/1999/xhtml"
+                                  style="backdrop-filter:blur(4.23px);clip-path:url(#bgblur_0_184_1311_clip_path);height:100%;width:100%">
+                              </div>
+                          </foreignObject>
+                          <circle data-figma-bg-blur-radius="8.46486" cx="22.3448" cy="22.3583" r="21.5069"
+                              fill="white" fill-opacity="0.2"></circle>
+                          <path
+                              d="M30.407 20.8061C31.6018 21.4959 31.6018 23.2205 30.407 23.9103L19.6535 30.1189C18.4587 30.8087 16.9652 29.9464 16.9652 28.5667L16.9652 16.1497C16.9652 14.77 18.4587 13.9077 19.6535 14.5976L30.407 20.8061Z"
+                              fill="white"></path>
+                          <defs>
+                              <clipPath id="bgblur_0_184_1311_clip_path" transform="translate(7.62703 7.61355)">
+                                  <circle cx="22.3448" cy="22.3583" r="21.5069"></circle>
+                              </clipPath>
+                          </defs>
+                        </svg>
+                      </button>
                     </div>
-                  </div>
+                  {% endif %}
+                  {% unless section.settings.hide_video_footer %}
+                    <div class="cwc-video-testimonials__video-author" {{ block.shopify_attributes }}>
+                      <span class="cwc-video-testimonials__author-name">{{ block.settings.author_name }}</span>
+
+                      <div class="cwc-video-testimonials__verified">
+                        <span class="cwc-video-testimonials__verified-icon">
+                          {%- render 'CWC_icon-check_badge', fill: '#009370' -%}
+                        </span>
+                        <span class="cwc-video-testimonials__verified-text"> Verified Customer </span>
+                      </div>
+                    </div>
+                  {% endunless %}
                 </div>
               </div>
             {% endif %}
@@ -201,8 +247,12 @@
     </div>
 
     <div class="cwc-video-testimonials__carousel-controls">
-      <div class="swiper-button-prev cwc-video-testimonials__carousel-prev"></div>
-      <div class="swiper-button-next cwc-video-testimonials__carousel-next"></div>
+      <div class="swiper-button-prev cwc-video-testimonials__carousel-prev">
+        {% render 'CWC_icon-arrow-chev', fill_color: section.settings.text_color | default: '#6b7280' %}
+      </div>
+      <div class="swiper-button-next cwc-video-testimonials__carousel-next">
+        {% render 'CWC_icon-arrow-chev', fill_color: section.settings.text_color| default: '#6b7280' %}
+      </div>
     </div>
 
     {% for block in section.blocks %}
@@ -227,13 +277,6 @@
 {
   "name": "CWC Video Testimonials",
   "settings": [
-    {
-      "type": "metaobject",
-      "id": "video_testimonials_collection",
-      "label": "Video Testimonials Collection",
-      "metaobject_type": "video_testimonial_list",
-      "info": "Select a video testimonial collection metaobject. Leave blank to use individual blocks below."
-    },
     {
       "type": "richtext",
       "id": "heading",
@@ -295,6 +338,60 @@
       "step": 4,
       "default": 60,
       "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Carousel Settings"
+    },
+    {
+      "type": "range",
+      "id": "max_desktop_slides",
+      "min": 1,
+      "max": 7,
+      "step": 0.5,
+      "label": "Max slides visible (Desktop)",
+      "default": 4,
+      "info": "Maximum number of slides shown at once on desktop (1200px+)"
+    },
+    {
+      "type": "range",
+      "id": "max_tablet_slides",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "label": "Max slides visible (Tablet)",
+      "default": 3,
+      "info": "Maximum number of slides shown at once on tablet (992px-1199px)"
+    },
+    {
+      "type": "range",
+      "id": "max_mobile_slides",
+      "min": 1,
+      "max": 3,
+      "step": 0.5,
+      "label": "Max slides visible (Mobile)",
+      "default": 1.5,
+      "info": "Maximum number of slides shown at once on mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_controls_when_all_visible",
+      "label": "Hide controls when all slides visible",
+      "default": true,
+      "info": "Automatically hide navigation arrows and progress bar when all content fits on screen"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_video_footer",
+      "label": "Hide Video Footer",
+      "default": true
+    },
+    {
+      "type": "metaobject",
+      "id": "video_testimonials_collection",
+      "label": "Video Testimonials Collection",
+      "metaobject_type": "video_testimonial_list",
+      "info": "Select a video testimonial collection metaobject. Leave blank to use individual blocks below."
     }
   ],
   "blocks": [

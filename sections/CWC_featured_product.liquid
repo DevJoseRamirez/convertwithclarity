@@ -23,6 +23,7 @@
   data-product-id="{{ product.id }}"
   data-variants="{{ product.variants | json | escape }}"
   data-selling-plans="{{ product.selling_plan_groups | json | escape }}"
+  data-savings-display="{{ section.settings.savings_display_type }}"
 >
   <div class="cwc-featured-product__wrapper">
     <div class="cwc-featured-product__grid">
@@ -138,7 +139,7 @@
                   <div
                     class="
                       cwc-featured-product__price
-                      {% if block.settings.fallback_markup_percent != 0 %}show_save{% endif %}
+                      {% if product.compare_at_price and product.compare_at_price > product.price %}show_save{% endif %}
                     "
                     {{ block.shopify_attributes }}
                   >
@@ -231,6 +232,23 @@
       "max": 200,
       "step": 5,
       "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "savings_display_type",
+      "label": "Savings Display Type",
+      "options": [
+        {
+          "value": "dollar",
+          "label": "Show Dollar Amount"
+        },
+        {
+          "value": "percentage",
+          "label": "Show Percentage"
+        }
+      ],
+      "default": "dollar",
+      "info": "Choose whether to display savings as dollar amount or percentage"
     }
   ],
   "blocks": [
@@ -509,34 +527,7 @@
     },
     {
       "type": "price_display",
-      "name": "Price Display",
-      "settings": [
-        {
-          "type": "header",
-          "content": "Compare Price Settings"
-        },
-        {
-          "type": "paragraph",
-          "content": "If the product doesn't have a compare price, a visual markup will be calculated for display purposes only. This does not affect the actual product price."
-        },
-        {
-          "type": "range",
-          "id": "fallback_markup_percent",
-          "min": 0,
-          "max": 100,
-          "step": 5,
-          "unit": "%",
-          "label": "Fallback Markup Percentage",
-          "default": 30,
-          "info": "Used only when product has no compare_at_price. Example: 30% means if price is $10, display will show $13 as compare price."
-        },
-        {
-          "type": "checkbox",
-          "id": "show_save_amount",
-          "label": "Show save amount",
-          "default": true
-        }
-      ]
+      "name": "Price Display"
     },
     {
       "type": "product_options_size",

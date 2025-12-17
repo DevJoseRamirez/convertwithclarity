@@ -19,15 +19,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const productId = section.dataset.productId;
     const variants = JSON.parse(section.dataset.variants || "[]");
     const sellingPlanGroups = JSON.parse(section.dataset.sellingPlans || "[]");
+    const savingsDisplayType = section.dataset.savingsDisplay || "dollar";
 
-    initFeaturedProduct(section, sectionId, variants, sellingPlanGroups);
+    initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, savingsDisplayType);
   });
 });
 
 /* =====================================================
    MAIN INITIALIZATION FUNCTION
    ===================================================== */
-function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups) {
+function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, savingsDisplayType) {
   /* -----------------------------------------------------
      DOM ELEMENT REFERENCES
      ----------------------------------------------------- */
@@ -204,7 +205,13 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups) {
         if (saveEl) {
           const savings = displayComparePrice - displayPrice;
           const savingsPct = Math.round((savings / displayComparePrice) * 100);
-          saveEl.textContent = `You Save ${savingsPct}%`;
+
+          // Display based on savings type setting
+          if (savingsDisplayType === "percentage") {
+            saveEl.textContent = `You Save ${savingsPct}%`;
+          } else {
+            saveEl.textContent = `You Save ${formatPrice(savings)}`;
+          }
           saveEl.style.display = "inline";
         }
       } else {
@@ -383,8 +390,16 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups) {
       }
       if (saveElement) {
         const savings = displayComparePrice - displayPrice;
-        saveElement.innerHTML =
-          "<span>Save</span> " + `<span>${formatPrice(savings)}</span>`;
+        const savingsPct = Math.round((savings / displayComparePrice) * 100);
+
+        // Display based on savings type setting
+        if (savingsDisplayType === "percentage") {
+          saveElement.innerHTML =
+            "<span>Save</span> " + `<span>${savingsPct}%</span>`;
+        } else {
+          saveElement.innerHTML =
+            "<span>Save</span> " + `<span>${formatPrice(savings)}</span>`;
+        }
         saveElement.style.display = "flex";
       }
 

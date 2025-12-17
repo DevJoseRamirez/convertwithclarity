@@ -10,38 +10,38 @@
   assign is_first = is_first
   assign block = block
   assign product = product
-  
+
   # Get custom labels from settings
   assign label_key = 'option_label_' | append: option_index
   assign sublabel_key = 'option_sublabel_' | append: option_index
   assign image_key = 'image' | append: option_index
-  
+
   assign custom_label = block.settings[label_key]
   assign custom_sublabel = block.settings[sublabel_key]
   assign custom_image = block.settings[image_key]
-  
+
   # Determine display label (custom or variant title)
   assign display_label = custom_label
   if display_label == blank
     assign display_label = variant.title
   endif
-  
+
   # Calculate pricing
   assign current_price = variant.price
   assign compare_price = variant.compare_at_price
-  
+
   # Calculate savings
   assign has_savings = false
   assign save_amount = 0
   assign save_percent = 0
-  
+
   if compare_price > current_price
     assign has_savings = true
     assign save_amount = compare_price | minus: current_price
     assign price_diff = compare_price | minus: current_price
     assign save_percent = price_diff | times: 100.0 | divided_by: compare_price | round
   endif
-  
+
   # Auto-generate sublabel if not custom and has savings
   assign display_sublabel = custom_sublabel
   if display_sublabel == blank and has_savings
@@ -70,19 +70,19 @@
         >
       </div>
     {%- endif -%}
-    
+
     <div class="cwc-featured-product__option-text">
       <div class="cwc-featured-product__option-label">
         {{ display_label }}
       </div>
-      
+
       {%- if display_sublabel != blank -%}
         <div class="cwc-featured-product__option-sublabel">
           {{ display_sublabel }}
         </div>
       {%- endif -%}
     </div>
-    
+
     <div class="cwc-featured-product__option-price">
       <div class="cwc-featured-product__option-price-current">
         {{ current_price | money }}

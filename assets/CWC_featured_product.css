@@ -78,6 +78,10 @@
     margin-bottom: .75rem;
 }
 
+.cwc-featured-product__text>* {
+    /* margin: 0rem; */
+}
+
 /* ================================
    Ttitle
    ================================ */

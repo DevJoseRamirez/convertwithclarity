@@ -9,7 +9,7 @@
 {% endstyle %}
 
 {{ 'CWC_featured_product.css' | asset_url | stylesheet_tag }}
-{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+{{ 'CWC_swiper-bundle.min.css' | asset_url | stylesheet_tag }}
 
 {% if section.settings.product != blank %}
   {% assign product = section.settings.product %}
@@ -98,7 +98,7 @@
                   </div>
 
                 {% when 'vendor' %}
-                  <div class="cwc-featured-product__vendor" {{ block.shopify_attributes }}>
+                  <div class="cwc-featured-product__vendor rte" {{ block.shopify_attributes }}>
                     {% if block.settings.vendor != blank %}
                       {{ block.settings.vendor }}
                     {% else %}
@@ -125,7 +125,7 @@
                   </div>
 
                 {% when 'text' %}
-                  <div class="cwc-featured-product__text" {{ block.shopify_attributes }}>
+                  <div class="cwc-featured-product__text rte" {{ block.shopify_attributes }}>
                     {{ block.settings.content }}
                   </div>
 
@@ -210,7 +210,7 @@
       "type": "color",
       "id": "background_color",
       "label": "Background Color",
-      "default": "#fff"
+      "default": "#faf9f6"
     },
     {
       "type": "range",
@@ -394,8 +394,7 @@
         {
           "type": "richtext",
           "id": "title",
-          "label": "Title",
-          "default": "<h3>{{ product.title | default: 'Custom Product Title' }}</h3>"
+          "label": "Title"
         }
       ]
     },
@@ -417,7 +416,8 @@
         {
           "type": "richtext",
           "id": "content",
-          "label": "Content"
+          "label": "Content",
+          "default": "<p>Product descriptoin mention of feature | benefits driven towards achieving ideal outcome</p>"
         }
       ]
     },
@@ -449,7 +449,8 @@
         {
           "type": "text",
           "id": "text1",
-          "label": "Text 1"
+          "label": "Text 1",
+          "default": "Benefit Text 1"
         },
         {
           "type": "image_picker",
@@ -459,7 +460,8 @@
         {
           "type": "text",
           "id": "text2",
-          "label": "Text 2"
+          "label": "Text 2",
+          "default": "Benefit Text 2"
         },
         {
           "type": "image_picker",
@@ -469,7 +471,8 @@
         {
           "type": "text",
           "id": "text3",
-          "label": "Text 3"
+          "label": "Text 3",
+          "default": "Benefit Text 3"
         },
         {
           "type": "image_picker",
@@ -479,7 +482,8 @@
         {
           "type": "text",
           "id": "text4",
-          "label": "Text 4"
+          "label": "Text 4",
+          "default": "Benefit Text 4"
         },
         {
           "type": "image_picker",
@@ -945,7 +949,7 @@
   ],
   "presets": [
     {
-      "name": "Featured Product",
+      "name": "Featured Product Card",
       "category": "Custom",
       "blocks": [
         {
@@ -953,6 +957,9 @@
         },
         {
           "type": "rating"
+        },
+        {
+          "type": "title"
         },
         {
           "type": "text"

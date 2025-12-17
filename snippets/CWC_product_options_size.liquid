@@ -23,184 +23,374 @@
 {% endfor %}
 
 {% if target_option %}
-  <div
-    class="cwc-featured-product__option_size layout-{{ layout_mode }} {% if show_images %}show-images{% else %}hide-images{% endif %}"
-    {{ block.shopify_attributes }}
-  >
-    {% if option_label != blank %}
-      <label class="cwc-featured-product__option_size-label">{{ option_label }}</label>
-    {% endif %}
+  {% if layout_mode == 'horizontal' %}
+    <div
+      class="cwc-featured-product__option_size layout-{{ layout_mode }} {% if show_images %}show-images{% else %}hide-images{% endif %}"
+      {{ block.shopify_attributes }}
+    >
+      {% if option_label != blank %}
+        <label class="cwc-featured-product__option_size-label">{{ option_label }}</label>
+      {% endif %}
 
-    <div class="cwc-featured-product__option_size_buttons">
-      {% for value in target_option.values %}
-        {% comment %} Find candidate variant {% endcomment %}
-        {% assign candidate = null %}
-        {% for v in product.variants %}
-          {% assign match = true %}
+      <div class="cwc-featured-product__option_size_buttons">
+        {% for value in target_option.values %}
+          {% comment %} Find candidate variant {% endcomment %}
+          {% assign candidate = null %}
+          {% for v in product.variants %}
+            {% assign match = true %}
 
-          {% comment %} Match this option value {% endcomment %}
-          {% if target_option.position == 1 %}
-            {% if v.option1 != value %}{% assign match = false %}{% endif %}
-            {% if product.options.size > 1 and v.option2 != sel.option2 %}{% assign match = false %}{% endif %}
-            {% if product.options.size > 2 and v.option3 != sel.option3 %}{% assign match = false %}{% endif %}
-          {% elsif target_option.position == 2 %}
-            {% if v.option2 != value %}{% assign match = false %}{% endif %}
-            {% if v.option1 != sel.option1 %}{% assign match = false %}{% endif %}
-            {% if product.options.size > 2 and v.option3 != sel.option3 %}{% assign match = false %}{% endif %}
-          {% else %}
-            {% if v.option3 != value %}{% assign match = false %}{% endif %}
-            {% if v.option1 != sel.option1 %}{% assign match = false %}{% endif %}
-            {% if v.option2 != sel.option2 %}{% assign match = false %}{% endif %}
+            {% comment %} Match this option value {% endcomment %}
+            {% if target_option.position == 1 %}
+              {% if v.option1 != value %}{% assign match = false %}{% endif %}
+              {% if product.options.size > 1 and v.option2 != sel.option2 %}{% assign match = false %}{% endif %}
+              {% if product.options.size > 2 and v.option3 != sel.option3 %}{% assign match = false %}{% endif %}
+            {% elsif target_option.position == 2 %}
+              {% if v.option2 != value %}{% assign match = false %}{% endif %}
+              {% if v.option1 != sel.option1 %}{% assign match = false %}{% endif %}
+              {% if product.options.size > 2 and v.option3 != sel.option3 %}{% assign match = false %}{% endif %}
+            {% else %}
+              {% if v.option3 != value %}{% assign match = false %}{% endif %}
+              {% if v.option1 != sel.option1 %}{% assign match = false %}{% endif %}
+              {% if v.option2 != sel.option2 %}{% assign match = false %}{% endif %}
+            {% endif %}
+
+            {% if match %}
+              {% assign candidate = v %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+
+          {% assign is_selected = false %}
+          {% if target_option.position == 1 and sel.option1 == value %}
+            {% assign is_selected = true %}
+          {% elsif target_option.position == 2 and sel.option2 == value %}
+            {% assign is_selected = true %}
+          {% elsif target_option.position == 3 and sel.option3 == value %}
+            {% assign is_selected = true %}
           {% endif %}
 
-          {% if match %}
-            {% assign candidate = v %}
-            {% break %}
+          {% comment %} Calculate savings {% endcomment %}
+          {% assign show_compare = false %}
+          {% assign save_pct = 0 %}
+          {% if candidate and candidate.compare_at_price and candidate.compare_at_price > candidate.price %}
+            {% assign show_compare = true %}
+            {% assign save_money = candidate.compare_at_price | minus: candidate.price %}
+            {% assign save_pct = save_money | times: 100 | divided_by: candidate.compare_at_price %}
+          {% endif %}
+
+          {% comment %} Get thumbnail URL {% endcomment %}
+          {% assign thumb_url = null %}
+          {% assign option_index = forloop.index0 %}
+
+          {% if option_index == 0 and block.settings.image1 != blank %}
+            {% assign thumb_url = block.settings.image1 | image_url: width: 120 %}
+          {% elsif option_index == 1 and block.settings.image2 != blank %}
+            {% assign thumb_url = block.settings.image2 | image_url: width: 120 %}
+          {% elsif option_index == 2 and block.settings.image3 != blank %}
+            {% assign thumb_url = block.settings.image3 | image_url: width: 120 %}
+          {% elsif option_index == 3 and block.settings.image4 != blank %}
+            {% assign thumb_url = block.settings.image4 | image_url: width: 120 %}
+          {% elsif candidate and candidate.featured_image %}
+            {% assign thumb_url = candidate.featured_image | image_url: width: 120 %}
+          {% elsif candidate and candidate.image %}
+            {% assign thumb_url = candidate.image | image_url: width: 120 %}
+          {% endif %}
+
+          {% comment %} Render Button {% endcomment %}
+          {% if candidate and candidate.available %}
+            <button
+              type="button"
+              class="cwc-featured-product__option_size_button{% if is_selected %} selected{% endif %}"
+              data-option-index="{{ target_option.position | minus: 1 }}"
+              data-option-name="{{ target_option.name | escape }}"
+              data-value="{{ value | escape }}"
+              {% if candidate %}
+                data-variant-id="{{ candidate.id }}"
+                data-price="{{ candidate.price }}"
+                data-compare="{{ candidate.compare_at_price | default: 0 }}"
+              {% endif %}
+              {% if thumb_url %}
+                data-thumb="{{ thumb_url }}"
+              {% endif %}
+              {% unless candidate and candidate.available %}
+                disabled aria-disabled="true"
+              {% endunless %}
+            >
+              {% if show_images and thumb_url %}
+                <span class="cwc-featured-product__option_size_button_thumb-wrap">
+                  <img
+                    class="cwc-featured-product__option_size_button_thumb"
+                    src="{{ thumb_url }}"
+                    alt="{{ value | escape }}"
+                  >
+                </span>
+              {% endif %}
+
+              <div class="cwc-featured-product__option_size_button_value_wrap">
+                <span class="cwc-featured-product__option_size_button_value">
+                  {% comment %} {{ value }} {% endcomment %}
+
+                  {% comment %}  {% endcomment %}
+                  {% if candidate %}
+                    {% comment %} Variant text display - Badge + Italic text, vertically oriented {% endcomment %}
+                    {% assign value_key = 'value_text' | append: forloop.index %}
+                    {% assign value_text_1 = block.settings[value_key] %}
+
+                    {% if value_text_1 != blank %}
+                      {{ value_text_1 }}
+                    {% else %}
+                      {{ value }}
+                    {% endif %}
+                  {% endif %}
+
+                  {% comment %}  {% endcomment %}
+                </span>
+                {% if save_pct > 0 %}
+                  {% if block.settings.show_savings %}
+                    <span class="cwc-featured-product__option_size_button_save_perc">You Save {{ save_pct }}%</span>
+                  {% endif %}
+                {% endif %}
+              </div>
+
+              {% if candidate %}
+                {% comment %} Variant text display - Badge + Italic text, vertically oriented {% endcomment %}
+                {% assign text_key = 'variant_text' | append: forloop.index %}
+                {% assign text_key_2 = 'variant_text' | append: forloop.index | append: '_1' %}
+                {% assign variant_text_1 = block.settings[text_key] %}
+                {% assign variant_text_2 = block.settings[text_key_2] %}
+
+                {% if variant_text_1 != blank or variant_text_2 != blank %}
+                  <div class="cwc-featured-product__option_size_button_variant-text">
+                    {% if variant_text_1 != blank %}
+                      <span class="cwc-featured-product__option_size_button_variant-badge">{{ variant_text_1 }}</span>
+                    {% endif %}
+                    {% if variant_text_2 != blank %}
+                      <span class="cwc-featured-product__option_size_button_variant-subtitle">
+                        {{- variant_text_2 -}}
+                      </span>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              {% endif %}
+
+              {% if candidate %}
+                {% if block.settings.show_prices %}
+                  <span class="cwc-featured-product__option_size_button_prices">
+                    <span class="cwc-featured-product__option_size_button_price">{{ candidate.price | money }}</span>
+                    {% if show_compare %}
+                      <span class="cwc-featured-product__option_size_button_compare_price">
+                        {{- candidate.compare_at_price | money -}}
+                      </span>
+                    {% endif %}
+                  </span>
+                {% endif %}
+                {% comment %}
+                  {% else %}
+                  <span class="cwc-featured-product__option_size_button_prices">
+                    <span class="cwc-featured-product__option_size_button_unavalible">Unavailable</span>
+                  </span>
+                {% endcomment %}
+              {% endif %}
+            </button>
           {% endif %}
         {% endfor %}
+      </div>
 
-        {% assign is_selected = false %}
-        {% if target_option.position == 1 and sel.option1 == value %}
-          {% assign is_selected = true %}
-        {% elsif target_option.position == 2 and sel.option2 == value %}
-          {% assign is_selected = true %}
-        {% elsif target_option.position == 3 and sel.option3 == value %}
-          {% assign is_selected = true %}
-        {% endif %}
-
-        {% comment %} Calculate savings {% endcomment %}
-        {% assign show_compare = false %}
-        {% assign save_pct = 0 %}
-        {% if candidate and candidate.compare_at_price and candidate.compare_at_price > candidate.price %}
-          {% assign show_compare = true %}
-          {% assign save_money = candidate.compare_at_price | minus: candidate.price %}
-          {% assign save_pct = save_money | times: 100 | divided_by: candidate.compare_at_price %}
-        {% endif %}
-
-        {% comment %} Get thumbnail URL {% endcomment %}
-        {% assign thumb_url = null %}
-        {% assign option_index = forloop.index0 %}
-
-        {% if option_index == 0 and block.settings.image1 != blank %}
-          {% assign thumb_url = block.settings.image1 | image_url: width: 120 %}
-        {% elsif option_index == 1 and block.settings.image2 != blank %}
-          {% assign thumb_url = block.settings.image2 | image_url: width: 120 %}
-        {% elsif option_index == 2 and block.settings.image3 != blank %}
-          {% assign thumb_url = block.settings.image3 | image_url: width: 120 %}
-        {% elsif option_index == 3 and block.settings.image4 != blank %}
-          {% assign thumb_url = block.settings.image4 | image_url: width: 120 %}
-        {% elsif candidate and candidate.featured_image %}
-          {% assign thumb_url = candidate.featured_image | image_url: width: 120 %}
-        {% elsif candidate and candidate.image %}
-          {% assign thumb_url = candidate.image | image_url: width: 120 %}
-        {% endif %}
-
-        {% comment %} Render Button {% endcomment %}
-        {% if candidate and candidate.available %}
-          <button
-            type="button"
-            class="cwc-featured-product__option_size_button{% if is_selected %} selected{% endif %}"
-            data-option-index="{{ target_option.position | minus: 1 }}"
-            data-option-name="{{ target_option.name | escape }}"
-            data-value="{{ value | escape }}"
-            {% if candidate %}
-              data-variant-id="{{ candidate.id }}"
-              data-price="{{ candidate.price }}"
-              data-compare="{{ candidate.compare_at_price | default: 0 }}"
-            {% endif %}
-            {% if thumb_url %}
-              data-thumb="{{ thumb_url }}"
-            {% endif %}
-            {% unless candidate and candidate.available %}
-              disabled aria-disabled="true"
-            {% endunless %}
-          >
-            {% if show_images and thumb_url %}
-              <span class="cwc-featured-product__option_size_button_thumb-wrap">
-                <img
-                  class="cwc-featured-product__option_size_button_thumb"
-                  src="{{ thumb_url }}"
-                  alt="{{ value | escape }}"
-                >
-              </span>
-            {% endif %}
-
-            <div class="cwc-featured-product__option_size_button_value_wrap">
-              <span class="cwc-featured-product__option_size_button_value">
-                {% comment %} {{ value }} {% endcomment %}
-
-                {% comment %}  {% endcomment %}
-                {% if candidate %}
-                  {% comment %} Variant text display - Badge + Italic text, vertically oriented {% endcomment %}
-                  {% assign value_key = 'value_text' | append: forloop.index %}
-                  {% assign value_text_1 = block.settings[value_key] %}
-
-                  {% if value_text_1 != blank %}
-                    {{ value_text_1 }}
-                  {% else %}
-                    {{ value }}
-                  {% endif %}
-                {% endif %}
-
-                {% comment %}  {% endcomment %}
-              </span>
-              {% if save_pct > 0 %}
-                {% if block.settings.show_savings %}
-                  <span class="cwc-featured-product__option_size_button_save_perc">You Save {{ save_pct }}%</span>
-                {% endif %}
-              {% endif %}
-            </div>
-
-            {% if candidate %}
-              {% comment %} Variant text display - Badge + Italic text, vertically oriented {% endcomment %}
-              {% assign text_key = 'variant_text' | append: forloop.index %}
-              {% assign text_key_2 = 'variant_text' | append: forloop.index | append: '_1' %}
-              {% assign variant_text_1 = block.settings[text_key] %}
-              {% assign variant_text_2 = block.settings[text_key_2] %}
-
-              {% if variant_text_1 != blank or variant_text_2 != blank %}
-                <div class="cwc-featured-product__option_size_button_variant-text">
-                  {% if variant_text_1 != blank %}
-                    <span class="cwc-featured-product__option_size_button_variant-badge">{{ variant_text_1 }}</span>
-                  {% endif %}
-                  {% if variant_text_2 != blank %}
-                    <span class="cwc-featured-product__option_size_button_variant-subtitle">{{ variant_text_2 }}</span>
-                  {% endif %}
-                </div>
-              {% endif %}
-            {% endif %}
-
-            {% if candidate %}
-              {% if block.settings.show_prices %}
-                <span class="cwc-featured-product__option_size_button_prices">
-                  <span class="cwc-featured-product__option_size_button_price">{{ candidate.price | money }}</span>
-                  {% if show_compare %}
-                    <span class="cwc-featured-product__option_size_button_compare_price">
-                      {{- candidate.compare_at_price | money -}}
-                    </span>
-                  {% endif %}
-                </span>
-              {% endif %}
-              {% comment %}
-                {% else %}
-                <span class="cwc-featured-product__option_size_button_prices">
-                  <span class="cwc-featured-product__option_size_button_unavalible">Unavailable</span>
-                </span>
-              {% endcomment %}
-            {% endif %}
-          </button>
-        {% endif %}
-      {% endfor %}
+      <input
+        type="hidden"
+        name="options[{{ target_option.name | escape }}]"
+        class="cwc-featured-product__option_size-input"
+        data-option-index="{{ target_option.position | minus: 1 }}"
+        value="{% if target_option.position == 1 %}{{ sel.option1 }}{% elsif target_option.position == 2 %}{{ sel.option2 }}{% else %}{{ sel.option3 }}{% endif %}"
+      >
     </div>
 
-    <input
-      type="hidden"
-      name="options[{{ target_option.name | escape }}]"
-      class="cwc-featured-product__option_size-input"
-      data-option-index="{{ target_option.position | minus: 1 }}"
-      value="{% if target_option.position == 1 %}{{ sel.option1 }}{% elsif target_option.position == 2 %}{{ sel.option2 }}{% else %}{{ sel.option3 }}{% endif %}"
+    {% comment %} horizontal leyout {% endcomment %}
+
+  {% elsif layout_mode == 'vertical' %}
+    {% comment %} vertical leyout {% endcomment %}
+    <div
+      class="cwc-featured-product__option_size layout-{{ layout_mode }} {% if show_images %}show-images{% else %}hide-images{% endif %}"
+      {{ block.shopify_attributes }}
     >
-  </div>
+      {% if option_label != blank %}
+        <label class="cwc-featured-product__option_size-label">{{ option_label }}</label>
+      {% endif %}
+
+      <div class="cwc-featured-product__option_size_buttons">
+        {% for value in target_option.values %}
+          {% comment %} Find candidate variant {% endcomment %}
+          {% assign candidate = null %}
+          {% for v in product.variants %}
+            {% assign match = true %}
+
+            {% comment %} Match this option value {% endcomment %}
+            {% if target_option.position == 1 %}
+              {% if v.option1 != value %}{% assign match = false %}{% endif %}
+              {% if product.options.size > 1 and v.option2 != sel.option2 %}{% assign match = false %}{% endif %}
+              {% if product.options.size > 2 and v.option3 != sel.option3 %}{% assign match = false %}{% endif %}
+            {% elsif target_option.position == 2 %}
+              {% if v.option2 != value %}{% assign match = false %}{% endif %}
+              {% if v.option1 != sel.option1 %}{% assign match = false %}{% endif %}
+              {% if product.options.size > 2 and v.option3 != sel.option3 %}{% assign match = false %}{% endif %}
+            {% else %}
+              {% if v.option3 != value %}{% assign match = false %}{% endif %}
+              {% if v.option1 != sel.option1 %}{% assign match = false %}{% endif %}
+              {% if v.option2 != sel.option2 %}{% assign match = false %}{% endif %}
+            {% endif %}
+
+            {% if match %}
+              {% assign candidate = v %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+
+          {% assign is_selected = false %}
+          {% if target_option.position == 1 and sel.option1 == value %}
+            {% assign is_selected = true %}
+          {% elsif target_option.position == 2 and sel.option2 == value %}
+            {% assign is_selected = true %}
+          {% elsif target_option.position == 3 and sel.option3 == value %}
+            {% assign is_selected = true %}
+          {% endif %}
+
+          {% comment %} Calculate savings {% endcomment %}
+          {% assign show_compare = false %}
+          {% assign save_pct = 0 %}
+          {% if candidate and candidate.compare_at_price and candidate.compare_at_price > candidate.price %}
+            {% assign show_compare = true %}
+            {% assign save_money = candidate.compare_at_price | minus: candidate.price %}
+            {% assign save_pct = save_money | times: 100 | divided_by: candidate.compare_at_price %}
+          {% endif %}
+
+          {% comment %} Get thumbnail URL {% endcomment %}
+          {% assign thumb_url = null %}
+          {% assign option_index = forloop.index0 %}
+
+          {% if option_index == 0 and block.settings.image1 != blank %}
+            {% assign thumb_url = block.settings.image1 | image_url: width: 120 %}
+          {% elsif option_index == 1 and block.settings.image2 != blank %}
+            {% assign thumb_url = block.settings.image2 | image_url: width: 120 %}
+          {% elsif option_index == 2 and block.settings.image3 != blank %}
+            {% assign thumb_url = block.settings.image3 | image_url: width: 120 %}
+          {% elsif option_index == 3 and block.settings.image4 != blank %}
+            {% assign thumb_url = block.settings.image4 | image_url: width: 120 %}
+          {% elsif candidate and candidate.featured_image %}
+            {% assign thumb_url = candidate.featured_image | image_url: width: 120 %}
+          {% elsif candidate and candidate.image %}
+            {% assign thumb_url = candidate.image | image_url: width: 120 %}
+          {% endif %}
+
+          {% comment %} Render Button {% endcomment %}
+          {% if candidate and candidate.available %}
+            <button
+              type="button"
+              class="cwc-featured-product__option_size_button{% if is_selected %} selected{% endif %}"
+              data-option-index="{{ target_option.position | minus: 1 }}"
+              data-option-name="{{ target_option.name | escape }}"
+              data-value="{{ value | escape }}"
+              {% if candidate %}
+                data-variant-id="{{ candidate.id }}"
+                data-price="{{ candidate.price }}"
+                data-compare="{{ candidate.compare_at_price | default: 0 }}"
+              {% endif %}
+              {% if thumb_url %}
+                data-thumb="{{ thumb_url }}"
+              {% endif %}
+              {% unless candidate and candidate.available %}
+                disabled aria-disabled="true"
+              {% endunless %}
+            >
+              {% if show_images and thumb_url %}
+                <span class="cwc-featured-product__option_size_button_thumb-wrap">
+                  <img
+                    class="cwc-featured-product__option_size_button_thumb"
+                    src="{{ thumb_url }}"
+                    alt="{{ value | escape }}"
+                  >
+                </span>
+              {% endif %}
+
+              <div class="cwc-featured-product__option_size_button_value_wrap">
+                <span class="cwc-featured-product__option_size_button_value">
+                  {% comment %} {{ value }} {% endcomment %}
+
+                  {% comment %}  {% endcomment %}
+                  {% if candidate %}
+                    {% comment %} Variant text display - Badge + Italic text, vertically oriented {% endcomment %}
+                    {% assign value_key = 'value_text' | append: forloop.index %}
+                    {% assign value_text_1 = block.settings[value_key] %}
+
+                    {% if value_text_1 != blank %}
+                      {{ value_text_1 }}
+                    {% else %}
+                      {{ value }}
+                    {% endif %}
+                  {% endif %}
+
+                  {% comment %}  {% endcomment %}
+                </span>
+                {% if save_pct > 0 %}
+                  {% if block.settings.show_savings %}
+                    <span class="cwc-featured-product__option_size_button_save_perc">You Save {{ save_pct }}%</span>
+                  {% endif %}
+                {% endif %}
+              </div>
+
+              {% if candidate %}
+                {% comment %} Variant text display - Badge + Italic text, vertically oriented {% endcomment %}
+                {% assign text_key = 'variant_text' | append: forloop.index %}
+                {% assign text_key_2 = 'variant_text' | append: forloop.index | append: '_1' %}
+                {% assign variant_text_1 = block.settings[text_key] %}
+                {% assign variant_text_2 = block.settings[text_key_2] %}
+
+                {% if variant_text_1 != blank or variant_text_2 != blank %}
+                  <div class="cwc-featured-product__option_size_button_variant-text">
+                    {% if variant_text_1 != blank %}
+                      <span class="cwc-featured-product__option_size_button_variant-badge">{{ variant_text_1 }}</span>
+                    {% endif %}
+                    {% if variant_text_2 != blank %}
+                      <span class="cwc-featured-product__option_size_button_variant-subtitle">
+                        {{- variant_text_2 -}}
+                      </span>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              {% endif %}
+
+              {% if candidate %}
+                {% if block.settings.show_prices %}
+                  <span class="cwc-featured-product__option_size_button_prices">
+                    <span class="cwc-featured-product__option_size_button_price">{{ candidate.price | money }}</span>
+                    {% if show_compare %}
+                      <span class="cwc-featured-product__option_size_button_compare_price">
+                        {{- candidate.compare_at_price | money -}}
+                      </span>
+                    {% endif %}
+                  </span>
+                {% endif %}
+                {% comment %}
+                  {% else %}
+                  <span class="cwc-featured-product__option_size_button_prices">
+                    <span class="cwc-featured-product__option_size_button_unavalible">Unavailable</span>
+                  </span>
+                {% endcomment %}
+              {% endif %}
+            </button>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <input
+        type="hidden"
+        name="options[{{ target_option.name | escape }}]"
+        class="cwc-featured-product__option_size-input"
+        data-option-index="{{ target_option.position | minus: 1 }}"
+        value="{% if target_option.position == 1 %}{{ sel.option1 }}{% elsif target_option.position == 2 %}{{ sel.option2 }}{% else %}{{ sel.option3 }}{% endif %}"
+      >
+    </div>
+  {% endif %}
+
 {% else %}
   {% comment %} Option not found - show helpful message in theme editor {% endcomment %}
   <div
@@ -218,62 +408,62 @@
 
 {% comment %} JavaScript to manage selected state {% endcomment %}
 <script>
-(function() {
-  // Find the size option wrapper by class instead of position attribute
-  const optionWrapper = document.querySelector('.cwc-featured-product__option_size');
-  if (!optionWrapper) return;
+  (function () {
+    // Find the size option wrapper by class instead of position attribute
+    const optionWrapper = document.querySelector('.cwc-featured-product__option_size');
+    if (!optionWrapper) return;
 
-  const buttons = optionWrapper.querySelectorAll('.cwc-featured-product__option_size_button');
-  const hiddenInput = optionWrapper.querySelector('.cwc-featured-product__option_size-input');
+    const buttons = optionWrapper.querySelectorAll('.cwc-featured-product__option_size_button');
+    const hiddenInput = optionWrapper.querySelector('.cwc-featured-product__option_size-input');
 
-  // Function to sync visual selection with current hidden input value
-  function syncSelectionFromInput() {
-    if (!hiddenInput) return;
+    // Function to sync visual selection with current hidden input value
+    function syncSelectionFromInput() {
+      if (!hiddenInput) return;
 
-    const currentValue = hiddenInput.value;
-    buttons.forEach((button) => {
-      if (button.dataset.value === currentValue) {
-        // Update visual selection state
-        buttons.forEach((btn) => btn.classList.remove('selected'));
-        button.classList.add('selected');
-      }
-    });
-  }
-
-  // NOTE: Click handling is done by the main JS (CWC_featured_product.js)
-  // This script only handles SYNCING the visual state when the value changes externally
-
-  // Watch for changes to the hidden input value attribute (from other option changes)
-  if (hiddenInput && window.MutationObserver) {
-    const observer = new MutationObserver(function(mutations) {
-      mutations.forEach(function(mutation) {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'value') {
-          syncSelectionFromInput();
+      const currentValue = hiddenInput.value;
+      buttons.forEach((button) => {
+        if (button.dataset.value === currentValue) {
+          // Update visual selection state
+          buttons.forEach((btn) => btn.classList.remove('selected'));
+          button.classList.add('selected');
         }
       });
-    });
+    }
 
-    observer.observe(hiddenInput, {
-      attributes: true,
-      attributeFilter: ['value']
-    });
-  }
+    // NOTE: Click handling is done by the main JS (CWC_featured_product.js)
+    // This script only handles SYNCING the visual state when the value changes externally
 
-  // Also listen for value changes via events
-  if (hiddenInput) {
-    hiddenInput.addEventListener('change', syncSelectionFromInput);
-    hiddenInput.addEventListener('input', syncSelectionFromInput);
-  }
+    // Watch for changes to the hidden input value attribute (from other option changes)
+    if (hiddenInput && window.MutationObserver) {
+      const observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'value') {
+            syncSelectionFromInput();
+          }
+        });
+      });
 
-  // Initial sync on page load
-  function init() {
-    syncSelectionFromInput();
-  }
+      observer.observe(hiddenInput, {
+        attributes: true,
+        attributeFilter: ['value'],
+      });
+    }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
+    // Also listen for value changes via events
+    if (hiddenInput) {
+      hiddenInput.addEventListener('change', syncSelectionFromInput);
+      hiddenInput.addEventListener('input', syncSelectionFromInput);
+    }
+
+    // Initial sync on page load
+    function init() {
+      syncSelectionFromInput();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
 </script>

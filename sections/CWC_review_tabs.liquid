@@ -15,10 +15,12 @@
 
 {{ 'CWC_review_tabs.css' | asset_url | stylesheet_tag }}
 
-{% comment %} ================================
-   SECTION: CWC Review Tabs
-   Purpose: Tabbed customer reviews by category
-   ================================ {% endcomment %}
+{% comment %}
+  ================================
+  SECTION: CWC Review Tabs
+  Purpose: Tabbed customer reviews by category
+  ================================
+{% endcomment %}
 
 <section
   id="CWC_review_tabs-{{ section.id }}"
@@ -26,9 +28,11 @@
   data-section-id="{{ section.id }}"
 >
   <div class="cwc-review-tabs__container">
-    {% comment %} ==============================
-       Section Header
-       ============================== {% endcomment %}
+    {% comment %}
+      ==============================
+      Section Header
+      ==============================
+    {% endcomment %}
     {% if section.settings.heading != blank or section.settings.subtext != blank %}
       <div class="cwc-review-tabs__header">
         {% if section.settings.heading != blank %}
@@ -45,9 +49,11 @@
       </div>
     {% endif %}
 
-    {% comment %} ==============================
-       Tab Buttons
-       ============================== {% endcomment %}
+    {% comment %}
+      ==============================
+      Tab Buttons
+      ==============================
+    {% endcomment %}
     {% if section.blocks.size > 0 %}
       <div class="cwc-review-tabs__buttons">
         {% for block in section.blocks %}
@@ -63,9 +69,11 @@
         {% endfor %}
       </div>
 
-      {% comment %} ==============================
-         Tab Content (Review Grids)
-         ============================== {% endcomment %}
+      {% comment %}
+        ==============================
+        Tab Content (Review Grids)
+        ==============================
+      {% endcomment %}
       {% for block in section.blocks %}
         <div
           class="cwc-review-tabs__grid{% if forloop.first %} active{% endif %}"
@@ -75,9 +83,7 @@
           {% comment %} Review Card 1 {% endcomment %}
           {% if block.settings.review_title_1 != blank or block.settings.review_text_1 != blank %}
             <div class="cwc-review-tabs__card">
-              <div class="cwc-review-tabs__stars" aria-label="5 star rating">
-                ★★★★★
-              </div>
+              <div class="cwc-review-tabs__stars" aria-label="5 star rating">★★★★★</div>
 
               {% if block.settings.review_title_1 != blank %}
                 <h4 class="cwc-review-tabs__card-title">
@@ -92,9 +98,7 @@
               {% endif %}
 
               {% if block.settings.review_author_1 != blank %}
-                <cite class="cwc-review-tabs__card-author">
-                  – {{ block.settings.review_author_1 }}
-                </cite>
+                <cite class="cwc-review-tabs__card-author"> – {{ block.settings.review_author_1 }} </cite>
               {% endif %}
             </div>
           {% endif %}
@@ -102,9 +106,7 @@
           {% comment %} Review Card 2 {% endcomment %}
           {% if block.settings.review_title_2 != blank or block.settings.review_text_2 != blank %}
             <div class="cwc-review-tabs__card">
-              <div class="cwc-review-tabs__stars" aria-label="5 star rating">
-                ★★★★★
-              </div>
+              <div class="cwc-review-tabs__stars" aria-label="5 star rating">★★★★★</div>
 
               {% if block.settings.review_title_2 != blank %}
                 <h4 class="cwc-review-tabs__card-title">
@@ -119,9 +121,7 @@
               {% endif %}
 
               {% if block.settings.review_author_2 != blank %}
-                <cite class="cwc-review-tabs__card-author">
-                  – {{ block.settings.review_author_2 }}
-                </cite>
+                <cite class="cwc-review-tabs__card-author"> – {{ block.settings.review_author_2 }} </cite>
               {% endif %}
             </div>
           {% endif %}
@@ -129,9 +129,7 @@
           {% comment %} Review Card 3 {% endcomment %}
           {% if block.settings.review_title_3 != blank or block.settings.review_text_3 != blank %}
             <div class="cwc-review-tabs__card">
-              <div class="cwc-review-tabs__stars" aria-label="5 star rating">
-                ★★★★★
-              </div>
+              <div class="cwc-review-tabs__stars" aria-label="5 star rating">★★★★★</div>
 
               {% if block.settings.review_title_3 != blank %}
                 <h4 class="cwc-review-tabs__card-title">
@@ -146,9 +144,7 @@
               {% endif %}
 
               {% if block.settings.review_author_3 != blank %}
-                <cite class="cwc-review-tabs__card-author">
-                  – {{ block.settings.review_author_3 }}
-                </cite>
+                <cite class="cwc-review-tabs__card-author"> – {{ block.settings.review_author_3 }} </cite>
               {% endif %}
             </div>
           {% endif %}

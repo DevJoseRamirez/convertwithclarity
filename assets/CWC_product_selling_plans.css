@@ -33,39 +33,43 @@
    ========================================================================== */
 
 /* Main checkbox input */
-input[type=checkbox].cwc-auto-refill-checkbox:checked:before {
-    display: none;
-    opacity: 0;
-    visibility: hidden;
+input[type=checkbox]. cwc-auto-refill-checkbox:checked::before,
+input[type=checkbox]. cwc-auto-refill-checkbox:checked::after {
+    /* display: none; */
+    /* opacity: 0; */
+    /* visibility: hidden; */
+    /*  */
+    background: #125657;
+
+}
+
+input[type="checkbox"]:hover {
+    accent-color: #125657;
+    /* Your desired color */
+    cursor: pointer;
 }
 
 .cwc-auto-refill-checkbox__wrapper {
     top: -0.625rem;
     top: -6px;
 
-    accent-color: #00937026;
-    height: 1rem;
-    width: 1rem;
+    /* accent-color: #00937026; */
     /* background: #095946; */
-    background-size: 12.425px;
-    background-repeat: no-repeat;
-    background-position: center;
+    /* background-size: 12.425px; */
+    /* background-repeat: no-repeat; */
+    /* background-position: center; */
     /* border-color: #095946; */
     display: block;
-    position: relative;
     opacity: 1;
     visibility: visible;
     cursor: pointer;
-    background: none;
-    border: none;
+    /* background: none; */
+    /* border: none; */
     position: relative;
     height: 20px;
     width: 20px;
     background: transparent;
-
     transition: all .1s ease-in-out;
-
-
 }
 
 
@@ -82,10 +86,12 @@ input[type=checkbox].cwc-auto-refill-checkbox {
     border-color: #125657;
     transition: all .1s ease-in-out;
     border-radius: 2px;
+    margin: 0rem;
 }
 
 input[type=checkbox].cwc-auto-refill-checkbox:checked {
     background: #125657;
+    accent-color: #125657;
     transition: all .1s ease-in-out;
 }
 
@@ -94,6 +100,8 @@ input[type=checkbox].cwc-auto-refill-checkbox:checked {
     top: -0.625rem;
     top: 3px;
     right: 3px;
+    top: 7px;
+    right: -1px;
     accent-color: #00937026;
     height: 14px;
     width: 14px;
@@ -127,7 +135,7 @@ input.cwc-auto-refill-checkbox+svg {
 /* When checked - show SVG */
 input.cwc-auto-refill-checkbox:checked+svg {
     transition: all .1s ease-in-out;
-    display: flex;
+    /* display: flex; */
 }
 
 /* ==========================================================================
@@ -166,9 +174,9 @@ input.cwc-auto-refill-checkbox:checked+svg {
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: #fff;
-    background: #095946;
-    background-image: url(https://cdn.shopify.com/s/files/1/0583/9637/7159/files/Done.svg);
+    /* background-color: #fff; */
+    /* background: #095946; */
+    /* background-image: url(https://cdn.shopify.com/s/files/1/0583/9637/7159/files/Done.svg); */
     background-size: 12.425px;
     background-repeat: no-repeat;
     background-position: center;

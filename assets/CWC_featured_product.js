@@ -1,9 +1,9 @@
 /* =====================================================
-   CWC FEATURED PRODUCT JAVASCRIPT
+   CWC FEATURED PRODUCT - UI & DISPLAY
    =====================================================
-   Purpose: Handles product variants, pricing, subscriptions, 
-   add-to-cart functionality, and FAQ interactions for 
-   featured product sections.
+   Purpose: Handles product variants, pricing display, 
+   subscriptions, and FAQ interactions for featured 
+   product sections.
    ===================================================== */
 
 /* =====================================================
@@ -21,32 +21,54 @@ document.addEventListener("DOMContentLoaded", function () {
     const sellingPlanGroups = JSON.parse(section.dataset.sellingPlans || "[]");
     const savingsDisplayType = section.dataset.savingsDisplay || "dollar";
 
-    initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, savingsDisplayType);
+    initFeaturedProductUI(
+      section,
+      sectionId,
+      variants,
+      sellingPlanGroups,
+      savingsDisplayType
+    );
   });
 });
 
 /* =====================================================
-   MAIN INITIALIZATION FUNCTION
+   MAIN UI INITIALIZATION FUNCTION
    ===================================================== */
-function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, savingsDisplayType) {
+function initFeaturedProductUI(
+  section,
+  sectionId,
+  variants,
+  sellingPlanGroups,
+  savingsDisplayType
+) {
   /* -----------------------------------------------------
      DOM ELEMENT REFERENCES
      ----------------------------------------------------- */
   // Form and core elements
   const form = section.querySelector(`#product-form-${sectionId}`);
-  const variantIdInput = section.querySelector(".variant-id-input"); // <input name="id">
-  const sellingPlanInput = section.querySelector(".selling-plan-input"); // <input name="selling_plan">
+  const variantIdInput = section.querySelector(".variant-id-input");
+  const sellingPlanInput = section.querySelector(".selling-plan-input");
 
-  // Product option controls (buttons and inputs)
+  // Product option controls
   const optionButtons = section.querySelectorAll(
     ".cwc-featured-product__option_button, .cwc-featured-product__option_type_button, .cwc-featured-product__option_size_button"
   );
   const optionInputs = section.querySelectorAll(
     ".cwc-featured-product__option-input, .cwc-featured-product__option_type-input, .cwc-featured-product__option_size-input"
-  ); // These are <input name="options[...]">
+  );
 
-  // Cart and pricing elements
-  const addToCartButton = section.querySelector(`#add-to-cart-${sectionId}`);
+  console.log("Raw DOM query results:", {
+    optionButtons: optionButtons.length,
+    optionInputs: optionInputs.length,
+    optionInputClasses: Array.from(optionInputs).map(input => ({
+      className: input.className,
+      optionIndex: input.dataset.optionIndex,
+      name: input.name,
+      value: input.value
+    }))
+  });
+
+  // Pricing elements
   const currentPriceEl = section.querySelector(`#current-price-${sectionId}`);
   const comparePriceEl = section.querySelector(`#compare-price-${sectionId}`);
   const saveAmountEl = section.querySelector(`#save-amount-${sectionId}`);
@@ -55,38 +77,36 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, sa
   const autoRefillCheckbox = section.querySelector(`#auto-refill-${sectionId}`);
 
   /* -----------------------------------------------------
-     SELLING PLAN INPUT SETUP
+     VALIDATION & LOGGING
      ----------------------------------------------------- */
-  // Create selling plan input if it doesn't exist (for subscriptions)
-  if (!sellingPlanInput && form) {
-    const newSellingPlanInput = document.createElement("input");
-    newSellingPlanInput.type = "hidden";
-    newSellingPlanInput.name = "selling_plan";
-    newSellingPlanInput.className = "selling-plan-input";
-    newSellingPlanInput.value = ""; // Empty by default
-    form.appendChild(newSellingPlanInput);
-    console.log("Created selling plan input");
-  }
+  console.log("CWC UI Initialization - Found elements:", {
+    form: !!form,
+    variantIdInput: !!variantIdInput,
+    sellingPlanInput: !!sellingPlanInput,
+    optionButtons: optionButtons.length,
+    optionInputs: optionInputs.length,
+    autoRefillCheckbox: !!autoRefillCheckbox,
+  });
 
-  const finalSellingPlanInput =
-    sellingPlanInput || form.querySelector(".selling-plan-input");
-
-  /* -----------------------------------------------------
-     VALIDATION
-     ----------------------------------------------------- */
-  // Ensure required elements exist before proceeding
-  if (!form || !addToCartButton || !variantIdInput) {
+  if (!form || !variantIdInput) {
     console.warn(
-      "CWC Featured Product: Required elements not found for section",
+      "CWC Featured Product UI: Required elements not found for section",
       sectionId
     );
     console.warn("Missing:", {
       form: !form,
-      addToCartButton: !addToCartButton,
       variantIdInput: !variantIdInput,
     });
     return;
   }
+
+  // Check if product has any options at all
+  const hasOptions = optionInputs.length > 0;
+  console.log(`Product has ${optionInputs.length} option(s)`);
+
+  // Check if product has selling plans
+  const hasSellingPlans = sellingPlanGroups.length > 0;
+  console.log(`Product has ${sellingPlanGroups.length} selling plan group(s)`);
 
   /* =====================================================
      UTILITY FUNCTIONS
@@ -96,8 +116,6 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, sa
      VARIANT FINDING FUNCTIONS
      ----------------------------------------------------- */
   function findVariant(selectedOptions) {
-    // Find variant by matching all selected options
-    // Note: Not needed anymore - we'll get variant directly from button
     return variants.find((variant) => {
       return variant.options.every((option, index) => {
         return option === selectedOptions[index];
@@ -106,7 +124,6 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, sa
   }
 
   function findVariantById(variantId) {
-    // Find variant by its ID
     return variants.find((variant) => variant.id == variantId);
   }
 
@@ -114,24 +131,30 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, sa
      SELLING PLAN MANAGEMENT
      ----------------------------------------------------- */
   function updateSellingPlan() {
-    // Update the selling plan input based on subscription checkbox state
-    // Safety check: Only proceed if selling plan input exists
-    if (!finalSellingPlanInput) {
-      console.log("No selling plan input found - skipping");
+    // If no selling plan input exists, nothing to update
+    if (!sellingPlanInput) {
+      console.log("No selling plan input - skipping selling plan update");
       return;
     }
 
-    const isAutoRefill = autoRefillCheckbox && autoRefillCheckbox.checked;
+    // If no checkbox exists, don't try to read it
+    if (!autoRefillCheckbox) {
+      console.log("No auto-refill checkbox - clearing selling plan");
+      sellingPlanInput.value = "";
+      return;
+    }
+
+    const isAutoRefill = autoRefillCheckbox.checked;
 
     if (isAutoRefill && sellingPlanGroups.length > 0) {
       const sellingPlanId = sellingPlanGroups[0]?.selling_plans?.[0]?.id;
       if (sellingPlanId) {
-        finalSellingPlanInput.value = sellingPlanId;
-        // console.log("Set selling plan input to:", sellingPlanId);
+        sellingPlanInput.value = sellingPlanId;
+        console.log("Set selling plan to:", sellingPlanId);
       }
     } else {
-      finalSellingPlanInput.value = "";
-      // console.log("Cleared selling plan input");
+      sellingPlanInput.value = "";
+      console.log("Cleared selling plan");
     }
   }
 
@@ -139,7 +162,6 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, sa
      PRICE FORMATTING
      ----------------------------------------------------- */
   function formatPrice(priceInCents, currencyCode = "USD") {
-    // Convert cents to formatted currency string
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: currencyCode,
@@ -150,10 +172,15 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, sa
      BUTTON PRICE UPDATES
      ----------------------------------------------------- */
   function updateAllButtonPrices(isAutoRefill) {
-    // Get all option buttons and update their prices based on subscription state
     const allButtons = section.querySelectorAll(
       ".cwc-featured-product__option_button"
     );
+
+    // If no option buttons exist, skip this
+    if (allButtons.length === 0) {
+      console.log("No option buttons to update");
+      return;
+    }
 
     allButtons.forEach((button) => {
       const variantId = button.getAttribute("data-variant-id");
@@ -167,7 +194,7 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, sa
       let displayPrice = originalPrice;
       let displayComparePrice = originalComparePrice;
 
-      // Apply subscription discount if needed
+      // Apply subscription discount if needed and selling plans exist
       if (isAutoRefill && sellingPlanGroups.length > 0) {
         const sellingPlan = sellingPlanGroups[0]?.selling_plans?.[0];
         if (sellingPlan && sellingPlan.price_adjustments?.[0]) {
@@ -206,7 +233,6 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, sa
           const savings = displayComparePrice - displayPrice;
           const savingsPct = Math.round((savings / displayComparePrice) * 100);
 
-          // Display based on savings type setting
           if (savingsDisplayType === "percentage") {
             saveEl.textContent = `You Save ${savingsPct}%`;
           } else {
@@ -227,85 +253,98 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, sa
      MAIN UPDATE FUNCTION
      ===================================================== */
   function updateVariant(variant = null) {
-    // Main function to update all UI elements when variant changes
+    // Debug: Log current state of all option inputs
+    console.log("=== updateVariant called ===");
 
     // If no variant passed, try to find it from selected options
     if (!variant) {
-      // Safety check: If there are no option inputs, use the first/current variant
       if (optionInputs.length === 0) {
-        // Product has no options, use the only variant or current variant
+        // Product has no options - use first variant or current
         variant = variants[0] || findVariantById(variantIdInput?.value);
+        console.log("No options - using variant:", variant?.id);
       } else {
-        const selectedOptions = Array.from(optionInputs).map(
-          (input) => input.value
-        );
-        variant = findVariant(selectedOptions);
+        // Product has options - find by selected values
+        // IMPORTANT: Sort by option index to ensure correct order
+        const sortedInputs = Array.from(optionInputs).sort((a, b) => {
+          return parseInt(a.dataset.optionIndex || 0) - parseInt(b.dataset.optionIndex || 0);
+        });
+
+        const selectedOptions = sortedInputs.map(input => input.value);
+
+        console.log("Finding variant for options:", selectedOptions);
+        console.log("Option inputs found:", optionInputs.length);
+        console.log("Option input values (sorted by index):", sortedInputs.map(input => ({
+          index: input.dataset.optionIndex,
+          value: input.value
+        })));
+        variant = findVariantByOptions(selectedOptions);
       }
     }
 
-    const isAutoRefill = autoRefillCheckbox && autoRefillCheckbox.checked;
+    // Check if subscription is enabled (only if checkbox exists)
+    const isAutoRefill = autoRefillCheckbox ? autoRefillCheckbox.checked : false;
 
     if (!variant) {
-      console.warn("No variant provided to updateVariant");
+      console.warn("No variant found in updateVariant");
       return;
     }
 
-    console.log("Updating to variant:", variant.id, "Price:", variant.price);
+    console.log(
+      "Updating to variant:",
+      variant.id,
+      "Options:",
+      variant.options
+    );
 
     /* -----------------------------------------------------
        UPDATE TYPE OPTION SELECTED DISPLAYS
        ----------------------------------------------------- */
-    // Update any product_options_type selected displays
-    optionInputs.forEach((input) => {
-      const currentValue = input.value;
+    // Only run this if we have option inputs
+    if (optionInputs.length > 0) {
+      optionInputs.forEach((input) => {
+        const currentValue = input.value;
+        const wrapper = input.closest("[data-option-position]");
+        if (!wrapper) return;
 
-      // Find the wrapper for this option
-      const wrapper = input.closest("[data-option-position]");
-      if (!wrapper) return;
-
-      // Check if this is a type option (has selected display)
-      const selectedName = wrapper.querySelector(
-        ".cwc-featured-product__option_type_selected-name"
-      );
-      const selectedDesc = wrapper.querySelector(
-        ".cwc-featured-product__option_type_selected-description"
-      );
-
-      if (selectedName && selectedDesc) {
-        // Find the button with the current value to get its description
-        const buttons = wrapper.querySelectorAll(
-          ".cwc-featured-product__option_type_button"
+        const selectedName = wrapper.querySelector(
+          ".cwc-featured-product__option_type_selected-name"
         );
-        buttons.forEach((button) => {
-          if (button.dataset.value === currentValue) {
-            const description = button.dataset.variantDescription || "";
-            selectedName.textContent = currentValue;
-            selectedDesc.textContent = description;
-          }
-        });
-      }
-    });
+        const selectedDesc = wrapper.querySelector(
+          ".cwc-featured-product__option_type_selected-description"
+        );
+
+        if (selectedName && selectedDesc) {
+          const buttons = wrapper.querySelectorAll(
+            ".cwc-featured-product__option_type_button"
+          );
+          buttons.forEach((button) => {
+            if (button.dataset.value === currentValue) {
+              const description = button.dataset.variantDescription || "";
+              selectedName.textContent = currentValue;
+              selectedDesc.textContent = description;
+            }
+          });
+        }
+      });
+    }
 
     /* -----------------------------------------------------
        UPDATE FORM INPUTS
        ----------------------------------------------------- */
-    // Update hidden input
     if (variantIdInput) {
       variantIdInput.value = variant.id;
     }
 
-    // Update selling plan input
     updateSellingPlan();
 
     /* -----------------------------------------------------
        CALCULATE DISPLAY PRICES
        ----------------------------------------------------- */
-    // Determine prices (subscription vs one-time)
     let displayPrice = variant.price;
     let displayComparePrice = variant.compare_at_price;
 
+    // Apply subscription discount only if checkbox exists and is checked
     if (isAutoRefill && sellingPlanGroups.length > 0) {
-      // Find subscription price - typically discounted
       const sellingPlan = sellingPlanGroups[0]?.selling_plans?.[0];
       if (sellingPlan && sellingPlan.price_adjustments?.[0]) {
         const adjustment = sellingPlan.price_adjustments[0];
@@ -328,7 +367,6 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, sa
 
     if (priceElement) {
       priceElement.textContent = formatPrice(displayPrice);
-      // console.log("Updated price element to:", formatPrice(displayPrice));
     }
 
     /* -----------------------------------------------------
@@ -357,18 +395,7 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, sa
     /* -----------------------------------------------------
        UPDATE ALL OPTION BUTTON PRICES
        ----------------------------------------------------- */
-    // Update ALL option button prices based on subscription state
     updateAllButtonPrices(isAutoRefill);
-
-    /* -----------------------------------------------------
-       UPDATE ADD TO CART BUTTON PRICE
-       ----------------------------------------------------- */
-    const buttonMainPrice = addToCartButton
-      ? addToCartButton.querySelector(".main-price")
-      : null;
-    if (buttonMainPrice) {
-      buttonMainPrice.textContent = formatPrice(displayPrice);
-    }
 
     /* -----------------------------------------------------
        UPDATE COMPARE PRICE AND SAVINGS DISPLAY
@@ -392,7 +419,6 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, sa
         const savings = displayComparePrice - displayPrice;
         const savingsPct = Math.round((savings / displayComparePrice) * 100);
 
-        // Display based on savings type setting
         if (savingsDisplayType === "percentage") {
           saveElement.innerHTML =
             "<span>Save</span> " + `<span>${savingsPct}%</span>`;
@@ -402,44 +428,26 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, sa
         }
         saveElement.style.display = "flex";
       }
-
-      const buttonComparePrice = addToCartButton
-        ? addToCartButton.querySelector(".compare-price")
-        : null;
-      if (buttonComparePrice) {
-        buttonComparePrice.textContent = formatPrice(displayComparePrice);
-        buttonComparePrice.style.display = "inline";
-      }
     } else {
       if (compareElement) compareElement.style.display = "none";
       if (saveElement) saveElement.style.display = "none";
-      const buttonComparePrice = addToCartButton
-        ? addToCartButton.querySelector(".compare-price")
-        : null;
-      if (buttonComparePrice) buttonComparePrice.style.display = "none";
     }
 
     /* -----------------------------------------------------
-       UPDATE BUTTON AVAILABILITY
+       DISPATCH VARIANT CHANGE EVENT
        ----------------------------------------------------- */
-    if (variant.available) {
-      if (addToCartButton) addToCartButton.disabled = false;
-      const buttonText = addToCartButton
-        ? addToCartButton.querySelector(".cwc-button-text")
-        : null;
-      if (buttonText) {
-        buttonText.textContent =
-          buttonText.dataset.originalText || "Add to Cart";
-      }
-    } else {
-      if (addToCartButton) addToCartButton.disabled = true;
-      const buttonText = addToCartButton
-        ? addToCartButton.querySelector(".cwc-button-text")
-        : null;
-      if (buttonText) {
-        buttonText.textContent = "Sold Out";
-      }
-    }
+    // Dispatch event for add-to-cart script to listen
+    document.dispatchEvent(
+      new CustomEvent("cwc:variant-updated", {
+        detail: {
+          variant,
+          displayPrice,
+          displayComparePrice,
+          isAutoRefill,
+          sectionId,
+        },
+      })
+    );
   }
 
   /* =====================================================
@@ -447,70 +455,122 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, sa
      ===================================================== */
 
   /* -----------------------------------------------------
-     OPTION BUTTON CLICK HANDLERS
-     ----------------------------------------------------- */
-  console.log(
-    "CWC Debug - Setting up option button listeners:",
-    optionButtons.length
-  );
+   OPTION BUTTON CLICK HANDLERS
+   ----------------------------------------------------- */
+  // Only set up listeners if there are option buttons
+  if (optionButtons.length > 0) {
+    console.log(
+      "CWC Debug - Setting up option button listeners:",
+      optionButtons.length
+    );
 
-  optionButtons.forEach((button, index) => {
+    optionButtons.forEach((button) => {
     button.addEventListener("click", function () {
-      console.log("CWC Debug - Button clicked!");
+      console.log("=== CWC Debug - Button clicked ===");
 
-      const optionIndex = this.getAttribute("data-option-index");
+      const optionIndex = parseInt(this.getAttribute("data-option-index"));
       const value = this.getAttribute("data-value");
-      const variantId = this.getAttribute("data-variant-id");
 
-      console.log("Button data:", { optionIndex, value, variantId });
+      console.log("Clicked option:", { optionIndex, value });
 
-      // Update visual selection state - find all buttons in this option group
-      const siblings = this.parentNode.querySelectorAll(
-        ".cwc-featured-product__option_button, .cwc-featured-product__option_type_button, .cwc-featured-product__option_size_button"
-      );
-      siblings.forEach((sibling) => sibling.classList.remove("selected"));
+      // STEP 1: Update visual selection state for THIS option group only
+      const optionWrapper = this.closest("[data-option-position]");
+      if (optionWrapper) {
+        const siblings = optionWrapper.querySelectorAll(
+          ".cwc-featured-product__option_button, .cwc-featured-product__option_type_button, .cwc-featured-product__option_size_button"
+        );
+        siblings.forEach((sibling) => sibling.classList.remove("selected"));
+      }
       this.classList.add("selected");
 
-      // Update the option's hidden input (for form submission)
+      // STEP 2: Update the hidden input for THIS option ONLY
       const hiddenInput = section.querySelector(
         `input[data-option-index="${optionIndex}"]`
       );
       if (hiddenInput) {
-        // console.log(
-        //   "Updating option input from",
-        //   hiddenInput.value,
-        //   "to",
-        //   value
-        // );
+        console.log(
+          `Updating option ${optionIndex} input: "${hiddenInput.value}" → "${value}"`
+        );
         hiddenInput.value = value;
-      }
-
-      // IMPORTANT: Update the main variant ID hidden input
-      if (variantId && variantIdInput) {
-        // console.log(
-        //   "Updating main variant input from",
-        //   variantIdInput.value,
-        //   "to",
-        //   variantId
-        // );
-        variantIdInput.value = variantId;
-      }
-
-      // Get variant by ID and update prices
-      if (variantId) {
-        const variant = findVariantById(variantId);
-        if (variant) {
-          // console.log("Found variant by ID:", variant);
-          updateVariant(variant);
-        } else {
-          // console.warn("Variant not found for ID:", variantId);
-        }
       } else {
-        // console.warn("No variant ID on button");
-        updateVariant(); // Fallback to old method
+        console.warn(`No hidden input found for option index ${optionIndex}`);
+        return;
+      }
+
+      // STEP 3: Collect ALL current option values (including the one we just changed)
+      // IMPORTANT: Sort by option index to ensure correct order
+      const sortedInputs = Array.from(optionInputs).sort((a, b) => {
+        return parseInt(a.dataset.optionIndex || 0) - parseInt(b.dataset.optionIndex || 0);
+      });
+
+      const selectedOptions = sortedInputs.map(input => input.value);
+      console.log("All selected options after click (sorted):", selectedOptions);
+
+      // STEP 4: Find the variant that matches ALL selected options
+      const matchedVariant = findVariantByOptions(selectedOptions);
+
+      if (matchedVariant) {
+        console.log(
+          "Found matching variant:",
+          matchedVariant.id,
+          matchedVariant.title
+        );
+
+        // Update the variant ID input
+        if (variantIdInput) {
+          variantIdInput.value = matchedVariant.id;
+          console.log("Updated variant ID input to:", matchedVariant.id);
+        }
+
+        // Update the display with this variant
+        updateVariant(matchedVariant);
+      } else {
+        console.warn("No variant found matching options:", selectedOptions);
+        // Still try to update with current selection
+        updateVariant();
       }
     });
-  });
+    });
+  } else {
+    console.log("No option buttons found - product has no selectable options");
+  }
+
+  /* -----------------------------------------------------
+   FIND VARIANT BY OPTIONS
+   ----------------------------------------------------- */
+  function findVariantByOptions(selectedOptions) {
+    // Find variant where ALL options match the selected values
+    console.log("Looking for variant with options:", selectedOptions);
+    console.log("Product has", variants[0]?.options.length || 0, "option(s) total");
+
+    const matchedVariant = variants.find((variant) => {
+      // Only compare the options that exist in the variant
+      // This handles cases where product has 1, 2, or 3 options
+      const matches = variant.options.every((option, index) => {
+        const selectedValue = selectedOptions[index];
+        const variantValue = variant.options[index];
+
+        // Log each comparison for debugging
+        console.log(`  Comparing option ${index}: "${selectedValue}" === "${variantValue}"?`, selectedValue === variantValue);
+
+        return option === selectedValue;
+      });
+
+      if (matches) {
+        console.log("  ✓ Variant matched:", variant.id, variant.options);
+      }
+
+      return matches;
+    });
+
+    if (!matchedVariant) {
+      console.warn("No variant matched. Available variants:",
+        variants.map(v => ({ id: v.id, options: v.options }))
+      );
+    }
+
+    return matchedVariant;
+  }
 
   /* -----------------------------------------------------
      SUBSCRIPTION CHECKBOX HANDLER
@@ -529,288 +589,14 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, sa
       console.log("Subscription checkbox changed:", this.checked);
       updateVariant(); // Recalculate all prices based on new subscription state
     });
-  }
-
-  /* =====================================================
-   BUNDLE & STANDARD ADD TO CART - UPDATED SECTION ONLY
-   =====================================================
-   Replace the add-to-cart section in CWC_product_template.js
-   ===================================================== */
-
-  /* -----------------------------------------------------
-     BUNDLE MODE DETECTION
-     ----------------------------------------------------- */
-  const isBundleMode =
-    addToCartButton &&
-    (addToCartButton.dataset.bundleVariant1 ||
-      addToCartButton.dataset.bundleVariant2 ||
-      addToCartButton.dataset.bundleVariant3 ||
-      addToCartButton.dataset.bundleVariant4);
-
-  console.log("Bundle mode detected:", isBundleMode);
-  if (isBundleMode) {
-    console.log("Bundle variants:", {
-      v1: addToCartButton.dataset.bundleVariant1,
-      v2: addToCartButton.dataset.bundleVariant2,
-      v3: addToCartButton.dataset.bundleVariant3,
-      v4: addToCartButton.dataset.bundleVariant4,
-    });
-  }
-
-  /* =====================================================
-     BUNDLE ADD TO CART FUNCTIONALITY
-     ===================================================== */
-  function handleBundleAddToCart() {
-    console.log("=== Bundle Add to Cart Started ===");
-
-    if (!variantIdInput || !variantIdInput.value) {
-      console.warn("Bundle: No main variant ID");
-      return;
-    }
-
-    const mainVariantId = Number(variantIdInput.value);
-    const skipCart = addToCartButton.dataset.skipCart === "true";
-
-    console.log("Main variant ID:", mainVariantId);
-    console.log("Skip cart mode:", skipCart);
-
-    if (!Number.isFinite(mainVariantId)) {
-      console.warn("Bundle: Invalid main variant ID:", variantIdInput.value);
-      return;
-    }
-
-    // Get selling plan ID
-    const sellingPlanId =
-      finalSellingPlanInput && finalSellingPlanInput.value
-        ? Number(finalSellingPlanInput.value)
-        : null;
-
-    console.log("Selling plan ID:", sellingPlanId);
-
-    // Enforce subscription-only for bundle (optional - remove if not needed)
-    // if (!Number.isFinite(sellingPlanId)) {
-    //   console.warn("Bundle: No selling plan selected");
-    //   alert("Please select the subscription option to add this bundle.");
-    //   return;
-    // }
-
-    const items = [];
-
-    // Collect bundle products from data attributes
-    // Check for bundleVariant1, bundleVariant2, bundleVariant3, bundleVariant4
-    [
-      "bundleVariant1",
-      "bundleVariant2",
-      "bundleVariant3",
-      "bundleVariant4",
-    ].forEach((key) => {
-      const value = addToCartButton.dataset[key];
-      if (value && !isNaN(value)) {
-        items.push({
-          id: Number(value),
-          quantity: 1,
-        });
-        console.log(`Added ${key}:`, value);
-      }
-    });
-
-    // Add main product with subscription
-    const mainItem = {
-      id: mainVariantId,
-      quantity: 1,
-      selling_plan: sellingPlanId,
-    };
-
-    items.push(mainItem);
-    console.log("Main product added:", mainItem);
-
-    console.log("Final items payload:", items);
-
-    if (!items.length) {
-      console.warn("Bundle: No items to add to cart");
-      return;
-    }
-
-    // Show loading state
-    addToCartButton.disabled = true;
-    addToCartButton.classList.add("loading_hk");
-
-    // Send to Shopify cart API
-    fetch("/cart/add.js", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({ items }),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to add bundle to cart");
-        return res.json();
-      })
-      .then((data) => {
-        console.log("Bundle added successfully:", data);
-
-        const btnText = addToCartButton.querySelector(".cwc-button-text");
-        const originalText =
-          btnText?.dataset.originalText || "Add Bundle to Cart";
-
-        // If skip-cart mode, redirect to checkout
-        if (skipCart) {
-          console.log("Redirecting to checkout...");
-          window.location.href = "/checkout";
-          return;
-        }
-
-        // Show success message
-        if (btnText) {
-          if (!btnText.dataset.originalText) {
-            btnText.dataset.originalText = btnText.textContent;
-          }
-          btnText.textContent = "Bundle Added!";
-          setTimeout(() => {
-            btnText.textContent = originalText;
-          }, 2000);
-        }
-
-        // Dispatch custom event
-        document.dispatchEvent(
-          new CustomEvent("cwc:item-added-to-cart", {
-            detail: {
-              items,
-              sectionId,
-              isBundle: true,
-            },
-          })
-        );
-      })
-      .catch((err) => {
-        console.error("Bundle add-to-cart error:", err);
-        alert(
-          "There was an issue adding the bundle to your cart. Please try again."
-        );
-      })
-      .finally(() => {
-        addToCartButton.disabled = false;
-        addToCartButton.classList.remove("loading_hk");
-      });
-  }
-
-  /* =====================================================
-     STANDARD ADD TO CART FUNCTIONALITY
-     ===================================================== */
-  function handleStandardAddToCart() {
-    console.log("=== Standard Add to Cart Started ===");
-
-    const selectedVariantId = variantIdInput.value;
-    const sellingPlanId = finalSellingPlanInput
-      ? finalSellingPlanInput.value
-      : "";
-    const variant = findVariantById(selectedVariantId);
-
-    // console.log("Add to cart clicked:", {
-    //   selectedVariantId,
-    //   sellingPlanId,
-    //   variant: variant
-    //     ? { id: variant.id, available: variant.available }
-    //     : null,
-    // });
-
-    // Validation
-    if (!variant) {
-      // console.warn("No variant found for ID:", selectedVariantId);
-      return;
-    }
-
-    if (!variant.available) {
-      alert("This product is currently unavailable.");
-      return;
-    }
-
-    // Show loading state
-    addToCartButton.classList.add("loading_hk");
-
-    // Build cart data
-    const data = {
-      quantity: 1,
-      id: selectedVariantId,
-    };
-
-    // Add selling plan if subscription is selected
-    if (sellingPlanId) {
-      data.selling_plan = sellingPlanId;
-      // console.log("Adding with selling plan:", sellingPlanId);
-    } else {
-      // console.log("Adding as regular purchase (no selling plan)");
-    }
-
-    // Make the request to Shopify's cart API
-    fetch("/cart/add.js", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to add item to cart");
-        return res.json();
-      })
-      .then(() => {
-        addToCartButton.classList.remove("loading_hk");
-
-        // Show success message
-        const buttonText = addToCartButton.querySelector(".cwc-button-text");
-        const originalText = buttonText?.dataset.originalText || "Add to Cart";
-        if (buttonText) {
-          buttonText.textContent = "Added to Cart!";
-          setTimeout(() => {
-            buttonText.textContent = originalText;
-          }, 2000);
-        }
-
-        console.log("Item added to cart:", data);
-
-        // Dispatch custom event for other scripts to listen
-        document.dispatchEvent(
-          new CustomEvent("cwc:item-added-to-cart", {
-            detail: { variant, sellingPlanId, sectionId },
-          })
-        );
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        addToCartButton.classList.remove("loading_hk");
-        alert(
-          "An error occurred while processing your request. Please try again."
-        );
-      });
-  }
-
-  /* -----------------------------------------------------
-     ADD TO CART BUTTON SETUP & EVENT LISTENER
-     ----------------------------------------------------- */
-  // Store original button text for later use
-  const buttonText = addToCartButton.querySelector(".cwc-button-text");
-  if (buttonText && !buttonText.dataset.originalText) {
-    buttonText.dataset.originalText = buttonText.textContent;
-  }
-
-  // Attach the correct handler based on mode
-  if (isBundleMode) {
-    console.log("Attaching BUNDLE add-to-cart handler");
-    addToCartButton.addEventListener("click", handleBundleAddToCart);
-
-    // Expose global handler for external triggers (like CWC_bundle_included section)
-    window.CWCBundleAddToCart = handleBundleAddToCart;
   } else {
-    console.log("Attaching STANDARD add-to-cart handler");
-    addToCartButton.addEventListener("click", handleStandardAddToCart);
+    console.log("No subscription checkbox found - product has no subscription options");
   }
 
   /* =====================================================
      FAQ FUNCTIONALITY
      ===================================================== */
   function initFAQBlocks() {
-    // Initialize FAQ accordion functionality
     const faqItems = section.querySelectorAll(".cwc-featured-product__faq");
 
     console.log(`Section ${sectionId}: Found ${faqItems.length} FAQ items`);
@@ -894,7 +680,7 @@ function initFeaturedProduct(section, sectionId, variants, sellingPlanGroups, sa
      ===================================================== */
 
   // Initialize FAQ blocks
-  initFAQBlocks(section);
+  initFAQBlocks();
 
   // Initialize with current selection
   updateVariant();

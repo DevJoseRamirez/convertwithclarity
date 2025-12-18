@@ -129,7 +129,10 @@ cart-items .title-wrapper-with-link {
   font-size: 1.4rem;
   font-size: .96rem;
   word-break: break-word;
-  line-height: calc(1 + 0.5 / var(--font-body-scale));
+  /* line-height: calc(1 + 0.5 / var(--font-body-scale)); */
+  /* testing - extensoin */
+  line-height: normal;
+  margin: 0rem;
 }
 
 .cart-item cart-remove-button {
@@ -222,6 +225,8 @@ cart-remove-button .icon-remove {
 
 .product-option+.product-option {
   margin-top: 0.4rem;
+  /* testing extension */
+  margin: 0rem;
 }
 
 .product-option * {

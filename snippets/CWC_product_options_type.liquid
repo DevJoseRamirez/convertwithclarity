@@ -2,6 +2,11 @@
   CWC Product Options Type
   Displays type/flavor options with selected option name and description
 {% endcomment %}
+{% style %}
+  #CWC-featured-product__option_type-{{ block.id }} {
+   {{ block_styles }}
+   }
+{% endstyle %}
 
 {{ 'CWC_product_options_type.css' | asset_url | stylesheet_tag }}
 
@@ -24,12 +29,13 @@
 
 {% if target_option %}
   <div
+    id="CWC-featured-product__option_type-{{ block.id }}"
     class="cwc-featured-product__option_type layout-{{ layout_mode }} {% if show_images %}show-images{% else %}hide-images{% endif %}"
     {{ block.shopify_attributes }}
     data-option-position="{{ target_option.position }}"
   >
     {% if option_label != blank %}
-      <label class="cwc-featured-product__option_type-label">{{ option_label }}</label>
+      <p class="cwc-featured-product__option_type-label">{{ option_label }}</p>
     {% endif %}
 
     <div class="cwc-featured-product__option_type_buttons">

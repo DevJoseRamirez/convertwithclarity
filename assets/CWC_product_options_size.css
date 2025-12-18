@@ -11,12 +11,24 @@
 }
 
 .cwc-featured-product__option_size-label {
-    display: block;
+    /* display: block;
     font-weight: 600;
     margin-bottom: 12px;
     font-size: 14px;
     font-size: 0.875rem;
-    color: #111111;
+    */
+
+    /*  */
+    display: block;
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0;
+    color: #1d1d1d;
+    color: #6b7280;
+    font-family: var(--font-body-family);
+    font-size: 1rem;
+    font-size: .9rem;
+
 }
 
 /* ================================

@@ -1,0 +1,37 @@
+{% style %}
+  .cwc-featured-product__review {
+    background: #faf9f6;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    border: 1px solid rgba(228, 228, 228, 1);
+    border: 2px solid rgba(228, 228, 228, 1);
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    padding: 0.9rem 1.25rem 0.8rem 1.25rem;
+    padding: 0rem;
+    border: 1px solid rgba(228, 228, 228, 1);
+  }
+  .cwc-featured-product__review-wrapper {
+    padding: 0.9rem 1.25rem 0.8rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+  }
+{% endstyle %}
+
+<div class="cwc-featured-product__review-wrapper">
+  <span class="star">
+    {% render 'CWC_rating_stars', fill_color: block.settings.star_color %}
+  </span>
+  <span>
+    {{ block.settings.title }}
+  </span>
+  <span>
+    {{ block.settings.text }}
+  </span>
+  <span>
+    {{ block.settings.author }}
+  </span>
+</div>

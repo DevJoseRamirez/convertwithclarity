@@ -1,5 +1,8 @@
 /* ==============================
    CWC IMAGE TEXT SECTION
+   ==============================
+   Updated to match CWC_image_benefits styling patterns
+   for consistent font sizing, spacing, and formatting
    ============================== */
 
 /* ==============================
@@ -46,8 +49,8 @@
   height: auto;
   display: block;
   border-radius: 8px;
-  /* testing */
   aspect-ratio: 4/3;
+  object-fit: cover;
 }
 
 .placeholder-image {
@@ -72,29 +75,12 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  /* gap: 1.5rem; */
 }
 
 /* ================================
-   Title
+   Title - Matching image_benefits pattern
    ================================ */
-/* .cwc_image_text__title {
-  width: 100%;
-}
-
-.cwc_image_text__title h1,
-.cwc_image_text__title h2,
-.cwc_image_text__title h3,
-.cwc_image_text__title p {
-  font-weight: 700;
-  font-size: 2.1875rem;
-  line-height: 1.2;
-  margin: 0;
-  color: inherit;
-} */
-
 .cwc_image_text__title {
-  /* text-align: center; */
   margin-bottom: 1rem;
   width: 100%;
 }
@@ -109,86 +95,56 @@
   color: inherit;
 }
 
+/* Strong/bold text highlight color support */
+.cwc_image_text__title strong {
+  color: var(--highlight-color, inherit);
+}
+
 /* ================================
-   Text
+   Text/Subtext - Matching image_benefits pattern
    ================================ */
-/* .cwc_image_text__text {
-  width: 100%;
-}
-
-.cwc_image_text__text p {
-  font-size: 1.1rem;
-  font-weight: 400;
-  line-height: 1.46;
-  margin: 0 0 1rem 0;
-  color: inherit;
-} */
-
-.cwc_image_text__text p:last-child {
-  margin-bottom: 0;
-}
-
-
 .cwc_image_text__text {
-  /* text-align: center; */
-  margin-bottom: 3rem;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-bottom: 2rem;
+  width: 100%;
 }
 
 .cwc_image_text__text p {
   font-size: 1.125rem;
   line-height: 1.5;
-  margin: 0;
+  margin: 0 0 1rem 0;
   color: #6B7280;
 }
 
-/* ================================
-   Button
-   ================================ */
-/* .cwc_image_text__button {
-  display: inline-block;
-  padding: 1.2rem 2rem;
-  font-weight: 900;
-  font-size: 1.1rem;
-  text-transform: uppercase;
-  border-radius: 6px;
-  text-decoration: none;
-  text-align: center;
-  transition: opacity 0.3s ease-in-out;
-  max-width: 650px;
+.cwc_image_text__text p:last-child {
+  margin-bottom: 0;
 }
 
-.cwc_image_text__button:hover {
-  opacity: 0.85;
-} */
-
+/* ================================
+   Button - Matching image_benefits pattern
+   ================================ */
 .cwc_image_text__button {
-  /* margin-top: 2rem; */
   display: flex;
-  /* align-items: center; */
-  /* justify-content: center; */
   width: 100%;
 }
 
 .cwc_image_text__button>a {
-
   display: inline-block;
-  padding: 1rem 2rem;
+  padding: 1.02875rem;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.15rem;
+  line-height: 1.211875rem;
   text-decoration: none;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   text-align: center;
   border: 2px solid transparent;
-  padding: 1.02875rem;
-  line-height: 1.211875rem;
+  border-radius: 6px;
   width: 100%;
   max-width: 336px;
-  font-size: 1.15rem;
 }
 
+.cwc_image_text__button>a:hover {
+  opacity: 0.85;
+}
 
 /* ==============================
    Mobile Responsive
@@ -196,13 +152,6 @@
 @media screen and (max-width: 991px) {
   .cwc_image_text__container {
     padding: 0 1.25rem;
-  }
-
-  .cwc_image_text__title h1,
-  .cwc_image_text__title h2,
-  .cwc_image_text__title h3,
-  .cwc_image_text__title p {
-    /* font-size: 1.875rem; */
   }
 }
 
@@ -234,21 +183,21 @@
     text-align: center;
   }
 
-  .cwc_image_text__title h1,
-  .cwc_image_text__title h2,
-  .cwc_image_text__title h3,
-  .cwc_image_text__title p {
-    /* font-size: 1.8rem; */
+  .cwc_image_text__text {
+    margin-bottom: 1.5rem;
   }
 
-  .cwc_image_text__text p {}
+  .cwc_image_text__text p {
+    font-size: 1rem;
+  }
 
   .cwc_image_text__button {
     width: 100%;
     max-width: none;
+    justify-content: center;
   }
 
-  .cwc-row-cards__section-subtitle {
-    margin-bottom: 2rem;
+  .cwc_image_text__button>a {
+    max-width: 100%;
   }
 }

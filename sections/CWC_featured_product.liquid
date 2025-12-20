@@ -50,6 +50,11 @@
               <div class="cwc-featured-product__review desktop__only rte" {{ block.shopify_attributes }}>
                 {% render 'CWC_block__review', product: product, section_id: section.id, block: block %}
               </div>
+
+            {% when 'benefit_icons' %}
+              <div class="cwc-featured-product__benefit_icons desktop__only rte" {{ block.shopify_attributes }}>
+                {% render 'CWC_block__benefit_icons', product: product, section_id: section.id, block: block %}
+              </div>
               {% comment %}
               {% endcomment %}
           {% endcase %}
@@ -119,9 +124,9 @@
                     {{ block.settings.content }}
                   </div>
 
-                {% when 'benefits' %}
+                {% when 'benefit_bullets' %}
                   <div class="cwc-featured-product__benefits" {{ block.shopify_attributes }}>
-                    {% render 'CWC_benefits', product: product, section_id: section.id, block: block %}
+                    {% render 'CWC_block._benefit_bullets', product: product, section_id: section.id, block: block %}
                   </div>
 
                 {% when 'price_display' %}
@@ -388,6 +393,83 @@
         }
       ]
     },
+
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Review text",
+          "default": "<p>Review Title</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Review text",
+          "default": "<p>Customer review sharing experience and addressing a key customer concerned or resistance</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "author",
+          "label": "Review author",
+          "default": "<p>Rick M.</p>"
+        },
+        {
+          "type": "color",
+          "id": "star_color",
+          "label": "Star Color",
+          "default": "#60A1A2"
+        }
+      ]
+    },
+    {
+      "type": "benefit_icons",
+      "name": "Benefit Icons",
+      "settings": [
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#000000"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon1",
+          "label": "Icon 1"
+        },
+        {
+          "type": "text",
+          "id": "label1",
+          "label": "Label 1",
+          "default": "Great Materials"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon2",
+          "label": "Icon 2"
+        },
+        {
+          "type": "text",
+          "id": "label2",
+          "label": "Label 2",
+          "default": "5 Ways To Carry"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon3",
+          "label": "Icon 3"
+        },
+        {
+          "type": "text",
+          "id": "label3",
+          "label": "Label 3",
+          "default": "Lifetime Warranty"
+        }
+      ]
+    },
+
     {
       "type": "rating",
       "name": "Star Rating",
@@ -447,39 +529,10 @@
         }
       ]
     },
+
     {
-      "type": "review",
-      "name": "Review",
-      "settings": [
-        {
-          "type": "richtext",
-          "id": "title",
-          "label": "Review text",
-          "default": "<p>Review Title</p>"
-        },
-        {
-          "type": "richtext",
-          "id": "text",
-          "label": "Review text",
-          "default": "<p>Customer review sharing experience and addressing a key customer concerned or resistance</p>"
-        },
-        {
-          "type": "richtext",
-          "id": "author",
-          "label": "Review author",
-          "default": "<p>Rick M.</p>"
-        },
-        {
-          "type": "color",
-          "id": "star_color",
-          "label": "Star Color",
-          "default": "#60A1A2"
-        }
-      ]
-    },
-    {
-      "type": "benefits",
-      "name": "Benefits",
+      "type": "benefit_bullets",
+      "name": "Benefits bullets",
       "settings": [
         {
           "type": "image_picker",
@@ -978,7 +1031,7 @@
           "type": "text"
         },
         {
-          "type": "benefits"
+          "type": "benefit_bullets"
         },
         {
           "type": "price_display"

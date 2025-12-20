@@ -46,28 +46,14 @@
     {% for block in section.blocks %}
       {% case block.type %}
         {% when 'button' %}
-          {% if block.settings.button_text != blank %}
-            <div class="cwc-faqs__button-wrap mobile__only">
-              <a
-                href="{{ block.settings.button_link }}"
-                class="cwc-faqs__button"
-                style="--bt_bg_color: {{ block.settings.button_bg_color }}; --bt_text_color: {{ block.settings.button_text_color }};"
-                {{ block.shopify_attributes }}
-              >
-                {{ block.settings.button_text }}
-              </a>
+          <div class="cwc-faqs__button" {{ block.shopify_attributes }}>
+            {% render 'CWC_button', product: product, section_id: section.id, block: block %}
+          </div>
 
-              {% if block.settings.button_note != blank %}
-                <div
-                  class="cwc-faqs__button-note"
-                  style="color: {{ block.settings.button_bg_color }}"
-                >
-                  {% render 'CWC_icon-shield', fill: block.settings.button_bg_color %}
-                  {{ block.settings.button_note }}
-                </div>
-              {% endif %}
-            </div>
-          {% endif %}
+        {% when 'guarantee_text' %}
+          <div class="cwc-faqs__testimonials__note" {{ block.shopify_attributes }}>
+            {% render 'CWC_guarantee_text', product: product, section_id: section.id, block: block %}
+          </div>
       {% endcase %}
     {% endfor %}
   </div>
@@ -152,37 +138,30 @@
     },
     {
       "type": "button",
-      "name": "CTA Button",
+      "name": "Button",
       "settings": [
         {
           "type": "text",
-          "id": "button_text",
+          "id": "text",
           "label": "Button Text",
           "default": "Try Risk-Free Today"
         },
         {
           "type": "url",
-          "id": "button_link",
+          "id": "link",
           "label": "Button Link"
         },
         {
           "type": "color",
           "id": "button_bg_color",
           "label": "Button Background Color",
-          "default": "#fff"
+          "default": "#125657"
         },
         {
           "type": "color",
           "id": "button_text_color",
           "label": "Button Text Color",
-          "default": "#125657"
-        },
-        {
-          "type": "text",
-          "id": "button_note",
-          "info": "button only visible in mobile view",
-          "label": "Button Note Text",
-          "default": "365-day money back guarantee"
+          "default": "#ffffff"
         }
       ]
     }

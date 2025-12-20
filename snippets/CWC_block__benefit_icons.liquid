@@ -1,0 +1,106 @@
+{% style %}
+  .cwc_product-benefits-snippet {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1rem 0;
+    text-align: center;
+    flex-wrap: wrap;
+    width: calc(100% - 2rem);
+    width: 100%;
+    margin: auto;
+    justify-content: space-around;
+    /* margin-top: 1rem; */
+  }
+
+  .cwc_product-benefits-snippet .benefit-item {
+    flex: 1 1 100px;
+    max-width: 140px;
+    max-width: 200px;
+  }
+
+  .cwc_product-benefits-snippet .benefit-icon {
+    height: auto;
+    margin: 0 auto 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cwc_product-benefits-snippet .benefit-icon img {
+    width: 5rem;
+    width: 4rem;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .cwc_product-benefits-snippet .benefit-icon .cwc_icon-placeholder {
+    display: flex !important;
+    background: #f5f5f5;
+    border: 2px dashed #ddd;
+    display: flex;
+    color: #999;
+    font-size: 1rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+    flex: 1 1;
+    max-width: 64px;
+    max-height: 64px;
+    height: 4rem;
+    width: 4rem;
+  }
+  .cwc_product-benefits-snippet .benefit-icon .cwc_icon-placeholder span {
+    font-size: 1rem;
+  }
+
+  .cwc_product-benefits-snippet .benefit-label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  @media screen and (max-width: 768px) {
+  }
+{% endstyle %}
+
+<div class="cwc_product-benefits-snippet" style="color: {{ block.settings.text_color }}" {{ block.shopify_attributes }}>
+  <div class="benefit-item">
+    <div class="benefit-icon">
+      {% if block.settings.icon1 != blank %}
+        <img src="{{ block.settings.icon1 | image_url }}" alt="{{ block.settings.label1 | escape }}">
+      {% else %}
+        <div class="cwc_icon-placeholder">
+          <span>Icon</span>
+        </div>
+      {% endif %}
+    </div>
+    <div class="benefit-label">{{ block.settings.label1 }}</div>
+  </div>
+  <div class="benefit-item">
+    <div class="benefit-icon" style="background-color: {{ block.settings.icon2_background }}">
+      {% if block.settings.icon2 != blank %}
+        <img src="{{ block.settings.icon2 | image_url }}" alt="{{ block.settings.label2 | escape }}">
+      {% else %}
+        <div class="cwc_icon-placeholder">
+          <span>Icon</span>
+        </div>
+      {% endif %}
+    </div>
+    <div class="benefit-label">{{ block.settings.label2 }}</div>
+  </div>
+  <div class="benefit-item">
+    <div class="benefit-icon" style="background-color: {{ block.settings.icon3_background }}">
+      {% if block.settings.icon2 != blank %}
+        <img src="{{ block.settings.icon3 | image_url }}" alt="{{ block.settings.label3 | escape }}">
+      {% else %}
+        <div class="cwc_icon-placeholder">
+          <span>Icon</span>
+        </div>
+      {% endif %}
+    </div>
+    <div class="benefit-label">{{ block.settings.label3 }}</div>
+  </div>
+</div>

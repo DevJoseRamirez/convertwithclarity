@@ -93,32 +93,73 @@
 {% endstyle %}
 
 {% comment %}
-  CWC Price Display - Simplified Version
+  CWC Price Display
+  ==================
+
   Features:
-  - Uses product's compare_at_price if available
-  - Shows save amount when compare price exists
+  - Dynamic price updates via JavaScript
+  - Supports subscription pricing (selling plans)
+  - Shows/hides compare price and savings based on variant
+  - All elements rendered but initially hidden if no savings
+
+  Required: JavaScript will update these elements when:
+  - Variant changes
+  - Subscription toggle changes
+
+  Elements:
+  - .cwc-featured-product__price-current: Current price
+  - .cwc-featured-product__price-compare: Compare/strikethrough price
+  - .cwc-featured-product__price-save: Save badge wrapper
+  - .cwc-featured-product__price-save-amount: Save amount/percentage
 {% endcomment %}
 
 {% liquid
-  # Calculate savings if compare price exists
+  # Determine initial display state based on product's compare_at_price
+  assign has_compare = false
+  assign initial_save_amount = 0
+
   if product.compare_at_price and product.compare_at_price > product.price
-    assign save_amount = product.compare_at_price | minus: product.price
+    assign has_compare = true
+    assign initial_save_amount = product.compare_at_price | minus: product.price
   endif
 %}
 
+{% comment %} Current Price - Always visible {% endcomment %}
 <span class="cwc-featured-product__price-current" id="current-price-{{ section_id }}">
   {{ product.price | money }}
 </span>
 
-{% if product.compare_at_price and product.compare_at_price > product.price %}
-  <span class="cwc-featured-product__price-compare" id="compare-price-{{ section_id }}">
+{% comment %}
+  Compare Price - ALWAYS rendered so JS can show/hide it
+  Hidden initially if no compare price
+{% endcomment %}
+<span
+  class="cwc-featured-product__price-compare"
+  id="compare-price-{{ section_id }}"
+  {% unless has_compare %}
+    style="display: none;"
+  {% endunless %}
+>
+  {% if has_compare %}
     {{ product.compare_at_price | money }}
-  </span>
+  {% endif %}
+</span>
 
-  <div class="cwc-featured-product__price-save" id="save-amount-{{ section_id }}">
-    <span>Save</span>
-    <span class="cwc-featured-product__price-save-amount">
-      {{ save_amount | money }}
-    </span>
-  </div>
-{% endif %}
+{% comment %}
+  Save Badge - ALWAYS rendered so JS can show/hide it
+  Hidden initially if no savings
+{% endcomment %}
+<div
+  class="cwc-featured-product__price-save"
+  id="save-amount-{{ section_id }}"
+  {% unless has_compare %}
+    style="display: none;"
+  {% endunless %}
+>
+  <span>Save</span>
+  <span class="cwc-featured-product__price-save-amount">
+    {% if has_compare %}
+      {{ initial_save_amount | money }}
+    {% endif %}
+  </span>
+</div>

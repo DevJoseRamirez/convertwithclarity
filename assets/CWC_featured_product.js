@@ -1,11 +1,14 @@
 /* =====================================================
-   CWC FEATURED PRODUCT JAVASCRIPT - COMPLETE WITH FIX
+   CWC FEATURED PRODUCT JAVASCRIPT - FINAL FIXED VERSION
    =====================================================
-   Purpose: Handles product variants, pricing, subscriptions, 
-   add-to-cart functionality, and FAQ interactions for 
-   featured product sections.
    
-   FIXED: Variant selection now uses Dawn's proven approach
+   FIXES IN THIS VERSION:
+   1. Line 67: priceDisplay selector fixed
+   2. Subscription toggle properly updates selling plan BEFORE getting price
+   3. getPriceForDisplay handles subscription pricing correctly
+   4. updatePriceDisplay matches Liquid structure exactly
+   5. Savings display respects savingsDisplayType setting
+   
    ===================================================== */
 
 /* =====================================================
@@ -44,6 +47,8 @@ function initFeaturedProduct(
   console.log("=== Initializing Featured Product ===");
   console.log("Section ID:", sectionId);
   console.log("Variants:", variants.length);
+  console.log("Selling Plan Groups:", sellingPlanGroups.length);
+  console.log("Savings Display Type:", savingsDisplayType);
 
   /* -----------------------------------------------------
      DOM ELEMENT REFERENCES
@@ -60,22 +65,30 @@ function initFeaturedProduct(
     "input[data-option-index]:not(.variant-id-input):not(.selling-plan-input)"
   );
 
+  // FIXED: Correct checkbox selector
   const autoRefillCheckbox = section.querySelector(`#auto-refill-${sectionId}`);
 
   const addToCartButton = section.querySelector(".cwc-add-to-cart-button");
 
+  // FIXED: Correct price display selector matching Liquid
   const priceDisplay = section.querySelector(".cwc-featured-product__price");
 
   /* -----------------------------------------------------
-     VALIDATION
+     VALIDATION & DEBUG
      ----------------------------------------------------- */
   if (!form || !variantIdInput) {
     console.warn("Required elements not found for section", sectionId);
     return;
   }
 
-  console.log("Found option inputs:", optionInputs.length);
-  console.log("Found option buttons:", optionButtons.length);
+  console.log("Found elements:", {
+    form: !!form,
+    variantIdInput: !!variantIdInput,
+    optionInputs: optionInputs.length,
+    optionButtons: optionButtons.length,
+    autoRefillCheckbox: !!autoRefillCheckbox,
+    priceDisplay: !!priceDisplay,
+  });
 
   /* =====================================================
      SELLING PLAN MANAGEMENT
@@ -93,16 +106,28 @@ function initFeaturedProduct(
     console.log("Created selling plan input");
   }
 
+  // Get the selling plan ID (used for price calculations)
+  function getSellingPlanId() {
+    if (
+      sellingPlanGroups.length > 0 &&
+      sellingPlanGroups[0]?.selling_plans?.length > 0
+    ) {
+      return (
+        sellingPlanGroups[0].selling_plans[0].id ||
+        sellingPlanGroups[0].selling_plans[0]
+      );
+    }
+    return null;
+  }
+
   function updateSellingPlan() {
     if (!finalSellingPlanInput) return;
 
     const isAutoRefill = autoRefillCheckbox && autoRefillCheckbox.checked;
+    const sellingPlanId = getSellingPlanId();
 
-    if (isAutoRefill && sellingPlanGroups.length > 0) {
-      const sellingPlanId =
-        sellingPlanGroups[0]?.selling_plans?.[0]?.id ||
-        sellingPlanGroups[0]?.selling_plans?.[0];
-      finalSellingPlanInput.value = sellingPlanId || "";
+    if (isAutoRefill && sellingPlanId) {
+      finalSellingPlanInput.value = sellingPlanId;
       console.log("Selling plan set:", sellingPlanId);
     } else {
       finalSellingPlanInput.value = "";
@@ -130,20 +155,39 @@ function initFeaturedProduct(
     const isAutoRefill = autoRefillCheckbox && autoRefillCheckbox.checked;
     const sellingPlanId = finalSellingPlanInput?.value;
 
+    console.log("getPriceForDisplay:", {
+      isAutoRefill,
+      sellingPlanId,
+      variantPrice: variant.price,
+      variantCompareAt: variant.compare_at_price,
+      hasAllocations: !!variant.selling_plan_allocations,
+    });
+
+    // Subscription is ON
     if (isAutoRefill && sellingPlanId && variant.selling_plan_allocations) {
       const allocation = variant.selling_plan_allocations.find(
-        (alloc) => alloc.selling_plan_id == sellingPlanId
+        (alloc) => String(alloc.selling_plan_id) === String(sellingPlanId)
       );
 
       if (allocation) {
+        console.log("Found subscription allocation:", allocation);
+
+        // FIXED: Use compare_at_price if it exists, otherwise use regular price
+        // This shows TOTAL savings (product discount + subscription discount)
+        const comparePrice =
+          variant.compare_at_price && variant.compare_at_price > variant.price
+            ? variant.compare_at_price // Use original compare_at_price for max savings display
+            : variant.price; // Fall back to regular price if no compare_at
+
         return {
           price: allocation.per_delivery_price,
-          compareAtPrice: variant.price,
+          compareAtPrice: comparePrice,
           isSubscription: true,
         };
       }
     }
 
+    // One-time purchase (subscription OFF)
     return {
       price: variant.price,
       compareAtPrice: variant.compare_at_price,
@@ -152,46 +196,87 @@ function initFeaturedProduct(
   }
 
   function updatePriceDisplay(variant) {
-    if (!priceDisplay || !variant) return;
+    if (!priceDisplay) {
+      console.warn("Price display element not found");
+      return;
+    }
+    if (!variant) {
+      console.warn("No variant provided to updatePriceDisplay");
+      return;
+    }
 
     const pricing = getPriceForDisplay(variant);
     if (!pricing) return;
 
+    console.log("Updating price display:", {
+      currentPrice: pricing.price,
+      compareAtPrice: pricing.compareAtPrice,
+      isSubscription: pricing.isSubscription,
+    });
+
+    // Get DOM elements
     const priceElement = priceDisplay.querySelector(
       ".cwc-featured-product__price-current"
     );
     const compareElement = priceDisplay.querySelector(
       ".cwc-featured-product__price-compare"
     );
-    const saveElement = priceDisplay.querySelector(
+    const saveWrapper = priceDisplay.querySelector(
+      ".cwc-featured-product__price-save"
+    );
+    const saveAmountElement = priceDisplay.querySelector(
       ".cwc-featured-product__price-save-amount"
     );
 
+    // Update current price
     if (priceElement) {
       priceElement.textContent = `$${formatPrice(pricing.price)}`;
     }
 
-    if (pricing.compareAtPrice && pricing.compareAtPrice > pricing.price) {
+    // Check if we have savings to display
+    const hasSavings =
+      pricing.compareAtPrice && pricing.compareAtPrice > pricing.price;
+
+    if (hasSavings) {
+      const savings = pricing.compareAtPrice - pricing.price;
+      const savingsPercent = Math.round(
+        (savings / pricing.compareAtPrice) * 100
+      );
+
+      console.log("Savings calculation:", {
+        compareAtPrice: pricing.compareAtPrice,
+        currentPrice: pricing.price,
+        savingsAmount: savings,
+        savingsPercent: savingsPercent,
+      });
+
+      // Show and update compare price
       if (compareElement) {
         compareElement.textContent = `$${formatPrice(pricing.compareAtPrice)}`;
         compareElement.style.display = "";
       }
 
-      if (saveElement) {
-        const savings = pricing.compareAtPrice - pricing.price;
-        const saveText =
-          savingsDisplayType === "percent"
-            ? `${Math.round((savings / pricing.compareAtPrice) * 100)}%`
-            : `$${formatPrice(savings)}`;
-        saveElement.textContent = `${saveText}`;
-        saveElement.style.display = "";
+      // Show save wrapper and update amount
+      if (saveWrapper) {
+        saveWrapper.style.display = "flex";
+      }
+
+      if (saveAmountElement) {
+        if (savingsDisplayType === "percentage") {
+          saveAmountElement.textContent = `${savingsPercent}%`;
+        } else {
+          saveAmountElement.textContent = `$${formatPrice(savings)}`;
+        }
       }
     } else {
-      if (compareElement) compareElement.style.display = "none";
-      if (saveElement) saveElement.style.display = "none";
+      // No savings - hide compare and save elements
+      if (compareElement) {
+        compareElement.style.display = "none";
+      }
+      if (saveWrapper) {
+        saveWrapper.style.display = "none";
+      }
     }
-
-    console.log("Price updated:", pricing);
   }
 
   function updateAddToCartButton(variant) {
@@ -230,12 +315,18 @@ function initFeaturedProduct(
 
     console.log("Variant:", variant.id, variant.title);
 
+    // Update variant ID input
     if (variantIdInput) {
       variantIdInput.value = variant.id;
     }
 
+    // Update selling plan input FIRST (before price calculation)
     updateSellingPlan();
+
+    // Now update price display (uses selling plan state)
     updatePriceDisplay(variant);
+
+    // Update button state
     updateAddToCartButton(variant);
 
     // Dispatch event for add-to-cart script
@@ -249,23 +340,9 @@ function initFeaturedProduct(
   }
 
   /* =====================================================
-     EVENT LISTENERS - OPTION BUTTONS (THE FIX!)
+     EVENT LISTENERS - OPTION BUTTONS
      ===================================================== */
   console.log("Setting up option button listeners:", optionButtons.length);
-
-  /* =====================================================
-   FIX FOR PARTIAL OPTION SELECTION
-   ===================================================== 
-   
-   Problem: Product has 2 options (Flavor + Size) but section
-   only shows Flavor option. Need to fill in missing Size value.
-   
-   Solution: When collecting options, if we're missing some,
-   use the current variant's values for the missing positions.
-   
-   ===================================================== */
-
-  // REPLACE the optionButtons.forEach block with this:
 
   optionButtons.forEach((button) => {
     button.addEventListener("click", function () {
@@ -299,11 +376,7 @@ function initFeaturedProduct(
         return;
       }
 
-      // ========================================================
-      // FIXED: Build complete option array for variant matching
-      // ========================================================
-
-      // Get current variant to know how many options we need
+      // Build complete option array for variant matching
       const currentVariantId = variantIdInput.value;
       const currentVariant = findVariantById(currentVariantId);
 
@@ -316,21 +389,17 @@ function initFeaturedProduct(
       console.log("Product has", totalOptionsInProduct, "total options");
       console.log("Section displays", optionInputs.length, "option inputs");
 
-      // Build complete option array
       const selectedOptions = [];
 
       for (let i = 0; i < totalOptionsInProduct; i++) {
-        // Try to find an input for this position
         const input = Array.from(optionInputs).find(
           (inp) => inp.getAttribute("data-option-index") === String(i)
         );
 
         if (input) {
-          // We have an input for this position - use its value
           selectedOptions[i] = input.value;
           console.log(`Position ${i}: Using input value "${input.value}"`);
         } else {
-          // No input for this position - use current variant's value
           selectedOptions[i] = currentVariant.options[i];
           console.log(
             `Position ${i}: Using current variant value "${currentVariant.options[i]}" (no input)`
@@ -381,77 +450,13 @@ function initFeaturedProduct(
     });
   });
 
-  /* =====================================================
-   HOW THIS WORKS
-   ===================================================== 
-   
-   Example: Product with Flavor + Size
-   
-   Scenario 1: Section shows BOTH options
-   ----------------------------------------
-   Product options: [Flavor, Size]
-   Section displays: Flavor input + Size input
-   User clicks: "Cinnamon" (Flavor)
-   
-   Result: selectedOptions = ["Cinnamon", "Single"]
-           Position 0: From Flavor input = "Cinnamon"
-           Position 1: From Size input = "Single"
-   
-   
-   Scenario 2: Section shows ONLY Flavor
-   ----------------------------------------
-   Product options: [Flavor, Size]
-   Section displays: Flavor input only
-   User clicks: "Cinnamon" (Flavor)
-   Current variant: "Clean Mint / Single"
-   
-   Result: selectedOptions = ["Cinnamon", "Single"]
-           Position 0: From Flavor input = "Cinnamon"
-           Position 1: From current variant = "Single" (no input)
-   
-   This finds: "Cinnamon / Single" variant ✓
-   
-   
-   Scenario 3: Section shows ONLY Size
-   ----------------------------------------
-   Product options: [Flavor, Size]
-   Section displays: Size input only
-   User clicks: "Two-Pack" (Size)
-   Current variant: "Cinnamon / Single"
-   
-   Result: selectedOptions = ["Cinnamon", "Two-Pack"]
-           Position 0: From current variant = "Cinnamon" (no input)
-           Position 1: From Size input = "Two-Pack"
-   
-   This finds: "Cinnamon / Two-Pack" variant ✓
-   
-   ===================================================== */
-
-  /* =====================================================
-   EXPECTED CONSOLE OUTPUT (After Fix)
-   ===================================================== 
-   
-   === Option Button Clicked ===
-   Option Index: 0
-   Value: Cinnamon
-   Updating option 0: "Clean Mint" → "Cinnamon"
-   Product has 2 total options
-   Section displays 1 option inputs
-   Position 0: Using input value "Cinnamon"
-   Position 1: Using current variant value "Single" (no input)
-   Complete options array: ["Cinnamon", "Single"]
-   ✓ Match found: Variant 41905341366352 - Cinnamon / Single
-   === Variant Found ===
-   ID: 41905341366352
-   Title: Cinnamon / Single
-   Options: ["Cinnamon", "Single"]
-   
-   ===================================================== */
-
   /* -----------------------------------------------------
      SUBSCRIPTION CHECKBOX HANDLER
      ----------------------------------------------------- */
   if (autoRefillCheckbox) {
+    console.log("Setting up subscription checkbox handler");
+
+    // Set checkbox as initially checked
     autoRefillCheckbox.checked = true;
 
     const checkboxIcon = section.querySelector(".cwc-checkbox-icon");
@@ -459,14 +464,34 @@ function initFeaturedProduct(
       checkboxIcon.classList.add("initially-checked");
     }
 
+    // Initialize selling plan on page load
+    updateSellingPlan();
+
     autoRefillCheckbox.addEventListener("change", function () {
-      console.log("Subscription toggled:", this.checked);
+      console.log("\n=== Subscription Toggled ===");
+      console.log("Checked:", this.checked);
+
+      // Update selling plan first
+      updateSellingPlan();
+
+      // Then recalculate prices with current variant
       const currentVariantId = variantIdInput.value;
       const currentVariant = findVariantById(currentVariantId);
+
+      console.log(
+        "Current variant:",
+        currentVariant?.id,
+        currentVariant?.title
+      );
+
       if (currentVariant) {
-        updateVariant(currentVariant);
+        updatePriceDisplay(currentVariant);
       }
+
+      console.log("=== End Subscription Toggle ===\n");
     });
+  } else {
+    console.log("No subscription checkbox found for section", sectionId);
   }
 
   /* =====================================================

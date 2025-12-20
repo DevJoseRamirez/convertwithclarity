@@ -141,6 +141,7 @@
     margin: 0;
     /* testing */
     /* width: max-content; */
+    font-size: .9375rem;
 }
 
 .cwc-brand-table__cell-text strong {

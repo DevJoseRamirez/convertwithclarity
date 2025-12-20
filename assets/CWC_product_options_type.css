@@ -206,12 +206,21 @@
 .cwc-featured-product__option_type.layout-horizontal.show-images .cwc-featured-product__option_type_buttons .cwc-featured-product__option_type_button:nth-child(1) .cwc-featured-product__option_type_button_thumb-wrap {
     /* background: #06cbcd17; */
     background: var(--optionType-bg1);
-
 }
 
 .cwc-featured-product__option_type.layout-horizontal.show-images .cwc-featured-product__option_type_buttons .cwc-featured-product__option_type_button:nth-child(2) .cwc-featured-product__option_type_button_thumb-wrap {
     /* background: #e5433d21; */
     background: var(--optionType-bg2);
+}
+
+.cwc-featured-product__option_type.layout-horizontal.show-images .cwc-featured-product__option_type_buttons .cwc-featured-product__option_type_button:nth-child(3) .cwc-featured-product__option_type_button_thumb-wrap {
+    /* background: #e5433d21; */
+    background: var(--optionType-bg3);
+}
+
+.cwc-featured-product__option_type.layout-horizontal.show-images .cwc-featured-product__option_type_buttons .cwc-featured-product__option_type_button:nth-child(4) .cwc-featured-product__option_type_button_thumb-wrap {
+    /* background: #e5433d21; */
+    background: var(--optionType-bg4);
 }
 
 

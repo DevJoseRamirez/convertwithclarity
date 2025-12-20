@@ -19,6 +19,26 @@
     display: flex;
     flex-direction: column;
   }
+
+  /*  */
+  /*  */
+  .cwc-featured-product__review.desktop__only {
+    display: block;
+  }
+  .cwc-featured-product__review.mobile__only {
+    display: none;
+  }
+  @media (max-width: 991px) {
+    .cwc-featured-product__review.desktop__only {
+      display: none;
+    }
+    .cwc-featured-product__review.mobile__only {
+      display: block;
+    }
+  }
+
+  @media (max-width: 991px) {
+  }
 {% endstyle %}
 
 <div class="cwc-featured-product__review-wrapper">

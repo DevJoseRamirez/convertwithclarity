@@ -145,9 +145,13 @@
                 {% when 'product_options_type' %}
                   {% if product.variants.size > 1 %}
                     {% capture block_styles %}
-                      --optionType-bg1: {{ '#06cbcd' | color_modify: 'alpha', 0.10 }};
-                      --optionType-bg2: {{ '#e5433d' | color_modify: 'alpha', 0.10 }};
-                      {% endcapture %}
+                      --optionType-bg1: {{ '#06cd4b' | color_modify: 'alpha', 0.15 }};
+                      --optionType-bg2: {{ '#e5433d' | color_modify: 'alpha', 0.15 }};
+                      --optionType-bg3: {{ '#06cbcd' | color_modify: 'alpha', 0.15 }};
+                      --optionType-bg4: {{ '#ffff00ff' | color_modify: 'alpha', 0.15 }};
+                    {% endcapture %}
+                    {% comment %} --optionType-bg3: {{ '#125657' | color_modify: 'alpha', 0.10 }}; {% endcomment %}
+                    {% comment %} 006e56 {% endcomment %}
                     <div class="cwc-featured-product__options_type" {{ block.shopify_attributes }}>
                       {% render 'CWC_product_options_type',
                         product: product,
@@ -375,7 +379,7 @@
           "type": "richtext",
           "id": "title",
           "label": "Question",
-          "default": "<p>Featured & Benefits</p>"
+          "default": "<p><strong>Featured & Benefits</strong></p>"
         },
         {
           "type": "richtext",
@@ -457,7 +461,7 @@
           "type": "richtext",
           "id": "text",
           "label": "Review text",
-          "default": "<p>Customer reivew sharing experience and addressing a key customer concernce or resistance</p>"
+          "default": "<p>Customer review sharing experience and addressing a key customer concerned or resistance</p>"
         },
         {
           "type": "richtext",
@@ -633,7 +637,7 @@
           "type": "text",
           "id": "variant_text1",
           "label": "X Uses",
-          "default": "XX Uses"
+          "default": "60 Brushes"
         },
         {
           "type": "text",
@@ -655,7 +659,7 @@
           "type": "text",
           "id": "variant_text2",
           "label": "X Uses",
-          "default": "XX Uses"
+          "default": "120 Brushes"
         },
         {
           "type": "text",
@@ -677,7 +681,7 @@
           "type": "text",
           "id": "variant_text3",
           "label": "X Uses",
-          "default": "XX Uses"
+          "default": "180 Brushes"
         },
         {
           "type": "text",
@@ -699,7 +703,7 @@
           "type": "text",
           "id": "variant_text4",
           "label": "X Uses",
-          "default": "XX Uses"
+          "default": "240 Brushes"
         },
         {
           "type": "text",
@@ -767,14 +771,14 @@
           "type": "checkbox",
           "id": "show_savings",
           "label": "Show option savings",
-          "default": true,
+          "default": false,
           "info": "Display product price savings"
         },
         {
           "type": "checkbox",
           "id": "show_prices",
           "label": "Show option prices",
-          "default": true,
+          "default": false,
           "info": "Display product price & compare price"
         },
 

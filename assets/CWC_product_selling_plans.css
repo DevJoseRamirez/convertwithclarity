@@ -52,7 +52,7 @@ input[type="checkbox"]:hover {
 .cwc-auto-refill-checkbox__wrapper {
     top: -0.625rem;
     top: -6px;
-
+    top: -0.375rem;
     /* accent-color: #00937026; */
     /* background: #095946; */
     /* background-size: 12.425px; */
@@ -70,6 +70,8 @@ input[type="checkbox"]:hover {
     width: 20px;
     background: transparent;
     transition: all .1s ease-in-out;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 
@@ -87,6 +89,10 @@ input[type=checkbox].cwc-auto-refill-checkbox {
     transition: all .1s ease-in-out;
     border-radius: 2px;
     margin: 0rem;
+    /*  */
+    top: 50%;
+    transform: translateY(-50%);
+    margin-top: .2rem;
 }
 
 input[type=checkbox].cwc-auto-refill-checkbox:checked {

@@ -97,6 +97,7 @@
     left: 1rem;
     padding: 2px 3rem;
     z-index: 9;
+    z-index: 1;
 }
 
 .cwc-product_template__image-badge-sold {

@@ -3175,7 +3175,7 @@ details-disclosure>details {
   }
 }
 
-.rte:after {
+. rte:after {
   clear: both;
   content: '';
   display: block;

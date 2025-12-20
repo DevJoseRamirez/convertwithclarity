@@ -238,6 +238,10 @@
 
 /* === 6) RESPONSIVE ADJUSTMENTS === */
 @media screen and (max-width: 768px) {
+  .cwc_image_highlight__section-subtitle p {
+    /* font-size: 1rem; */
+  }
+
   .highlight-title {
     font-size: 1.5rem;
   }

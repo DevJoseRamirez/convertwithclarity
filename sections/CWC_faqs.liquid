@@ -31,11 +31,11 @@
         {% case block.type %}
           {% when 'faq' %}
             <div class="faq-item" {{ block.shopify_attributes }}>
-              <button class="faq-question">
+              <button class="faq-question rte ">
                 {{ block.settings.title }}
                 <span class="toggle-icon">+</span>
               </button>
-              <div class="faq-answer">
+              <div class="faq-answer rte">
                 {{ block.settings.text }}
               </div>
             </div>

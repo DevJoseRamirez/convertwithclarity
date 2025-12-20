@@ -258,6 +258,10 @@
 }
 
 @media (max-width: 768px) {
+    .cwc-faqs__text p {
+        /* font-size: 1rem; */
+    }
+
     .cwc-faqs__wrapper {
         padding: 0 1rem;
     }

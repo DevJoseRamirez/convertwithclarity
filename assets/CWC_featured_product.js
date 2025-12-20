@@ -64,7 +64,7 @@ function initFeaturedProduct(
 
   const addToCartButton = section.querySelector(".cwc-add-to-cart-button");
 
-  const priceDisplay = section.querySelector(".cwc-price-display");
+  const priceDisplay = section.querySelector(".cwc-featured-product__price");
 
   /* -----------------------------------------------------
      VALIDATION
@@ -157,9 +157,15 @@ function initFeaturedProduct(
     const pricing = getPriceForDisplay(variant);
     if (!pricing) return;
 
-    const priceElement = priceDisplay.querySelector(".cwc-price");
-    const compareElement = priceDisplay.querySelector(".cwc-compare-price");
-    const saveElement = priceDisplay.querySelector(".cwc-save-amount");
+    const priceElement = priceDisplay.querySelector(
+      ".cwc-featured-product__price-current"
+    );
+    const compareElement = priceDisplay.querySelector(
+      ".cwc-featured-product__price-compare"
+    );
+    const saveElement = priceDisplay.querySelector(
+      ".cwc-featured-product__price-save-amount"
+    );
 
     if (priceElement) {
       priceElement.textContent = `$${formatPrice(pricing.price)}`;
@@ -177,7 +183,7 @@ function initFeaturedProduct(
           savingsDisplayType === "percent"
             ? `${Math.round((savings / pricing.compareAtPrice) * 100)}%`
             : `$${formatPrice(savings)}`;
-        saveElement.textContent = `Save ${saveText}`;
+        saveElement.textContent = `${saveText}`;
         saveElement.style.display = "";
       }
     } else {

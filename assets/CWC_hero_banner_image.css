@@ -112,8 +112,22 @@
     margin-bottom: 1rem;
 }
 
-.CWC_hero_banner_image-content .hero-headline,
-.CWC_hero_banner_image-content .hero-headline * {
+
+.CWC_hero_banner_image-content .hero-headline>* {
+    margin: 0rem;
+    /* testing */
+    letter-spacing: 0%;
+    text-align: center;
+    font-size: 42px;
+    font-weight: 700;
+    /* margin: 10px 0 10px; */
+    color: #303030;
+    line-height: 130%;
+    font-weight: bolder;
+    font-family: var(--font-body);
+}
+
+.CWC_hero_banner_image-content .hero-headline {
     font-size: 2.5rem;
     font-weight: 700;
     /* font-weight: 600; */

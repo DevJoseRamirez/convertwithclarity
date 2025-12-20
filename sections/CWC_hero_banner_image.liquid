@@ -78,7 +78,7 @@
                 <div class="hero-stars">
                   {% render 'CWC_trust_stars' %}
                 </div>
-                <div class="hero-text">
+                <div class="hero-text rte">
                   {{ block.settings.text }}
                 </div>
               </div>
@@ -111,7 +111,7 @@
 
           {% when 'subtext' %}
             {% if block.settings.text != blank %}
-              <div class="hero-subtext" {{ block.shopify_attributes }}>
+              <div class="hero-subtext rte" {{ block.shopify_attributes }}>
                 {{ block.settings.text }}
               </div>
             {% endif %}
@@ -187,7 +187,7 @@
       "type": "color",
       "id": "text_color",
       "label": "Text Color",
-      "default": "#222222"
+      "default": "#1d1d1d"
     },
     {
       "type": "image_picker",
@@ -232,7 +232,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "default": 0
+      "default": 8
     },
     {
       "type": "range",
@@ -242,7 +242,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "default": 0
+      "default": 8
     }
   ],
   "blocks": [
@@ -254,7 +254,7 @@
           "type": "richtext",
           "id": "text",
           "label": "Review Content",
-          "default": "<p><strong>Rated 4.8/5</strong> | Trusted by 20,000+</p>"
+          "default": "<p><strong>Rated 4.9/5 </strong> | 50,000+ Happy Smiles+</p>"
         }
       ]
     },

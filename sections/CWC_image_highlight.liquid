@@ -55,7 +55,9 @@
           {% if section.settings.featured_image %}
             <img src="{{ section.settings.featured_image | image_url }}" alt="">
           {% else %}
-            <img src="{{ 'placeholder.png' | asset_url }}" alt="Placeholder image">
+            <div class="highlight-main-image__placehoder">
+              <span>Add an image</span>
+            </div>
           {% endif %}
         </div>
       </div>
@@ -130,8 +132,8 @@
       "id": "padding_top",
       "label": "Padding Top",
       "min": 0,
-      "max": 200,
-      "step": 4,
+      "max": 100,
+      "step": 10,
       "unit": "px",
       "default": 40
     },
@@ -140,8 +142,8 @@
       "id": "padding_bottom",
       "label": "Padding Bottom",
       "min": 0,
-      "max": 200,
-      "step": 4,
+      "max": 100,
+      "step": 10,
       "unit": "px",
       "default": 40
     }

@@ -322,7 +322,7 @@
     background: var(--accent-color, #60a1a2);
 
     transition: width 0.3s linear;
-
+    display: flex !important;
 }
 
 

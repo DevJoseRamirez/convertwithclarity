@@ -134,9 +134,11 @@
   height: 60px;
   /* margin-bottom: 0.5rem; */
   margin-bottom: 0.75rem;
+  margin-top: 0.75rem;
   box-sizing: border-box;
   aspect-ratio: 1/1;
   width: 54px;
+  width: 48px;
   height: auto;
 }
 
@@ -150,6 +152,9 @@
 /* Title under icon */
 .highlight-item-title {
   font-size: 1rem;
+  font-size: 1.125rem;
+
+
   font-weight: 700;
   margin: 0 0 0.5rem;
   color: inherit;
@@ -160,6 +165,9 @@
 /* Body text below title */
 .highlight-item-text {
   font-size: 0.9rem;
+  font-size: 1rem;
+
+
   margin: 0;
   color: rgba(0, 0, 0, 0.8);
   line-height: 1.4;
@@ -239,6 +247,23 @@
 
 /* === 6) RESPONSIVE ADJUSTMENTS === */
 @media screen and (max-width: 768px) {
+
+  /* Icon / Image at top */
+  .cwc_image_highlight .highlight-icon {
+    margin-top: 0;
+  }
+
+  /* Title under icon */
+  .highlight-item-title {
+    font-size: 1rem;
+  }
+
+  /* Body text below title */
+  .highlight-item-text {
+    font-size: 0.9rem;
+    font-size: 1rem;
+  }
+
   .cwc_image_highlight__section-subtitle p {
     /* font-size: 1rem; */
   }
@@ -283,10 +308,12 @@
 
   .highlight-item-text {
     max-width: 100%;
+    font-size: 1rem;
   }
 
   .cwc_image_highlight .highlight-icon {
     width: 36px;
+    width: 48px;
     height: auto;
   }
 }

@@ -51,6 +51,8 @@
     height: 18px;
     object-fit: contain;
     flex-shrink: 0;
+    /*  */
+    margin: 1px 0px;
 }
 
 .CWC_scrolling_banner-text {

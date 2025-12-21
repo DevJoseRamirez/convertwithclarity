@@ -368,6 +368,7 @@
 
     .cwc_image_benefit-row__text {
         font-size: 0.9rem;
+        font-size: 1rem;
     }
 
     .cwc_image_benefit-row__icon {
@@ -377,5 +378,9 @@
 
     .cwc_image_benefits__container {
         padding: 0 1rem;
+    }
+
+    .cwc_image_benefit-row {
+        gap: .75rem;
     }
 }

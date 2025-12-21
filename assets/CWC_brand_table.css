@@ -186,6 +186,14 @@
     color: #6B7280;
     text-align: center;
     margin-top: 2rem;
+
+    font-size: .95rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: #3f3f3f;
+    text-align: center;
+    margin-top: 2rem;
+    text-decoration: underline;
 }
 
 /* ================================
@@ -308,6 +316,11 @@
 }
 
 @media (max-width: 480px) {
+
+    .cwc-brand-table__feature-icon {
+        display: none;
+    }
+
     .cwc-brand-table__container {
         /* padding: 0 0.75rem; */
     }
@@ -329,6 +342,12 @@
         padding: 1rem;
         font-size: 1rem;
         font-size: .9rem;
+        /*  */
+    }
+
+    .cwc-brand-table__cell svg {
+        display: none;
+
     }
 
     .cwc-brand-table__note {

@@ -167,7 +167,6 @@
 /* Horizontal with Images */
 .cwc-featured-product__option_type.layout-horizontal.show-images .cwc-featured-product__option_type_button {
     /* min-width: 140px; */
-
     /* flex: 1; */
     height: stretch;
     padding: 0rem;
@@ -176,6 +175,10 @@
     background: none;
     border: none;
     padding-right: 1rem;
+}
+
+.cwc-featured-product__option_type.layout-horizontal.show-images .cwc-featured-product__option_type_button:last-of-type {
+    padding: 0rem;
 }
 
 .layout-horizontal .cwc-featured-product__option_type_button.selected .cwc-featured-product__option_type_button_thumb-wrap {
@@ -264,6 +267,7 @@
 .cwc-featured-product__option_type_button_value {
     font-weight: 600;
     font-size: 0.8125rem;
+    font-size: 0.9rem;
 }
 
 .cwc-featured-product__option_type_button_save_perc {
@@ -413,6 +417,7 @@
     border: 2px solid rgba(228, 228, 228, 1);
     /* margin-bottom: 1rem; */
     padding: .75rem;
+    padding: .75rem 1rem;
 
     border: 1px solid rgba(228, 228, 228, 1);
 
@@ -434,8 +439,10 @@
 .cwc-featured-product__option_type_selected-description {
     font-size: 0.875rem;
     color: #6B7280;
+    color: #111827;
     line-height: 1.5;
 }
+
 
 /* ================================
    Tablet Responsive (max-width: 991px)
@@ -471,7 +478,12 @@
 
     .cwc-featured-product__option_type.layout-horizontal.show-images .cwc-featured-product__option_type_button {
         /* min-width: 120px; */
+        padding-right: .5rem;
     }
+
+
+
+
 }
 
 /* ================================
@@ -479,6 +491,11 @@
    ================================ */
 
 @media (max-width: 768px) {
+
+    .cwc_product-template__options,
+    .cwc-featured-product__option_type {
+        margin: .5rem 0rem;
+    }
 
     /* Vertical layout */
     .cwc-featured-product__option_type.layout-vertical .cwc-featured-product__option_type_button {
@@ -495,5 +512,26 @@
 
     .cwc-featured-product__option_type.layout-horizontal .cwc-featured-product__option_type_button {
         /* width: 100%; */
+    }
+}
+
+/* ================================
+   Mobile Responsive (max-width: 768px)
+   ================================ */
+
+@media (max-width: 488px) {
+    .cwc-featured-product__option_type_selected-display {
+        display: flex;
+        gap: .75rem;
+    }
+
+    .cwc-featured-product__option_type_selected-description {
+        line-height: 140%;
+    }
+
+    .cwc-featured-product__option_type_selected-name {
+        line-height: normal;
+        line-height: 130%;
+        margin: 0rem;
     }
 }

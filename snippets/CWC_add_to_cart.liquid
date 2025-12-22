@@ -1,85 +1,117 @@
 {% style %}
-    .cwc_product-template__add_to_cart,
-      .cwc-featured-product__add_to_cart{}
+  .cwc_product-template__add_to_cart,
+  .cwc-featured-product__add_to_cart{
+
+    margin-bottom: 1.5rem;
+  }
 
 
-      .cwc-featured-product__button {
-      padding: 1rem 2rem;
-      font-weight: 700;
-      font-size: 1.058rem;
-      border-radius: 6px;
-      border: 2px solid transparent;
-      text-decoration: none;
-      transition: all 0.3s ease-in-out;
-      text-align: center;
-      text-transform: uppercase;
-      text-transform: capitalize;
+  .cwc-featured-product__button {
+  padding: 1rem 2rem;
+  font-weight: 700;
+  font-size: 1.058rem;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+  text-transform: uppercase;
+  text-transform: capitalize;
 
-      font-weight: 400;
-      cursor: pointer;
-      width: 100%;
-      background-color: {{ block.settings.button_bg_color }};
-      color: {{ block.settings.button_text_color }};
-      -webkit-tap-highlight-color: transparent;
+  font-weight: 400;
+  cursor: pointer;
+  width: 100%;
+  background-color: {{ block.settings.button_bg_color }};
+  color: {{ block.settings.button_text_color }};
+  -webkit-tap-highlight-color: transparent;
+  /*  */
+  transition: all 0.3s ease-in-out;
+  border-radius: 8px;
+  background-color: {{ block.settings.button_bg_color }};
+  background: {{ block.settings.button_bg_color }};
+  color: {{ block.settings.button_text_color }};
+  }
 
-      }
-
-      .cwc-featured-product__button:hover {
-      border-color: {{ block.settings.button_bg_color }};
-      background-color: {{ block.settings.button_text_color }};
-      color: {{ block.settings.button_bg_color }};
-      }
-
-
-      .cwc-featured-product__button:active {
-            outline: none;
-      -webkit-tap-highlight-color: transparent;
-      box-shadow: none;
-      }
+  .cwc-featured-product__button:hover {
+  border-color: {{ block.settings.button_bg_color }};
+  background-color: {{ block.settings.button_text_color }};
+  color: {{ block.settings.button_bg_color }};
+  /*  */
+  border-color: {{ block.settings.button_bg_color }};
+  color: {{ block.settings.button_bg_color }};
+  background-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px #0000001f;
+  }
 
 
-      .cwc-featured-product__button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      }
+  .cwc-featured-product__button:active {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: none;
+  }
 
-      .cwc-featured-product__button .cwc-featured-product__price-current {
-      }
 
-      .cwc-featured-product__button .cwc-featured-product__price-current {
-      font-size: inherit;
-      color: inherit;
-      }
+  .cwc-featured-product__button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  }
 
-      .cwc-featured-product__button .cwc-featured-product__price-compare {
-      opacity: 0.6;
-      color: inherit;
-      font-size: inherit;
-      }
+  .cwc-featured-product__button .cwc-featured-product__price-current {
+  }
 
-      .cwc-featured-product__button .cwc-featured-product__price-save {
-      display: none;
+  .cwc-featured-product__button .cwc-featured-product__price-current {
+  font-size: inherit;
+  color: inherit;
+  }
 
-      }
-      .cwc-featured-product__add_to_cart-content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      }
+  .cwc-featured-product__button .cwc-featured-product__price-compare {
+  opacity: 0.6;
+  opacity: 0.75;
+  color: inherit;
+  font-size: inherit;
+  }
+
+  .cwc-featured-product__button .cwc-featured-product__price-save {
+  display: none;
+
+  }
+  .cwc-featured-product__add_to_cart-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  /*  */
+  font-weight: bold;
+  }
+
+  .cwc-featured-product__button{}
+  .snip {    display: inline-block;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all .3s ease-in-out;
+  text-align: center;
+  border: 2px solid transparent;
+  padding: 1.02875rem;
+  line-height: 1.211875rem;
+  width: 100%;
+  max-width: 336px;
+  font-size: 1.15rem;}
 
 
   @media (max-width: 991px) {
 
-      .cwc-featured-product__button {
-        border-radius: 4px;
-    font-size: 0.9375rem;
-    line-height: 16px;
-    height: 56px;
-      }
+  .cwc-featured-product__button {
+  border-radius: 4px;
+  font-size: 0.9375rem;
+  line-height: 16px;
+  height: 56px;
   }
-      @media (max-width: 768px) {
-      }
+  }
+  @media (max-width: 768px) {
+  }
 {% endstyle %}
 
 {% assign main_product = product %}
@@ -124,7 +156,9 @@
         </span>
         {% if product.compare_at_price > product.price %}
           <span class="cwc-featured-product__price-compare" id="compare-price-button-{{ section_id }}">
-            {{ product.compare_at_price | money }}
+            {% if has_compare %}
+              {{ product.compare_at_price | money }}
+            {% endif %}
           </span>
         {% endif %}
       </div>

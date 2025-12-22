@@ -88,7 +88,8 @@
 
                     <div class="cwc-testimonials__testimonial-author-verified">
                       <span class="cwc-testimonials__testimonial-author-verified-icon">
-                        {%- render 'CWC_icon-check_badge', fill_color: '#009370' -%}
+                        {% comment %} {%- render 'CWC_icon-check_badge', fill_color: '#009370' -%} {% endcomment %}
+                        {%- render 'CWC_icon-check_badge-fill', fill_color: '#009370' -%}
                       </span>
                       <span class="cwc-testimonials__testimonial-author-verified-text"> Verified Customer </span>
                     </div>
@@ -158,7 +159,8 @@
 
                     <div class="cwc-testimonials__testimonial-author-verified">
                       <span class="cwc-testimonials__testimonial-author-verified-icon">
-                        {%- render 'CWC_icon-check_badge', fill: '#009370' -%}
+                        {% comment %} {%- render 'CWC_icon-check_badge', fill: '#009370' -%} {% endcomment %}
+                        {%- render 'CWC_icon-check_badge-fill', fill_color: '#009370' -%}
                       </span>
                       <span class="cwc-testimonials__testimonial-author-verified-text"> Verified Customer </span>
                     </div>

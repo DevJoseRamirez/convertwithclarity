@@ -5,7 +5,7 @@
 .cwc-featured-product__subscription,
 .cwc_product-template__subscription {
     border-radius: 6.119px;
-    border: 1px dashed #282b22;
+    border: 1.3px dashed #282b22;
     background: #fff;
 
     display: flex;
@@ -73,7 +73,6 @@ input[type="checkbox"]:hover {
     top: 50%;
     transform: translateY(-50%);
 }
-
 
 
 input[type=checkbox].cwc-auto-refill-checkbox {
@@ -278,13 +277,34 @@ input.cwc-auto-refill-checkbox:checked+svg {
 
     /* Main checkbox input */
     input[type='checkbox'].cwc-auto-refill-checkbox {
-        top: -0.5rem;
+        /* top: -0.5rem; */
     }
+
+    .cwc-auto-refill-checkbox__wrapper {
+        height: 20px;
+        width: 20px;
+    }
+
+    input[type=checkbox].cwc-auto-refill-checkbox {
+        height: 20px;
+        width: 20px;
+    }
+
 }
 
 @media (max-width: 768px) {
     .cwc-checkbox-title {
         font-size: 0.78rem;
+    }
+
+    .cwc-auto-refill-checkbox__wrapper {
+        height: 16px;
+        width: 16px;
+    }
+
+    input[type=checkbox].cwc-auto-refill-checkbox {
+        height: 16px;
+        width: 16px;
     }
 
 

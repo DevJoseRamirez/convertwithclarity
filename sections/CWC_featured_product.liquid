@@ -41,10 +41,12 @@
                 {% render 'CWC_product_image_carousel', product: product, section_id: section.id, block: block %}
               </div>
 
-            {% when 'faq' %}
-              <div class="cwc-featured-product__faq desktop__only" {{ block.shopify_attributes }}>
-                {% render 'CWC_faq_blocks', product: product, section_id: section.id, block: block %}
-              </div>
+              {% comment %}
+                {% when 'faq' %}
+                  <div class="cwc-featured-product__faq desktop__only" {{ block.shopify_attributes }}>
+                    {% render 'CWC_block__faq', product: product, section_id: section.id, block: block %}
+                  </div>
+              {% endcomment %}
 
             {% when 'review' %}
               <div class="cwc-featured-product__review desktop__only rte" {{ block.shopify_attributes }}>
@@ -126,7 +128,7 @@
 
                 {% when 'benefit_bullets' %}
                   <div class="cwc-featured-product__benefits" {{ block.shopify_attributes }}>
-                    {% render 'CWC_block._benefit_bullets', product: product, section_id: section.id, block: block %}
+                    {% render 'CWC_block__benefit_bullets', product: product, section_id: section.id, block: block %}
                   </div>
 
                 {% when 'price_display' %}
@@ -137,7 +139,7 @@
                     "
                     {{ block.shopify_attributes }}
                   >
-                    {% render 'CWC_price_display', product: product, section_id: section.id, block: block %}
+                    {% render 'CWC_block__price_display', product: product, section_id: section.id, block: block %}
                   </div>
 
                 {% when 'product_options_size' %}
@@ -190,12 +192,27 @@
 
                 {% when 'guarantee_text' %}
                   <div class="cwc-featured-product__guarantee_text" {{ block.shopify_attributes }}>
-                    {% render 'CWC_guarantee_text', product: product, section_id: section.id, block: block %}
+                    {% render 'CWC_block__guarantee_text', product: product, section_id: section.id, block: block %}
+                  </div>
+
+                {% when 'review' %}
+                  <div class="cwc-featured-product__review mobile__only rte" {{ block.shopify_attributes }}>
+                    {% render 'CWC_block__review', product: product, section_id: section.id, block: block %}
+                  </div>
+
+                {% when 'benefit_icons' %}
+                  <div class="cwc-featured-product__benefit_icons mobile__only rte" {{ block.shopify_attributes }}>
+                    {% render 'CWC_block__benefit_icons', product: product, section_id: section.id, block: block %}
                   </div>
 
                 {% when 'faq' %}
-                  <div class="cwc-featured-product__faq mobile__only" {{ block.shopify_attributes }}>
-                    {% render 'CWC_faq_blocks', product: product, section_id: section.id, block: block %}
+                  {% comment %}
+                    <div class="cwc-featured-product__faq mobile__only" {{ block.shopify_attributes }}>
+                      {% render 'CWC_block__faq', product: product, section_id: section.id, block: block %}
+                    </div>
+                  {% endcomment %}
+                  <div class="cwc-featured-product__faq" {{ block.shopify_attributes }}>
+                    {% render 'CWC_block__faq', product: product, section_id: section.id, block: block %}
                   </div>
               {% endcase %}
             {% endfor %}
@@ -321,6 +338,15 @@
       "name": "Image Carousel",
       "settings": [
         {
+          "type": "range",
+          "id": "img_limit",
+          "label": "Image Limit",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "default": 8
+        },
+        {
           "type": "text",
           "id": "badge_text",
           "label": "Image Badge Text",
@@ -338,7 +364,6 @@
           "label": "Badge Background Color",
           "default": "#60a1a2"
         },
-
         {
           "type": "text",
           "id": "badge_sold_text",
@@ -365,13 +390,10 @@
           "info": "Display thumbnail navigation on mobile/tablet devices"
         },
         {
-          "type": "range",
-          "id": "img_limit",
-          "label": "Image Limit",
-          "min": 1,
-          "max": 20,
-          "step": 1,
-          "default": 8
+          "type": "checkbox",
+          "id": "enable_zoom",
+          "label": "Enable Image Zoom",
+          "default": true
         }
       ]
     },
@@ -402,19 +424,24 @@
           "type": "richtext",
           "id": "title",
           "label": "Review text",
-          "default": "<p>Review Title</p>"
+          "default": "<p>Skeptical at First, Now a Believer</p>"
         },
         {
           "type": "richtext",
           "id": "text",
           "label": "Review text",
-          "default": "<p>Customer review sharing experience and addressing a key customer concerned or resistance</p>"
+          "default": "<p>I was skeptical about this paste due to every other one I've tried not working. I was not expecting to be able to notice a difference for a while. I ate ice cream the next day. I also drank my hot coffee without any discomfort.</p>"
         },
         {
-          "type": "richtext",
-          "id": "author",
+          "type": "text",
+          "id": "author_name",
           "label": "Review author",
-          "default": "<p>Rick M.</p>"
+          "default": "Jennifer L."
+        },
+        {
+          "type": "image_picker",
+          "id": "author_image",
+          "label": "Author image"
         },
         {
           "type": "color",

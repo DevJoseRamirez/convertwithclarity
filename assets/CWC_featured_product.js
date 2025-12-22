@@ -1,13 +1,24 @@
 /* =====================================================
-   CWC FEATURED PRODUCT JAVASCRIPT - FINAL FIXED VERSION
+   CWC FEATURED PRODUCT JAVASCRIPT - COMPLETE FIXED
    =====================================================
    
+   Purpose: Handles product variants, pricing, subscriptions, 
+   add-to-cart functionality, and FAQ interactions.
+   
    FIXES IN THIS VERSION:
-   1. Line 67: priceDisplay selector fixed
-   2. Subscription toggle properly updates selling plan BEFORE getting price
-   3. getPriceForDisplay handles subscription pricing correctly
-   4. updatePriceDisplay matches Liquid structure exactly
-   5. Savings display respects savingsDisplayType setting
+   1. Correct price display selectors matching Liquid
+   2. Correct subscription checkbox selector
+   3. Button prices update with variant/subscription changes
+   4. Savings calculation includes TOTAL savings (compare_at + subscription)
+   5. Savings display respects savingsDisplayType setting (dollar/percentage)
+   6. Partial option selection support
+   
+   SECTION DATA ATTRIBUTES:
+   - data-section-id="{{ section.id }}"
+   - data-product-id="{{ product.id }}"
+   - data-variants="{{ product.variants | json | escape }}"
+   - data-selling-plans="{{ product.selling_plan_groups | json | escape }}"
+   - data-savings-display="{{ section.settings.savings_display_type }}"
    
    ===================================================== */
 
@@ -53,25 +64,35 @@ function initFeaturedProduct(
   /* -----------------------------------------------------
      DOM ELEMENT REFERENCES
      ----------------------------------------------------- */
+  // Form elements
   const form = section.querySelector(`#product-form-${sectionId}`);
   const variantIdInput = section.querySelector(".variant-id-input");
   const sellingPlanInput = section.querySelector(".selling-plan-input");
 
+  // Option buttons and inputs
   const optionButtons = section.querySelectorAll(
     ".cwc-featured-product__option_button, .cwc-featured-product__option_type_button, .cwc-featured-product__option_size_button"
   );
-
   const optionInputs = section.querySelectorAll(
     "input[data-option-index]:not(.variant-id-input):not(.selling-plan-input)"
   );
 
-  // FIXED: Correct checkbox selector
+  // Subscription checkbox (id="auto-refill-{{ section.id }}")
   const autoRefillCheckbox = section.querySelector(`#auto-refill-${sectionId}`);
 
-  const addToCartButton = section.querySelector(".cwc-add-to-cart-button");
+  // Add to cart button
+  const addToCartButton = section.querySelector(`#add-to-cart-${sectionId}`);
 
-  // FIXED: Correct price display selector matching Liquid
+  // Price display block (class="cwc-featured-product__price")
   const priceDisplay = section.querySelector(".cwc-featured-product__price");
+
+  // Button price elements
+  const buttonPriceElement = section.querySelector(
+    `#current-price-button-${sectionId}`
+  );
+  const buttonCompareElement = section.querySelector(
+    `#compare-price-button-${sectionId}`
+  );
 
   /* -----------------------------------------------------
      VALIDATION & DEBUG
@@ -84,29 +105,23 @@ function initFeaturedProduct(
   console.log("Found elements:", {
     form: !!form,
     variantIdInput: !!variantIdInput,
+    sellingPlanInput: !!sellingPlanInput,
     optionInputs: optionInputs.length,
     optionButtons: optionButtons.length,
     autoRefillCheckbox: !!autoRefillCheckbox,
     priceDisplay: !!priceDisplay,
+    addToCartButton: !!addToCartButton,
+    buttonPriceElement: !!buttonPriceElement,
+    buttonCompareElement: !!buttonCompareElement,
   });
 
   /* =====================================================
      SELLING PLAN MANAGEMENT
      ===================================================== */
-  let finalSellingPlanInput = sellingPlanInput;
+  // Use existing selling plan input from form
+  const finalSellingPlanInput = sellingPlanInput;
 
-  if (!finalSellingPlanInput && form) {
-    const newInput = document.createElement("input");
-    newInput.type = "hidden";
-    newInput.name = "selling_plan";
-    newInput.className = "selling-plan-input";
-    newInput.value = "";
-    form.appendChild(newInput);
-    finalSellingPlanInput = newInput;
-    console.log("Created selling plan input");
-  }
-
-  // Get the selling plan ID (used for price calculations)
+  // Get the selling plan ID from the product's selling plan groups
   function getSellingPlanId() {
     if (
       sellingPlanGroups.length > 0 &&
@@ -149,6 +164,22 @@ function initFeaturedProduct(
     return (priceInCents / 100).toFixed(2);
   }
 
+  /**
+   * Get pricing data for display
+   *
+   * Scenarios:
+   * 1. Subscription ON:
+   *    - price = subscription price (per_delivery_price)
+   *    - compareAtPrice = original compare_at_price (shows TOTAL savings)
+   *
+   * 2. Subscription OFF with compare_at_price:
+   *    - price = regular variant price
+   *    - compareAtPrice = variant's compare_at_price
+   *
+   * 3. Subscription OFF without compare_at_price:
+   *    - price = regular variant price
+   *    - compareAtPrice = null (no savings shown)
+   */
   function getPriceForDisplay(variant) {
     if (!variant) return null;
 
@@ -172,12 +203,12 @@ function initFeaturedProduct(
       if (allocation) {
         console.log("Found subscription allocation:", allocation);
 
-        // FIXED: Use compare_at_price if it exists, otherwise use regular price
-        // This shows TOTAL savings (product discount + subscription discount)
+        // Use compare_at_price if it exists for TOTAL savings display
+        // Otherwise use regular price as the compare price
         const comparePrice =
           variant.compare_at_price && variant.compare_at_price > variant.price
-            ? variant.compare_at_price // Use original compare_at_price for max savings display
-            : variant.price; // Fall back to regular price if no compare_at
+            ? variant.compare_at_price
+            : variant.price;
 
         return {
           price: allocation.per_delivery_price,
@@ -195,11 +226,10 @@ function initFeaturedProduct(
     };
   }
 
+  /**
+   * Update all price displays (price block + button prices)
+   */
   function updatePriceDisplay(variant) {
-    if (!priceDisplay) {
-      console.warn("Price display element not found");
-      return;
-    }
     if (!variant) {
       console.warn("No variant provided to updatePriceDisplay");
       return;
@@ -214,71 +244,103 @@ function initFeaturedProduct(
       isSubscription: pricing.isSubscription,
     });
 
-    // Get DOM elements
-    const priceElement = priceDisplay.querySelector(
-      ".cwc-featured-product__price-current"
-    );
-    const compareElement = priceDisplay.querySelector(
-      ".cwc-featured-product__price-compare"
-    );
-    const saveWrapper = priceDisplay.querySelector(
-      ".cwc-featured-product__price-save"
-    );
-    const saveAmountElement = priceDisplay.querySelector(
-      ".cwc-featured-product__price-save-amount"
-    );
-
-    // Update current price
-    if (priceElement) {
-      priceElement.textContent = `$${formatPrice(pricing.price)}`;
-    }
-
-    // Check if we have savings to display
     const hasSavings =
       pricing.compareAtPrice && pricing.compareAtPrice > pricing.price;
+    let savingsAmount = 0;
+    let savingsPercent = 0;
 
     if (hasSavings) {
-      const savings = pricing.compareAtPrice - pricing.price;
-      const savingsPercent = Math.round(
-        (savings / pricing.compareAtPrice) * 100
+      savingsAmount = pricing.compareAtPrice - pricing.price;
+      savingsPercent = Math.round(
+        (savingsAmount / pricing.compareAtPrice) * 100
       );
 
       console.log("Savings calculation:", {
         compareAtPrice: pricing.compareAtPrice,
         currentPrice: pricing.price,
-        savingsAmount: savings,
+        savingsAmount: savingsAmount,
         savingsPercent: savingsPercent,
       });
+    }
 
-      // Show and update compare price
-      if (compareElement) {
-        compareElement.textContent = `$${formatPrice(pricing.compareAtPrice)}`;
-        compareElement.style.display = "";
+    /* -----------------------------------------------------
+       UPDATE PRICE DISPLAY BLOCK
+       ----------------------------------------------------- */
+    if (priceDisplay) {
+      const priceElement = priceDisplay.querySelector(
+        ".cwc-featured-product__price-current"
+      );
+      const compareElement = priceDisplay.querySelector(
+        ".cwc-featured-product__price-compare"
+      );
+      const saveWrapper = priceDisplay.querySelector(
+        ".cwc-featured-product__price-save"
+      );
+      const saveAmountElement = priceDisplay.querySelector(
+        ".cwc-featured-product__price-save-amount"
+      );
+
+      // Update current price
+      if (priceElement) {
+        priceElement.textContent = `$${formatPrice(pricing.price)}`;
       }
 
-      // Show save wrapper and update amount
-      if (saveWrapper) {
-        saveWrapper.style.display = "flex";
-      }
+      if (hasSavings) {
+        // Show and update compare price
+        if (compareElement) {
+          compareElement.textContent = `$${formatPrice(
+            pricing.compareAtPrice
+          )}`;
+          compareElement.style.display = "";
+        }
 
-      if (saveAmountElement) {
-        if (savingsDisplayType === "percentage") {
-          saveAmountElement.textContent = `${savingsPercent}%`;
-        } else {
-          saveAmountElement.textContent = `$${formatPrice(savings)}`;
+        // Show save wrapper and update amount
+        if (saveWrapper) {
+          saveWrapper.style.display = "flex";
+        }
+
+        if (saveAmountElement) {
+          if (savingsDisplayType === "percentage") {
+            saveAmountElement.textContent = `${savingsPercent}%`;
+          } else {
+            saveAmountElement.textContent = `$${formatPrice(savingsAmount)}`;
+          }
+        }
+      } else {
+        // No savings - hide compare and save elements
+        if (compareElement) {
+          compareElement.style.display = "none";
+        }
+        if (saveWrapper) {
+          saveWrapper.style.display = "none";
         }
       }
-    } else {
-      // No savings - hide compare and save elements
-      if (compareElement) {
-        compareElement.style.display = "none";
-      }
-      if (saveWrapper) {
-        saveWrapper.style.display = "none";
+    }
+
+    /* -----------------------------------------------------
+       UPDATE BUTTON PRICES
+       ----------------------------------------------------- */
+    if (buttonPriceElement) {
+      buttonPriceElement.textContent = `$${formatPrice(pricing.price)}`;
+    }
+
+    if (buttonCompareElement) {
+      if (hasSavings) {
+        buttonCompareElement.textContent = `$${formatPrice(
+          pricing.compareAtPrice
+        )}`;
+        buttonCompareElement.style.display = "";
+      } else {
+        buttonCompareElement.style.display = "none";
       }
     }
+
+    console.log("Price display update complete");
   }
 
+  /**
+   * Update add to cart button state
+   */
   function updateAddToCartButton(variant) {
     if (!addToCartButton) return;
 
@@ -287,8 +349,11 @@ function initFeaturedProduct(
     if (variant && variant.available) {
       addToCartButton.disabled = false;
       if (buttonText) {
-        buttonText.textContent =
-          buttonText.dataset.originalText || "Add to Cart";
+        const originalText = buttonText.dataset.originalText || "Add to Cart";
+        // Keep the " | " if it's in the original text
+        buttonText.textContent = originalText.includes("|")
+          ? originalText
+          : originalText + " | ";
       }
     } else {
       addToCartButton.disabled = true;
@@ -323,7 +388,7 @@ function initFeaturedProduct(
     // Update selling plan input FIRST (before price calculation)
     updateSellingPlan();
 
-    // Now update price display (uses selling plan state)
+    // Update all price displays (block + button)
     updatePriceDisplay(variant);
 
     // Update button state
@@ -332,7 +397,11 @@ function initFeaturedProduct(
     // Dispatch event for add-to-cart script
     document.dispatchEvent(
       new CustomEvent("cwc:variant-updated", {
-        detail: { variant, sectionId },
+        detail: {
+          variant,
+          sectionId,
+          pricing: getPriceForDisplay(variant),
+        },
       })
     );
 

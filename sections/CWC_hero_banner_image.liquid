@@ -163,7 +163,7 @@
           {% when 'note' %}
             {% if block.settings.text != blank %}
               <div class="hero-note" {{ block.shopify_attributes }}>
-                {% render 'CWC_guarantee_text', product: product, section: section, block: block %}
+                {% render 'CWC_block__guarantee_text', product: product, section: section, block: block %}
               </div>
             {% endif %}
         {% endcase %}

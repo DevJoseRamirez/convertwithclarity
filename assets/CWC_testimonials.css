@@ -276,6 +276,7 @@
     padding: 6px;
     border-radius: 20px;
     font-size: 12px;
+    font-size: 12px;
     margin: 0;
     border: .5px solid rgba(0, 147, 112, 1);
     min-width: calc(50% - 6px);
@@ -359,6 +360,12 @@
 .cwc-testimonials__carousel-prev,
 .cwc-testimonials__carousel-next {
     position: static;
+}
+
+
+.cwc-testimonials__testimonial-author-verified-icon svg {
+    height: 18px;
+    width: 18px;
 }
 
 /* ==============================

@@ -1,0 +1,555 @@
+{% comment %} ***TESTING ONLY - MAY NOT BE NEEDED AT ALL {% endcomment %}
+
+{% style %}
+  .cwc-product-carousel-{{ section_id }} {
+    --badge-bg: {{ block.settings.badge_bg_color | default: '#60a1a2' }};
+    --badge-text: {{ block.settings.badge_text_color | default: '#ffffff' }};
+    --sold-badge-bg: {{ block.settings.badge_sold_bg_color | default: '#ffffff' }};
+    --sold-badge-text: {{ block.settings.badge_sold_text_color | default: '#000000' }};
+  }
+{% endstyle %}
+
+{{ 'CWC_product_image_carousel.css' | asset_url | stylesheet_tag }}
+
+<div class="cwc-product-carousel cwc-product-carousel-{{ section_id }} {% if block.settings.mobile_thumbs %}show-mobile-thumbs{% endif %}">
+  <!-- Main Carousel -->
+  <div class="swiper cwc-product-main-carousel" id="product-carousel-{{ section_id }}">
+    <div class="swiper-wrapper">
+      {% if product.images.size > 0 %}
+        {% for image in product.images limit: block.settings.img_limit %}
+          <div class="swiper-slide" data-slide-index="{{ forloop.index0 }}">
+            {% comment %} Add badges only to the first slide {% endcomment %}
+            {% if forloop.first %}
+              {% if block.settings.badge_text != blank %}
+                <div
+                  class="cwc-product_template__image-badge cwc-badge-first-only"
+                  style="background: {{ block.settings.badge_bg_color }}; color: {{ block.settings.badge_text_color }}; opacity: 1; visibility: visible;"
+                >
+                  {% render 'CWC_icon-crown', fill_color: block.settings.badge_text_color %}
+                  {{ block.settings.badge_text }}
+                </div>
+              {% endif %}
+
+              {% if block.settings.badge_sold_text != blank %}
+                <div
+                  class="cwc-product_template__image-badge-sold cwc-badge-first-only"
+                  style="background: {{ block.settings.badge_sold_bg_color }}; color: {{ block.settings.badge_sold_text_color }}; opacity: 1; visibility: visible;"
+                >
+                  {{ block.settings.badge_sold_text }}
+                </div>
+              {% endif %}
+            {% endif %}
+
+            <img
+              src="{{ image | image_url: width: 700 }}"
+              data-zoom-src="{{ image | image_url: width: 1400 }}"
+              alt="{{ image.alt | default: product.title }}"
+              width="{{ image.width }}"
+              height="{{ image.height }}"
+              fetchpriority="{% if forloop.first %}high{% else %}low{% endif %}"
+              loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+              class="cwc-zoomable-image"
+            >
+          </div>
+        {% endfor %}
+      {% else %}
+        <!-- Fallback if no images -->
+        <div class="swiper-slide">
+          {% if block.settings.badge_text != blank %}
+            <div
+              class="cwc-product_template__image-badge cwc-badge-first-only"
+              style="background: {{ block.settings.badge_bg_color }}; color: {{ block.settings.badge_text_color }}"
+            >
+              {% render 'CWC_icon-crown', fill_color: block.settings.badge_text_color %}
+              {{ block.settings.badge_text }}
+            </div>
+          {% endif %}
+
+          {% if block.settings.badge_sold_text != blank %}
+            <div
+              class="cwc-product_template__image-badge-sold cwc-badge-first-only"
+              style="background: {{ block.settings.badge_sold_bg_color }}; color: {{ block.settings.badge_sold_text_color }}"
+            >
+              {{ block.settings.badge_sold_text }}
+            </div>
+          {% endif %}
+
+          <img
+            src="{{ 'placeholder.png' | asset_url }}"
+            alt="Product placeholder"
+            fetchpriority="high"
+            loading="eager"
+          >
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Zoom Hint -->
+  {% comment %}
+    \
+    {% if block.settings.enable_zoom %}
+      <div class="cwc-zoom-hint">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="M21 21l-4.35-4.35"></path>
+          <path d="M11 8v6M8 11h6"></path>
+        </svg>
+        <span>Tap to zoom</span>
+      </div>
+    {% endif %}
+  {% endcomment %}
+
+  <!-- Thumbnail Navigation -->
+  {% if product.images.size > 1 %}
+    <div class="cwc-product-thumbnails" id="product-thumbnails-{{ section_id }}">
+      <!-- Navigation arrows for thumbnails -->
+      <div class="swiper-button-next thumb_nav cwc-product-thumbnails_next">
+        {% render 'CWC_icon-arrow-chev', fill_color: block.settings.badge_sold_text_color | default: '#6b7280' %}
+      </div>
+      <div class="swiper-button-prev thumb_nav cwc-product-thumbnails_prev">
+        {% render 'CWC_icon-arrow-chev', fill_color: block.settings.badge_sold_text_color | default: '#6b7280' %}
+      </div>
+
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          {% for image in product.images limit: block.settings.img_limit %}
+            <div class="swiper-slide">
+              <div
+                class="cwc-product-thumbnail {% if forloop.first %}active{% endif %}"
+                data-slide="{{ forloop.index0 }}"
+              >
+                <img
+                  src="{{ image | image_url: width: 135 }}"
+                  alt="{{ image.alt | default: product.title }}"
+                  width="{{ image.width }}"
+                  height="{{ image.height }}"
+                  loading="lazy"
+                >
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<!-- Zoom Modal -->
+{% if block.settings.enable_zoom %}
+  <div class="cwc-zoom-modal" id="zoom-modal-{{ section_id }}">
+    <button class="cwc-zoom-modal__close" aria-label="Close zoom">×</button>
+
+    <!-- Image counter -->
+    <div class="cwc-zoom-counter">
+      <span class="cwc-zoom-current">1</span> /
+      <span class="cwc-zoom-total">{{ product.images.size | default: 1 }}</span>
+    </div>
+
+    <!-- Navigation arrows -->
+    {% if product.images.size > 1 %}
+      <button class="cwc-zoom-nav cwc-zoom-nav--prev" aria-label="Previous image">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+      <button class="cwc-zoom-nav cwc-zoom-nav--next" aria-label="Next image">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
+    {% endif %}
+
+    <div class="cwc-zoom-modal__container">
+      <img class="cwc-zoom-modal__image" src="" alt="Zoomed product image">
+    </div>
+
+    <!-- Zoom controls -->
+    <div class="cwc-zoom-controls">
+      <button class="cwc-zoom-btn cwc-zoom-out" aria-label="Zoom out">−</button>
+      <button class="cwc-zoom-btn cwc-zoom-reset" aria-label="Reset zoom">⟲</button>
+      <button class="cwc-zoom-btn cwc-zoom-in" aria-label="Zoom in">+</button>
+    </div>
+  </div>
+{% endif %}
+
+<!-- Initialize Swiper and Zoom -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const carousel = document.getElementById('product-carousel-{{ section_id }}');
+    const thumbnails = document.getElementById('product-thumbnails-{{ section_id }}');
+    const zoomModal = document.getElementById('zoom-modal-{{ section_id }}');
+    const enableZoom = {{ block.settings.enable_zoom | default: true }};
+
+    let mainSwiper, thumbSwiper;
+
+    if (carousel) {
+      // Thumbnail swiper (initialize first)
+      if (thumbnails) {
+        const thumbSwiperEl = thumbnails.querySelector('.swiper');
+        if (thumbSwiperEl) {
+          thumbSwiper = new Swiper(thumbSwiperEl, {
+            slidesPerView: 5,
+            spaceBetween: 4,
+            watchSlidesProgress: true,
+            slideToClickedSlide: true,
+            grabCursor: true,
+            navigation: {
+              nextEl: '.cwc-product-carousel-{{ section_id }} .cwc-product-thumbnails_next',
+              prevEl: '.cwc-product-carousel-{{ section_id }} .cwc-product-thumbnails_prev',
+            },
+            breakpoints: {
+              320: {
+                slidesPerView: 5,
+                spaceBetween: 4,
+              },
+              768: {
+                slidesPerView: 5,
+                spaceBetween: 4,
+              }
+            }
+          });
+        }
+      }
+
+      // Main carousel
+      mainSwiper = new Swiper(carousel, {
+        loop: {% if product.images.size > 1 %}true{% else %}false{% endif %},
+        keyboard: {
+          enabled: true,
+        },
+        grabCursor: true,
+        spaceBetween: 4,
+        effect: 'slide',
+        speed: 400,
+        {% if product.images.size > 1 %}
+        thumbs: {
+          swiper: thumbSwiper,
+        },
+        {% endif %}
+        on: {
+          init: function() {
+            const originalBadges = carousel.querySelectorAll('.swiper-slide:not(.swiper-slide-duplicate) .cwc-badge-first-only');
+            if (this.realIndex !== 0) {
+              originalBadges.forEach(badge => {
+                badge.style.opacity = '0';
+                badge.style.visibility = 'hidden';
+              });
+            }
+          },
+          slideChange: function () {
+            // Update thumbnail active state
+            if (thumbnails) {
+              const thumbnailItems = thumbnails.querySelectorAll('.cwc-product-thumbnail');
+              thumbnailItems.forEach((thumb, index) => {
+                thumb.classList.toggle('active', index === this.realIndex);
+              });
+
+              // Center the active thumbnail
+              if (thumbSwiper && this.realIndex < thumbnailItems.length) {
+                thumbSwiper.slideTo(Math.max(0, this.realIndex));
+              }
+            }
+
+            // Handle badge visibility
+            const originalBadges = carousel.querySelectorAll('.swiper-slide:not(.swiper-slide-duplicate) .cwc-badge-first-only');
+            originalBadges.forEach(badge => {
+              if (this.realIndex === 0) {
+                badge.style.opacity = '1';
+                badge.style.visibility = 'visible';
+              } else {
+                badge.style.opacity = '0';
+                badge.style.visibility = 'hidden';
+              }
+            });
+          }
+        }
+      });
+
+      // Manual thumbnail click handlers
+      if (thumbnails) {
+        const thumbnailItems = thumbnails.querySelectorAll('.cwc-product-thumbnail');
+        thumbnailItems.forEach((thumb, index) => {
+          thumb.addEventListener('click', () => {
+            if (mainSwiper) {
+              mainSwiper.slideTo(index);
+            }
+            thumbnailItems.forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+          });
+        });
+      }
+
+      /* =====================================================
+         ZOOM FUNCTIONALITY
+         ===================================================== */
+      if (enableZoom && zoomModal) {
+        const zoomImage = zoomModal.querySelector('.cwc-zoom-modal__image');
+        const closeBtn = zoomModal.querySelector('.cwc-zoom-modal__close');
+        const zoomInBtn = zoomModal.querySelector('.cwc-zoom-in');
+        const zoomOutBtn = zoomModal.querySelector('.cwc-zoom-out');
+        const zoomResetBtn = zoomModal.querySelector('.cwc-zoom-reset');
+        const prevBtn = zoomModal.querySelector('.cwc-zoom-nav--prev');
+        const nextBtn = zoomModal.querySelector('.cwc-zoom-nav--next');
+        const currentCounter = zoomModal.querySelector('.cwc-zoom-current');
+        const zoomContainer = zoomModal.querySelector('.cwc-zoom-modal__container');
+
+        // Collect all image sources
+        const images = [];
+        carousel.querySelectorAll('.swiper-slide:not(.swiper-slide-duplicate) .cwc-zoomable-image').forEach(img => {
+          images.push({
+            src: img.dataset.zoomSrc || img.src,
+            alt: img.alt
+          });
+        });
+
+        let currentIndex = 0;
+        let scale = 1;
+        let translateX = 0;
+        let translateY = 0;
+        let isDragging = false;
+        let startX, startY, lastX, lastY;
+
+        const MIN_SCALE = 1;
+        const MAX_SCALE = 4;
+        const SCALE_STEP = 0.5;
+
+        // Open zoom modal
+        function openZoom(index) {
+          currentIndex = index;
+          scale = 1;
+          translateX = 0;
+          translateY = 0;
+          updateZoomImage();
+          zoomModal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+
+        // Close zoom modal
+        function closeZoom() {
+          zoomModal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+
+        // Update zoom image
+        function updateZoomImage() {
+          if (images[currentIndex]) {
+            zoomImage.src = images[currentIndex].src;
+            zoomImage.alt = images[currentIndex].alt;
+          }
+          if (currentCounter) {
+            currentCounter.textContent = currentIndex + 1;
+          }
+          resetTransform();
+        }
+
+        // Apply transform
+        function applyTransform() {
+          zoomImage.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+        }
+
+        // Reset transform
+        function resetTransform() {
+          scale = 1;
+          translateX = 0;
+          translateY = 0;
+          applyTransform();
+        }
+
+        // Zoom in
+        function zoomIn() {
+          if (scale < MAX_SCALE) {
+            scale = Math.min(MAX_SCALE, scale + SCALE_STEP);
+            applyTransform();
+          }
+        }
+
+        // Zoom out
+        function zoomOut() {
+          if (scale > MIN_SCALE) {
+            scale = Math.max(MIN_SCALE, scale - SCALE_STEP);
+            // Reset position when zooming out to min
+            if (scale === MIN_SCALE) {
+              translateX = 0;
+              translateY = 0;
+            }
+            applyTransform();
+          }
+        }
+
+        // Navigate to previous image
+        function goToPrev() {
+          currentIndex = (currentIndex - 1 + images.length) % images.length;
+          updateZoomImage();
+        }
+
+        // Navigate to next image
+        function goToNext() {
+          currentIndex = (currentIndex + 1) % images.length;
+          updateZoomImage();
+        }
+
+        // Click on carousel images to open zoom
+        carousel.querySelectorAll('.cwc-zoomable-image').forEach((img, index) => {
+          img.style.cursor = 'zoom-in';
+          img.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Get the real index (handle Swiper duplicates)
+            const slide = img.closest('.swiper-slide');
+            const slideIndex = parseInt(slide.dataset.slideIndex) || 0;
+            openZoom(slideIndex);
+          });
+        });
+
+        // Close button
+        closeBtn.addEventListener('click', closeZoom);
+
+        // Click outside image to close
+        zoomContainer.addEventListener('click', (e) => {
+          if (e.target === zoomContainer) {
+            closeZoom();
+          }
+        });
+
+        // Zoom controls
+        if (zoomInBtn) zoomInBtn.addEventListener('click', zoomIn);
+        if (zoomOutBtn) zoomOutBtn.addEventListener('click', zoomOut);
+        if (zoomResetBtn) zoomResetBtn.addEventListener('click', resetTransform);
+
+        // Navigation
+        if (prevBtn) prevBtn.addEventListener('click', goToPrev);
+        if (nextBtn) nextBtn.addEventListener('click', goToNext);
+
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+          if (!zoomModal.classList.contains('active')) return;
+          
+          switch(e.key) {
+            case 'Escape':
+              closeZoom();
+              break;
+            case 'ArrowLeft':
+              goToPrev();
+              break;
+            case 'ArrowRight':
+              goToNext();
+              break;
+            case '+':
+            case '=':
+              zoomIn();
+              break;
+            case '-':
+              zoomOut();
+              break;
+          }
+        });
+
+        /* -----------------------------------------------------
+           TOUCH/DRAG SUPPORT FOR PAN
+           ----------------------------------------------------- */
+        
+        // Mouse drag
+        zoomImage.addEventListener('mousedown', (e) => {
+          if (scale <= 1) return;
+          isDragging = true;
+          startX = e.clientX - translateX;
+          startY = e.clientY - translateY;
+          zoomImage.classList.add('dragging');
+        });
+
+        document.addEventListener('mousemove', (e) => {
+          if (!isDragging) return;
+          translateX = e.clientX - startX;
+          translateY = e.clientY - startY;
+          applyTransform();
+        });
+
+        document.addEventListener('mouseup', () => {
+          isDragging = false;
+          zoomImage.classList.remove('dragging');
+        });
+
+        /* -----------------------------------------------------
+           TOUCH GESTURES (PINCH TO ZOOM + PAN)
+           ----------------------------------------------------- */
+        let initialDistance = 0;
+        let initialScale = 1;
+
+        zoomContainer.addEventListener('touchstart', (e) => {
+          if (e.touches.length === 2) {
+            // Pinch start
+            initialDistance = getDistance(e.touches[0], e.touches[1]);
+            initialScale = scale;
+          } else if (e.touches.length === 1 && scale > 1) {
+            // Pan start
+            isDragging = true;
+            startX = e.touches[0].clientX - translateX;
+            startY = e.touches[0].clientY - translateY;
+          }
+        }, { passive: true });
+
+        zoomContainer.addEventListener('touchmove', (e) => {
+          if (e.touches.length === 2) {
+            // Pinch zoom
+            e.preventDefault();
+            const currentDistance = getDistance(e.touches[0], e.touches[1]);
+            const newScale = initialScale * (currentDistance / initialDistance);
+            scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, newScale));
+            applyTransform();
+          } else if (e.touches.length === 1 && isDragging && scale > 1) {
+            // Pan
+            translateX = e.touches[0].clientX - startX;
+            translateY = e.touches[0].clientY - startY;
+            applyTransform();
+          }
+        }, { passive: false });
+
+        zoomContainer.addEventListener('touchend', (e) => {
+          isDragging = false;
+          if (scale <= 1) {
+            translateX = 0;
+            translateY = 0;
+            applyTransform();
+          }
+        });
+
+        // Double tap to zoom
+        let lastTap = 0;
+        zoomImage.addEventListener('touchend', (e) => {
+          const currentTime = new Date().getTime();
+          const tapLength = currentTime - lastTap;
+          
+          if (tapLength < 300 && tapLength > 0) {
+            // Double tap detected
+            e.preventDefault();
+            if (scale > 1) {
+              resetTransform();
+            } else {
+              scale = 2;
+              applyTransform();
+            }
+          }
+          lastTap = currentTime;
+        });
+
+        // Helper: Get distance between two touch points
+        function getDistance(touch1, touch2) {
+          const dx = touch1.clientX - touch2.clientX;
+          const dy = touch1.clientY - touch2.clientY;
+          return Math.sqrt(dx * dx + dy * dy);
+        }
+
+        // Mouse wheel zoom
+        zoomContainer.addEventListener('wheel', (e) => {
+          e.preventDefault();
+          if (e.deltaY < 0) {
+            zoomIn();
+          } else {
+            zoomOut();
+          }
+        }, { passive: false });
+
+      } // end if enableZoom
+    }
+  });
+</script>

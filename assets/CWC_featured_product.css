@@ -16,9 +16,13 @@
     position: relative;
     top: -4rem;
     height: 3px;
-    /* background: red; */
-    /* visibility: visible; */
-    display: none;
+    background: red;
+    visibility: visible;
+    display: block;
+    /*  */
+    top: -2rem;
+    opacity: 0;
+    visibility: hidden;
 }
 
 .cwc-featured-product__wrapper {

@@ -26,11 +26,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: -2px;
+    /* margin-top: -2px; */
   }
   .cwc-featured-product__guarantee_text-icon_img {
     height: auto;
     width: auto;
+  }
+  .cwc-featured-product__guarantee_text-icon svg {
+    /* max-height: 18px; */
+    width: auto;
+    height: 18px;
   }
 
   @media (max-width: 991px) {
@@ -75,13 +80,17 @@
 {% if block.settings.text != blank %}
   <div class="cwc-featured-product__guarantee_text_wrapper">
     <span class="cwc-featured-product__guarantee_text-icon">
-      <img
-        class="cwc-featured-product__guarantee_text-icon_img"
-        src="{{ block.settings.icon | image_url: width: 18 }}"
-        alt="{{ block.settings.icon.alt }}"
-        width="auto"
-        height="auto"
-      >
+      {% comment %}
+        <img
+          class="cwc-featured-product__guarantee_text-icon_img"
+          src="{{ block.settings.icon | image_url: width: 18 }}"
+          alt="{{ block.settings.icon.alt }}"
+          width="auto"
+          height="auto"
+        >
+      {% endcomment %}
+
+      {%- render 'CWC_icon-check_badge', fill_color: '#000' -%}
     </span>
     <span class="cwc-featured-product__guarantee_text-content">
       {{ block.settings.text }}

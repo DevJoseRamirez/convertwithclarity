@@ -1,393 +1,48 @@
 {
   "sections": {
-    "cwc_featured_product_8D8x4K": {
-      "type": "CWC_featured_product",
+    "cwc_image_text_b8zKxU": {
+      "type": "CWC_image_text",
       "blocks": {
-        "image_carousel_CpCBqp": {
-          "type": "image_carousel",
-          "settings": {
-            "badge_text": "BestSeller",
-            "badge_text_color": "#ffffff",
-            "badge_bg_color": "#60a1a2",
-            "badge_sold_text": "50+ Sold Today",
-            "badge_sold_text_color": "#000000",
-            "badge_sold_bg_color": "#ffffff",
-            "mobile_thumbs": false,
-            "img_limit": 20
-          }
-        },
-        "rating_yfckYY": {
-          "type": "rating",
-          "settings": {
-            "text": "<p>Rated 4.9 Excellent | <strong>50k+ Healthy Smiles<\/strong><\/p>"
-          }
-        },
-        "title_j8pfAX": {
+        "title_PVxDW8": {
           "type": "title",
           "settings": {
-            "title": "<h2><strong>Ollie Clean Mint Toothpaste<\/strong><\/h2>"
+            "text": "<h2>Your Section Title<\/h2>"
           }
         },
-        "text_gVgKDB": {
+        "text_Ki6wqR": {
           "type": "text",
           "settings": {
-            "content": "<p>A fluoride-free toothpaste formulated with the clinically effective 10% nano-hydroxyapatite to strengthen enamel, reduce sensitivity, and support a naturally brighter smile.<\/p>"
+            "text": "<p>Add your supporting text or description here.<\/p>"
           }
         },
-        "price_display_7bWdPw": {
-          "type": "price_display",
-          "settings": {}
-        },
-        "product_options_type_J9eQXx": {
-          "type": "product_options_type",
-          "settings": {
-            "option_name": "Flavor",
-            "option_label": "",
-            "layout_mode": "horizontal",
-            "show_images": true,
-            "show_savings": false,
-            "show_prices": false,
-            "type_desc": true,
-            "image1": "shopify:\/\/shop_images\/Mask_group.png",
-            "variant_text1": "Fresh classic mint flavor",
-            "image2": "shopify:\/\/shop_images\/Mask_group_1.png",
-            "variant_text2": "Flavorful cinnamon delight",
-            "variant_text3": "Unique variant description",
-            "variant_text4": "Unique variant description"
-          }
-        },
-        "product_options_size_nmFhh4": {
-          "type": "product_options_size",
-          "disabled": true,
-          "settings": {
-            "option_name": "Size",
-            "option_label": "",
-            "layout_mode": "horizontal",
-            "show_images": false,
-            "show_savings": false,
-            "show_prices": false,
-            "value_text1": "",
-            "variant_text1": "XX Uses",
-            "variant_text1_1": "For X",
-            "value_text2": "",
-            "variant_text2": "XX Uses",
-            "variant_text2_1": "For X",
-            "value_text3": "",
-            "variant_text3": "XX Uses",
-            "variant_text3_1": "For X",
-            "value_text4": "",
-            "variant_text4": "XX Uses",
-            "variant_text4_1": "For X"
-          }
-        },
-        "product_options_size_wPjhT9": {
-          "type": "product_options_size",
-          "settings": {
-            "option_name": "Size",
-            "option_label": "",
-            "layout_mode": "vertical",
-            "show_images": true,
-            "show_savings": true,
-            "show_prices": true,
-            "value_text1": "",
-            "variant_text1": "",
-            "variant_text1_1": "",
-            "value_text2": "",
-            "variant_text2": "",
-            "variant_text2_1": "",
-            "value_text3": "",
-            "variant_text3": "",
-            "variant_text3_1": "",
-            "value_text4": "",
-            "variant_text4": "",
-            "variant_text4_1": ""
-          }
-        },
-        "subscription_toggle_MahP4f": {
-          "type": "subscription_toggle",
-          "settings": {
-            "title": "Save 25% With Automatic Refills!",
-            "subtitle": "Zero Commitment | Exclusive Discounts | Cancel Anytime"
-          }
-        },
-        "delivery_estimate_gRXafX": {
-          "type": "delivery_estimate",
-          "settings": {
-            "text": "Order now for delivery by",
-            "max_shipping_days": 7,
-            "text_color": "#125657",
-            "bg_color": "#d8fff4"
-          }
-        },
-        "add_to_cart_YJwbm8": {
-          "type": "add_to_cart",
-          "settings": {
-            "button_text": "Add to Cart",
-            "button_bg_color": "#125657",
-            "button_text_color": "#ffffff",
-            "bundle_product_1": "",
-            "bundle_product_2": "",
-            "bundle_product_3": "",
-            "bundle_product_4": "",
-            "skip_cart": false
-          }
-        },
-        "guarantee_text_KAyCNE": {
-          "type": "guarantee_text",
-          "settings": {
-            "text": "365-day money back guarantee"
-          }
-        },
-        "benefits_4pxjJ9": {
-          "type": "benefits",
-          "settings": {
-            "text1": "Benefit Text 1",
-            "text2": "Benefit Text 2",
-            "text3": "Benefit Text 3",
-            "text4": "Benefit Text 4",
-            "text5": "",
-            "text6": ""
-          }
-        },
-        "faq_GtWrRG": {
-          "type": "faq",
-          "settings": {
-            "title": "<p>Featured & Benefits<\/p>",
-            "content": ""
-          }
-        },
-        "faq_FDqTT7": {
-          "type": "faq",
-          "settings": {
-            "title": "<p>Featured & Benefits<\/p>",
-            "content": ""
-          }
-        }
-      },
-      "block_order": [
-        "image_carousel_CpCBqp",
-        "rating_yfckYY",
-        "title_j8pfAX",
-        "text_gVgKDB",
-        "price_display_7bWdPw",
-        "product_options_type_J9eQXx",
-        "product_options_size_nmFhh4",
-        "product_options_size_wPjhT9",
-        "subscription_toggle_MahP4f",
-        "delivery_estimate_gRXafX",
-        "add_to_cart_YJwbm8",
-        "guarantee_text_KAyCNE",
-        "benefits_4pxjJ9",
-        "faq_GtWrRG",
-        "faq_FDqTT7"
-      ],
-      "name": "Featured Product Card",
-      "settings": {
-        "product": "ollie-toothpaste",
-        "background_color": "#faf9f6",
-        "padding_top": 60,
-        "padding_bottom": 60,
-        "savings_display_type": "percentage"
-      }
-    },
-    "cwc_scrolling_banner_98kxWf": {
-      "type": "CWC_scrolling_banner",
-      "blocks": {
-        "item_bVD8za": {
-          "type": "item",
-          "settings": {
-            "text": "356 Day Guarantee"
-          }
-        },
-        "item_fbUwh7": {
-          "type": "item",
-          "settings": {
-            "text": "Tiktok Viral"
-          }
-        },
-        "item_rLf98q": {
-          "type": "item",
-          "settings": {
-            "text": "#1 Natural DHT Blocker"
-          }
-        },
-        "item_amXjbN": {
-          "type": "item",
-          "settings": {
-            "text": "Safe Formula"
-          }
-        },
-        "item_QKdP9W": {
-          "type": "item",
-          "settings": {
-            "text": "All Natural"
-          }
-        }
-      },
-      "block_order": [
-        "item_bVD8za",
-        "item_fbUwh7",
-        "item_rLf98q",
-        "item_amXjbN",
-        "item_QKdP9W"
-      ],
-      "name": "Scrolling Banner",
-      "settings": {
-        "background_color": "#ffffff",
-        "text_color": "#125657",
-        "scroll_speed": 40,
-        "padding_top": 4,
-        "padding_bottom": 4
-      }
-    },
-    "cwc_hero_banner_image_G3MYjm": {
-      "type": "CWC_hero_banner_image",
-      "blocks": {
-        "review_jx4Atj": {
-          "type": "review",
-          "settings": {
-            "text": "<p><strong>Rated 4.8\/5<\/strong> | Trusted by 20,000+<\/p>"
-          }
-        },
-        "headline_QfmhkN": {
-          "type": "headline",
-          "settings": {
-            "text": "<h3>The #1 Natural Product for Customer Problem<\/h3  >"
-          }
-        },
-        "subtext_KGieGw": {
-          "type": "subtext",
-          "settings": {
-            "text": "<p>Results within 30 days or less<\/p>"
-          }
-        },
-        "bullets_7wMGbP": {
-          "type": "bullets",
-          "settings": {
-            "text_1": "Results within 30 days or less",
-            "text_2": "No Side Effects or Money Back",
-            "text_3": "Ultra-Potent herbal formula without fillers"
-          }
-        },
-        "button_DaQTAN": {
+        "button_pr8PXz": {
           "type": "button",
           "settings": {
             "text": "Try Risk-Free Today",
             "link": "",
-            "button_bg_color": "#3dc8c5",
-            "button_bg_color_hover": "#24b5ab",
+            "button_bg_color": "#125657",
             "button_text_color": "#ffffff"
           }
-        },
-        "note_wcFrUg": {
-          "type": "note",
-          "settings": {
-            "text": "<p>365-day money back guarantee<\/p>"
-          }
         }
       },
       "block_order": [
-        "review_jx4Atj",
-        "headline_QfmhkN",
-        "subtext_KGieGw",
-        "bullets_7wMGbP",
-        "button_DaQTAN",
-        "note_wcFrUg"
+        "title_PVxDW8",
+        "text_Ki6wqR",
+        "button_pr8PXz"
       ],
-      "name": "Hero Banner Image",
+      "name": "Image + Text",
       "settings": {
-        "background_color": "#d0f0f2",
-        "text_color": "#222222",
         "image_position": "left",
-        "m_image_position": "top",
-        "alt_text": "",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "cwc_usp_columns_YM63dY": {
-      "type": "CWC_usp_columns",
-      "blocks": {
-        "usp_LPtGFY": {
-          "type": "usp",
-          "settings": {
-            "text": "No Harsh Side Effects"
-          }
-        },
-        "usp_RrRfHX": {
-          "type": "usp",
-          "settings": {
-            "text": "THIRD PARTY TESTED"
-          }
-        },
-        "usp_3Hnb8w": {
-          "type": "usp",
-          "settings": {
-            "text": "CLEAN INGREDIENT"
-          }
-        }
-      },
-      "block_order": [
-        "usp_LPtGFY",
-        "usp_RrRfHX",
-        "usp_3Hnb8w"
-      ],
-      "name": "USP Columns",
-      "settings": {
-        "background_color": "#125657",
-        "text_color": "#ffffff",
-        "padding_top": 20,
-        "padding_bottom": 20
-      }
-    },
-    "cwc_image_benefits_Pt38hD": {
-      "type": "CWC_image_benefits",
-      "blocks": {
-        "highlight_row_UqynYG": {
-          "type": "highlight_row",
-          "settings": {
-            "title": "The Problem: DHT",
-            "text": "<p>DHT is a hormone that binds to receptors in your scalp - In excess it shrinks follicles, causing hair to thin and shed.<\/p>",
-            "text_color": ""
-          }
-        },
-        "highlight_row_dPGfwq": {
-          "type": "highlight_row",
-          "settings": {
-            "title": "The Problem: DHT",
-            "text": "<p>DHT is a hormone that binds to receptors in your scalp - In excess it shrinks follicles, causing hair to thin and shed.<\/p>",
-            "text_color": ""
-          }
-        },
-        "highlight_row_TG6Jfr": {
-          "type": "highlight_row",
-          "settings": {
-            "title": "The Problem: DHT",
-            "text": "<p>DHT is a hormone that binds to receptors in your scalp - In excess it shrinks follicles, causing hair to thin and shed.<\/p>",
-            "text_color": ""
-          }
-        }
-      },
-      "block_order": [
-        "highlight_row_UqynYG",
-        "highlight_row_dPGfwq",
-        "highlight_row_TG6Jfr"
-      ],
-      "name": "Image Benefits",
-      "settings": {
-        "reverse_layout": false,
         "background_color": "#ffffff",
-        "text_color": "#000000",
-        "heading": "<h3>Sectoin heading text here<\/h3>",
-        "subtext": "<p>Section subtext here<\/p>",
+        "text_color": "#202020",
         "padding_top": 60,
         "padding_bottom": 60
       }
     },
-    "cwc_testimonials_FApGtT": {
+    "cwc_testimonials_tELxbr": {
       "type": "CWC_testimonials",
       "blocks": {
-        "testimonial_tEpiWd": {
+        "testimonial_bG8BPk": {
           "type": "testimonial",
           "settings": {
             "star_rating": "4.9",
@@ -398,7 +53,7 @@
             "feature_two": "Durable"
           }
         },
-        "testimonial_8rpEFC": {
+        "testimonial_V9hpnx": {
           "type": "testimonial",
           "settings": {
             "star_rating": "4.9",
@@ -409,7 +64,62 @@
             "feature_two": "Durable"
           }
         },
-        "testimonial_t9icTK": {
+        "testimonial_QArLGB": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": "4.9",
+            "title": "Amazing product!",
+            "text": "This product completely exceeded my expectations...",
+            "author_name": "Jane D.",
+            "feature_one": "Eco-friendly",
+            "feature_two": "Durable"
+          }
+        },
+        "testimonial_6UmLQw": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": "4.9",
+            "title": "Amazing product!",
+            "text": "This product completely exceeded my expectations...",
+            "author_name": "Jane D.",
+            "feature_one": "Eco-friendly",
+            "feature_two": "Durable"
+          }
+        },
+        "testimonial_y7NdKj": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": "4.9",
+            "title": "Amazing product!",
+            "text": "This product completely exceeded my expectations...",
+            "author_name": "Jane D.",
+            "feature_one": "Eco-friendly",
+            "feature_two": "Durable"
+          }
+        },
+        "testimonial_GeTxcL": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": "4.9",
+            "title": "Amazing product!",
+            "text": "This product completely exceeded my expectations...",
+            "author_name": "Jane D.",
+            "feature_one": "Eco-friendly",
+            "feature_two": "Durable"
+          }
+        },
+        "testimonial_qY6H8k": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": "4.9",
+            "title": "Amazing product!",
+            "text": "This product completely exceeded my expectations...",
+            "author_name": "Jane D.",
+            "feature_one": "Eco-friendly",
+            "feature_two": "Durable"
+          }
+        },
+        "testimonial_A6fhCQ": {
           "type": "testimonial",
           "settings": {
             "star_rating": "4.9",
@@ -422,441 +132,32 @@
         }
       },
       "block_order": [
-        "testimonial_tEpiWd",
-        "testimonial_8rpEFC",
-        "testimonial_t9icTK"
+        "testimonial_bG8BPk",
+        "testimonial_V9hpnx",
+        "testimonial_QArLGB",
+        "testimonial_6UmLQw",
+        "testimonial_y7NdKj",
+        "testimonial_GeTxcL",
+        "testimonial_qY6H8k",
+        "testimonial_A6fhCQ"
       ],
+      "disabled": true,
       "name": "Testimonials",
       "settings": {
         "section_title": "<h2>The Ollie Advantage: Right Concentration, Right Shape, Right Price<\/h2>",
         "section_subtitle": "<p>Not all hydroxyapatite toothpastes are created equal. Here's what makes Ollie different.<\/p>",
-        "bg_color": "#faf9f6",
+        "bg_color": "#FAF9F6",
         "text_color": "#111111",
-        "card_bg": "#ffffff",
+        "card_bg": "#FFFFFF",
         "highlight_color": "#009370",
         "padding_top": 40,
         "padding_bottom": 40,
-        "testimonials_collection": ""
-      }
-    },
-    "cwc_image_highlight_kMYJG8": {
-      "type": "CWC_image_highlight",
-      "blocks": {
-        "highlight_item_4iiYhY": {
-          "type": "highlight_item",
-          "settings": {
-            "title": "Feature Title",
-            "text": "Describe this feature in one or two lines."
-          }
-        },
-        "highlight_item_Th7nKA": {
-          "type": "highlight_item",
-          "settings": {
-            "title": "Feature Title",
-            "text": "Describe this feature in one or two lines."
-          }
-        },
-        "highlight_item_aQGMb9": {
-          "type": "highlight_item",
-          "settings": {
-            "title": "Feature Title",
-            "text": "Describe this feature in one or two lines."
-          }
-        },
-        "highlight_item_Kq7npy": {
-          "type": "highlight_item",
-          "settings": {
-            "title": "Feature Title",
-            "text": "Describe this feature in one or two lines."
-          }
-        },
-        "highlight_item_UETN9t": {
-          "type": "highlight_item",
-          "settings": {
-            "title": "Feature Title",
-            "text": "Describe this feature in one or two lines."
-          }
-        },
-        "highlight_item_FJn9UA": {
-          "type": "highlight_item",
-          "settings": {
-            "title": "Feature Title",
-            "text": "Describe this feature in one or two lines."
-          }
-        }
-      },
-      "block_order": [
-        "highlight_item_4iiYhY",
-        "highlight_item_Th7nKA",
-        "highlight_item_aQGMb9",
-        "highlight_item_Kq7npy",
-        "highlight_item_UETN9t",
-        "highlight_item_FJn9UA"
-      ],
-      "name": "Image Highlight",
-      "settings": {
-        "section_title": "<h2>The Ollie Advantage: Right Concentration, Right Shape, Right Pice<\/h2>",
-        "section_subtitle": "<p>Not all hydroxyapatite toothpastes are created equal. Here's what makes Ollie different.<\/p>",
-        "background_color": "#ffffff",
-        "title_color": "#000000",
-        "padding_top": 40,
-        "padding_bottom": 40
-      }
-    },
-    "cwc_brand_table_Yq4hGb": {
-      "type": "CWC_brand_table",
-      "blocks": {
-        "row_ALhyHr": {
-          "type": "row",
-          "settings": {
-            "cell_1": "<p>% Nano-Hydroxyapatite<\/p>",
-            "cell_2": "<p><strong>10% (Clinically Effective)<\/strong><\/p>",
-            "cell_3": "<p>1–5% (Sub-Clinically)<\/p>",
-            "cell_4": "<p>Value 3<\/p>"
-          }
-        },
-        "row_49mkb4": {
-          "type": "row",
-          "settings": {
-            "cell_1": "<p>Sensitivity Relief<\/p>",
-            "cell_2": "<p><strong>Addresses the root cause<\/strong><\/p>",
-            "cell_3": "<p>Numbs pain temporarily<\/p>",
-            "cell_4": "<p>Value 3<\/p>"
-          }
-        },
-        "row_94z3Aa": {
-          "type": "row",
-          "settings": {
-            "cell_1": "<p>Enamel Support<\/p>",
-            "cell_2": "<p><strong>Refills weak spots & smooths enamel<\/strong><\/p>",
-            "cell_3": "<p>Partial \/ surface-only<\/p>",
-            "cell_4": "<p>Value 3<\/p>"
-          }
-        },
-        "row_GXCPCt": {
-          "type": "row",
-          "settings": {
-            "cell_1": "<p>Price<\/p>",
-            "cell_2": "<p><strong>Affordable (~40% less)<\/strong><\/p>",
-            "cell_3": "<p>Expensive<\/p>",
-            "cell_4": "<p>Value 3<\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "row_ALhyHr",
-        "row_49mkb4",
-        "row_94z3Aa",
-        "row_GXCPCt"
-      ],
-      "name": "Brand Table",
-      "settings": {
-        "section_title": "<h2>Why Ollie Beats the Competition<\/h2>",
-        "section_subtitle": "<p>Most brands use 1-5% hydroxyapatite. Ollie uses 10%—the clinically effective dose. Plus, our rod-shaped particles absorb better than competitors' spherical particles.<\/p>",
-        "num_columns": "3",
-        "header_col_1": "Feature",
-        "header_col_2": "Ollie",
-        "header_col_3": "Other Brands",
-        "header_col_4": "Risewell",
-        "bg_color": "#ffffff",
-        "text_color": "#1f2937",
-        "highlight_color": "#64ccc9",
-        "note": "Ollie delivers the strongest allowed hydroxyapatite dose at almost 40% lower cost.",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
-    "cwc_product_card_options_BcFDtF": {
-      "type": "CWC_product_card_options",
-      "blocks": {
-        "product_option_WRVEBL": {
-          "type": "product_option",
-          "settings": {
-            "variant_id": "41905341464656",
-            "badge": "",
-            "icon_text": "1 Tube",
-            "title": "Single Tube",
-            "text": "",
-            "price_subtext_onetime": "Clinically Backed",
-            "price_subtext": "Delivered every 60 days",
-            "button_text": ""
-          }
-        },
-        "product_option_at7fiF": {
-          "type": "product_option",
-          "settings": {
-            "variant_id": "41905341497424",
-            "badge": "Most Popular",
-            "icon_text": "2 Tubes",
-            "title": "2-Pack Bundle",
-            "text": "",
-            "price_subtext_onetime": "$13.50\/tube",
-            "price_subtext": "$13.50\/tube • Every 120 days",
-            "button_text": ""
-          }
-        },
-        "product_option_y3fA9D": {
-          "type": "product_option",
-          "settings": {
-            "variant_id": "41905341530192",
-            "badge": "Best Value",
-            "icon_text": "3 Tubes",
-            "title": "3-Pack Bundle",
-            "text": "",
-            "price_subtext_onetime": "$12.67\/tube",
-            "price_subtext": "$12.67\/tube • Every 180 days",
-            "button_text": ""
-          }
-        }
-      },
-      "block_order": [
-        "product_option_WRVEBL",
-        "product_option_at7fiF",
-        "product_option_y3fA9D"
-      ],
-      "disabled": true,
-      "name": "Product Card Options",
-      "settings": {
-        "product": "ollie-toothpaste",
-        "show_variant_ids": false,
-        "title": "<h2>Ready to Start Healing Your Teeth?<\/h2>",
-        "subtext": "<p>Choose the option that works best for you. All orders include free shipping and our 365-day guarantee.<\/p>",
-        "subscribe_text": "Subscribe & Save 25%",
-        "skip_cart": false,
-        "bg_color": "#faf9f6",
-        "card_bg_color": "#ffffff",
-        "text_color": "#111111",
-        "accent_color": "#10b981",
-        "padding_top": 60,
-        "padding_bottom": 60
-      }
-    },
-    "cwc_faqs_zPyxB9": {
-      "type": "CWC_faqs",
-      "blocks": {
-        "faq_Ua7Jy8": {
-          "type": "faq",
-          "settings": {
-            "title": "<p>What is your return policy?<\/p>",
-            "text": "<p>We offer a 30-day return policy on all items.<\/p>"
-          }
-        },
-        "faq_FAJnNA": {
-          "type": "faq",
-          "settings": {
-            "title": "<p>What is your return policy?<\/p>",
-            "text": "<p>We offer a 30-day return policy on all items.<\/p>"
-          }
-        },
-        "faq_Ag4CQn": {
-          "type": "faq",
-          "settings": {
-            "title": "<p>What is your return policy?<\/p>",
-            "text": "<p>We offer a 30-day return policy on all items.<\/p>"
-          }
-        },
-        "faq_tbyNAW": {
-          "type": "faq",
-          "settings": {
-            "title": "<p>What is your return policy?<\/p>",
-            "text": "<p>We offer a 30-day return policy on all items.<\/p>"
-          }
-        },
-        "faq_cX7Vcj": {
-          "type": "faq",
-          "settings": {
-            "title": "<p>What is your return policy?<\/p>",
-            "text": "<p>We offer a 30-day return policy on all items.<\/p>"
-          }
-        },
-        "faq_bN8hLM": {
-          "type": "faq",
-          "settings": {
-            "title": "<p>What is your return policy?<\/p>",
-            "text": "<p>We offer a 30-day return policy on all items.<\/p>"
-          }
-        },
-        "button_4y8B7b": {
-          "type": "button",
-          "settings": {
-            "button_text": "Try Risk-Free Today",
-            "button_link": "",
-            "button_bg_color": "#ffffff",
-            "button_text_color": "#125657",
-            "button_note": "365-day money back guarantee"
-          }
-        }
-      },
-      "block_order": [
-        "faq_Ua7Jy8",
-        "faq_FAJnNA",
-        "faq_Ag4CQn",
-        "faq_tbyNAW",
-        "faq_cX7Vcj",
-        "faq_bN8hLM",
-        "button_4y8B7b"
-      ],
-      "name": "FAQs",
-      "settings": {
-        "bg_color": "#ffffff",
-        "text_color": "#1d1d1d",
-        "heading": "<h3><strong>Frequently Asked Questions<\/strong><\/h3>",
-        "text": "<p>Everything you need to know about Ollie and hydroxyapatite<\/p>",
-        "faq_bg_color": "#faf9f6",
-        "padding_top": 60,
-        "padding_bottom": 60
-      }
-    },
-    "cwc_video_testimonials_A7MNaX": {
-      "type": "CWC_video_testimonials",
-      "blocks": {
-        "testimonial_igreGX": {
-          "type": "testimonial",
-          "settings": {
-            "video_url": "",
-            "author_name": "Customer Name"
-          }
-        },
-        "testimonial_ciBVXG": {
-          "type": "testimonial",
-          "settings": {
-            "video_url": "",
-            "author_name": "Customer Name"
-          }
-        },
-        "testimonial_GrGkh6": {
-          "type": "testimonial",
-          "settings": {
-            "video_url": "",
-            "author_name": "Customer Name"
-          }
-        },
-        "button_NUVb7c": {
-          "type": "button",
-          "settings": {
-            "text": "Try Risk-Free Today",
-            "link": "",
-            "button_bg_color": "#125657",
-            "button_text_color": "#ffffff"
-          }
-        },
-        "guarantee_text_wmRWar": {
-          "type": "guarantee_text",
-          "settings": {
-            "text": "365-day money back guarantee"
-          }
-        }
-      },
-      "block_order": [
-        "testimonial_igreGX",
-        "testimonial_ciBVXG",
-        "testimonial_GrGkh6",
-        "button_NUVb7c",
-        "guarantee_text_wmRWar"
-      ],
-      "name": "Video Testimonials",
-      "settings": {
-        "heading": "<h3>Real People, <strong>Real Results<\/strong><\/h3>",
-        "bold_color": "#125657",
-        "text": "<p>See why thousands of people love our products<\/p>",
-        "bg_color": "#faf9f6",
-        "text_color": "#111111",
-        "button_bg": "#125657",
-        "button_text": "#ffffff",
-        "padding_top": 60,
-        "padding_bottom": 60,
-        "max_desktop_slides": 4,
-        "max_tablet_slides": 3,
-        "max_mobile_slides": 1.5,
-        "hide_controls_when_all_visible": true,
-        "hide_video_footer": true,
-        "video_testimonials_collection": ""
-      }
-    },
-    "featured_product_mrFteE": {
-      "type": "featured-product",
-      "blocks": {
-        "text_hrzGzz": {
-          "type": "text",
-          "settings": {
-            "text": "{{ section.settings.product.vendor }}",
-            "text_style": "uppercase"
-          }
-        },
-        "title_tcmzHe": {
-          "type": "title",
-          "settings": {
-            "heading_size": "h1"
-          }
-        },
-        "price_KHkTN9": {
-          "type": "price",
-          "settings": {}
-        },
-        "variant_picker_xV6ezX": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "swatch_shape": "circle"
-          }
-        },
-        "quantity_selector_6mdwTr": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
-        "buy_buttons_JTEaE4": {
-          "type": "buy_buttons",
-          "settings": {
-            "show_dynamic_checkout": true,
-            "show_gift_card_recipient": true
-          }
-        },
-        "share_WWicni": {
-          "type": "share",
-          "settings": {
-            "share_label": "Share"
-          }
-        }
-      },
-      "block_order": [
-        "text_hrzGzz",
-        "title_tcmzHe",
-        "price_KHkTN9",
-        "variant_picker_xV6ezX",
-        "quantity_selector_6mdwTr",
-        "buy_buttons_JTEaE4",
-        "share_WWicni"
-      ],
-      "disabled": true,
-      "name": "t:sections.featured-product.presets.name",
-      "settings": {
-        "product": "ollie-toothpaste",
-        "color_scheme": "",
-        "secondary_background": false,
-        "media_size": "medium",
-        "constrain_to_viewport": true,
-        "media_fit": "contain",
-        "media_position": "left",
-        "image_zoom": "lightbox",
-        "hide_variants": false,
-        "enable_video_looping": false,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "testimonials_collection": "testimonial-collections-abv1kcvs"
       }
     }
   },
   "order": [
-    "cwc_featured_product_8D8x4K",
-    "cwc_scrolling_banner_98kxWf",
-    "cwc_hero_banner_image_G3MYjm",
-    "cwc_usp_columns_YM63dY",
-    "cwc_image_benefits_Pt38hD",
-    "cwc_testimonials_FApGtT",
-    "cwc_image_highlight_kMYJG8",
-    "cwc_brand_table_Yq4hGb",
-    "cwc_product_card_options_BcFDtF",
-    "cwc_faqs_zPyxB9",
-    "cwc_video_testimonials_A7MNaX",
-    "featured_product_mrFteE"
+    "cwc_image_text_b8zKxU",
+    "cwc_testimonials_tELxbr"
   ]
 }

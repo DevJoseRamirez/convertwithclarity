@@ -353,6 +353,8 @@
     width: 0;
     background: var(--text-color);
     transition: width 6s linear;
+    /*  */
+    display: flex !important;
 }
 
 .cwc-video-testimonials__carousel-controls {

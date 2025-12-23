@@ -318,6 +318,10 @@
         /* font-size: 1rem; */
     }
 
+    .cwc_image_benefits__button>a {
+        max-width: 100%;
+    }
+
     .cwc_image_benefits {
         padding-top: var(--padding-top-mobile);
         padding-bottom: var(--padding-bottom-mobile);

@@ -6,6 +6,8 @@
   --highlight-color: {{ section.settings.highlight_color | default: '#009370' }};
   --padding-top: {{ section.settings.padding_top | default: 60 }}px;
   --padding-bottom: {{ section.settings.padding_bottom | default: 60 }}px;
+  --padding-top-mobile: {{ section.settings.padding_top | times: 0.6 }}px;
+  --padding-bottom-mobile: {{ section.settings.padding_bottom | times: 0.6 }}px;
   }
 {% endstyle %}
 {{ 'CWC_testimonials.css' | asset_url | stylesheet_tag }}

@@ -350,6 +350,10 @@
 
 /* === Mobile Styles === */
 @media screen and (max-width: 767px) {
+    .CWC_hero_banner_image-wrap>a {
+        max-width: 100%;
+    }
+
     .CWC_hero_banner_image-image .CWC_hero_banner_image-placeholder {
         max-width: 80vw;
         height: auto;

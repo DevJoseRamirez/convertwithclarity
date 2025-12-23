@@ -320,7 +320,7 @@
 @media (max-width: 480px) {
 
     .cwc-brand-table__feature-icon {
-        display: none;
+        /* display: none; */
     }
 
     .cwc-brand-table__container {

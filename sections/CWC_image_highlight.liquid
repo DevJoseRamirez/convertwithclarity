@@ -1,14 +1,11 @@
-{% comment %}
-  Section: CWC_image_highlight
-  Highlight key product features around a central image.
-{% endcomment %}
-
 {% style %}
   #CWC_image_highlight-{{ section.id }} {
   --section-bg: {{ section.settings.background_color }};
   --title-color: {{ section.settings.title_color }};
   --padding-top: {{ section.settings.padding_top }}px;
   --padding-bottom: {{ section.settings.padding_bottom }}px;
+  --padding-top-mobile: {{ section.settings.padding_top | times: 0.6 }}px;
+  --padding-bottom-mobile: {{ section.settings.padding_bottom | times: 0.6 }}px;
   }
 {% endstyle %}
 

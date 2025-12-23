@@ -7,6 +7,8 @@
   --padding-top: {{ section.settings.padding_top | default: 60 }}px;
   --padding-bottom: {{ section.settings.padding_bottom | default: 60 }}px;
   --accent-color: {{ section.settings.bold_color }};
+  --padding-top-mobile: {{ section.settings.padding_top | times: 0.6 }}px;
+  --padding-bottom-mobile: {{ section.settings.padding_bottom | times: 0.6 }}px;
   }
 {% endstyle %}
 

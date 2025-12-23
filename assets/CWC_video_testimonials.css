@@ -509,6 +509,11 @@
 }
 
 @media screen and (max-width: 991px) {
+    .cwc-video-testimonials {
+        padding-top: var(--padding-top-mobile);
+        padding-bottom: var(--padding-bottom-mobile);
+    }
+
     .cwc-video-testimonials__wrapper {
         padding-left: 1.25rem;
         padding-right: 1.25rem;

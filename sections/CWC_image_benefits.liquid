@@ -2,6 +2,7 @@
   #CWC_image_benefits-{{ section.id }} {
     --section-bg: {{ section.settings.background_color | default: '#ffffff' }};
     --text-color: {{ section.settings.text_color | default: '#000000' }};
+    --highlight-color: {{ section.settings.bold_color }};
     --title-color: {{ section.settings.title_color | default: '#000000' }};
     --caption-color: {{ section.settings.caption_color | default: '#fff' }};
     --caption-bg: {{ section.settings.caption_bg | default: '#60A1A2' }};
@@ -140,6 +141,12 @@
       "id": "text_color",
       "label": "Text Color",
       "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "bold_color",
+      "label": "Text Color",
+      "default": "#00766F"
     },
     {
       "type": "richtext",

@@ -73,7 +73,7 @@
     color: inherit;
 }
 
-.cwc-testimonials__section-title>* strong {
+.cwc_image_benefits__content-heading>* strong {
     color: var(--highlight-color);
 }
 

@@ -2,25 +2,18 @@
   #CWC_review_tabs-{{ section.id }} {
     --section-bg: {{ section.settings.background_color | default: '#ffffff' }};
     --text-color: {{ section.settings.text_color | default: '#000000' }};
-    --card-bg: {{ section.settings.card_background_color | default: '#E2EBED' }};
-    --star-color: {{ section.settings.star_color | default: '#F97316' }};
-    --button-active-bg: {{ section.settings.button_active_color | default: '#d47442' }};
+    --card-bg: {{ section.settings.card_background_color | default: '#ffffff' }};
+    --highlight-color: {{ section.settings.highlight_color | default: '#009370' }};
+    --button-active-bg: {{ section.settings.button_active_color | default: '#60A1A2' }};
     --button-active-text: {{ section.settings.button_active_text_color | default: '#ffffff' }};
     --padding-top: {{ section.settings.padding_top | default: 60 }}px;
     --padding-bottom: {{ section.settings.padding_bottom | default: 60 }}px;
-    --padding-top-mobile: {{ section.settings.padding_top | times: 0.5 }}px;
-    --padding-bottom-mobile: {{ section.settings.padding_bottom | times: 0.5 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | times: 0.6 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | times: 0.6 }}px;
   }
 {% endstyle %}
 
 {{ 'CWC_review_tabs.css' | asset_url | stylesheet_tag }}
-
-{% comment %}
-  ================================
-  SECTION: CWC Review Tabs
-  Purpose: Tabbed customer reviews by category
-  ================================
-{% endcomment %}
 
 <section
   id="CWC_review_tabs-{{ section.id }}"
@@ -28,37 +21,30 @@
   data-section-id="{{ section.id }}"
 >
   <div class="cwc-review-tabs__container">
-    {% comment %}
-      ==============================
-      Section Header
-      ==============================
-    {% endcomment %}
-    {% if section.settings.heading != blank or section.settings.subtext != blank %}
-      <div class="cwc-review-tabs__header">
-        {% if section.settings.heading != blank %}
-          <h2 class="cwc-review-tabs__heading">
-            {{ section.settings.heading }}
-          </h2>
-        {% endif %}
-
-        {% if section.settings.subtext != blank %}
-          <p class="cwc-review-tabs__subtext">
-            {{ section.settings.subtext }}
-          </p>
-        {% endif %}
+    {% if section.settings.show_stars %}
+      <div class="cwc-review-tabs__head-stars">
+        {% render 'CWC_trust_stars' %}
       </div>
     {% endif %}
 
-    {% comment %}
-      ==============================
-      Tab Buttons
-      ==============================
-    {% endcomment %}
+    {% if section.settings.heading != blank %}
+      <div class="cwc-review-tabs__section-title rte">
+        {{ section.settings.heading }}
+      </div>
+    {% endif %}
+
+    {% if section.settings.subtext != blank %}
+      <div class="cwc-review-tabs__section-subtitle rte">
+        {{ section.settings.subtext }}
+      </div>
+    {% endif %}
+
     {% if section.blocks.size > 0 %}
       <div class="cwc-review-tabs__buttons">
         {% for block in section.blocks %}
           {% if block.settings.tab_title != blank %}
             <button
+              {{ block.shopify_attributes }}
               class="cwc-review-tabs__button{% if forloop.first %} active{% endif %}"
               data-tab="{{ block.id }}"
               aria-label="{{ block.settings.tab_title }}"
@@ -69,85 +55,112 @@
         {% endfor %}
       </div>
 
-      {% comment %}
-        ==============================
-        Tab Content (Review Grids)
-        ==============================
-      {% endcomment %}
       {% for block in section.blocks %}
         <div
           class="cwc-review-tabs__grid{% if forloop.first %} active{% endif %}"
           data-content="{{ block.id }}"
           {{ block.shopify_attributes }}
         >
-          {% comment %} Review Card 1 {% endcomment %}
-          {% if block.settings.review_title_1 != blank or block.settings.review_text_1 != blank %}
-            <div class="cwc-review-tabs__card">
-              <div class="cwc-review-tabs__stars" aria-label="5 star rating">★★★★★</div>
+          {% for i in (1..3) %}
+            {% liquid
+              # Build setting keys dynamically
+              assign rating_key = 'review_rating_' | append: i
+              assign title_key = 'review_title_' | append: i
+              assign text_key = 'review_text_' | append: i
+              assign author_key = 'review_author_' | append: i
+              assign image_key = 'review_author_image_' | append: i
+              assign tag1_key = 'review_tag1_' | append: i
+              assign tag2_key = 'review_tag2_' | append: i
 
-              {% if block.settings.review_title_1 != blank %}
-                <h4 class="cwc-review-tabs__card-title">
-                  {{ block.settings.review_title_1 }}
-                </h4>
-              {% endif %}
+              # Get values
+              assign card_rating = block.settings[rating_key] | default: '5.0'
+              assign card_title = block.settings[title_key]
+              assign card_text = block.settings[text_key]
+              assign card_author = block.settings[author_key]
+              assign card_image = block.settings[image_key]
+              assign card_tag1 = block.settings[tag1_key]
+              assign card_tag2 = block.settings[tag2_key]
+            %}
 
-              {% if block.settings.review_text_1 != blank %}
-                <p class="cwc-review-tabs__card-text">
-                  {{ block.settings.review_text_1 }}
-                </p>
-              {% endif %}
+            {% comment %} Only render card if it has content {% endcomment %}
+            {% if card_title != blank or card_text != blank %}
+              <div class="cwc-review-tabs__card">
+                <div class="cwc-review-tabs__card-top">
+                  {% comment %} Rating {% endcomment %}
+                  <div class="cwc-review-tabs__rating">
+                    <span class="cwc-review-tabs__rating-text">{{ card_rating }}</span>
+                    {% render 'CWC_trust_stars' %}
+                  </div>
 
-              {% if block.settings.review_author_1 != blank %}
-                <cite class="cwc-review-tabs__card-author"> – {{ block.settings.review_author_1 }} </cite>
-              {% endif %}
-            </div>
-          {% endif %}
+                  {% comment %} Title {% endcomment %}
+                  {% if card_title != blank %}
+                    <h3 class="cwc-review-tabs__card-title">"{{ card_title }}"</h3>
+                  {% endif %}
 
-          {% comment %} Review Card 2 {% endcomment %}
-          {% if block.settings.review_title_2 != blank or block.settings.review_text_2 != blank %}
-            <div class="cwc-review-tabs__card">
-              <div class="cwc-review-tabs__stars" aria-label="5 star rating">★★★★★</div>
+                  {% comment %} Text {% endcomment %}
+                  {% if card_text != blank %}
+                    <p class="cwc-review-tabs__card-text">{{ card_text }}</p>
+                  {% endif %}
+                </div>
 
-              {% if block.settings.review_title_2 != blank %}
-                <h4 class="cwc-review-tabs__card-title">
-                  {{ block.settings.review_title_2 }}
-                </h4>
-              {% endif %}
+                <div class="cwc-review-tabs__card-bottom">
+                  {% comment %} Author Row {% endcomment %}
+                  <div class="cwc-review-tabs__author-wrapper">
+                    <div class="cwc-review-tabs__author">
+                      {% if card_image != blank %}
+                        <img
+                          src="{{ card_image | image_url: width: 36 }}"
+                          alt="{{ card_author }}"
+                          width="36"
+                          height="36"
+                          loading="lazy"
+                        >
+                      {% else %}
+                        {% comment %} Letter avatar with rotating colors {% endcomment %}
+                        {% assign color_index = i | modulo: 4 %}
+                        {% case color_index %}
+                          {% when 1 %}
+                            {% assign avatar_color = '#2EB67D' %}
+                          {% when 2 %}
+                            {% assign avatar_color = '#E01E5A' %}
+                          {% when 3 %}
+                            {% assign avatar_color = '#36C5F0' %}
+                          {% else %}
+                            {% assign avatar_color = '#ECB22E' %}
+                        {% endcase %}
+                        <div
+                          class="cwc-review-tabs__author-letter"
+                          style="background: {{ avatar_color }}"
+                        >
+                          {{ card_author | slice: 0 }}
+                        </div>
+                      {% endif %}
+                      <span class="cwc-review-tabs__author-name">{{ card_author }}</span>
+                    </div>
 
-              {% if block.settings.review_text_2 != blank %}
-                <p class="cwc-review-tabs__card-text">
-                  {{ block.settings.review_text_2 }}
-                </p>
-              {% endif %}
+                    <div class="cwc-review-tabs__verified">
+                      <span class="cwc-review-tabs__verified-icon">
+                        {% render 'CWC_icon-check_badge-fill', fill_color: '#009370' %}
+                      </span>
+                      <span class="cwc-review-tabs__verified-text">Verified Customer</span>
+                    </div>
+                  </div>
 
-              {% if block.settings.review_author_2 != blank %}
-                <cite class="cwc-review-tabs__card-author"> – {{ block.settings.review_author_2 }} </cite>
-              {% endif %}
-            </div>
-          {% endif %}
-
-          {% comment %} Review Card 3 {% endcomment %}
-          {% if block.settings.review_title_3 != blank or block.settings.review_text_3 != blank %}
-            <div class="cwc-review-tabs__card">
-              <div class="cwc-review-tabs__stars" aria-label="5 star rating">★★★★★</div>
-
-              {% if block.settings.review_title_3 != blank %}
-                <h4 class="cwc-review-tabs__card-title">
-                  {{ block.settings.review_title_3 }}
-                </h4>
-              {% endif %}
-
-              {% if block.settings.review_text_3 != blank %}
-                <p class="cwc-review-tabs__card-text">
-                  {{ block.settings.review_text_3 }}
-                </p>
-              {% endif %}
-
-              {% if block.settings.review_author_3 != blank %}
-                <cite class="cwc-review-tabs__card-author"> – {{ block.settings.review_author_3 }} </cite>
-              {% endif %}
-            </div>
-          {% endif %}
+                  {% comment %} Tags {% endcomment %}
+                  {% if card_tag1 != blank or card_tag2 != blank %}
+                    <div class="cwc-review-tabs__tags">
+                      {% if card_tag1 != blank %}
+                        <span class="cwc-review-tabs__tag">{{ card_tag1 }}</span>
+                      {% endif %}
+                      {% if card_tag2 != blank %}
+                        <span class="cwc-review-tabs__tag">{{ card_tag2 }}</span>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
         </div>
       {% endfor %}
     {% else %}
@@ -169,16 +182,22 @@
       "content": "Content"
     },
     {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "People Love ENRICHD"
+      "type": "checkbox",
+      "id": "show_stars",
+      "label": "Show Star Rating Header",
+      "default": true
     },
     {
-      "type": "textarea",
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<h2>People Love ENRICHD</h2>"
+    },
+    {
+      "type": "richtext",
       "id": "subtext",
       "label": "Subtext",
-      "default": "Backed by hundreds of customers who feel the difference every day."
+      "default": "<p>Backed by hundreds of customers who feel the difference every day.</p>"
     },
     {
       "type": "header",
@@ -200,19 +219,19 @@
       "type": "color",
       "id": "card_background_color",
       "label": "Card Background Color",
-      "default": "#E2EBED"
+      "default": "#ffffff"
     },
     {
       "type": "color",
-      "id": "star_color",
-      "label": "Star Color",
-      "default": "#F97316"
+      "id": "highlight_color",
+      "label": "Highlight / Verified Color",
+      "default": "#009370"
     },
     {
       "type": "color",
       "id": "button_active_color",
       "label": "Active Tab Button Color",
-      "default": "#d47442"
+      "default": "#2EB67D"
     },
     {
       "type": "color",
@@ -252,7 +271,7 @@
       "settings": [
         {
           "type": "paragraph",
-          "content": "Each tab displays 3 customer reviews in a grid layout."
+          "content": "Each tab displays up to 3 customer reviews in a grid layout."
         },
         {
           "type": "text",
@@ -264,6 +283,12 @@
         {
           "type": "header",
           "content": "Review 1"
+        },
+        {
+          "type": "text",
+          "id": "review_rating_1",
+          "label": "Rating",
+          "default": "5.0"
         },
         {
           "type": "text",
@@ -284,8 +309,31 @@
           "default": "Sam H."
         },
         {
+          "type": "image_picker",
+          "id": "review_author_image_1",
+          "label": "Author Image (Optional)"
+        },
+        {
+          "type": "text",
+          "id": "review_tag1_1",
+          "label": "Tag 1 (Optional)",
+          "default": "Highlight One"
+        },
+        {
+          "type": "text",
+          "id": "review_tag2_1",
+          "label": "Tag 2 (Optional)",
+          "default": "Highlight Two"
+        },
+        {
           "type": "header",
           "content": "Review 2"
+        },
+        {
+          "type": "text",
+          "id": "review_rating_2",
+          "label": "Rating",
+          "default": "5.0"
         },
         {
           "type": "text",
@@ -306,8 +354,31 @@
           "default": "Julie S."
         },
         {
+          "type": "image_picker",
+          "id": "review_author_image_2",
+          "label": "Author Image (Optional)"
+        },
+        {
+          "type": "text",
+          "id": "review_tag1_2",
+          "label": "Tag 1 (Optional)",
+          "default": "Highlight One"
+        },
+        {
+          "type": "text",
+          "id": "review_tag2_2",
+          "label": "Tag 2 (Optional)",
+          "default": "Highlight Two"
+        },
+        {
           "type": "header",
           "content": "Review 3"
+        },
+        {
+          "type": "text",
+          "id": "review_rating_3",
+          "label": "Rating",
+          "default": "5.0"
         },
         {
           "type": "text",
@@ -326,6 +397,23 @@
           "id": "review_author_3",
           "label": "Author Name",
           "default": "Nat T."
+        },
+        {
+          "type": "image_picker",
+          "id": "review_author_image_3",
+          "label": "Author Image (Optional)"
+        },
+        {
+          "type": "text",
+          "id": "review_tag1_3",
+          "label": "Tag 1 (Optional)",
+          "default": "Highlight One"
+        },
+        {
+          "type": "text",
+          "id": "review_tag2_3",
+          "label": "Tag 2 (Optional)",
+          "default": "Highlight Two"
         }
       ]
     }
@@ -338,19 +426,19 @@
         {
           "type": "tab",
           "settings": {
-            "tab_title": "Protein"
+            "tab_title": "Results"
           }
         },
         {
           "type": "tab",
           "settings": {
-            "tab_title": "Greens"
+            "tab_title": "ingredients"
           }
         },
         {
           "type": "tab",
           "settings": {
-            "tab_title": "Collagen"
+            "tab_title": "Taste"
           }
         }
       ]

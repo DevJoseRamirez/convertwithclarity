@@ -154,15 +154,33 @@
 
 }
 
+
 .cwc_image_benefits__title {
-    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.cwc_image_benefits__title h1,
+.cwc_image_benefits__title h2,
+.cwc_image_benefits__title h3,
+.cwc_image_benefits__title p {
+    /* font-size: 1.3rem; */
     font-weight: 700;
-    color: var(--title-color);
     margin: 0 0 1rem 0;
     /* line-height: 1.3; */
     /* testing */
+    color: var(--text-color);
     line-height: 130%;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+    color: inherit;
 }
+
+.cwc_image_benefits__title>* strong {
+    color: var(--highlight-color);
+}
+
+
 
 /* ================================
    Button

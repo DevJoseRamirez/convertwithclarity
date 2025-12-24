@@ -61,14 +61,14 @@
                     background-color: {{ block.settings.caption_bg }};
                     color: {{ block.settings.caption_color }};
                   "
-                  class="cwc_image_benefits__caption"
+                  class="cwc_image_benefits__caption rte"
                   {{ block.shopify_attributes }}
                 >
                   {{ block.settings.text }}
                 </p>
               {% endif %}
             {% when 'title' %}
-              <div class="cwc_image_benefits__title" {{ block.shopify_attributes }}>
+              <div class="cwc_image_benefits__title rte" {{ block.shopify_attributes }}>
                 {{ block.settings.text }}
               </div>
 
@@ -91,11 +91,11 @@
 
                 <div class="cwc_image_benefit-row__content">
                   {% if block.settings.title != blank %}
-                    <h4 class="cwc_image_benefit-row__title">{{ block.settings.title }}</h4>
+                    <h4 class="cwc_image_benefit-row__title rte">{{ block.settings.title }}</h4>
                   {% endif %}
 
                   {% if block.settings.text != blank %}
-                    <div class="cwc_image_benefit-row__text">{{ block.settings.text }}</div>
+                    <div class="cwc_image_benefit-row__text rte">{{ block.settings.text }}</div>
                   {% endif %}
                 </div>
               </div>
@@ -145,7 +145,7 @@
     {
       "type": "color",
       "id": "bold_color",
-      "label": "Text Color",
+      "label": "Text Bold Color",
       "default": "#00766F"
     },
     {
@@ -220,12 +220,6 @@
           "type": "color",
           "id": "text_color",
           "label": "Text Color",
-          "default": "#000000"
-        },
-        {
-          "type": "color",
-          "id": "title_color",
-          "label": "Title Color",
           "default": "#000000"
         }
       ]

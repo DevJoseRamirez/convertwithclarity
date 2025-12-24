@@ -88,9 +88,10 @@ body,
 
 .rte p,
 .rte li {
+    /* font-size: 1.125rem; */
     font-size: 1rem;
     /* 16px - Body text */
-    line-height: 1.6;
+    line-height: 1.5;
     /* font-weight: 400; */
 }
 
@@ -135,5 +136,11 @@ li {
     .rte h6 {
         font-size: 1rem;
         /* 16px mobile */
+    }
+
+    .rte p,
+    .rte li {
+        font-size: 1.125rem;
+
     }
 }

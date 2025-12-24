@@ -92,6 +92,8 @@
     line-height: 1.5;
     margin: 0;
     color: #6B7280;
+    color: #494b4e;
+    color: #343434;
 }
 
 
@@ -113,6 +115,9 @@
 
     aspect-ratio: 1/1;
     aspect-ratio: 4/3;
+    /*  */
+    border: 1px solid rgba(228, 228, 228, 1);
+    object-fit: cover;
 }
 
 .placeholder-image {
@@ -289,6 +294,10 @@
     margin-bottom: 0;
 }
 
+.cwc_image_benefit-row__text.rte ul,
+.cwc_image_benefit-row__text.rte ol {
+    padding-left: 0rem;
+}
 
 /* ================================
    Card Content
@@ -316,9 +325,16 @@
     line-height: 1.6;
 }
 
+/* #343434 */
 .cwc_image_benefit-row__text p {
     margin: 0;
     color: #4B5563;
+    color: #494b4e;
+    color: #343434;
+    color: #343434;
+
+    font-size: 1rem;
+    font-size: 1.125rem;
 }
 
 /* ==============================

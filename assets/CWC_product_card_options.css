@@ -59,6 +59,10 @@
     line-height: 1.5;
     color: #6B7280;
     margin: 0;
+    /*  */
+    color: #494b4e;
+    color: #343434;
+
 }
 
 /* ================================
@@ -77,6 +81,11 @@
     font-size: 1rem;
     font-weight: 500;
     color: #6B7280;
+    /*  */
+    color: #494b4e;
+    color: #343434;
+
+    color: #343434;
     transition: color 0.3s ease;
 }
 
@@ -245,6 +254,9 @@
     font-size: 0.875rem;
     font-weight: 600;
     color: #6B7280;
+    /*  */
+    color: #494b4e;
+    color: #343434;
     margin-bottom: 1rem;
 }
 
@@ -278,6 +290,10 @@
     font-size: 0.875rem;
     color: #6B7280;
     line-height: 1.4;
+    /*  */
+    color: #494b4e;
+
+    color: #343434;
 }
 
 .cwc-product-cards__card-text {

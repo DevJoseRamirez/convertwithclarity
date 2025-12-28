@@ -191,8 +191,19 @@
 
 }
 
+.hero-bullets-wrapper {
+    display: flex;
+    flex-direction: column;
+    /* gap: 4px; */
+    gap: 6px;
+}
+
 .hero-bullets .bullet-icon {
     margin-bottom: 2px;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .hero-bullets .bullet-icon svg {
@@ -205,6 +216,8 @@
     font-size: 1rem;
     line-height: 1;
     line-height: normal;
+    /*  */
+    font-weight: bold;
 }
 
 

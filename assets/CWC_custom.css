@@ -81,6 +81,8 @@ body,
 
 .rte h6 {
     font-size: 1rem;
+    font-size: 1.125rem;
+
     /* 16px - Same as body, weight distinguishes */
     line-height: 1.5;
     /* font-weight: 600; */
@@ -90,6 +92,7 @@ body,
 .rte li {
     /* font-size: 1.125rem; */
     font-size: 1rem;
+    font-size: 1.125rem;
     /* 16px - Body text */
     line-height: 1.5;
     /* font-weight: 400; */
@@ -141,6 +144,7 @@ li {
     .rte p,
     .rte li {
         font-size: 1.125rem;
+        font-size: 1rem;
 
     }
 }

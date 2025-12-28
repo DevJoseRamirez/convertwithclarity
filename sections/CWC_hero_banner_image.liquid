@@ -122,7 +122,8 @@
                 {% if block.settings.text_1 != blank %}
                   <div class="bullet">
                     {% if block.settings.text_1 != blank %}
-                      <span class="bullet-icon"> {% render 'CWC_icon-check', stroke: '#125657' %}</span>
+                      <span class="bullet-icon"> {% render 'CWC_icon-check', fill_color: '#3dc8c5' %}</span>
+                      {% comment %} <span class="bullet-icon"> {% render 'CWC_icon-check_fill', fill_color: '#125657' %}</span> {% endcomment %}
 
                       <div class="bullet-text">{{ block.settings.text_1 }}</div>
                     {% endif %}
@@ -132,7 +133,7 @@
                 {% if block.settings.text_2 != blank %}
                   <div class="bullet">
                     {% if block.settings.text_2 != blank %}
-                      <span class="bullet-icon"> {% render 'CWC_icon-check', stroke: '#125657' %}</span>
+                      <span class="bullet-icon"> {% render 'CWC_icon-check', fill_color: '#3dc8c5' %}</span>
 
                       <div class="bullet-text">{{ block.settings.text_2 }}</div>
                     {% endif %}
@@ -142,7 +143,7 @@
                 {% if block.settings.text_3 != blank %}
                   <div class="bullet">
                     {% if block.settings.text_3 != blank %}
-                      <span class="bullet-icon"> {% render 'CWC_icon-check', stroke: '#125657' %}</span>
+                      <span class="bullet-icon"> {% render 'CWC_icon-check', fill_color: '#3dc8c5' %}</span>
                       <div class="bullet-text">{{ block.settings.text_3 }}</div>
                     {% endif %}
                   </div>

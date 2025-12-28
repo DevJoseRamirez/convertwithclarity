@@ -36,6 +36,10 @@
     height: 1.198rem;
     object-fit: contain;
   }
+
+  .cwc-featured-product__benefit .cwc-featured-product__benefit-text {
+    font-size: 1rem;
+  }
   @media (max-width: 991px) {
     .cwc_product-template__benefits,
     .cwc-featured-product__benefits {
@@ -78,8 +82,8 @@
       margin-bottom: 4px;
     }
 
-    .cwc-featured-product__benefit span {
-      font-size: 0.875rem;
+    .cwc-featured-product__benefit-text {
+      /* font-size: 0.875rem; */
     }
   }
 {% endstyle %}
@@ -88,14 +92,14 @@
   {% assign icon_key = 'icon' | append: i %}
   {% assign text_key = 'text' | append: i %}
   {% if block.settings[icon_key] != blank or block.settings[text_key] != blank %}
-    <div class="cwc-featured-product__benefit">
+    <div class="cwc-featured-product__benefit rte">
       {% if block.settings[icon_key] != blank %}
         <img
           src="{{ block.settings[icon_key] | image_url: width: 20 }}"
           alt="{{ block.settings[icon_key].alt }}"
         >
       {% endif %}
-      <span class="cwc-featured-product__benefit-text">{{ block.settings[text_key] }}</span>
+      <p class="cwc-featured-product__benefit-text">{{ block.settings[text_key] }}</p>
     </div>
   {% endif %}
 {% endfor %}

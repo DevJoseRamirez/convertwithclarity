@@ -36,12 +36,12 @@ function initAddToCart(section, sectionId, variants) {
   /* -----------------------------------------------------
      VALIDATION & LOGGING
      ----------------------------------------------------- */
-  console.log("CWC Add to Cart Initialization - Found elements:", {
-    form: !!form,
-    addToCartButton: !!addToCartButton,
-    variantIdInput: !!variantIdInput,
-    sellingPlanInput: !!sellingPlanInput,
-  });
+  // console.log("CWC Add to Cart Initialization - Found elements:", {
+  //   form: !!form,
+  //   addToCartButton: !!addToCartButton,
+  //   variantIdInput: !!variantIdInput,
+  //   sellingPlanInput: !!sellingPlanInput,
+  // });
 
   if (!form || !addToCartButton || !variantIdInput) {
     console.warn(
@@ -67,14 +67,14 @@ function initAddToCart(section, sectionId, variants) {
     newSellingPlanInput.className = "selling-plan-input";
     newSellingPlanInput.value = "";
     form.appendChild(newSellingPlanInput);
-    console.log("Created selling plan input");
+    // console.log("Created selling plan input");
   }
 
   const finalSellingPlanInput =
     sellingPlanInput || form.querySelector(".selling-plan-input");
 
   if (!finalSellingPlanInput) {
-    console.log("No selling plan input - product does not have subscriptions");
+    // console.log("No selling plan input - product does not have subscriptions");
   }
 
   /* =====================================================
@@ -94,21 +94,21 @@ function initAddToCart(section, sectionId, variants) {
       addToCartButton.dataset.bundleVariant3 ||
       addToCartButton.dataset.bundleVariant4);
 
-  console.log("Bundle mode detected:", isBundleMode);
+  // console.log("Bundle mode detected:", isBundleMode);
   if (isBundleMode) {
-    console.log("Bundle variants:", {
-      v1: addToCartButton.dataset.bundleVariant1,
-      v2: addToCartButton.dataset.bundleVariant2,
-      v3: addToCartButton.dataset.bundleVariant3,
-      v4: addToCartButton.dataset.bundleVariant4,
-    });
+    // console.log("Bundle variants:", {
+    //   v1: addToCartButton.dataset.bundleVariant1,
+    //   v2: addToCartButton.dataset.bundleVariant2,
+    //   v3: addToCartButton.dataset.bundleVariant3,
+    //   v4: addToCartButton.dataset.bundleVariant4,
+    // });
   }
 
   /* =====================================================
      BUNDLE ADD TO CART FUNCTIONALITY
      ===================================================== */
   function handleBundleAddToCart() {
-    console.log("=== Bundle Add to Cart Started ===");
+    // console.log("=== Bundle Add to Cart Started ===");
 
     if (!variantIdInput || !variantIdInput.value) {
       console.warn("Bundle: No main variant ID");
@@ -118,8 +118,8 @@ function initAddToCart(section, sectionId, variants) {
     const mainVariantId = Number(variantIdInput.value);
     const skipCart = addToCartButton.dataset.skipCart === "true";
 
-    console.log("Main variant ID:", mainVariantId);
-    console.log("Skip cart mode:", skipCart);
+    // console.log("Main variant ID:", mainVariantId);
+    // console.log("Skip cart mode:", skipCart);
 
     if (!Number.isFinite(mainVariantId)) {
       console.warn("Bundle: Invalid main variant ID:", variantIdInput.value);
@@ -132,7 +132,7 @@ function initAddToCart(section, sectionId, variants) {
         ? Number(finalSellingPlanInput.value)
         : null;
 
-    console.log("Selling plan ID:", sellingPlanId || "none");
+    // console.log("Selling plan ID:", sellingPlanId || "none");
 
     const items = [];
 
@@ -149,7 +149,7 @@ function initAddToCart(section, sectionId, variants) {
           id: Number(value),
           quantity: 1,
         });
-        console.log(`Added ${key}:`, value);
+        // console.log(`Added ${key}:`, value);
       }
     });
 
@@ -161,9 +161,9 @@ function initAddToCart(section, sectionId, variants) {
     };
 
     items.push(mainItem);
-    console.log("Main product added:", mainItem);
+    // console.log("Main product added:", mainItem);
 
-    console.log("Final items payload:", items);
+    // console.log("Final items payload:", items);
 
     if (!items.length) {
       console.warn("Bundle: No items to add to cart");
@@ -188,7 +188,7 @@ function initAddToCart(section, sectionId, variants) {
         return res.json();
       })
       .then((data) => {
-        console.log("Bundle added successfully:", data);
+        // console.log("Bundle added successfully:", data);
 
         const btnText = addToCartButton.querySelector(".cwc-button-text");
         const originalText =
@@ -196,7 +196,7 @@ function initAddToCart(section, sectionId, variants) {
 
         // If skip-cart mode, redirect to checkout
         if (skipCart) {
-          console.log("Redirecting to checkout...");
+          // console.log("Redirecting to checkout...");
           window.location.href = "/checkout";
           return;
         }
@@ -242,7 +242,7 @@ function initAddToCart(section, sectionId, variants) {
      STANDARD ADD TO CART FUNCTIONALITY
      ===================================================== */
   function handleStandardAddToCart() {
-    console.log("=== Standard Add to Cart Started ===");
+    // console.log("=== Standard Add to Cart Started ===");
 
     const selectedVariantId = variantIdInput.value;
     const sellingPlanId = finalSellingPlanInput
@@ -273,9 +273,9 @@ function initAddToCart(section, sectionId, variants) {
     // Add selling plan if subscription is selected (only if input exists and has value)
     if (sellingPlanId) {
       data.selling_plan = sellingPlanId;
-      console.log("Adding with selling plan:", sellingPlanId);
+      // console.log("Adding with selling plan:", sellingPlanId);
     } else {
-      console.log("Adding without selling plan - one-time purchase");
+      // console.log("Adding without selling plan - one-time purchase");
     }
 
     // Make the request to Shopify's cart API
@@ -301,7 +301,7 @@ function initAddToCart(section, sectionId, variants) {
           }, 2000);
         }
 
-        console.log("Item added to cart:", data);
+        // console.log("Item added to cart:", data);
 
         // Update and open cart drawer
         updateCartDrawer(item.id);
@@ -359,13 +359,13 @@ function initAddToCart(section, sectionId, variants) {
 
   // Attach the correct handler based on mode
   if (isBundleMode) {
-    console.log("Attaching BUNDLE add-to-cart handler");
+    // console.log("Attaching BUNDLE add-to-cart handler");
     addToCartButton.addEventListener("click", handleBundleAddToCart);
 
     // Expose global handler for external triggers
     window.CWCBundleAddToCart = handleBundleAddToCart;
   } else {
-    console.log("Attaching STANDARD add-to-cart handler");
+    // console.log("Attaching STANDARD add-to-cart handler");
     addToCartButton.addEventListener("click", handleStandardAddToCart);
   }
 }

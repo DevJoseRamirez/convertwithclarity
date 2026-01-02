@@ -169,16 +169,20 @@
 }
 
 
-.cwc-faqs__button.mobile__only {
+/* .cwc-faqs__button.mobile__only {
     display: none;
-}
+} */
 
 .cwc-faqs__button {
-    margin-top: 2rem;
-    justify-content: center;
+    /* margin-top: 1rem; */
     margin-top: 2rem;
     display: flex;
+    /* align-items: center; */
+    /* justify-content: center; */
+    width: 100%;
+    display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .cwc-faqs__button>a {
@@ -188,9 +192,8 @@
     font-weight: 600;
     font-size: 1rem;
     text-decoration: none;
-    transition: all 0.3s ease-in-out;
+    transition: all .3s ease-in-out;
     text-align: center;
-    /* text-transform: uppercase; */
     border: 2px solid transparent;
     padding: 1.02875rem;
     line-height: 1.211875rem;
@@ -218,41 +221,6 @@
         font-size: 0.95rem;
     }
 
-    .cwc-faqs__button.mobile__only {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        /* gap: .5rem; */
-    }
-
-    .cwc-faqs__button {
-        display: inline-block;
-        padding: 1rem 2rem;
-        padding: 0.75rem 1.5rem;
-        font-weight: 700;
-        font-size: 1rem;
-        border-radius: 6px;
-        text-decoration: none;
-        transition: all 0.3s ease-in-out;
-        text-align: center;
-        text-transform: uppercase;
-        border: 2px solid transparent;
-        width: 100%;
-        margin-top: 1rem;
-        color: var(--bt_text_color);
-        color: var(--bt_text_color);
-        color: var(--bt_bg_color);
-        background-color: var(--bt_text_color);
-        margin-bottom: 2rem;
-    }
-
-    .cwc-faqs__button:hover {
-        background-color: transparent !important;
-        border-color: var(--bt_bg_color) !important;
-        color: var(--bt_bg_color) !important;
-    }
 
     .cwc-faqs__button-note {
         font-size: .9rem;
@@ -295,6 +263,8 @@
 }
 
 @media (max-width: 768px) {
+
+
     .cwc-faqs__text p {
         /* font-size: 1rem; */
     }
@@ -302,5 +272,15 @@
     .cwc-faqs__wrapper {
         padding: 0 1rem;
     }
+
+    .cwc-faqs__button>a {
+        max-width: 100%;
+
+    }
+
+    .cwc-faqs__button {
+        margin-top: 1.5rem;
+    }
+
 
 }

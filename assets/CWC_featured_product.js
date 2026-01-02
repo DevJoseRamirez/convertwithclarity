@@ -55,11 +55,11 @@ function initFeaturedProduct(
   sellingPlanGroups,
   savingsDisplayType
 ) {
-  console.log("=== Initializing Featured Product ===");
-  console.log("Section ID:", sectionId);
-  console.log("Variants:", variants.length);
-  console.log("Selling Plan Groups:", sellingPlanGroups.length);
-  console.log("Savings Display Type:", savingsDisplayType);
+  // console.log("=== Initializing Featured Product ===");
+  // console.log("Section ID:", sectionId);
+  // console.log("Variants:", variants.length);
+  // console.log("Selling Plan Groups:", sellingPlanGroups.length);
+  // console.log("Savings Display Type:", savingsDisplayType);
 
   /* -----------------------------------------------------
      DOM ELEMENT REFERENCES
@@ -102,18 +102,18 @@ function initFeaturedProduct(
     return;
   }
 
-  console.log("Found elements:", {
-    form: !!form,
-    variantIdInput: !!variantIdInput,
-    sellingPlanInput: !!sellingPlanInput,
-    optionInputs: optionInputs.length,
-    optionButtons: optionButtons.length,
-    autoRefillCheckbox: !!autoRefillCheckbox,
-    priceDisplay: !!priceDisplay,
-    addToCartButton: !!addToCartButton,
-    buttonPriceElement: !!buttonPriceElement,
-    buttonCompareElement: !!buttonCompareElement,
-  });
+  // console.log("Found elements:", {
+  //   form: !!form,
+  //   variantIdInput: !!variantIdInput,
+  //   sellingPlanInput: !!sellingPlanInput,
+  //   optionInputs: optionInputs.length,
+  //   optionButtons: optionButtons.length,
+  //   autoRefillCheckbox: !!autoRefillCheckbox,
+  //   priceDisplay: !!priceDisplay,
+  //   addToCartButton: !!addToCartButton,
+  //   buttonPriceElement: !!buttonPriceElement,
+  //   buttonCompareElement: !!buttonCompareElement,
+  // });
 
   /* =====================================================
      SELLING PLAN MANAGEMENT
@@ -143,10 +143,10 @@ function initFeaturedProduct(
 
     if (isAutoRefill && sellingPlanId) {
       finalSellingPlanInput.value = sellingPlanId;
-      console.log("Selling plan set:", sellingPlanId);
+      // console.log("Selling plan set:", sellingPlanId);
     } else {
       finalSellingPlanInput.value = "";
-      console.log("Selling plan cleared");
+      // console.log("Selling plan cleared");
     }
   }
 
@@ -186,13 +186,13 @@ function initFeaturedProduct(
     const isAutoRefill = autoRefillCheckbox && autoRefillCheckbox.checked;
     const sellingPlanId = finalSellingPlanInput?.value;
 
-    console.log("getPriceForDisplay:", {
-      isAutoRefill,
-      sellingPlanId,
-      variantPrice: variant.price,
-      variantCompareAt: variant.compare_at_price,
-      hasAllocations: !!variant.selling_plan_allocations,
-    });
+    // console.log("getPriceForDisplay:", {
+    //   isAutoRefill,
+    //   sellingPlanId,
+    //   variantPrice: variant.price,
+    //   variantCompareAt: variant.compare_at_price,
+    //   hasAllocations: !!variant.selling_plan_allocations,
+    // });
 
     // Subscription is ON
     if (isAutoRefill && sellingPlanId && variant.selling_plan_allocations) {
@@ -201,7 +201,7 @@ function initFeaturedProduct(
       );
 
       if (allocation) {
-        console.log("Found subscription allocation:", allocation);
+        // console.log("Found subscription allocation:", allocation);
 
         // Use compare_at_price if it exists for TOTAL savings display
         // Otherwise use regular price as the compare price
@@ -238,11 +238,11 @@ function initFeaturedProduct(
     const pricing = getPriceForDisplay(variant);
     if (!pricing) return;
 
-    console.log("Updating price display:", {
-      currentPrice: pricing.price,
-      compareAtPrice: pricing.compareAtPrice,
-      isSubscription: pricing.isSubscription,
-    });
+    // console.log("Updating price display:", {
+    //   currentPrice: pricing.price,
+    //   compareAtPrice: pricing.compareAtPrice,
+    //   isSubscription: pricing.isSubscription,
+    // });
 
     const hasSavings =
       pricing.compareAtPrice && pricing.compareAtPrice > pricing.price;
@@ -255,12 +255,12 @@ function initFeaturedProduct(
         (savingsAmount / pricing.compareAtPrice) * 100
       );
 
-      console.log("Savings calculation:", {
-        compareAtPrice: pricing.compareAtPrice,
-        currentPrice: pricing.price,
-        savingsAmount: savingsAmount,
-        savingsPercent: savingsPercent,
-      });
+      // console.log("Savings calculation:", {
+      //   compareAtPrice: pricing.compareAtPrice,
+      //   currentPrice: pricing.price,
+      //   savingsAmount: savingsAmount,
+      //   savingsPercent: savingsPercent,
+      // });
     }
 
     /* -----------------------------------------------------
@@ -335,7 +335,7 @@ function initFeaturedProduct(
       }
     }
 
-    console.log("Price display update complete");
+    // console.log("Price display update complete");
   }
 
   /**
@@ -367,7 +367,7 @@ function initFeaturedProduct(
      MAIN UPDATE FUNCTION
      ===================================================== */
   function updateVariant(variant = null) {
-    console.log("=== Updating Variant ===");
+    // console.log("=== Updating Variant ===");
 
     if (!variant && optionInputs.length === 0) {
       variant = variants[0] || findVariantById(variantIdInput?.value);
@@ -378,7 +378,7 @@ function initFeaturedProduct(
       return;
     }
 
-    console.log("Variant:", variant.id, variant.title);
+    // console.log("Variant:", variant.id, variant.title);
 
     // Update variant ID input
     if (variantIdInput) {
@@ -405,13 +405,13 @@ function initFeaturedProduct(
       })
     );
 
-    console.log("=== Variant Update Complete ===");
+    // console.log("=== Variant Update Complete ===");
   }
 
   /* =====================================================
      EVENT LISTENERS - OPTION BUTTONS
      ===================================================== */
-  console.log("Setting up option button listeners:", optionButtons.length);
+  // console.log("Setting up option button listeners:", optionButtons.length);
 
   optionButtons.forEach((button) => {
     button.addEventListener("click", function () {
@@ -420,8 +420,8 @@ function initFeaturedProduct(
       const optionIndex = this.getAttribute("data-option-index");
       const value = this.getAttribute("data-value");
 
-      console.log("Option Index:", optionIndex);
-      console.log("Value:", value);
+      // console.log("Option Index:", optionIndex);
+      // console.log("Value:", value);
 
       // Update visual state
       const siblings = this.parentNode.querySelectorAll(
@@ -436,9 +436,9 @@ function initFeaturedProduct(
       );
 
       if (hiddenInput) {
-        console.log(
-          `Updating option ${optionIndex}: "${hiddenInput.value}" → "${value}"`
-        );
+        // console.log(
+        //   `Updating option ${optionIndex}: "${hiddenInput.value}" → "${value}"`
+        // );
         hiddenInput.value = value;
       } else {
         console.warn("⚠ Hidden input not found for option index:", optionIndex);
@@ -455,8 +455,8 @@ function initFeaturedProduct(
       }
 
       const totalOptionsInProduct = currentVariant.options.length;
-      console.log("Product has", totalOptionsInProduct, "total options");
-      console.log("Section displays", optionInputs.length, "option inputs");
+      // console.log("Product has", totalOptionsInProduct, "total options");
+      // console.log("Section displays", optionInputs.length, "option inputs");
 
       const selectedOptions = [];
 
@@ -467,16 +467,16 @@ function initFeaturedProduct(
 
         if (input) {
           selectedOptions[i] = input.value;
-          console.log(`Position ${i}: Using input value "${input.value}"`);
+          // console.log(`Position ${i}: Using input value "${input.value}"`);
         } else {
           selectedOptions[i] = currentVariant.options[i];
-          console.log(
-            `Position ${i}: Using current variant value "${currentVariant.options[i]}" (no input)`
-          );
+          // console.log(
+          // `Position ${i}: Using current variant value "${currentVariant.options[i]}" (no input)`
+          // );
         }
       }
 
-      console.log("Complete options array:", selectedOptions);
+      // console.log("Complete options array:", selectedOptions);
 
       // Find matching variant
       const variant = variants.find((v) => {
@@ -485,25 +485,25 @@ function initFeaturedProduct(
         });
 
         if (isMatch) {
-          console.log(`✓ Match found: Variant ${v.id} - ${v.title}`);
+          // console.log(`✓ Match found: Variant ${v.id} - ${v.title}`);
         }
 
         return isMatch;
       });
 
       if (variant) {
-        console.log("=== Variant Found ===");
-        console.log("ID:", variant.id);
-        console.log("Title:", variant.title);
-        console.log("Options:", variant.options);
+        // console.log("=== Variant Found ===");
+        // console.log("ID:", variant.id);
+        // console.log("Title:", variant.title);
+        // console.log("Options:", variant.options);
 
         updateVariant(variant);
       } else {
-        console.error("=== ✗ No Variant Found ===");
-        console.log("Searched for:", selectedOptions);
-        console.log("Available variants:");
+        // console.error("=== ✗ No Variant Found ===");
+        // console.log("Searched for:", selectedOptions);
+        // console.log("Available variants:");
         variants.forEach((v) => {
-          console.log(`  ${v.id}: [${v.options.join(", ")}]`);
+          // console.log(`  ${v.id}: [${v.options.join(", ")}]`);
         });
 
         if (addToCartButton) {
@@ -515,7 +515,7 @@ function initFeaturedProduct(
         }
       }
 
-      console.log("=== End Option Change ===\n");
+      // console.log("=== End Option Change ===\n");
     });
   });
 
@@ -523,7 +523,7 @@ function initFeaturedProduct(
      SUBSCRIPTION CHECKBOX HANDLER
      ----------------------------------------------------- */
   if (autoRefillCheckbox) {
-    console.log("Setting up subscription checkbox handler");
+    // console.log("Setting up subscription checkbox handler");
 
     // Set checkbox as initially checked
     autoRefillCheckbox.checked = true;
@@ -537,8 +537,8 @@ function initFeaturedProduct(
     updateSellingPlan();
 
     autoRefillCheckbox.addEventListener("change", function () {
-      console.log("\n=== Subscription Toggled ===");
-      console.log("Checked:", this.checked);
+      // console.log("\n=== Subscription Toggled ===");
+      // console.log("Checked:", this.checked);
 
       // Update selling plan first
       updateSellingPlan();
@@ -547,20 +547,20 @@ function initFeaturedProduct(
       const currentVariantId = variantIdInput.value;
       const currentVariant = findVariantById(currentVariantId);
 
-      console.log(
-        "Current variant:",
-        currentVariant?.id,
-        currentVariant?.title
-      );
+      // console.log(
+      //   "Current variant:",
+      //   currentVariant?.id,
+      //   currentVariant?.title
+      // );
 
       if (currentVariant) {
         updatePriceDisplay(currentVariant);
       }
 
-      console.log("=== End Subscription Toggle ===\n");
+      // console.log("=== End Subscription Toggle ===\n");
     });
   } else {
-    console.log("No subscription checkbox found for section", sectionId);
+    // console.log("No subscription checkbox found for section", sectionId);
   }
 
   /* =====================================================
@@ -568,7 +568,7 @@ function initFeaturedProduct(
      ===================================================== */
   function initFAQBlocks() {
     const faqItems = section.querySelectorAll(".cwc-featured-product__faq");
-    console.log(`Found ${faqItems.length} FAQ items`);
+    // console.log(`Found ${faqItems.length} FAQ items`);
 
     faqItems.forEach((item, index) => {
       const question = item.querySelector(
@@ -637,9 +637,9 @@ function initFeaturedProduct(
   const initialVariantId = variantIdInput.value;
   const initialVariant = findVariantById(initialVariantId);
   if (initialVariant) {
-    console.log("Initial variant:", initialVariant.id);
+    // console.log("Initial variant:", initialVariant.id);
     updateVariant(initialVariant);
   }
 
-  console.log("=== Initialization Complete ===\n");
+  // console.log("=== Initialization Complete ===\n");
 }

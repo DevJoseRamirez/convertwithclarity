@@ -1,0 +1,185 @@
+/* ==============================
+   CWC Categories Section
+   ============================== */
+
+/* === Section Wrapper === */
+.cwc-categories {
+    background-color: var(--section-bg);
+    color: var(--text-color);
+    padding-top: var(--padding-top);
+    padding-bottom: var(--padding-bottom);
+}
+
+.cwc-categories__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* === Section Header === */
+.cwc-categories__heading {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.cwc-categories__heading h1,
+.cwc-categories__heading h2,
+.cwc-categories__heading h3,
+.cwc-categories__heading p {
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+    color: inherit;
+}
+
+.cwc-categories__heading>* strong {
+    color: var(--highlight-color);
+}
+
+.cwc-categories__subtext {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cwc-categories__subtext p {
+    font-size: 1.125rem;
+    line-height: 1.5;
+    margin: 0;
+    color: #494b4e;
+}
+
+/* === Categories Grid === */
+.cwc-categories__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+/* === Category Card === */
+.cwc-categories__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.cwc-categories__card-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    transition: transform 0.3s ease-in-out;
+}
+
+.cwc-categories__card-link:hover {
+    transform: scale(1.02);
+}
+
+/* === Card Image === */
+.cwc-categories__card-image {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.cwc-categories__card-image img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+}
+
+.cwc-categories__placeholder {
+    aspect-ratio: 1 / 1;
+    background: #f5f5f5;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 0.9rem;
+}
+
+/* === Card Title === */
+.cwc-categories__card-title {
+    margin-top: 0.75rem;
+}
+
+.cwc-categories__card-title h1,
+.cwc-categories__card-title h2,
+.cwc-categories__card-title h3,
+.cwc-categories__card-title h4,
+.cwc-categories__card-title p {
+    font-weight: 700;
+    font-size: 1.1rem;
+    line-height: 1.3;
+    margin: 0;
+    color: inherit;
+    text-transform: uppercase;
+}
+
+.cwc-categories__card-title>* strong {
+    color: var(--highlight-color);
+}
+
+/* === Card Text (Optional Description) === */
+.cwc-categories__card-text {
+    margin-top: 0.5rem;
+}
+
+.cwc-categories__card-text p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+    color: #494b4e;
+}
+
+/* ==============================
+   Mobile Responsive
+   ============================== */
+@media screen and (max-width: 991px) {
+    .cwc-categories__container {
+        padding: 0 1.25rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .cwc-categories {
+        padding-top: var(--padding-top-mobile);
+        padding-bottom: var(--padding-bottom-mobile);
+    }
+
+    .cwc-categories__container {
+        padding: 0 1rem;
+    }
+
+    .cwc-categories__subtext {
+        margin-bottom: 2rem;
+    }
+
+    .cwc-categories__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .cwc-categories__card-title h1,
+    .cwc-categories__card-title h2,
+    .cwc-categories__card-title h3,
+    .cwc-categories__card-title h4,
+    .cwc-categories__card-title p {
+        font-size: 0.9rem;
+    }
+
+    .cwc-categories__card-text p {
+        font-size: 0.85rem;
+    }
+}

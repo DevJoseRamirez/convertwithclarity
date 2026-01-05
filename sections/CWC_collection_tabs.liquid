@@ -1,0 +1,209 @@
+{% style %}
+  #CWC_collection_tabs-{{ section.id }} {
+    --section-bg: {{ section.settings.background_color | default: '#ffffff' }};
+    --text-color: {{ section.settings.text_color | default: '#000000' }};
+    --highlight-color: {{ section.settings.bold_color | default: '#00766F' }};
+    --tab-active-color: {{ section.settings.tab_active_color | default: '#000000' }};
+    --padding-top: {{ section.settings.padding_top | default: 60 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 60 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | default: 60 | times: 0.6 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 60 | times: 0.6 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_collection_tabs.css' | asset_url | stylesheet_tag }}
+
+<section id="CWC_collection_tabs-{{ section.id }}" class="cwc-collection-tabs">
+  <div class="cwc-collection-tabs__container">
+    {% comment %} Section Header {% endcomment %}
+    {% if section.settings.heading != blank %}
+      <div class="cwc-collection-tabs__heading rte">
+        {{ section.settings.heading }}
+      </div>
+    {% endif %}
+
+    {% if section.settings.subtext != blank %}
+      <div class="cwc-collection-tabs__subtext rte">
+        {{ section.settings.subtext }}
+      </div>
+    {% endif %}
+
+    {% comment %} Tab Navigation {% endcomment %}
+    {% if section.blocks.size > 0 %}
+      <nav class="cwc-collection-tabs__nav" role="tablist">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'collection_tab' %}
+              <button
+                class="cwc-collection-tabs__tab-button{% if forloop.first %} active{% endif %}"
+                data-tab="{{ block.id }}"
+                role="tab"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                aria-controls="panel-{{ block.id }}"
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.title | default: 'Tab' }}
+              </button>
+          {% endcase %}
+        {% endfor %}
+      </nav>
+
+      {% comment %} Tab Panels {% endcomment %}
+      <div class="cwc-collection-tabs__panels">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'collection_tab' %}
+              <div
+                class="cwc-collection-tabs__panel{% if forloop.first %} active{% endif %}"
+                id="panel-{{ block.id }}"
+                data-tab="{{ block.id }}"
+                role="tabpanel"
+                {% unless forloop.first %}
+                  hidden
+                {% endunless %}
+                {{ block.shopify_attributes }}
+              >
+                {% if block.settings.collection != blank %}
+                  <div class="cwc-collection-tabs__grid">
+                    {% assign limit = section.settings.product_limit | default: 4 %}
+                    {% for product in block.settings.collection.products limit: limit %}
+                      {% render 'CWC_product-card', product: product %}
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  <div class="cwc-collection-tabs__empty">
+                    <p>Select a collection to display products.</p>
+                  </div>
+                {% endif %}
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{{ 'CWC_collection_tabs.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "CWC Collection Tabs",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "<h2>Mix it. Match it. Make it yours.</h2>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Section Subtext"
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "label": "Products per Tab",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "bold_color",
+      "label": "Bold/Highlight Color",
+      "default": "#00766F"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_color",
+      "label": "Active Tab Underline Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_tab",
+      "name": "Collection Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab Title",
+          "default": "Collection"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Collection Tabs",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "collection_tab"
+        },
+        {
+          "type": "collection_tab"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1081,7 +1081,6 @@ class VariantSelects extends HTMLElement {
   }
 
   updateSelectionMetadata({ target }) {
-    console.log('varaint upll')
     const { value, tagName } = target;
 
     if (tagName === 'SELECT' && target.selectedOptions.length) {

@@ -1,163 +1,84 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "cwc_image_text_b8zKxU": {
-      "type": "CWC_image_text",
+    "image_banner": {
+      "type": "image-banner",
       "blocks": {
-        "title_PVxDW8": {
-          "type": "title",
+        "heading": {
+          "type": "heading",
           "settings": {
-            "text": "<h2>Your Section Title<\/h2>"
+            "heading": "Browse our latest products",
+            "heading_size": "h0"
           }
         },
-        "text_Ki6wqR": {
-          "type": "text",
+        "button": {
+          "type": "buttons",
           "settings": {
-            "text": "<p>Add your supporting text or description here.<\/p>"
-          }
-        },
-        "button_pr8PXz": {
-          "type": "button",
-          "settings": {
-            "text": "Try Risk-Free Today",
-            "link": "",
-            "button_bg_color": "#125657",
-            "button_text_color": "#ffffff"
+            "button_label_1": "Shop all",
+            "button_link_1": "shopify://collections/all",
+            "button_style_secondary_1": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
           }
         }
       },
       "block_order": [
-        "title_PVxDW8",
-        "text_Ki6wqR",
-        "button_pr8PXz"
+        "heading",
+        "button"
       ],
-      "name": "Image + Text",
       "settings": {
-        "image_position": "left",
-        "background_color": "#ffffff",
-        "text_color": "#202020",
-        "padding_top": 60,
-        "padding_bottom": 60
+        "image_overlay_opacity": 40,
+        "image_height": "large",
+        "desktop_content_position": "bottom-center",
+        "show_text_box": false,
+        "image_behavior": "none",
+        "desktop_content_alignment": "center",
+        "color_scheme": "scheme-3",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": false,
+        "show_text_below": false
       }
     },
-    "cwc_testimonials_tELxbr": {
-      "type": "CWC_testimonials",
-      "blocks": {
-        "testimonial_bG8BPk": {
-          "type": "testimonial",
-          "settings": {
-            "star_rating": "4.9",
-            "title": "Amazing product!",
-            "text": "This product completely exceeded my expectations...",
-            "author_name": "Jane D.",
-            "feature_one": "Eco-friendly",
-            "feature_two": "Durable"
-          }
-        },
-        "testimonial_V9hpnx": {
-          "type": "testimonial",
-          "settings": {
-            "star_rating": "4.9",
-            "title": "Amazing product!",
-            "text": "This product completely exceeded my expectations...",
-            "author_name": "Jane D.",
-            "feature_one": "Eco-friendly",
-            "feature_two": "Durable"
-          }
-        },
-        "testimonial_QArLGB": {
-          "type": "testimonial",
-          "settings": {
-            "star_rating": "4.9",
-            "title": "Amazing product!",
-            "text": "This product completely exceeded my expectations...",
-            "author_name": "Jane D.",
-            "feature_one": "Eco-friendly",
-            "feature_two": "Durable"
-          }
-        },
-        "testimonial_6UmLQw": {
-          "type": "testimonial",
-          "settings": {
-            "star_rating": "4.9",
-            "title": "Amazing product!",
-            "text": "This product completely exceeded my expectations...",
-            "author_name": "Jane D.",
-            "feature_one": "Eco-friendly",
-            "feature_two": "Durable"
-          }
-        },
-        "testimonial_y7NdKj": {
-          "type": "testimonial",
-          "settings": {
-            "star_rating": "4.9",
-            "title": "Amazing product!",
-            "text": "This product completely exceeded my expectations...",
-            "author_name": "Jane D.",
-            "feature_one": "Eco-friendly",
-            "feature_two": "Durable"
-          }
-        },
-        "testimonial_GeTxcL": {
-          "type": "testimonial",
-          "settings": {
-            "star_rating": "4.9",
-            "title": "Amazing product!",
-            "text": "This product completely exceeded my expectations...",
-            "author_name": "Jane D.",
-            "feature_one": "Eco-friendly",
-            "feature_two": "Durable"
-          }
-        },
-        "testimonial_qY6H8k": {
-          "type": "testimonial",
-          "settings": {
-            "star_rating": "4.9",
-            "title": "Amazing product!",
-            "text": "This product completely exceeded my expectations...",
-            "author_name": "Jane D.",
-            "feature_one": "Eco-friendly",
-            "feature_two": "Durable"
-          }
-        },
-        "testimonial_A6fhCQ": {
-          "type": "testimonial",
-          "settings": {
-            "star_rating": "4.9",
-            "title": "Amazing product!",
-            "text": "This product completely exceeded my expectations...",
-            "author_name": "Jane D.",
-            "feature_one": "Eco-friendly",
-            "feature_two": "Durable"
-          }
-        }
-      },
-      "block_order": [
-        "testimonial_bG8BPk",
-        "testimonial_V9hpnx",
-        "testimonial_QArLGB",
-        "testimonial_6UmLQw",
-        "testimonial_y7NdKj",
-        "testimonial_GeTxcL",
-        "testimonial_qY6H8k",
-        "testimonial_A6fhCQ"
-      ],
-      "disabled": true,
-      "name": "Testimonials",
+    "featured_collection": {
+      "type": "featured-collection",
       "settings": {
-        "section_title": "<h2>The Ollie Advantage: Right Concentration, Right Shape, Right Price<\/h2>",
-        "section_subtitle": "<p>Not all hydroxyapatite toothpastes are created equal. Here's what makes Ollie different.<\/p>",
-        "bg_color": "#FAF9F6",
-        "text_color": "#111111",
-        "card_bg": "#FFFFFF",
-        "highlight_color": "#009370",
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "testimonials_collection": "testimonial-collections-abv1kcvs"
+        "title": "Featured products",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "all",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "swipe_on_mobile": false,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "padding_top": 44,
+        "padding_bottom": 36
       }
     }
   },
   "order": [
-    "cwc_image_text_b8zKxU",
-    "cwc_testimonials_tELxbr"
+    "image_banner",
+    "featured_collection"
   ]
 }

@@ -1,0 +1,300 @@
+/* ==============================
+   CWC Logo Carousel
+   ============================== */
+
+/* === Section Wrapper === */
+.cwc_logo-carousel {
+  background-color: var(--section-bg);
+  color: var(--text-color);
+  padding-top: var(--padding-top);
+  padding-bottom: var(--padding-bottom);
+  overflow: hidden;
+}
+
+.cwc_logo-carousel__container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* === Section Header (centered) === */
+.cwc_logo-carousel__content {
+  max-width: 720px;
+  margin: 0 auto 2.5rem auto;
+  width: 100%;
+  text-align: center;
+}
+
+.cwc_logo-carousel__eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--highlight-color);
+  margin-bottom: 1rem;
+}
+
+.cwc_logo-carousel__content-heading {
+  margin: 0;
+}
+
+.cwc_logo-carousel__content-heading h1,
+.cwc_logo-carousel__content-heading h2,
+.cwc_logo-carousel__content-heading h3,
+.cwc_logo-carousel__content-heading p {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  margin: 0;
+  color: inherit;
+}
+
+.cwc_logo-carousel__content-heading>* strong {
+  color: var(--highlight-color);
+  font-weight: 700;
+}
+
+/* === Marquee Strip === */
+.cwc_logo-carousel__strip {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* === Fade Edges (mask-based) === */
+.cwc_logo-carousel--fade-edges .cwc_logo-carousel__strip {
+  mask-image: linear-gradient(to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%);
+  -webkit-mask-image: linear-gradient(to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%);
+}
+
+/* === Track === */
+.cwc_logo-carousel__track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: cwc_logo-carousel__scroll var(--scroll-duration) linear infinite;
+  will-change: transform;
+}
+
+@keyframes cwc_logo-carousel__scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.cwc_logo-carousel__track--pausable:hover {
+  /* animation-play-state: paused; */
+}
+
+/* === Logo Item === */
+.cwc_logo-carousel__item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--logo-height);
+  margin-right: var(--logo-gap);
+
+}
+
+.cwc_logo-carousel__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-decoration: none;
+  transition: opacity 0.25s ease;
+}
+
+.cwc_logo-carousel__image {
+  display: block;
+  max-height: var(--logo-height);
+  width: auto;
+  height: auto;
+  max-width: 240px;
+  object-fit: contain;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.cwc_logo-carousel__placeholder {
+  display: inline-block;
+  height: var(--logo-height);
+  width: calc(var(--logo-height) * 3);
+}
+
+.cwc_logo-carousel__placeholder svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  opacity: 0.3;
+}
+
+/* === Logo Style Treatments === */
+
+/* Original — no filter, just opacity for visual cohesion */
+.cwc_logo-carousel--style-original .cwc_logo-carousel__image {
+  opacity: 0.85;
+}
+
+.cwc_logo-carousel--style-original .cwc_logo-carousel__link:hover .cwc_logo-carousel__image,
+.cwc_logo-carousel--style-original .cwc_logo-carousel__item:hover .cwc_logo-carousel__image {
+  opacity: 1;
+}
+
+/* Grayscale — desaturated by default, full color on hover */
+.cwc_logo-carousel--style-grayscale .cwc_logo-carousel__image {
+  filter: grayscale(100%);
+  opacity: 0.7;
+}
+
+.cwc_logo-carousel--style-grayscale .cwc_logo-carousel__link:hover .cwc_logo-carousel__image,
+.cwc_logo-carousel--style-grayscale .cwc_logo-carousel__item:hover .cwc_logo-carousel__image {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+/* White — for dark backgrounds, force all logos to white via brightness-invert */
+.cwc_logo-carousel--style-white .cwc_logo-carousel__image {
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+}
+
+.cwc_logo-carousel--style-white .cwc_logo-carousel__link:hover .cwc_logo-carousel__image,
+.cwc_logo-carousel--style-white .cwc_logo-carousel__item:hover .cwc_logo-carousel__image {
+  opacity: 1;
+}
+
+/* === Focus state for keyboard nav === */
+.cwc_logo-carousel__link:focus-visible {
+  outline: 2px solid var(--highlight-color);
+  outline-offset: 6px;
+  border-radius: 2px;
+}
+
+/* ==============================
+   Tablet Responsive
+   ============================== */
+@media screen and (max-width: 991px) {
+  .cwc_logo-carousel__container {
+    padding: 0 1.25rem;
+  }
+
+  .cwc_logo-carousel__content {
+    margin-bottom: 2.25rem;
+  }
+
+  .cwc_logo-carousel__content-heading h1,
+  .cwc_logo-carousel__content-heading h2,
+  .cwc_logo-carousel__content-heading h3,
+  .cwc_logo-carousel__content-heading p {
+    font-size: 1.0625rem;
+  }
+}
+
+/* ==============================
+   Mobile Responsive
+   ============================== */
+@media screen and (max-width: 768px) {
+  .cwc_logo-carousel {
+    padding-top: var(--padding-top-mobile);
+    padding-bottom: var(--padding-bottom-mobile);
+  }
+
+  .cwc_logo-carousel__container {
+    padding: 0 1rem;
+  }
+
+  .cwc_logo-carousel__content {
+    margin-bottom: 1.75rem;
+  }
+
+  .cwc_logo-carousel__eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.75rem;
+  }
+
+  .cwc_logo-carousel__content-heading h1,
+  .cwc_logo-carousel__content-heading h2,
+  .cwc_logo-carousel__content-heading h3,
+  .cwc_logo-carousel__content-heading p {
+    font-size: 1rem;
+  }
+
+  /* Tighter spacing between logos on mobile */
+  .cwc_logo-carousel__item {
+    margin-right: calc(var(--logo-gap) * 0.6);
+  }
+
+  .cwc_logo-carousel__track {
+    animation-duration: calc(var(--scroll-duration) * 0.75);
+  }
+
+  /* Slightly smaller logos on mobile */
+  .cwc_logo-carousel__item {
+    height: calc(var(--logo-height) * 0.85);
+  }
+
+  .cwc_logo-carousel__image {
+    max-height: calc(var(--logo-height) * 0.85);
+    max-width: 180px;
+  }
+
+  /* Reduce edge fade on mobile for more logo visibility */
+  .cwc_logo-carousel--fade-edges .cwc_logo-carousel__strip {
+    mask-image: linear-gradient(to right,
+        transparent 0%,
+        black 5%,
+        black 95%,
+        transparent 100%);
+    -webkit-mask-image: linear-gradient(to right,
+        transparent 0%,
+        black 5%,
+        black 95%,
+        transparent 100%);
+  }
+}
+
+/* ==============================
+   Reduced Motion — stop animation entirely
+   ============================== */
+@media (prefers-reduced-motion: reduce) {
+  .cwc_logo-carousel__track {
+    /* animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%; */
+  }
+
+  .cwc_logo-carousel__item {
+    /* margin-right: 0; */
+    /* margin: calc(var(--logo-gap) / 4) calc(var(--logo-gap) / 2); */
+  }
+
+  .cwc_logo-carousel__strip {
+    /* overflow: visible; */
+  }
+
+  .cwc_logo-carousel--fade-edges .cwc_logo-carousel__strip {
+    /* mask-image: none; */
+    /* -webkit-mask-image: none; */
+  }
+
+  .cwc_logo-carousel__image,
+  .cwc_logo-carousel__link {
+    /* transition: none; */
+  }
+}

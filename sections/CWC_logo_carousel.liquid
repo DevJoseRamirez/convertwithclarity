@@ -1,0 +1,318 @@
+{% style %}
+  #cwc_logo-carousel-{{ section.id }} {
+    --section-bg: {{ section.settings.bg_color | default: '#0a0a0a' }};
+    --text-color: {{ section.settings.text_color | default: '#ffffff' }};
+    --highlight-color: {{ section.settings.bold_color | default: '#14a800' }};
+    --logo-height: {{ section.settings.logo_height | default: 40 }}px;
+    --logo-gap: {{ section.settings.logo_gap | default: 80 }}px;
+    --scroll-duration: {{ section.settings.scroll_speed | default: 40 }}s;
+    --padding-top: {{ section.settings.padding_top | default: 60 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 60 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | default: 60 | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 60 | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_logo_carousel.css' | asset_url | stylesheet_tag }}
+
+<section
+  id="cwc_logo-carousel-{{ section.id }}"
+  class="cwc_logo-carousel cwc_logo-carousel--style-{{ section.settings.logo_style | default: 'white' }}{% if section.settings.fade_edges %} cwc_logo-carousel--fade-edges{% endif %}"
+>
+  <div class="cwc_logo-carousel__container">
+    {% comment %} Section Header (centered) {% endcomment %}
+    {% if section.settings.eyebrow != blank or section.settings.heading != blank %}
+      <div class="cwc_logo-carousel__content">
+        {% if section.settings.eyebrow != blank %}
+          <div class="cwc_logo-carousel__eyebrow">{{ section.settings.eyebrow }}</div>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <div class="cwc_logo-carousel__content-heading cwc-rte">
+            {{ section.settings.heading }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% comment %} Marquee Strip {% endcomment %}
+    {% if section.blocks.size > 0 %}
+      <div class="cwc_logo-carousel__strip">
+        <div class="cwc_logo-carousel__track{% if section.settings.pause_on_hover %} cwc_logo-carousel__track--pausable{% endif %}">
+          {% comment %} Original logo set {% endcomment %}
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'logo' %}
+                {%- liquid
+                  assign logo_image = block.settings.image
+                  assign logo_alt = block.settings.alt | default: logo_image.alt | default: 'Client logo' | escape
+                -%}
+                <div class="cwc_logo-carousel__item" {{ block.shopify_attributes }}>
+                  {% if block.settings.url != blank %}
+                    <a
+                      href="{{ block.settings.url }}"
+                      class="cwc_logo-carousel__link"
+                      aria-label="{{ logo_alt }}"
+                      {% if block.settings.url_new_tab %}
+                        target="_blank" rel="noopener"
+                      {% endif %}
+                    >
+                      {% if logo_image != blank %}
+                        {{
+                          logo_image
+                          | image_url: width: 360
+                          | image_tag:
+                            class: 'cwc_logo-carousel__image',
+                            widths: '120, 180, 240, 360, 480',
+                            sizes: '240px',
+                            alt: logo_alt,
+                            loading: 'lazy'
+                        }}
+                      {% else %}
+                        <span class="cwc_logo-carousel__placeholder">
+                          {{- 'image' | placeholder_svg_tag: 'placeholder-svg' -}}
+                        </span>
+                      {% endif %}
+                    </a>
+                  {% else %}
+                    {% if logo_image != blank %}
+                      {{
+                        logo_image
+                        | image_url: width: 360
+                        | image_tag:
+                          class: 'cwc_logo-carousel__image',
+                          widths: '120, 180, 240, 360, 480',
+                          sizes: '240px',
+                          alt: logo_alt,
+                          loading: 'lazy'
+                      }}
+                    {% else %}
+                      <span class="cwc_logo-carousel__placeholder">
+                        {{- 'image' | placeholder_svg_tag: 'placeholder-svg' -}}
+                      </span>
+                    {% endif %}
+                  {% endif %}
+                </div>
+            {% endcase %}
+          {% endfor %}
+
+          {% comment %} Duplicate set for seamless infinite loop (hidden from screen readers) {% endcomment %}
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'logo' %}
+                {%- liquid
+                  assign logo_image = block.settings.image
+                  assign logo_alt = block.settings.alt | default: logo_image.alt | default: 'Client logo' | escape
+                -%}
+                <div class="cwc_logo-carousel__item" aria-hidden="true">
+                  {% if logo_image != blank %}
+                    {{
+                      logo_image
+                      | image_url: width: 360
+                      | image_tag:
+                        class: 'cwc_logo-carousel__image',
+                        widths: '120, 180, 240, 360, 480',
+                        sizes: '240px',
+                        alt: '',
+                        loading: 'lazy'
+                    }}
+                  {% else %}
+                    <span class="cwc_logo-carousel__placeholder">
+                      {{- 'image' | placeholder_svg_tag: 'placeholder-svg' -}}
+                    </span>
+                  {% endif %}
+                </div>
+            {% endcase %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CWC Logo Carousel",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Label",
+      "info": "Optional. Leave blank to hide."
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Wrap any words you want accented in <strong> tags.",
+      "default": "<p>Trusted by <strong>DTC brands</strong> you might know</p>"
+    },
+    {
+      "type": "header",
+      "content": "Carousel Behavior"
+    },
+    {
+      "type": "paragraph",
+      "content": "Add at least 5 logos for the smoothest continuous scroll. With fewer logos, you may see gaps on wide screens."
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "label": "Scroll Duration",
+      "info": "Time for one full loop. Higher = slower scroll.",
+      "min": 15,
+      "max": 90,
+      "step": 5,
+      "unit": "s",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "fade_edges",
+      "label": "Fade edges",
+      "info": "Adds a soft gradient fade on the left and right edges of the strip.",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Logo Treatment"
+    },
+    {
+      "type": "select",
+      "id": "logo_style",
+      "label": "Logo Style",
+      "info": "How to display the logo images.",
+      "options": [
+        { "value": "original", "label": "Original (no filter)" },
+        { "value": "grayscale", "label": "Grayscale" },
+        { "value": "white", "label": "White (for dark backgrounds)" }
+      ],
+      "default": "white"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "Logo Max Height",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "logo_gap",
+      "label": "Gap Between Logos",
+      "min": 24,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Heading / Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "bold_color",
+      "label": "Heading Highlight Color",
+      "default": "#14a800"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Logo Image",
+          "info": "Recommended: SVG or PNG with transparent background. Should look good at the max-height setting."
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Alt Text",
+          "info": "Brand name. Used for accessibility — describes the logo for screen readers."
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link URL",
+          "info": "Optional. Makes the logo clickable."
+        },
+        {
+          "type": "checkbox",
+          "id": "url_new_tab",
+          "label": "Open link in new tab",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "CWC Logo Carousel",
+      "category": "CWC Custom",
+      "blocks": [
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" }
+      ]
+    }
+  ]
+}
+{% endschema %}

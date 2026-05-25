@@ -35,11 +35,7 @@
 -%}
 
 <section id="cwc_hero-vsl-{{ section.id }}" class="cwc_hero-vsl">
-  <div>
-
-
-    
-  </div>
+  <div></div>
 
   <div class="cwc_hero-vsl__container">
     <div class="cwc_hero-vsl__grid">
@@ -76,9 +72,34 @@
               </svg>
             </a>
 
-            {% if section.settings.trust_text != blank %}
-              <div class="cwc_hero-vsl__trust cwc-rte">{{ section.settings.trust_text }}</div>
-            {% endif %}
+            {% comment %} Top Rated on Upwork · 100% Job Success · 605+ hours · 4.9★ across 31 reviews {% endcomment %}
+            <div class="cwc_hero-vsl__social-proof-container">
+              {% if section.settings.social_proof_image %}
+                <div class="cwc_hero-vsl__social-proof-image">
+                  {{
+                    section.settings.social_proof_image
+                    | image_url: width: 360
+                    | image_tag:
+                      class: 'cwc_hero-vsl__social-proof-img',
+                      widths: '120, 180, 240, 360, 480',
+                      sizes: '240px',
+                      alt: logo_alt,
+                      loading: 'lazy'
+                  }}
+                </div>
+              {% endif %}
+
+              <div class="cwc_hero-vsl__social-proof_content-wrap">
+                <div class="cwc_hero-vsl__social-proof-stars">
+                  {% render 'CWC_icon-upwork_5_star' %}
+                </div>
+                <div class="cwc_hero-vsl__social-proof-text">
+                  {% if section.settings.trust_text != blank %}
+                    <div class="cwc_hero-vsl__trust cwc-rte">{{ section.settings.trust_text }}</div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
           </div>
         {% endif %}
       </div>
@@ -237,6 +258,11 @@
       "id": "cta_new_tab",
       "label": "Open in new tab",
       "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "social_proof_image",
+      "label": "Social Proof Image"
     },
     {
       "type": "richtext",

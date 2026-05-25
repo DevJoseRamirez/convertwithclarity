@@ -12,7 +12,6 @@
 
 .cwc_who-this-is-for__container {
   max-width: 1300px;
-  ;
 
   margin: 0 auto;
   padding: 0 2rem;
@@ -20,8 +19,10 @@
   grid-template-columns: 1.1fr 1fr;
   display: grid;
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: 1fr 1.35fr;
   gap: 3rem;
+  /* testing */
+  position: relative;
 }
 
 /* === Section Header (left-aligned, editorial) === */
@@ -29,6 +30,10 @@
   max-width: 720px;
   margin: 0 0 3.5rem 0;
   width: 100%;
+  /* testing */
+  height: max-content;
+  position: sticky;
+  top: 2rem;
 }
 
 .cwc_who-this-is-for__eyebrow {
@@ -94,6 +99,7 @@
 
 .cwc_who-this-is-for__item-number {
   font-size: 1rem;
+  font-size: 2rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   color: var(--number-color);
@@ -121,9 +127,17 @@
    Tablet Responsive
    ============================== */
 @media screen and (max-width: 991px) {
+  .cwc_who-this-is-for__content {
+    position: relative;
+    top: 0;
+  }
+
   .cwc_who-this-is-for__container {
     padding: 0 1.25rem;
+    grid-template-columns: 1fr;
+    gap: .5rem;
   }
+
 
   .cwc_who-this-is-for__content {
     margin-bottom: 2.75rem;
@@ -187,8 +201,9 @@
   }
 
   .cwc_who-this-is-for__item-number {
-    font-size: 0.9375rem;
+    font-size: 1.5rem;
     margin-bottom: 0.75rem;
+
   }
 
   .cwc_who-this-is-for__item-text p {

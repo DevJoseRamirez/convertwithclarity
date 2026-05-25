@@ -1,0 +1,267 @@
+{% style %}
+  #cwc_testimonials-cards-{{ section.id }} {
+    --section-bg: {{ section.settings.bg_color | default: '#ffffff' }};
+    --text-color: {{ section.settings.text_color | default: '#0a0a0a' }};
+    --highlight-color: {{ section.settings.bold_color | default: '#14a800' }};
+    --rule-color: {{ section.settings.rule_color | default: '#e5e5e5' }};
+    --card-bg: {{ section.settings.card_bg | default: '#f7f7f7' }};
+    --quote-mark-color: {{ section.settings.quote_mark_color | default: '#d4d4d4' }};
+    --attribution-color: {{ section.settings.attribution_color | default: '#6a6a6a' }};
+    --padding-top: {{ section.settings.padding_top | default: 80 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 80 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | default: 80 | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 80 | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_testimonials_cards.css' | asset_url | stylesheet_tag }}
+
+<section id="cwc_testimonials-cards-{{ section.id }}" class="cwc_testimonials-cards">
+  <div class="cwc_testimonials-cards__container">
+    {% comment %} Section Header {% endcomment %}
+    <div class="cwc_testimonials-cards__content">
+      {% if section.settings.eyebrow != blank %}
+        <div class="cwc_testimonials-cards__eyebrow">{{ section.settings.eyebrow }}</div>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <div class="cwc_testimonials-cards__content-heading rte">
+          {{ section.settings.heading }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.subtext != blank %}
+        <div class="cwc_testimonials-cards__content-subtext rte">
+          {{ section.settings.subtext }}
+        </div>
+      {% endif %}
+    </div>
+
+    {% comment %} Testimonial Cards Grid {% endcomment %}
+    {% if section.blocks.size > 0 %}
+      <div
+        class="cwc_testimonials-cards__grid"
+        data-testimonial-count="{{ section.blocks.size }}"
+      >
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'testimonial' %}
+              <div class="cwc_testimonials-cards__card" {{ block.shopify_attributes }}>
+                <div class="cwc_testimonials-cards__card-mark" aria-hidden="true">&ldquo;</div>
+
+                {% if block.settings.quote != blank %}
+                  <div class="cwc_testimonials-cards__card-quote rte">
+                    {{ block.settings.quote }}
+                  </div>
+                {% endif %}
+
+                {% if block.settings.author != blank
+                  or block.settings.role != blank
+                  or block.settings.author_image != blank
+                %}
+                  <div class="cwc_testimonials-cards__card-attribution">
+                    {% if block.settings.author_image != blank %}
+                      <div class="cwc_testimonials-cards__card-avatar">
+                        <img
+                          src="{{ block.settings.author_image | image_url: width: 120 }}"
+                          srcset="
+                            {{ block.settings.author_image | image_url: width: 80 }} 80w,
+                            {{ block.settings.author_image | image_url: width: 120 }} 120w,
+                            {{ block.settings.author_image | image_url: width: 160 }} 160w
+                          "
+                          sizes="56px"
+                          alt="{{ block.settings.author | default: 'Client' | escape }}"
+                          width="56"
+                          height="56"
+                          loading="lazy"
+                        >
+                      </div>
+                    {% endif %}
+
+                    <div class="cwc_testimonials-cards__card-meta">
+                      {% if block.settings.author != blank %}
+                        <div class="cwc_testimonials-cards__card-name">{{ block.settings.author }}</div>
+                      {% endif %}
+                      {% if block.settings.role != blank %}
+                        <div class="cwc_testimonials-cards__card-role">{{ block.settings.role }}</div>
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CWC Testimonials Cards",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Label",
+      "default": "05 / Client Words"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Section Heading",
+      "info": "Wrap any words you want accented in <strong> tags.",
+      "default": "<p>What clients <strong>have said.</strong></p>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Section Subtext",
+      "info": "Optional. Leave blank to hide.",
+      "default": "<p></p>"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "bold_color",
+      "label": "Heading Highlight Color",
+      "default": "#14a800"
+    },
+    {
+      "type": "color",
+      "id": "rule_color",
+      "label": "Rule Color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "header",
+      "content": "Card Colors"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card Background",
+      "default": "#f7f7f7"
+    },
+    {
+      "type": "color",
+      "id": "quote_mark_color",
+      "label": "Quote Mark Color",
+      "info": "Color of the decorative opening quote mark on each card.",
+      "default": "#d4d4d4"
+    },
+    {
+      "type": "color",
+      "id": "attribution_color",
+      "label": "Attribution Color",
+      "info": "Color of the author role / company text below the name.",
+      "default": "#6a6a6a"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Quote",
+          "default": "<p>Client testimonial goes here. Keep it tight and let the words do the work.</p>"
+        },
+        {
+          "type": "header",
+          "content": "Attribution"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author Name",
+          "default": "Client Name"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Author Role / Company",
+          "info": "e.g. 'Founder, BrandName' or 'Marketing Lead, BrandName'."
+        },
+        {
+          "type": "image_picker",
+          "id": "author_image",
+          "label": "Author Photo",
+          "info": "Optional. Displayed as a small circular avatar next to the name."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "CWC Testimonials Cards",
+      "category": "CWC Custom",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>Jose is by far the best freelancer we've worked with for our Shopify store. Technically savvy, efficient, and a great communicator. He went above and beyond.</p>",
+            "author": "Upwork Client",
+            "role": "Shopify Store Owner"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>Very responsive and got the job done right the first time with very little input. Listens well and executes on schedule.</p>",
+            "author": "Upwork Client",
+            "role": "DTC Brand Founder"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

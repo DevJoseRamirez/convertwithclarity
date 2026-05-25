@@ -1,0 +1,208 @@
+{% style %}
+  #cwc_stats-row-{{ section.id }} {
+    --section-bg: {{ section.settings.bg_color | default: '#ffffff' }};
+    --text-color: {{ section.settings.text_color | default: '#0a0a0a' }};
+    --highlight-color: {{ section.settings.bold_color | default: '#14a800' }};
+    --rule-color: {{ section.settings.rule_color | default: '#e5e5e5' }};
+    --stat-value-color: {{ section.settings.stat_value_color | default: '#0a0a0a' }};
+    --stat-label-color: {{ section.settings.stat_label_color | default: '#6a6a6a' }};
+    --padding-top: {{ section.settings.padding_top | default: 80 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 80 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | default: 80 | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 80 | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_stats_row.css' | asset_url | stylesheet_tag }}
+
+<section id="cwc_stats-row-{{ section.id }}" class="cwc_stats-row">
+  <div class="cwc_stats-row__container">
+    {% comment %} Section Header (centered for this section) {% endcomment %}
+    <div class="cwc_stats-row__content">
+      {% if section.settings.eyebrow != blank %}
+        <div class="cwc_stats-row__eyebrow">{{ section.settings.eyebrow }}</div>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <div class="cwc_stats-row__content-heading rte">
+          {{ section.settings.heading }}
+        </div>
+      {% endif %}
+    </div>
+
+    {% comment %} Stats Grid {% endcomment %}
+    {% if section.blocks.size > 0 %}
+      <div
+        class="cwc_stats-row__grid"
+        data-stat-count="{{ section.blocks.size }}"
+      >
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'stat' %}
+              <div class="cwc_stats-row__stat" {{ block.shopify_attributes }}>
+                {% if block.settings.value != blank %}
+                  <div class="cwc_stats-row__stat-value">{{ block.settings.value }}</div>
+                {% endif %}
+                {% if block.settings.label != blank %}
+                  <div class="cwc_stats-row__stat-label">{{ block.settings.label }}</div>
+                {% endif %}
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CWC Stats Row",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Label",
+      "default": "04 / The Receipts"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Section Heading",
+      "info": "Wrap any words you want accented in <strong> tags.",
+      "default": "<p>Backed by <strong>real numbers</strong>, not just nice work.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "bold_color",
+      "label": "Heading Highlight Color",
+      "default": "#14a800"
+    },
+    {
+      "type": "color",
+      "id": "rule_color",
+      "label": "Divider Color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "header",
+      "content": "Stat Colors"
+    },
+    {
+      "type": "color",
+      "id": "stat_value_color",
+      "label": "Stat Value Color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "stat_label_color",
+      "label": "Stat Label Color",
+      "default": "#6a6a6a"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Stat Value",
+          "info": "The big number or short label (e.g. '605+', '100%', '4.9★', 'Top Rated+').",
+          "default": "100%"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Stat Label",
+          "info": "Short description below the value (uppercase styling applied automatically).",
+          "default": "Stat description"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "CWC Stats Row",
+      "category": "CWC Custom",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "value": "605+",
+            "label": "Hours on Upwork"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "Job Success Score"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "4.9★",
+            "label": "Across 31 Reviews"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "Top Rated+",
+            "label": "Upwork Status"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

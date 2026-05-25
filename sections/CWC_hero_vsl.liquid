@@ -1,0 +1,357 @@
+{% style %}
+  #cwc_hero-vsl-{{ section.id }} {
+    --section-bg: {{ section.settings.bg_color | default: '#ffffff' }};
+    --text-color: {{ section.settings.text_color | default: '#0a0a0a' }};
+    --highlight-color: {{ section.settings.bold_color | default: '#108a00' }};
+    --button-bg: {{ section.settings.button_bg | default: '#108a00' }};
+    --button-bg-hover: {{ section.settings.button_bg | color_darken: 6 }};
+    /* --button-bg-hover: {{ section.settings.button_bg | default: '#0f7500' }}; */
+    --button-text: {{ section.settings.button_text | default: '#ffffff' }};
+    --rule-color: {{ section.settings.rule_color | default: '#e5e5e5' }};
+    --padding-top: {{ section.settings.padding_top | default: 100 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 100 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | default: 100 | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 100 | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_hero_vsl.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign video_provider = section.settings.video_provider
+  assign shopify_video = section.settings.shopify_video
+  assign loom_url = section.settings.loom_url
+  assign poster_image = section.settings.poster_image
+
+  assign has_shopify_video = false
+  if video_provider == 'shopify' and shopify_video != blank
+    assign has_shopify_video = true
+  endif
+
+  assign has_loom_video = false
+  if video_provider == 'loom' and loom_url != blank
+    assign has_loom_video = true
+  endif
+-%}
+
+<section id="cwc_hero-vsl-{{ section.id }}" class="cwc_hero-vsl">
+  <div>
+
+
+    
+  </div>
+
+  <div class="cwc_hero-vsl__container">
+    <div class="cwc_hero-vsl__grid">
+      {% comment %} Copy Column {% endcomment %}
+      <div class="cwc_hero-vsl__copy">
+        {% if section.settings.eyebrow != blank %}
+          <div class="cwc_hero-vsl__eyebrow cwc-rte">{{ section.settings.eyebrow }}</div>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <div class="cwc_hero-vsl__content-heading cwc-rte">
+            {{ section.settings.heading }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.subtext != blank %}
+          <div class="cwc_hero-vsl__content-subtext cwc-rte">
+            {{ section.settings.subtext }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.cta_label != blank %}
+          <div class="cwc_hero-vsl__cta">
+            <a
+              href="{{ section.settings.cta_url | default: '#' }}"
+              class="cwc_hero-vsl__button"
+              {% if section.settings.cta_new_tab %}
+                target="_blank" rel="noopener"
+              {% endif %}
+            >
+              <span class="cwc_hero-vsl__button-label">{{ section.settings.cta_label }}</span>
+              <svg class="cwc_hero-vsl__button-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+
+            {% if section.settings.trust_text != blank %}
+              <div class="cwc_hero-vsl__trust cwc-rte">{{ section.settings.trust_text }}</div>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      {% comment %} Media Column {% endcomment %}
+      <div class="cwc_hero-vsl__media">
+        <div>social prooff</div>
+
+        <div class="cwc_hero-vsl__media-frame">
+          {% if has_shopify_video %}
+            <div
+              class="cwc_hero-vsl__video-trigger"
+              data-provider="shopify"
+            >
+              {% if poster_image != blank %}
+                <img
+                  class="cwc_hero-vsl__poster"
+                  src="{{ poster_image | image_url: width: 1200 }}"
+                  srcset="
+                    {{ poster_image | image_url: width: 600 }} 600w,
+                    {{ poster_image | image_url: width: 900 }} 900w,
+                    {{ poster_image | image_url: width: 1200 }} 1200w,
+                    {{ poster_image | image_url: width: 1600 }} 1600w
+                  "
+                  sizes="(max-width: 991px) 100vw, 50vw"
+                  alt="{{ poster_image.alt | default: 'Video thumbnail' | escape }}"
+                  width="{{ poster_image.width }}"
+                  height="{{ poster_image.height }}"
+                  loading="eager"
+                >
+              {% elsif shopify_video.preview_image != blank %}
+                <img
+                  class="cwc_hero-vsl__poster"
+                  src="{{ shopify_video.preview_image | image_url: width: 1200 }}"
+                  alt="Video thumbnail"
+                  loading="eager"
+                >
+              {% endif %}
+              <button class="cwc_hero-vsl__play-button" aria-label="Play video" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z" fill="currentColor"/>
+                </svg>
+              </button>
+            </div>
+
+            {% comment %} Video markup deferred in inert template — won't load until user clicks {% endcomment %}
+            <template class="cwc_hero-vsl__video-template">
+              {{
+                shopify_video
+                | video_tag:
+                  image_size: '1200x',
+                  autoplay: true,
+                  controls: true,
+                  loop: false,
+                  muted: false,
+                  playsinline: true,
+                  class: 'cwc_hero-vsl__video'
+              }}
+            </template>
+
+          {% elsif has_loom_video %}
+            <div
+              class="cwc_hero-vsl__video-trigger"
+              data-provider="loom"
+              data-loom-url="{{ loom_url | escape }}"
+            >
+              {% if poster_image != blank %}
+                <img
+                  class="cwc_hero-vsl__poster"
+                  src="{{ poster_image | image_url: width: 1200 }}"
+                  srcset="
+                    {{ poster_image | image_url: width: 600 }} 600w,
+                    {{ poster_image | image_url: width: 900 }} 900w,
+                    {{ poster_image | image_url: width: 1200 }} 1200w,
+                    {{ poster_image | image_url: width: 1600 }} 1600w
+                  "
+                  sizes="(max-width: 991px) 100vw, 50vw"
+                  alt="{{ poster_image.alt | default: 'Video thumbnail' | escape }}"
+                  width="{{ poster_image.width }}"
+                  height="{{ poster_image.height }}"
+                  loading="eager"
+                >
+              {% else %}
+                <div class="cwc_hero-vsl__placeholder">
+                  {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+              {% endif %}
+              <button class="cwc_hero-vsl__play-button" aria-label="Play video" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M8 5v14l11-7z" fill="currentColor"/>
+                </svg>
+              </button>
+            </div>
+
+          {% else %}
+            <div class="cwc_hero-vsl__placeholder">
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div>social prooff</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ 'CWC_hero_vsl.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "CWC Hero VSL",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Label",
+      "info": "Small label above the headline. Use a numeric prefix like '01 / Intro' for an agency feel.",
+      "default": "01 / The Pitch"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Headline",
+      "info": "Wrap the punchline in <strong> tags for the accent color.",
+      "default": "<p>Your Shopify store doesn't have a traffic problem. It has a <strong>conversion problem.</strong></p>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Sub-headline",
+      "default": "<p>High-converting landing pages, funnels, and Shopify CRO for DTC consumer goods brands — built to lift conversion rate, AOV, and revenue per visitor.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button Label",
+      "default": "Message Me on Upwork"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "cta_new_tab",
+      "label": "Open in new tab",
+      "default": false
+    },
+    {
+      "type": "richtext",
+      "id": "trust_text",
+      "label": "Trust Strip",
+      "info": "Small text below the button. Good for credibility line (badges, hours, ratings).",
+      "default": "<p>Top Rated on Upwork · 100% Job Success · 605+ hours · 4.9★ across 31 reviews</p>"
+    },
+    {
+      "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "select",
+      "id": "video_provider",
+      "label": "Video Source",
+      "options": [
+        { "value": "shopify", "label": "Shopify-hosted" },
+        { "value": "loom", "label": "Loom" }
+      ],
+      "default": "shopify"
+    },
+    {
+      "type": "video",
+      "id": "shopify_video",
+      "label": "Shopify Video",
+      "info": "Used when Video Source is set to Shopify-hosted."
+    },
+    {
+      "type": "text",
+      "id": "loom_url",
+      "label": "Loom URL",
+      "info": "Used when Video Source is set to Loom. Paste either the share URL (loom.com/share/...) or embed URL (loom.com/embed/...)."
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_image",
+      "label": "Poster Image",
+      "info": "Optional custom thumbnail shown before the video plays. Falls back to the Shopify video's preview image when not set."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "bold_color",
+      "label": "Heading Highlight Color",
+      "info": "Color applied to <strong> tags inside the headline. Also used for the eyebrow and play button icon.",
+      "default": "#14a800"
+    },
+    {
+      "type": "color",
+      "id": "rule_color",
+      "label": "Rule / Border Color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "header",
+      "content": "Button Colors"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button Background",
+      "default": "#14a800"
+    },
+    {
+      "type": "color",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "CWC Hero VSL",
+      "category": "CWC Custom"
+    }
+  ]
+}
+{% endschema %}

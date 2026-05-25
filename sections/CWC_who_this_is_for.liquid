@@ -1,0 +1,175 @@
+{% style %}
+  #cwc_who-this-is-for-{{ section.id }} {
+    --section-bg: {{ section.settings.bg_color | default: '#ffffff' }};
+    --text-color: {{ section.settings.text_color | default: '#0a0a0a' }};
+    --highlight-color: {{ section.settings.bold_color | default: '#14a800' }};
+    --rule-color: {{ section.settings.rule_color | default: '#e5e5e5' }};
+    --number-color: {{ section.settings.number_color | default: '#cfcfcf' }};
+    --padding-top: {{ section.settings.padding_top | default: 80 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 80 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | default: 80 | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 80 | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_who_this_is_for.css' | asset_url | stylesheet_tag }}
+
+<section id="cwc_who-this-is-for-{{ section.id }}" class="cwc_who-this-is-for">
+  <div class="cwc_who-this-is-for__container">
+    {% comment %} Section Header {% endcomment %}
+    <div class="cwc_who-this-is-for__content">
+      {% if section.settings.eyebrow != blank %}
+        <div class="cwc_who-this-is-for__eyebrow">{{ section.settings.eyebrow }}</div>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <div class="cwc_who-this-is-for__content-heading rte">
+          {{ section.settings.heading }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.subtext != blank %}
+        <div class="cwc_who-this-is-for__content-subtext rte">
+          {{ section.settings.subtext }}
+        </div>
+      {% endif %}
+    </div>
+
+    {% comment %} Qualifier Grid {% endcomment %}
+    {% if section.blocks.size > 0 %}
+      <div class="cwc_who-this-is-for__grid">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'qualifier' %}
+              <div class="cwc_who-this-is-for__item" {{ block.shopify_attributes }}>
+                <div class="cwc_who-this-is-for__item-number">
+                  {{ forloop.index | prepend: '0' | slice: -2, 2 }}
+                </div>
+                {% if block.settings.text != blank %}
+                  <div class="cwc_who-this-is-for__item-text rte">
+                    {{ block.settings.text }}
+                  </div>
+                {% endif %}
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CWC Who This Is For",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Label",
+      "info": "Small label above the heading. Use a numeric prefix like '02 / Fit Check' for the agency feel.",
+      "default": "02 / Who This Is For"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Section Heading",
+      "info": "Wrap any words you want accented in <strong> tags.",
+      "default": "<p>This is built for <strong>you if...</strong></p>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Section Subtext",
+      "info": "Optional. Leave blank to hide.",
+      "default": "<p></p>"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "bold_color",
+      "label": "Heading Highlight Color",
+      "default": "#14a800"
+    },
+    {
+      "type": "color",
+      "id": "rule_color",
+      "label": "Hairline Rule Color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "color",
+      "id": "number_color",
+      "label": "Item Number Color",
+      "info": "Used for the large 01/02/03/04 markers above each qualifier.",
+      "default": "#cfcfcf"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "qualifier",
+      "name": "Qualifier",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Qualifier Text",
+          "info": "Keep it sharp — one sentence or two. The 01 / 02 / 03 number is auto-generated.",
+          "default": "<p>You run a DTC consumer goods brand — skincare, supplements, food & beverage, wellness, home, accessories.</p>"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "CWC Who This Is For",
+      "category": "CWC Custom",
+      "blocks": [{ "type": "qualifier" }, { "type": "qualifier" }, { "type": "qualifier" }, { "type": "qualifier" }]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,241 @@
+/* ==============================
+   CWC Stats Row
+   ============================== */
+
+/* === Section Wrapper === */
+.cwc_stats-row {
+  background-color: var(--section-bg);
+  color: var(--text-color);
+  padding-top: var(--padding-top);
+  padding-bottom: var(--padding-bottom);
+}
+
+.cwc_stats-row__container {
+  max-width: 1300px;
+  ;
+
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* === Section Header (centered for this section) === */
+.cwc_stats-row__content {
+  max-width: 800px;
+  margin: 0 auto 3rem auto;
+  width: 100%;
+  text-align: center;
+}
+
+.cwc_stats-row__eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--highlight-color);
+  margin-bottom: 1.25rem;
+}
+
+.cwc_stats-row__content-heading {
+  margin: 0;
+}
+
+.cwc_stats-row__content-heading h1,
+.cwc_stats-row__content-heading h2,
+.cwc_stats-row__content-heading h3,
+.cwc_stats-row__content-heading p {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: inherit;
+}
+
+.cwc_stats-row__content-heading>* strong {
+  color: var(--highlight-color);
+  font-weight: 700;
+}
+
+/* === Stats Grid === */
+.cwc_stats-row__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--rule-color);
+  border-bottom: 1px solid var(--rule-color);
+}
+
+/* Adjust grid column count based on number of blocks */
+.cwc_stats-row__grid[data-stat-count="1"] {
+  grid-template-columns: 1fr;
+}
+
+.cwc_stats-row__grid[data-stat-count="2"] {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.cwc_stats-row__grid[data-stat-count="3"] {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.cwc_stats-row__grid[data-stat-count="4"] {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.cwc_stats-row__grid[data-stat-count="5"] {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.cwc_stats-row__grid[data-stat-count="6"] {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+/* === Stat Cell === */
+.cwc_stats-row__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2.5rem 1.25rem;
+  border-left: 1px solid var(--rule-color);
+}
+
+.cwc_stats-row__stat:first-child {
+  border-left: none;
+}
+
+.cwc_stats-row__stat-value {
+  font-size: 3.75rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--stat-value-color);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 0.875rem;
+}
+
+.cwc_stats-row__stat-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--stat-label-color);
+  line-height: 1.4;
+}
+
+/* ==============================
+   Tablet Responsive
+   ============================== */
+@media screen and (max-width: 991px) {
+  .cwc_stats-row__container {
+    padding: 0 1.25rem;
+  }
+
+  .cwc_stats-row__content {
+    margin-bottom: 2.5rem;
+  }
+
+  .cwc_stats-row__content-heading h1,
+  .cwc_stats-row__content-heading h2,
+  .cwc_stats-row__content-heading h3,
+  .cwc_stats-row__content-heading p {
+    font-size: 2.125rem;
+  }
+
+  .cwc_stats-row__stat {
+    padding: 2rem 1rem;
+  }
+
+  .cwc_stats-row__stat-value {
+    font-size: 2.75rem;
+  }
+}
+
+/* ==============================
+   Mobile Responsive
+   ============================== */
+@media screen and (max-width: 768px) {
+  .cwc_stats-row {
+    padding-top: var(--padding-top-mobile);
+    padding-bottom: var(--padding-bottom-mobile);
+  }
+
+  .cwc_stats-row__container {
+    padding: 0 1rem;
+  }
+
+  .cwc_stats-row__content {
+    margin-bottom: 2rem;
+  }
+
+  .cwc_stats-row__eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 1rem;
+  }
+
+  .cwc_stats-row__content-heading h1,
+  .cwc_stats-row__content-heading h2,
+  .cwc_stats-row__content-heading h3,
+  .cwc_stats-row__content-heading p {
+    font-size: 1.75rem;
+    letter-spacing: -0.015em;
+  }
+
+  /* All grid counts collapse to 2 columns on mobile (cross-divider layout) */
+  .cwc_stats-row__grid,
+  .cwc_stats-row__grid[data-stat-count="3"],
+  .cwc_stats-row__grid[data-stat-count="4"],
+  .cwc_stats-row__grid[data-stat-count="5"],
+  .cwc_stats-row__grid[data-stat-count="6"] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cwc_stats-row__grid[data-stat-count="1"] {
+    grid-template-columns: 1fr;
+  }
+
+  /* Reset all borders, then apply cross-divider logic */
+  .cwc_stats-row__stat {
+    border-left: none;
+    border-top: 1px solid var(--rule-color);
+    padding: 1.75rem 0.75rem;
+  }
+
+  /* First row of 2-column grid gets no top border (the grid container border handles it) */
+  .cwc_stats-row__grid[data-stat-count="2"] .cwc_stats-row__stat:nth-child(-n+2),
+  .cwc_stats-row__grid[data-stat-count="3"] .cwc_stats-row__stat:nth-child(-n+2),
+  .cwc_stats-row__grid[data-stat-count="4"] .cwc_stats-row__stat:nth-child(-n+2),
+  .cwc_stats-row__grid[data-stat-count="5"] .cwc_stats-row__stat:nth-child(-n+2),
+  .cwc_stats-row__grid[data-stat-count="6"] .cwc_stats-row__stat:nth-child(-n+2) {
+    border-top: none;
+  }
+
+  /* Vertical divider on even-positioned cells (right column) */
+  .cwc_stats-row__stat:nth-child(odd) {
+    border-right: 1px solid var(--rule-color);
+  }
+
+  /* For single-column (1 stat), no vertical divider */
+  .cwc_stats-row__grid[data-stat-count="1"] .cwc_stats-row__stat {
+    border-right: none;
+  }
+
+  .cwc_stats-row__stat-value {
+    font-size: 2.25rem;
+    margin-bottom: 0.625rem;
+  }
+
+  .cwc_stats-row__stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+}
+
+/* === Small Mobile === */
+@media screen and (max-width: 480px) {
+  .cwc_stats-row__stat-value {
+    font-size: 2rem;
+  }
+}

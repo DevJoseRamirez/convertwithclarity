@@ -1,0 +1,303 @@
+{% style %}
+  #cwc_header-{{ section.id }} {
+    --header-bg: {{ section.settings.bg_color | default: '#ffffff' }};
+    --header-text: {{ section.settings.text_color | default: '#0a0a0a' }};
+    --header-link-hover: {{ section.settings.link_hover_color | default: '#14a800' }};
+    --highlight-color: {{ section.settings.bold_color | default: '#14a800' }};
+    --button-bg: {{ section.settings.button_bg | default: '#14a800' }};
+    --button-text: {{ section.settings.button_text | default: '#ffffff' }};
+    --rule-color: {{ section.settings.rule_color | default: '#e5e5e5' }};
+    --logo-width: {{ section.settings.logo_width | default: 120 }}px;
+    --logo-width-mobile: {{ section.settings.logo_width_mobile | default: 100 }}px;
+    --header-padding-y: {{ section.settings.padding_y | default: 18 }}px;
+    --header-padding-y-mobile: {{ section.settings.padding_y | default: 18 | times: 0.85 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_header.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  # Prefer section-level custom logo, fall back to theme settings logo
+  if section.settings.custom_logo != blank
+    assign logo = section.settings.custom_logo
+  else
+    assign logo = settings.logo
+  endif
+
+  assign logo_alt = logo.alt | default: shop.name | escape
+  assign logo_width = section.settings.logo_width | default: 120
+  assign sizes = '(max-width: 768px) ' | append: section.settings.logo_width_mobile | append: 'px, ' | append: logo_width | append: 'px'
+  assign widths = '50, 100, 150, 200, 250, 300, 400, 500, 600'
+  assign logo_aspect = logo.aspect_ratio | default: 1
+  assign logo_height = logo_width | divided_by: logo_aspect
+-%}
+
+<header
+  id="cwc_header-{{ section.id }}"
+  class="cwc_header{% if section.settings.is_sticky %} cwc_header--sticky{% endif %}{% if section.settings.show_border %} cwc_header--bordered{% endif %}"
+>
+  <div class="cwc_header__container">
+    <div class="cwc_header__inner">
+      {% comment %} Logo — Left {% endcomment %}
+      <a href="{{ routes.root_url }}" class="cwc_header__logo" aria-label="{{ shop.name | escape }}">
+        {% if logo != blank %}
+          {{
+            logo
+            | image_url: width: 600
+            | image_tag:
+              class: 'cwc_header__logo-image motion-reduce',
+              widths: widths,
+              height: logo_height,
+              width: logo_width,
+              alt: logo_alt,
+              sizes: sizes,
+              preload: true
+          }}
+        {% else %}
+          <span class="cwc_header__logo-text">{{ shop.name }}</span>
+        {% endif %}
+      </a>
+
+      {% comment %} Navigation — Center {% endcomment %}
+      {% if section.settings.menu != blank and section.settings.menu.links.size > 0 %}
+        <nav class="cwc_header__nav" aria-label="Primary navigation">
+          <ul class="cwc_header__nav-list" role="list">
+            {% for link in section.settings.menu.links %}
+              <li class="cwc_header__nav-item">
+                <a
+                  href="{{ link.url }}"
+                  class="cwc_header__nav-link{% if link.active %} cwc_header__nav-link--active{% endif %}"
+                >
+                  {{ link.title | escape }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      {% endif %}
+
+      {% comment %} Right side actions: CTA + mobile toggle {% endcomment %}
+      <div class="cwc_header__actions">
+        {% if section.settings.cta_label != blank %}
+          <a
+            href="{{ section.settings.cta_url | default: '#' }}"
+            class="cwc_header__button"
+            {% if section.settings.cta_new_tab %}
+              target="_blank" rel="noopener"
+            {% endif %}
+          >
+            {{ section.settings.cta_label | escape }}
+          </a>
+        {% endif %}
+
+        {% if section.settings.menu != blank and section.settings.menu.links.size > 0 %}
+          <button
+            class="cwc_header__menu-toggle"
+            type="button"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="cwc_header__mobile-menu-{{ section.id }}"
+          >
+            <span class="cwc_header__menu-toggle-bar"></span>
+            <span class="cwc_header__menu-toggle-bar"></span>
+            <span class="cwc_header__menu-toggle-bar"></span>
+          </button>
+        {% endif %}
+      </div>
+    </div>
+
+    {% comment %} Mobile menu — collapsible panel {% endcomment %}
+    {% if section.settings.menu != blank and section.settings.menu.links.size > 0 %}
+      <div
+        id="cwc_header__mobile-menu-{{ section.id }}"
+        class="cwc_header__mobile-menu"
+        hidden
+      >
+        <ul class="cwc_header__mobile-nav-list" role="list">
+          {% for link in section.settings.menu.links %}
+            <li class="cwc_header__mobile-nav-item">
+              <a
+                href="{{ link.url }}"
+                class="cwc_header__mobile-nav-link{% if link.active %} cwc_header__mobile-nav-link--active{% endif %}"
+              >
+                {{ link.title | escape }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+
+        {% if section.settings.cta_label != blank %}
+          <a
+            href="{{ section.settings.cta_url | default: '#' }}"
+            class="cwc_header__mobile-button"
+            {% if section.settings.cta_new_tab %}
+              target="_blank" rel="noopener"
+            {% endif %}
+          >
+            {{ section.settings.cta_label | escape }}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</header>
+
+{{ 'CWC_header.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "CWC Header",
+  "tag": "header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_logo",
+      "label": "Logo Image",
+      "info": "Leave blank to use the logo from Theme Settings → Logo."
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo Width (Desktop)",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "logo_width_mobile",
+      "label": "Logo Width (Mobile)",
+      "min": 40,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "info": "Pick a menu from Online Store → Navigation. Keep it to ~3 links for the cleanest layout."
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button Label",
+      "info": "Leave blank to hide the button.",
+      "default": "Message Me on Upwork"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "cta_new_tab",
+      "label": "Open in new tab",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Behavior"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_sticky",
+      "label": "Sticky header",
+      "info": "Header stays fixed at the top when scrolling.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_border",
+      "label": "Show bottom border",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text / Link Color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link Hover Color",
+      "default": "#14a800"
+    },
+    {
+      "type": "color",
+      "id": "bold_color",
+      "label": "Accent Color",
+      "default": "#14a800"
+    },
+    {
+      "type": "color",
+      "id": "rule_color",
+      "label": "Border Color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "header",
+      "content": "Button Colors"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button Background",
+      "default": "#14a800"
+    },
+    {
+      "type": "color",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_y",
+      "label": "Vertical Padding",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    }
+  ],
+  "presets": [
+    {
+      "name": "CWC Header",
+      "category": "CWC Custom"
+    }
+  ]
+}
+{% endschema %}

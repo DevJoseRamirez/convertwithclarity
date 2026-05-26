@@ -99,6 +99,9 @@
   text-align: center;
   padding: 2.5rem 1.25rem;
   border-left: 1px solid var(--rule-color);
+  /* testing */
+  box-shadow: inset 2px 2px 0 -1px hsla(0, 0%, 100%, .4), inset -2px -2px 0 -1px hsla(0, 0%, 100%, .4), inset 20px 15px 40px -10px rgba(0, 0, 0, .2), inset -10px -10px 20px -10px hsla(0, 0%, 100%, .1);
+  border: none;
 }
 
 .cwc_stats-row__stat:first-child {

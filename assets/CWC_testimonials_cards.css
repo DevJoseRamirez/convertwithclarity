@@ -94,6 +94,14 @@
   padding: 2.75rem 2.25rem 2.25rem 2.25rem;
   display: flex;
   flex-direction: column;
+  /* testing */
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  background: rgba(31, 31, 31, .2);
+  border-radius: 16px;
+  box-shadow: inset 2px 2px 0 -1px hsla(0, 0%, 100%, .4), inset -2px -2px 0 -1px hsla(0, 0%, 100%, .4), inset 20px 15px 40px -10px rgba(0, 0, 0, .2), inset -10px -10px 20px -10px hsla(0, 0%, 100%, .1);
+  background: #8080801a;
+
 }
 
 /* === Quote Mark === */

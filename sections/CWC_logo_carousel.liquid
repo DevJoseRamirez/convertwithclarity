@@ -1,6 +1,6 @@
 {% style %}
   #cwc_logo-carousel-{{ section.id }} {
-    --section-bg: {{ section.settings.bg_color | default: '#0a0a0a' }};
+    --section-bg: {{ section.settings.bg_color | default: '#181818' }};
     --text-color: {{ section.settings.text_color | default: '#ffffff' }};
     --highlight-color: {{ section.settings.bold_color | default: '#14a800' }};
     --logo-height: {{ section.settings.logo_height | default: 40 }}px;
@@ -16,7 +16,7 @@
 {{ 'CWC_logo_carousel.css' | asset_url | stylesheet_tag }}
 
 <section
-  id="cwc_logo-carousel-{{ section.id }}"
+  id="cwc_logo-carousel-{{ section.id }}" 
   class="cwc_logo-carousel cwc_logo-carousel--style-{{ section.settings.logo_style | default: 'white' }}{% if section.settings.fade_edges %} cwc_logo-carousel--fade-edges{% endif %}"
 >
   <div class="cwc_logo-carousel__container">
@@ -228,12 +228,12 @@
       "type": "color",
       "id": "bg_color",
       "label": "Background Color",
-      "default": "#0a0a0a"
+      "default": "#181818"
     },
     {
       "type": "color",
       "id": "text_color",
-      "label": "Heading / Text Color",
+      "label": "Text Color",
       "default": "#ffffff"
     },
     {

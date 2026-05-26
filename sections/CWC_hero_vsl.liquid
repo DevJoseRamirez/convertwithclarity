@@ -1,7 +1,7 @@
 {% style %}
   #cwc_hero-vsl-{{ section.id }} {
-    --section-bg: {{ section.settings.bg_color | default: '#ffffff' }};
-    --text-color: {{ section.settings.text_color | default: '#0a0a0a' }};
+    --section-bg: {{ section.settings.bg_color | default: '#181818' }};
+    --text-color: {{ section.settings.text_color | default: '#ffffff' }};
     --highlight-color: {{ section.settings.bold_color | default: '#108a00' }};
     --button-bg: {{ section.settings.button_bg | default: '#108a00' }};
     --button-bg-hover: {{ section.settings.button_bg | color_darken: 6 }};
@@ -35,8 +35,6 @@
 -%}
 
 <section id="cwc_hero-vsl-{{ section.id }}" class="cwc_hero-vsl">
-  <div></div>
-
   <div class="cwc_hero-vsl__container">
     <div class="cwc_hero-vsl__grid">
       {% comment %} Copy Column {% endcomment %}
@@ -78,7 +76,7 @@
                 <div class="cwc_hero-vsl__social-proof-image">
                   {{
                     section.settings.social_proof_image
-                    | image_url: width: 360
+                    | image_url: width: 150
                     | image_tag:
                       class: 'cwc_hero-vsl__social-proof-img',
                       widths: '120, 180, 240, 360, 480',
@@ -219,6 +217,11 @@
       "content": "Section Header"
     },
     {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow Label",
@@ -269,7 +272,7 @@
       "id": "trust_text",
       "label": "Trust Strip",
       "info": "Small text below the button. Good for credibility line (badges, hours, ratings).",
-      "default": "<p>Top Rated on Upwork · 100% Job Success · 605+ hours · 4.9★ across 31 reviews</p>"
+      "default": "<p>400+ hours | 60+ Happy Clients</p>"
     },
     {
       "type": "header",
@@ -311,13 +314,13 @@
       "type": "color",
       "id": "bg_color",
       "label": "Background Color",
-      "default": "#ffffff"
+      "default": "#181818"
     },
     {
       "type": "color",
       "id": "text_color",
       "label": "Text Color",
-      "default": "#0a0a0a"
+      "default": "#ffffff"
     },
     {
       "type": "color",

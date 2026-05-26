@@ -1,6 +1,10 @@
 /* ==============================
    CWC Hero VSL
    ============================== */
+off-body {
+  background-color: #181818 !important;
+  background: #181818 !important;
+}
 
 /* === Section Wrapper === */
 .cwc_hero-vsl {
@@ -12,8 +16,6 @@
 
 .cwc_hero-vsl__container {
   max-width: 1300px;
-  ;
-
   margin: 0 auto;
   padding: 0 2rem;
 }
@@ -46,7 +48,7 @@
 
 /* === Headline === */
 .cwc_hero-vsl__content-heading {
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 1.25rem 0;
   /* margin: 0 0 1rem 0; */
 }
 
@@ -62,23 +64,21 @@
   letter-spacing: -0.02em;
   margin: 0;
   color: inherit;
+  /* testig */
+  font-size: 3.25rem;
+  line-height: 1.2;
 }
 
 .cwc_hero-vsl__content-heading>* strong {
   color: var(--highlight-color);
   font-weight: 700;
-  /*  */
-  /* #094a01, #108401 */
+  /* testing */
+  background: linear-gradient(90deg, #108401, #4df636 32.4%, #1e7c11);
+  margin: 0;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: bold;
 
-  /* background: linear-gradient(90deg, #108401 0%, #094a01 52.4%, #108401 100%); */
-  /* -webkit-background-clip: text; */
-  /* -webkit-text-fill-color: transparent; */
-  /* background-clip: text; */
-  /* margin: 0; */
-  /* background-clip: text; */
-  /* font-weight: inherit; */
-  /* font-weight: bold; */
-  /* width: max-content; */
 }
 
 /* === Sub-headline === */
@@ -94,6 +94,7 @@
   margin: 0;
   color: #343434;
   font-size: 1.25rem;
+  color: var(--text-color);
 }
 
 /* === CTA Block === */
@@ -159,6 +160,7 @@
   font-size: 0.875rem;
   line-height: 1.5;
   color: #6a6a6a;
+  color: var(--text-color);
   margin: 0;
   line-height: 1.1;
   font-size: 0.9rem;
@@ -185,7 +187,7 @@
   box-shadow:
     0 1px 2px rgba(0, 0, 0, 0.04),
     0 12px 32px rgba(0, 0, 0, 0.08);
-  box-shadow: 0 1px 2px #0a4a0179, 0 12px 32px #3d8d3380;
+  /* box-shadow: 0 1px 2px #0a4a0179, 0 12px 32px #3d8d3380; */
 }
 
 .cwc_hero-vsl__video-trigger {

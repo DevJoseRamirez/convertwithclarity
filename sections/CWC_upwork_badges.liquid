@@ -1,0 +1,284 @@
+{% style %}
+  #cwc_upwork-badges-{{ section.id }} {
+    --section-bg: {{ section.settings.bg_color | default: '#181818' }};
+    --text-color: {{ section.settings.text_color | default: '#ffffff' }};
+    --highlight-color: {{ section.settings.bold_color | default: '#14a800' }};
+    --badge-bg: {{ section.settings.badge_bg | default: '#ffffff' }};
+    --badge-border: {{ section.settings.badge_border | default: '#e5e5e5' }};
+    --badge-text: {{ section.settings.badge_text | default: '#0a0a0a' }};
+    --sublabel-color: {{ section.settings.sublabel_color | default: '#6a6a6a' }};
+    --rule-color: {{ section.settings.rule_color | default: '#e5e5e5' }};
+    --padding-top: {{ section.settings.padding_top | default: 20 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 20 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | default: 20 | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 20 | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_upwork_badges.css' | asset_url | stylesheet_tag }}
+
+<section id="cwc_upwork-badges-{{ section.id }}" class="cwc_upwork-badges">
+  <div class="cwc_upwork-badges__container">
+    {% comment %} Optional Section Header {% endcomment %}
+    {% if section.settings.eyebrow != blank or section.settings.heading != blank %}
+      <div class="cwc_upwork-badges__content">
+        {% if section.settings.eyebrow != blank %}
+          <div class="cwc_upwork-badges__eyebrow">{{ section.settings.eyebrow }}</div>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <div class="cwc_upwork-badges__content-heading rte">
+            {{ section.settings.heading }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.subtext != blank %}
+          <div class="cwc_upwork-badges__content-subtext rte">
+            {{ section.settings.subtext }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% comment %} Badges Grid {% endcomment %}
+    {% if section.blocks.size > 0 %}
+      <div
+        class="cwc_upwork-badges__grid"
+        data-badge-count="{{ section.blocks.size }}"
+      >
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'badge' %}
+              {%- liquid
+                assign has_link = false
+                if block.settings.url != blank
+                  assign has_link = true
+                endif
+              -%}
+
+              {% if has_link %}
+                <a
+                  href="{{ block.settings.url }}"
+                  class="cwc_upwork-badges__badge cwc_upwork-badges__badge--linked"
+                  {% if block.settings.url_new_tab %}
+                    target="_blank" rel="noopener"
+                  {% endif %}
+                  {{ block.shopify_attributes }}
+                >
+              {% else %}
+                <div class="cwc_upwork-badges__badge" {{ block.shopify_attributes }}>
+              {% endif %}
+
+              {% if block.settings.icon_svg != blank %}
+                <div class="cwc_upwork-badges__badge-icon" aria-hidden="true">
+                  {{ block.settings.icon_svg }}
+                </div>
+              {% endif %}
+
+              <div class="cwc_upwork-badges__badge-content">
+                {% if block.settings.label != blank %}
+                  <div class="cwc_upwork-badges__badge-label">{{ block.settings.label | escape }}</div>
+                {% endif %}
+                {% if block.settings.sublabel != blank %}
+                  <div class="cwc_upwork-badges__badge-sublabel">{{ block.settings.sublabel | escape }}</div>
+                {% endif %}
+              </div>
+
+              {% if has_link %}
+                </a>
+              {% else %}
+                </div>
+              {% endif %}
+          {% endcase %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CWC Upwork Badges",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "paragraph",
+      "content": "Leave eyebrow and heading blank to show only the badges without any section header."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Label",
+      "info": "Optional. Leave blank to hide."
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Section Heading",
+      "info": "Optional. Wrap accent words in <strong> tags."
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Section Subtext",
+      "info": "Optional. Leave blank to hide."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Header Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#181818"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "bold_color",
+      "label": "Heading Highlight Color",
+      "default": "#14a800"
+    },
+    {
+      "type": "header",
+      "content": "Badge Card Colors"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg",
+      "label": "Badge Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "badge_border",
+      "label": "Badge Border",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "color",
+      "id": "badge_text",
+      "label": "Badge Label Color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "sublabel_color",
+      "label": "Badge Sublabel Color",
+      "default": "#6a6a6a"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Badge",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon_svg",
+          "label": "Icon SVG",
+          "info": "Paste raw SVG markup here. The SVG will display at the size set in the card. Tip: ensure the SVG has its own colors set since the card lets the icon render as-is."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Badge Label",
+          "info": "Main badge text (e.g. '100% Job Success', 'Top Rated').",
+          "default": "Badge Label"
+        },
+        {
+          "type": "text",
+          "id": "sublabel",
+          "label": "Badge Sublabel",
+          "info": "Optional secondary line (e.g. 'Upwork Verified')."
+        },
+        {
+          "type": "header",
+          "content": "Optional Link"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link URL",
+          "info": "Optional. Makes the entire badge card clickable."
+        },
+        {
+          "type": "checkbox",
+          "id": "url_new_tab",
+          "label": "Open in new tab",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "CWC Upwork Badges",
+      "category": "CWC Custom",
+      "blocks": [
+        {
+          "type": "badge",
+          "settings": {
+            "label": "100% Job Success"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "label": "Top Rated"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

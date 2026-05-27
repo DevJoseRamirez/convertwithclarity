@@ -9,76 +9,100 @@
  */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "cwc_header_iCV6X8": {
+      "type": "CWC_header",
+      "name": "CWC Header",
+      "settings": {
+        "logo_width": 120,
+        "logo_width_mobile": 100,
+        "menu": "",
+        "cta_label": "Message Me on Upwork",
+        "cta_url": "",
+        "cta_new_tab": true,
+        "is_sticky": true,
+        "show_border": true,
+        "bg_color": "#181818",
+        "text_color": "#ffffff",
+        "link_hover_color": "#14a800",
+        "bold_color": "#14a800",
+        "rule_color": "#e5e5e5",
+        "button_bg": "#14a800",
+        "button_text": "#ffffff",
+        "padding_y": 18
+      }
+    },
+    "cwc_hero_vsl_UgrxRm": {
+      "type": "CWC_hero_vsl",
+      "name": "CWC Hero VSL",
+      "settings": {
+        "eyebrow": "01 / The Pitch",
+        "heading": "<p>Your Shopify store doesn't have a traffic problem. It has a <strong>conversion problem.</strong></p>",
+        "subtext": "<p>High-converting landing pages, funnels, and Shopify CRO for DTC consumer goods brands — built to lift conversion rate, AOV, and revenue per visitor.</p>",
+        "cta_label": "Message Me on Upwork",
+        "cta_url": "",
+        "cta_new_tab": false,
+        "trust_text": "<p>400+ hours | 60+ Happy Clients</p>",
+        "video_provider": "shopify",
+        "loom_url": "",
+        "bg_color": "#181818",
+        "text_color": "#ffffff",
+        "bold_color": "#14a800",
+        "rule_color": "#e5e5e5",
+        "button_bg": "#14a800",
+        "button_text": "#ffffff",
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    },
+    "cwc_upwork_badges_J8mirr": {
+      "type": "CWC_upwork_badges",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "badge_YkEqEt": {
+          "type": "badge",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "icon_svg": "",
+            "label": "Badge Label",
+            "sublabel": "",
+            "url": "",
+            "url_new_tab": true
           }
         },
-        "button": {
-          "type": "buttons",
+        "badge_egH3ke": {
+          "type": "badge",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "icon_svg": "",
+            "label": "100% Job Success",
+            "sublabel": "",
+            "url": "",
+            "url_new_tab": true
           }
         }
       },
       "block_order": [
-        "heading",
-        "button"
+        "badge_YkEqEt",
+        "badge_egH3ke"
       ],
+      "name": "CWC Upwork Badges",
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
-      }
-    },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
+        "eyebrow": "",
+        "heading": "",
+        "subtext": "",
+        "alignment": "center",
+        "bg_color": "#181818",
+        "text_color": "#ffffff",
+        "bold_color": "#14a800",
+        "badge_bg": "#ffffff",
+        "badge_border": "#e5e5e5",
+        "badge_text": "#0a0a0a",
+        "sublabel_color": "#6a6a6a",
+        "padding_top": 20,
+        "padding_bottom": 20
       }
     }
   },
   "order": [
-    "image_banner",
-    "featured_collection"
+    "cwc_header_iCV6X8",
+    "cwc_hero_vsl_UgrxRm",
+    "cwc_upwork_badges_J8mirr"
   ]
 }

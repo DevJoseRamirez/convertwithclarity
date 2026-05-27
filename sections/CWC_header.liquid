@@ -12,6 +12,10 @@
     --header-padding-y: {{ section.settings.padding_y | default: 18 }}px;
     --header-padding-y-mobile: {{ section.settings.padding_y | default: 18 | times: 0.85 }}px;
   }
+    body, .gradient {
+    background: {{ section.settings.bg_color }} !important;
+    background-color: {{section.settings.bg_color }} !important;
+  }
 {% endstyle %}
 
 {{ 'CWC_header.css' | asset_url | stylesheet_tag }}
@@ -187,6 +191,7 @@
       "type": "link_list",
       "id": "menu",
       "label": "Menu",
+      "default": "main-menu",
       "info": "Pick a menu from Online Store → Navigation. Keep it to ~3 links for the cleanest layout."
     },
     {
@@ -198,7 +203,7 @@
       "id": "cta_label",
       "label": "Button Label",
       "info": "Leave blank to hide the button.",
-      "default": "Message Me on Upwork"
+      "default": "Message Me"
     },
     {
       "type": "url",

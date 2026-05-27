@@ -13,6 +13,15 @@
     --padding-top-mobile: {{ section.settings.padding_top | default: 100 | times: 0.5 }}px;
     --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 100 | times: 0.5 }}px;
   }
+  .cwc_hero-vsl_texture-bg {
+    position: absolute;
+    z-index: -1;
+        width: 100vw;
+    height: 100vh;
+    overflow: visible;
+    top: -3rem;
+    max-width: 100%;
+  }
 {% endstyle %}
 
 {{ 'CWC_hero_vsl.css' | asset_url | stylesheet_tag }}
@@ -33,6 +42,21 @@
     assign has_loom_video = true
   endif
 -%}
+
+<div>
+  {{
+    section.settings.bg_image
+    | image_url: width: 600
+    | image_tag:
+      class: 'cwc_hero-vsl_texture-bg',
+      widths: widths,
+      height: logo_height,
+      width: logo_width,
+      alt: logo_alt,
+      sizes: sizes,
+      preload: true
+  }}
+</div>
 
 <section id="cwc_hero-vsl-{{ section.id }}" class="cwc_hero-vsl">
   <div class="cwc_hero-vsl__container">
@@ -104,7 +128,7 @@
 
       {% comment %} Media Column {% endcomment %}
       <div class="cwc_hero-vsl__media">
-        <div>social prooff</div>
+        {% comment %} <div>social prooff</div> {% endcomment %}
 
         <div class="cwc_hero-vsl__media-frame">
           {% if has_shopify_video %}
@@ -199,7 +223,7 @@
           {% endif %}
         </div>
 
-        <div>social prooff</div>
+        {% comment %} <div>social prooff</div> {% endcomment %}
       </div>
     </div>
   </div>

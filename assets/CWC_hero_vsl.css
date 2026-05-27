@@ -1,10 +1,6 @@
 /* ==============================
    CWC Hero VSL
    ============================== */
-off-body {
-  background-color: #181818 !important;
-  background: #181818 !important;
-}
 
 /* === Section Wrapper === */
 .cwc_hero-vsl {
@@ -12,6 +8,8 @@ off-body {
   color: var(--text-color);
   padding-top: var(--padding-top);
   padding-bottom: var(--padding-bottom);
+  /* testing */
+  background: none;
 }
 
 .cwc_hero-vsl__container {
@@ -163,7 +161,7 @@ off-body {
   color: var(--text-color);
   margin: 0;
   line-height: 1.1;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 /* === Media Column === */
@@ -182,6 +180,7 @@ off-body {
   width: 100%;
   aspect-ratio: 16 / 9;
   border-radius: 12px;
+  border-radius: 8px;
   overflow: hidden;
   background-color: #f4f4f4;
   box-shadow:
@@ -280,7 +279,7 @@ off-body {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  gap: 6px;
+  gap: 8px;
 }
 
 .cwc_hero-vsl__social-proof_content-wrap {

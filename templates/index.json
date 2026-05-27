@@ -13,10 +13,11 @@
       "type": "CWC_header",
       "name": "CWC Header",
       "settings": {
-        "logo_width": 120,
-        "logo_width_mobile": 100,
-        "menu": "",
-        "cta_label": "Message Me on Upwork",
+        "custom_logo": "shopify://shop_images/convert_with_clarity_logo_white.png",
+        "logo_width": 300,
+        "logo_width_mobile": 200,
+        "menu": "main-menu",
+        "cta_label": "Message Me",
         "cta_url": "",
         "cta_new_tab": true,
         "is_sticky": true,
@@ -35,12 +36,14 @@
       "type": "CWC_hero_vsl",
       "name": "CWC Hero VSL",
       "settings": {
-        "eyebrow": "01 / The Pitch",
+        "bg_image": "shopify://shop_images/Group_24_1.png",
+        "eyebrow": "",
         "heading": "<p>Your Shopify store doesn't have a traffic problem. It has a <strong>conversion problem.</strong></p>",
         "subtext": "<p>High-converting landing pages, funnels, and Shopify CRO for DTC consumer goods brands — built to lift conversion rate, AOV, and revenue per visitor.</p>",
         "cta_label": "Message Me on Upwork",
         "cta_url": "",
         "cta_new_tab": false,
+        "social_proof_image": "shopify://shop_images/profilt_social_iamge.png",
         "trust_text": "<p>400+ hours | 60+ Happy Clients</p>",
         "video_provider": "shopify",
         "loom_url": "",
@@ -51,23 +54,156 @@
         "button_bg": "#14a800",
         "button_text": "#ffffff",
         "padding_top": 100,
-        "padding_bottom": 100
+        "padding_bottom": 50
       }
     },
-    "cwc_upwork_badges_J8mirr": {
-      "type": "CWC_upwork_badges",
+    "cwc_logo_carousel_JcVN78": {
+      "type": "CWC_logo_carousel",
       "blocks": {
-        "badge_YkEqEt": {
-          "type": "badge",
+        "logo_tdzVNT": {
+          "type": "logo",
           "settings": {
-            "icon_svg": "",
-            "label": "Badge Label",
-            "sublabel": "",
+            "image": "shopify://shop_images/logo-white-01.png",
+            "alt": "",
             "url": "",
             "url_new_tab": true
           }
         },
-        "badge_egH3ke": {
+        "logo_giQNJM": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/logo-white-02.png",
+            "alt": "",
+            "url": "",
+            "url_new_tab": true
+          }
+        },
+        "logo_9nYGFX": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/logo-white-03.png",
+            "alt": "",
+            "url": "",
+            "url_new_tab": true
+          }
+        },
+        "logo_qxgPih": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/logo-white-04.png",
+            "alt": "",
+            "url": "",
+            "url_new_tab": true
+          }
+        },
+        "logo_FYK88U": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/logo-white-05.png",
+            "alt": "",
+            "url": "",
+            "url_new_tab": true
+          }
+        },
+        "logo_6mXBcC": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/logo-white-06.png",
+            "alt": "",
+            "url": "",
+            "url_new_tab": true
+          }
+        },
+        "logo_pNWETi": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/logo-white-07.png",
+            "alt": "",
+            "url": "",
+            "url_new_tab": true
+          }
+        },
+        "logo_hMqFjA": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/logo-white-08.png",
+            "alt": "",
+            "url": "",
+            "url_new_tab": true
+          }
+        },
+        "logo_QapRMr": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/logo-white-09.png",
+            "alt": "",
+            "url": "",
+            "url_new_tab": true
+          }
+        },
+        "logo_DgBwx6": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/logo-white-10.png",
+            "alt": "",
+            "url": "",
+            "url_new_tab": true
+          }
+        },
+        "logo_QkMG8y": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/logo-white-11.png",
+            "alt": "",
+            "url": "",
+            "url_new_tab": true
+          }
+        },
+        "logo_dT7BUX": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/logo-white-12.png",
+            "alt": "",
+            "url": "",
+            "url_new_tab": true
+          }
+        }
+      },
+      "block_order": [
+        "logo_tdzVNT",
+        "logo_giQNJM",
+        "logo_9nYGFX",
+        "logo_qxgPih",
+        "logo_FYK88U",
+        "logo_6mXBcC",
+        "logo_pNWETi",
+        "logo_hMqFjA",
+        "logo_QapRMr",
+        "logo_DgBwx6",
+        "logo_QkMG8y",
+        "logo_dT7BUX"
+      ],
+      "name": "CWC Logo Carousel",
+      "settings": {
+        "eyebrow": "",
+        "heading": "<p>Trusted by <strong>DTC brands</strong> you might know</p>",
+        "scroll_speed": 90,
+        "pause_on_hover": true,
+        "fade_edges": true,
+        "logo_style": "white",
+        "logo_height": 36,
+        "logo_gap": 48,
+        "bg_color": "#181818",
+        "text_color": "#ffffff",
+        "bold_color": "#14a800",
+        "padding_top": 30,
+        "padding_bottom": 80
+      }
+    },
+    "cwc_upwork_badges_W8LABb": {
+      "type": "CWC_upwork_badges",
+      "blocks": {
+        "badge_Haj3zN": {
           "type": "badge",
           "settings": {
             "icon_svg": "",
@@ -76,11 +212,21 @@
             "url": "",
             "url_new_tab": true
           }
+        },
+        "badge_mmeD96": {
+          "type": "badge",
+          "settings": {
+            "icon_svg": "",
+            "label": "Top Rated",
+            "sublabel": "",
+            "url": "",
+            "url_new_tab": true
+          }
         }
       },
       "block_order": [
-        "badge_YkEqEt",
-        "badge_egH3ke"
+        "badge_Haj3zN",
+        "badge_mmeD96"
       ],
       "name": "CWC Upwork Badges",
       "settings": {
@@ -93,7 +239,7 @@
         "bold_color": "#14a800",
         "badge_bg": "#ffffff",
         "badge_border": "#e5e5e5",
-        "badge_text": "#0a0a0a",
+        "badge_text": "#ffffff",
         "sublabel_color": "#6a6a6a",
         "padding_top": 20,
         "padding_bottom": 20
@@ -103,6 +249,7 @@
   "order": [
     "cwc_header_iCV6X8",
     "cwc_hero_vsl_UgrxRm",
-    "cwc_upwork_badges_J8mirr"
+    "cwc_logo_carousel_JcVN78",
+    "cwc_upwork_badges_W8LABb"
   ]
 }

@@ -5,7 +5,7 @@
     --highlight-color: {{ section.settings.bold_color | default: '#14a800' }};
     --badge-bg: {{ section.settings.badge_bg | default: '#ffffff' }};
     --badge-border: {{ section.settings.badge_border | default: '#e5e5e5' }};
-    --badge-text: {{ section.settings.badge_text | default: '#0a0a0a' }};
+    --badge-text: {{ section.settings.badge_text | default: '#ffffff' }};
     --sublabel-color: {{ section.settings.sublabel_color | default: '#6a6a6a' }};
     --rule-color: {{ section.settings.rule_color | default: '#e5e5e5' }};
     --padding-top: {{ section.settings.padding_top | default: 20 }}px;
@@ -69,11 +69,17 @@
                 <div class="cwc_upwork-badges__badge" {{ block.shopify_attributes }}>
               {% endif %}
 
-              {% if block.settings.icon_svg != blank %}
-                <div class="cwc_upwork-badges__badge-icon" aria-hidden="true">
-                  {{ block.settings.icon_svg }}
-                </div>
-              {% endif %}
+              <div class="cwc_upwork-badges__badge-icon" aria-hidden="true">
+                {% if forloop.index0 == 0 %}
+                  {% render 'CWC_icon-upwork_job_success' %}
+                {% elsif forloop.index0 == 1 %}
+                  {% render 'CWC_icon-upwork_top_rated' %}
+                {% else %}
+                  {% if block.settings.icon_svg != blank %}
+                    {{ block.settings.icon_svg }}
+                  {% endif %}
+                {% endif %}
+              </div>
 
               <div class="cwc_upwork-badges__badge-content">
                 {% if block.settings.label != blank %}
@@ -183,7 +189,7 @@
       "type": "color",
       "id": "badge_text",
       "label": "Badge Label Color",
-      "default": "#0a0a0a"
+      "default": "#ffffff"
     },
     {
       "type": "color",

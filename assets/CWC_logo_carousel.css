@@ -9,6 +9,8 @@
   padding-top: var(--padding-top);
   padding-bottom: var(--padding-bottom);
   overflow: hidden;
+  /* teseting */
+  background: none;
 }
 
 .cwc_logo-carousel__container {
@@ -49,6 +51,8 @@
   letter-spacing: -0.005em;
   margin: 0;
   color: inherit;
+  /* tesing */
+  font-size: 1.25rem;
 }
 
 .cwc_logo-carousel__content-heading>* strong {

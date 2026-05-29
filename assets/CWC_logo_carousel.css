@@ -58,6 +58,9 @@
 .cwc_logo-carousel__content-heading>* strong {
   color: var(--highlight-color);
   font-weight: 700;
+  background: linear-gradient(90deg, #108401, #4df636 32.4%, #1e7c11);
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* === Marquee Strip === */

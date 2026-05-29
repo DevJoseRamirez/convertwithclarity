@@ -22,7 +22,7 @@
         "cta_new_tab": true,
         "is_sticky": true,
         "show_border": true,
-        "bg_color": "#181818",
+        "bg_color": "#000000",
         "text_color": "#ffffff",
         "link_hover_color": "#14a800",
         "bold_color": "#14a800",
@@ -36,7 +36,7 @@
       "type": "CWC_hero_vsl",
       "name": "CWC Hero VSL",
       "settings": {
-        "bg_image": "shopify://shop_images/Group_24_1.png",
+        "bg_image": "shopify://shop_images/Group_39.png",
         "eyebrow": "",
         "heading": "<p>Your Shopify store doesn't have a traffic problem. It has a <strong>conversion problem.</strong></p>",
         "subtext": "<p>High-converting landing pages, funnels, and Shopify CRO for DTC consumer goods brands — built to lift conversion rate, AOV, and revenue per visitor.</p>",
@@ -54,7 +54,7 @@
         "button_bg": "#14a800",
         "button_text": "#ffffff",
         "padding_top": 100,
-        "padding_bottom": 50
+        "padding_bottom": 60
       }
     },
     "cwc_logo_carousel_JcVN78": {
@@ -191,13 +191,13 @@
         "pause_on_hover": true,
         "fade_edges": true,
         "logo_style": "white",
-        "logo_height": 36,
+        "logo_height": 44,
         "logo_gap": 48,
         "bg_color": "#181818",
         "text_color": "#ffffff",
         "bold_color": "#14a800",
-        "padding_top": 30,
-        "padding_bottom": 80
+        "padding_top": 40,
+        "padding_bottom": 60
       }
     },
     "cwc_upwork_badges_W8LABb": {

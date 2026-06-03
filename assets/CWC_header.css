@@ -99,6 +99,8 @@
   display: flex;
   align-items: center;
   gap: 3rem;
+  /*  */
+  margin-top: -3px;
 }
 
 .cwc_header__nav-item {
@@ -353,6 +355,10 @@
    Mobile Responsive
    ============================== */
 @media screen and (max-width: 768px) {
+  .cwc_header {
+    margin-top: 1.5rem;
+  }
+
   .cwc_header__container {
     padding: 0 1rem;
   }

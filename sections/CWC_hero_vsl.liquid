@@ -43,20 +43,22 @@
   endif
 -%}
 
-<div>
-  {{
-    section.settings.bg_image
-    | image_url: width: 600
-    | image_tag:
-      class: 'cwc_hero-vsl_texture-bg',
-      widths: widths,
-      height: logo_height,
-      width: logo_width,
-      alt: logo_alt,
-      sizes: sizes,
-      preload: true
-  }}
-</div>
+{% if section.settings.bg_image %}
+  <div>
+    {{
+      section.settings.bg_image
+      | image_url: width: 600
+      | image_tag:
+        class: 'cwc_hero-vsl_texture-bg',
+        widths: widths,
+        height: logo_height,
+        width: logo_width,
+        alt: logo_alt,
+        sizes: sizes,
+        preload: true
+    }}
+  </div>
+{% endif %}
 
 <section id="cwc_hero-vsl-{{ section.id }}" class="cwc_hero-vsl">
   <div class="cwc_hero-vsl__container">
@@ -338,7 +340,7 @@
       "type": "color",
       "id": "bg_color",
       "label": "Background Color",
-      "default": "#181818"
+      "default": "#000000"
     },
     {
       "type": "color",

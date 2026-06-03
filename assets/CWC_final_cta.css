@@ -10,6 +10,9 @@
   padding-bottom: var(--padding-bottom);
   position: relative;
   overflow: hidden;
+  /*  */
+  background: none;
+  /* overflow: visible; */
 }
 
 
@@ -150,6 +153,13 @@
 
 .cwc_final-cta__content-heading>* strong {
   color: var(--highlight-color);
+  font-weight: 700;
+  color: var(--highlight-color);
+  background: linear-gradient(90deg, #108401, #4df636 32.4%, #1e7c11);
+  background: linear-gradient(90deg, #108401, #4df636 69.4%, #1e7c11);
+  margin: 0;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   font-weight: 700;
 }
 

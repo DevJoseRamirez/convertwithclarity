@@ -4,7 +4,7 @@
     --text-color: {{ section.settings.text_color | default: '#ffffff' }};
     --highlight-color: {{ section.settings.bold_color | default: '#14a800' }};
     --rule-color: {{ section.settings.rule_color | default: '#e5e5e5' }};
-    --number-color: {{ section.settings.number_color | default: '#cfcfcf' }};
+    --number-color: {{ section.settings.number_color | default: '#818184' }};
     --padding-top: {{ section.settings.padding_top | default: 80 }}px;
     --padding-bottom: {{ section.settings.padding_bottom | default: 80 }}px;
     --padding-top-mobile: {{ section.settings.padding_top | default: 80 | times: 0.5 }}px;
@@ -47,6 +47,11 @@
                 </div>
                 {% if block.settings.text != blank %}
                   <div class="cwc_who-this-is-for__item-text rte">
+                    {% comment %}
+                      <div class="cwc_who-this-is-for__item-stage rte">
+                        Step {{ forloop.index | prepend: '0' | slice: -2, 2 }}
+                      </div>
+                    {% endcomment %}
                     {{ block.settings.text }}
                   </div>
                 {% endif %}
@@ -96,7 +101,7 @@
       "type": "color",
       "id": "bg_color",
       "label": "Background Color",
-      "default": "#181818"
+      "default": "#000000"
     },
     {
       "type": "color",
@@ -121,7 +126,7 @@
       "id": "number_color",
       "label": "Item Number Color",
       "info": "Used for the large 01/02/03/04 markers above each qualifier.",
-      "default": "#cfcfcf"
+      "default": "#818184"
     },
     {
       "type": "header",

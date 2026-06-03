@@ -16,7 +16,7 @@
 {{ 'CWC_logo_carousel.css' | asset_url | stylesheet_tag }}
 
 <section
-  id="cwc_logo-carousel-{{ section.id }}" 
+  id="cwc_logo-carousel-{{ section.id }}"
   class="cwc_logo-carousel cwc_logo-carousel--style-{{ section.settings.logo_style | default: 'white' }}{% if section.settings.fade_edges %} cwc_logo-carousel--fade-edges{% endif %}"
 >
   <div class="cwc_logo-carousel__container">
@@ -166,7 +166,7 @@
       "label": "Scroll Duration",
       "info": "Time for one full loop. Higher = slower scroll.",
       "min": 15,
-      "max": 90,
+      "max": 190,
       "step": 5,
       "unit": "s",
       "default": 40
@@ -228,7 +228,7 @@
       "type": "color",
       "id": "bg_color",
       "label": "Background Color",
-      "default": "#181818"
+      "default": "#000000"
     },
     {
       "type": "color",

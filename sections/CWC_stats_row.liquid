@@ -4,7 +4,7 @@
     --text-color: {{ section.settings.text_color | default: '#ffffff' }};
     --highlight-color: {{ section.settings.bold_color | default: '#14a800' }};
     --rule-color: {{ section.settings.rule_color | default: '#e5e5e5' }};
-    --stat-value-color: {{ section.settings.stat_value_color | default: '#0a0a0a' }};
+    --stat-value-color: {{ section.settings.stat_value_color | default: '#ffffff' }};
     --stat-label-color: {{ section.settings.stat_label_color | default: '#6a6a6a' }};
     --padding-top: {{ section.settings.padding_top | default: 80 }}px;
     --padding-bottom: {{ section.settings.padding_bottom | default: 80 }}px;
@@ -16,6 +16,30 @@
 {{ 'CWC_stats_row.css' | asset_url | stylesheet_tag }}
 
 <section id="cwc_stats-row-{{ section.id }}" class="cwc_stats-row">
+  {% if section.settings.bg_image %}
+    <div class="cwc_stats-row__bg-overlay">
+      <div class="cwc_stats-row-spotlight cwc-top_center">head center</div>
+      {% comment %} <div class="cwc_stats-row-spotlight cwc-top_center-white">head center</div> {% endcomment %}
+
+      <div class="cwc_stats-row__bg-overlay-img">
+        {{
+          section.settings.bg_image
+          | image_url: width: 600
+          | image_tag:
+            class: 'cwc_stats-row_texture-bg',
+            widths: widths,
+            height: logo_height,
+            width: logo_width,
+            alt: logo_alt,
+            sizes: sizes,
+            preload: true
+        }}
+      </div>
+    </div>
+  {% endif %}
+
+  {% comment %} <div class="cwc_stats-row-spotlight cwc-right">bottom right</div> {% endcomment %}
+
   <div class="cwc_stats-row__container">
     {% comment %} Section Header (centered for this section) {% endcomment %}
     <div class="cwc_stats-row__content">
@@ -64,6 +88,11 @@
       "content": "Section Header"
     },
     {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow Label",
@@ -84,7 +113,7 @@
       "type": "color",
       "id": "bg_color",
       "label": "Background Color",
-      "default": "#181818"
+      "default": "#000000"
     },
     {
       "type": "color",
@@ -112,7 +141,7 @@
       "type": "color",
       "id": "stat_value_color",
       "label": "Stat Value Color",
-      "default": "#0a0a0a"
+      "default": "#ffffff"
     },
     {
       "type": "color",

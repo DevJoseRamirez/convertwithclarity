@@ -187,11 +187,11 @@
       "settings": {
         "eyebrow": "",
         "heading": "<p>Trusted by <strong>DTC brands</strong> you might know</p>",
-        "scroll_speed": 90,
+        "scroll_speed": 190,
         "pause_on_hover": true,
         "fade_edges": true,
         "logo_style": "white",
-        "logo_height": 44,
+        "logo_height": 48,
         "logo_gap": 48,
         "bg_color": "#181818",
         "text_color": "#ffffff",
@@ -244,12 +244,236 @@
         "padding_top": 20,
         "padding_bottom": 20
       }
+    },
+    "cwc_who_this_is_for_pMqhGw": {
+      "type": "CWC_who_this_is_for",
+      "blocks": {
+        "qualifier_8L7nCL": {
+          "type": "qualifier",
+          "settings": {
+            "text": "<p>You run a DTC consumer goods brand — skincare, supplements, food & beverage, wellness, home, accessories.</p>"
+          }
+        },
+        "qualifier_whTGPY": {
+          "type": "qualifier",
+          "settings": {
+            "text": "<p>You run a DTC consumer goods brand — skincare, supplements, food & beverage, wellness, home, accessories.</p>"
+          }
+        },
+        "qualifier_kPFBNY": {
+          "type": "qualifier",
+          "settings": {
+            "text": "<p>You run a DTC consumer goods brand — skincare, supplements, food & beverage, wellness, home, accessories.</p>"
+          }
+        },
+        "qualifier_kXMMKN": {
+          "type": "qualifier",
+          "settings": {
+            "text": "<p>You run a DTC consumer goods brand — skincare, supplements, food & beverage, wellness, home, accessories.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "qualifier_8L7nCL",
+        "qualifier_whTGPY",
+        "qualifier_kPFBNY",
+        "qualifier_kXMMKN"
+      ],
+      "name": "CWC Who This Is For",
+      "settings": {
+        "eyebrow": "",
+        "heading": "<p>This is built for <strong>you if...</strong></p>",
+        "subtext": "",
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
+        "bold_color": "#14a800",
+        "rule_color": "#e5e5e5",
+        "number_color": "#cfcfcf",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "cwc_services_cards_9BLJha": {
+      "type": "CWC_services_cards",
+      "blocks": {
+        "service_FUGmap": {
+          "type": "service",
+          "settings": {
+            "title": "<p>Service Title</p>",
+            "text": "<p>Description of the service goes here. Keep it tight and focused on the outcome.</p>",
+            "link_label": "",
+            "link_url": "",
+            "link_new_tab": false
+          }
+        },
+        "service_K3BjeR": {
+          "type": "service",
+          "settings": {
+            "title": "<p>Service Title</p>",
+            "text": "<p>Description of the service goes here. Keep it tight and focused on the outcome.</p>",
+            "link_label": "",
+            "link_url": "",
+            "link_new_tab": false
+          }
+        },
+        "service_aQg9Py": {
+          "type": "service",
+          "settings": {
+            "title": "<p>Service Title</p>",
+            "text": "<p>Description of the service goes here. Keep it tight and focused on the outcome.</p>",
+            "link_label": "",
+            "link_url": "",
+            "link_new_tab": false
+          }
+        }
+      },
+      "block_order": [
+        "service_FUGmap",
+        "service_K3BjeR",
+        "service_aQg9Py"
+      ],
+      "name": "CWC Services Cards",
+      "settings": {
+        "eyebrow": "",
+        "heading": "<p>Three ways I help brands convert more.</p>",
+        "subtext": "",
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
+        "bold_color": "#14a800",
+        "rule_color": "#e5e5e5",
+        "number_color": "#cfcfcf",
+        "link_color": "#0a0a0a",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "cwc_stats_row_kNGpqB": {
+      "type": "CWC_stats_row",
+      "blocks": {
+        "stat_M9pLcU": {
+          "type": "stat",
+          "settings": {
+            "value": "605+",
+            "label": "Hours on Upwork"
+          }
+        },
+        "stat_t6xQkT": {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "Job Success Score"
+          }
+        },
+        "stat_haaG3J": {
+          "type": "stat",
+          "settings": {
+            "value": "4.9★",
+            "label": "Across 31 Reviews"
+          }
+        },
+        "stat_YcY7Ma": {
+          "type": "stat",
+          "settings": {
+            "value": "Top Rated+",
+            "label": "Upwork Status"
+          }
+        }
+      },
+      "block_order": [
+        "stat_M9pLcU",
+        "stat_t6xQkT",
+        "stat_haaG3J",
+        "stat_YcY7Ma"
+      ],
+      "name": "CWC Stats Row",
+      "settings": {
+        "bg_image": "shopify://shop_images/grid_texture.png",
+        "eyebrow": "",
+        "heading": "<p>Backed by <strong>real numbers</strong>, not just nice work.</p>",
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
+        "bold_color": "#14a800",
+        "rule_color": "#e5e5e5",
+        "stat_value_color": "#ffffff",
+        "stat_label_color": "#e5e5e5",
+        "padding_top": 120,
+        "padding_bottom": 80
+      }
+    },
+    "cwc_testimonials_cards_aKXKGz": {
+      "type": "CWC_testimonials_cards",
+      "blocks": {
+        "testimonial_bGURfU": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>Jose is by far the best freelancer we've worked with for our Shopify store. Technically savvy, efficient, and a great communicator. He went above and beyond.</p>",
+            "author": "Upwork Client",
+            "role": "Shopify Store Owner"
+          }
+        },
+        "testimonial_WxiEeG": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>Very responsive and got the job done right the first time with very little input. Listens well and executes on schedule.</p>",
+            "author": "Upwork Client",
+            "role": "DTC Brand Founder"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_bGURfU",
+        "testimonial_WxiEeG"
+      ],
+      "name": "CWC Testimonials Cards",
+      "settings": {
+        "eyebrow": "",
+        "heading": "<p>What clients <strong>have said.</strong></p>",
+        "subtext": "",
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
+        "bold_color": "#14a800",
+        "rule_color": "#e5e5e5",
+        "card_bg": "#f7f7f7",
+        "quote_mark_color": "#d4d4d4",
+        "attribution_color": "#6a6a6a",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "cwc_final_cta_MiW4cn": {
+      "type": "CWC_final_cta",
+      "name": "CWC Final CTA",
+      "settings": {
+        "eyebrow": "",
+        "scarcity_text": "Currently taking on 2 new clients this month",
+        "heading": "<p>Ready to see what your store is <strong>actually capable of?</strong></p>",
+        "subtext": "<p>Send me a message on Upwork. I'll take a look at your store, tell you straight whether I think I can help, and what I'd focus on first. No fluff, no upsell — just a real answer.</p>",
+        "cta_label": "Message Me on Upwork",
+        "cta_url": "",
+        "cta_new_tab": true,
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
+        "bold_color": "#14a800",
+        "subtext_color": "#b8b8b8",
+        "button_bg": "#14a800",
+        "button_text": "#ffffff",
+        "scarcity_bg": "#1a1a1a",
+        "scarcity_text_color": "#ffffff",
+        "scarcity_dot_color": "#14a800",
+        "padding_top": 60,
+        "padding_bottom": 80
+      }
     }
   },
   "order": [
     "cwc_header_iCV6X8",
     "cwc_hero_vsl_UgrxRm",
     "cwc_logo_carousel_JcVN78",
-    "cwc_upwork_badges_W8LABb"
+    "cwc_upwork_badges_W8LABb",
+    "cwc_who_this_is_for_pMqhGw",
+    "cwc_services_cards_9BLJha",
+    "cwc_stats_row_kNGpqB",
+    "cwc_testimonials_cards_aKXKGz",
+    "cwc_final_cta_MiW4cn"
   ]
 }

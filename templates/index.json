@@ -186,7 +186,7 @@
       "name": "CWC Logo Carousel",
       "settings": {
         "eyebrow": "",
-        "heading": "<p>Trusted by <strong>DTC brands</strong> you might know</p>",
+        "heading": "<h3>Trusted by <strong>DTC brands</strong> you might know</h3>",
         "scroll_speed": 190,
         "pause_on_hover": true,
         "fade_edges": true,
@@ -198,6 +198,63 @@
         "bold_color": "#14a800",
         "padding_top": 40,
         "padding_bottom": 60
+      }
+    },
+    "cwc_problem_agitation_jFJxhg": {
+      "type": "CWC_problem_agitation",
+      "blocks": {
+        "problem_3eHCUM": {
+          "type": "problem",
+          "settings": {
+            "title": "<p>Pain Point Title</p>",
+            "text": "<p>Describe the specific pain point your customer is feeling. Make it concrete and recognizable so they nod along.</p>",
+            "link_label": "",
+            "link_url": "",
+            "link_new_tab": false
+          }
+        },
+        "problem_UfrhBT": {
+          "type": "problem",
+          "settings": {
+            "title": "<p>Pain Point Title</p>",
+            "text": "<p>Describe the specific pain point your customer is feeling. Make it concrete and recognizable so they nod along.</p>",
+            "link_label": "",
+            "link_url": "",
+            "link_new_tab": false
+          }
+        },
+        "problem_dYfcpy": {
+          "type": "problem",
+          "settings": {
+            "title": "<p>Pain Point Title</p>",
+            "text": "<p>Describe the specific pain point your customer is feeling. Make it concrete and recognizable so they nod along.</p>",
+            "link_label": "",
+            "link_url": "",
+            "link_new_tab": false
+          }
+        }
+      },
+      "block_order": [
+        "problem_3eHCUM",
+        "problem_UfrhBT",
+        "problem_dYfcpy"
+      ],
+      "name": "CWC Problem Agitation",
+      "settings": {
+        "eyebrow": "",
+        "heading": "<h2>The 3 Biggest Challenges</h2><h2>Growing DTC Brands Face.</h2>",
+        "subtext": "",
+        "card_padding": 32,
+        "card_radius": 0,
+        "bg_color": "#0a0a0a",
+        "card_bg": "#ffffff",
+        "text_color": "#ffffff",
+        "bold_color": "#14a800",
+        "rule_color": "#e5e5e0",
+        "number_color": "#8a8a85",
+        "link_color": "#0a0a0a",
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "cwc_upwork_badges_W8LABb": {
@@ -228,6 +285,7 @@
         "badge_Haj3zN",
         "badge_mmeD96"
       ],
+      "disabled": true,
       "name": "CWC Upwork Badges",
       "settings": {
         "eyebrow": "",
@@ -437,6 +495,69 @@
         "quote_mark_color": "#d4d4d4",
         "attribution_color": "#6a6a6a",
         "padding_top": 80,
+        "padding_bottom": 60
+      }
+    },
+    "cwc_faq_PqgtL6": {
+      "type": "CWC_faq",
+      "blocks": {
+        "faq_item_cWBrhX": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Frequently asked question",
+            "answer": "<p>Your concise, helpful answer goes here. Keep it focused and clear.</p>"
+          }
+        },
+        "faq_item_iRA66c": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Frequently asked question",
+            "answer": "<p>Your concise, helpful answer goes here. Keep it focused and clear.</p>"
+          }
+        },
+        "faq_item_wbACph": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Frequently asked question",
+            "answer": "<p>Your concise, helpful answer goes here. Keep it focused and clear.</p>"
+          }
+        },
+        "faq_item_Lw7BP3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Frequently asked question",
+            "answer": "<p>Your concise, helpful answer goes here. Keep it focused and clear.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_cWBrhX",
+        "faq_item_iRA66c",
+        "faq_item_wbACph",
+        "faq_item_Lw7BP3"
+      ],
+      "name": "CWC FAQ",
+      "settings": {
+        "bg_image": "shopify://shop_images/image_78.png",
+        "eyebrow": "",
+        "heading": "<h2>Frequently Asked Questions</h2>",
+        "subtext": "",
+        "item_radius": 14,
+        "item_padding_x": 24,
+        "item_padding_y": 20,
+        "bg_color": "#000000",
+        "eyebrow_color": "#3f8060",
+        "heading_color": "#ffffff",
+        "bold_color": "#14a800",
+        "subtext_color": "#ffffff",
+        "item_bg": "#ffffff",
+        "item_border": "#e1e0d2",
+        "item_border_hover": "rgba(0,0,0,0)",
+        "item_question_color": "#0a0a0a",
+        "item_answer_color": "#121212",
+        "item_chevron_color": "#8a8a85",
+        "item_answer_divider": "#e5e5e5",
+        "padding_top": 140,
         "padding_bottom": 80
       }
     },
@@ -469,11 +590,13 @@
     "cwc_header_iCV6X8",
     "cwc_hero_vsl_UgrxRm",
     "cwc_logo_carousel_JcVN78",
+    "cwc_problem_agitation_jFJxhg",
     "cwc_upwork_badges_W8LABb",
     "cwc_who_this_is_for_pMqhGw",
     "cwc_services_cards_9BLJha",
     "cwc_stats_row_kNGpqB",
     "cwc_testimonials_cards_aKXKGz",
+    "cwc_faq_PqgtL6",
     "cwc_final_cta_MiW4cn"
   ]
 }

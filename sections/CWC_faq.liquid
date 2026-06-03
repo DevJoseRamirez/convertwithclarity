@@ -1,0 +1,335 @@
+{% style %}
+  #cwc_faq-{{ section.id }} {
+    --section-bg: {{ section.settings.bg_color | default: '#F7F5EC' }};
+    --eyebrow-color: {{ section.settings.eyebrow_color | default: '#3F8060' }};
+    --heading-color: {{ section.settings.heading_color | default: '#0C3B2C' }};
+    --highlight-color: {{ section.settings.bold_color | default: '#3F8060' }};
+    --subtext-color: {{ section.settings.subtext_color | default: '#343434' }};
+    --item-bg: {{ section.settings.item_bg | default: '#FFFFFF' }};
+    --item-border: {{ section.settings.item_border | default: '#E1E0D2' }};
+    --item-border-hover: {{ section.settings.item_border_hover | default: '#C9C8B6' }};
+    --item-radius: {{ section.settings.item_radius | default: 14 }}px;
+    --item-padding-x: {{ section.settings.item_padding_x | default: 24 }}px;
+    --item-padding-y: {{ section.settings.item_padding_y | default: 20 }}px;
+    --item-question-color: {{ section.settings.item_question_color | default: '#0C3B2C' }};
+    --item-answer-color: {{ section.settings.item_answer_color | default: '#343434' }};
+    --item-chevron-color: {{ section.settings.item_chevron_color | default: '#3F8060' }};
+    --item-answer-divider: {{ section.settings.item_answer_divider | default: '#EAE8DA' }};
+    --padding-top: {{ section.settings.padding_top | default: 80 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 80 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | default: 80 | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 80 | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_faq.css' | asset_url | stylesheet_tag }}
+
+{% comment %}
+  IMAGE BACKGOURND
+  - at the same level as the main content container
+   - so just below the first sectoin here
+{% endcomment %}
+<section
+  id="cwc_faq-{{ section.id }}"
+  class="cwc_faq"
+  data-section-id="{{ section.id }}"
+>
+  {% if section.settings.bg_image %}
+    <div class="cwc_faq-overlay">
+      {% comment %} <div class="cwc_stats-row-spotlight cwc-top_center">head center</div> {% endcomment %}
+      {% comment %} <div class="cwc_stats-row-spotlight cwc-top_center-white">head center</div> {% endcomment %}
+
+      <div class="cwc_faq-overlay-img">
+        {{
+          section.settings.bg_image
+          | image_url: width: 600
+          | image_tag:
+            class: 'cwc_faq_texture-bg',
+            widths: widths,
+            height: logo_height,
+            width: logo_width,
+            alt: logo_alt,
+            sizes: sizes,
+            preload: true
+        }}
+      </div>
+    </div>
+  {% endif %}
+  <div class="cwc_faq__container">
+    {%- comment -%} ===== Centered Header ===== {%- endcomment -%}
+    {% if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.subtext != blank %}
+      <div class="cwc_faq__header">
+        {% if section.settings.eyebrow != blank %}
+          <span class="cwc_faq__eyebrow">{{ section.settings.eyebrow }}</span>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <div class="cwc_faq__heading cwc-rte">{{ section.settings.heading }}</div>
+        {% endif %}
+
+        {% if section.settings.subtext != blank %}
+          <div class="cwc_faq__subtext cwc-rte">{{ section.settings.subtext }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {%- comment -%} ===== FAQ Items ===== {%- endcomment -%}
+    {% if section.blocks.size > 0 %}
+      <div class="cwc_faq__items">
+        {% for block in section.blocks %}
+          {% if block.type == 'faq_item' %}
+            {%- assign panel_id = 'cwc_faq-panel-' | append: section.id | append: '-' | append: block.id -%}
+            {%- assign btn_id = 'cwc_faq-btn-' | append: section.id | append: '-' | append: block.id -%}
+
+            <div class="cwc_faq__item" {{ block.shopify_attributes }}>
+              <h3 class="cwc_faq__item-heading">
+                <button
+                  type="button"
+                  class="cwc_faq__question"
+                  id="{{ btn_id }}"
+                  aria-expanded="false"
+                  aria-controls="{{ panel_id }}"
+                >
+                  <span class="cwc_faq__question-text">
+                    {{ block.settings.question }}
+                  </span>
+                  <span class="cwc_faq__chevron" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                      <path d="M3.5 5.75 8 10.25l4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                </button>
+              </h3>
+
+              <div
+                id="{{ panel_id }}"
+                class="cwc_faq__answer"
+                role="region"
+                aria-labelledby="{{ btn_id }}"
+                hidden
+              >
+                <div class="cwc_faq__answer-inner cwc-rte">
+                  {{ block.settings.answer }}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{{ 'CWC_faq.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "CWC FAQ",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "FAQS"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<h2>Frequently Asked Questions</h2>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Items"
+    },
+    {
+      "type": "range",
+      "id": "item_radius",
+      "label": "Item corner radius",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "item_padding_x",
+      "label": "Item padding (horizontal)",
+      "min": 12,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "item_padding_y",
+      "label": "Item padding (vertical)",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#F7F5EC"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#3F8060"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#0C3B2C"
+    },
+    {
+      "type": "color",
+      "id": "bold_color",
+      "label": "Highlight (bold) color",
+      "default": "#3F8060"
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Subtext color",
+      "default": "#343434"
+    },
+    {
+      "type": "header",
+      "content": "Item Colors"
+    },
+    {
+      "type": "color",
+      "id": "item_bg",
+      "label": "Item background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "item_border",
+      "label": "Item border",
+      "default": "#E1E0D2"
+    },
+    {
+      "type": "color",
+      "id": "item_border_hover",
+      "label": "Item border (hover/active)",
+      "default": "#C9C8B6"
+    },
+    {
+      "type": "color",
+      "id": "item_question_color",
+      "label": "Question text color",
+      "default": "#0C3B2C"
+    },
+    {
+      "type": "color",
+      "id": "item_answer_color",
+      "label": "Answer text color",
+      "default": "#343434"
+    },
+    {
+      "type": "color",
+      "id": "item_chevron_color",
+      "label": "Chevron color",
+      "default": "#3F8060"
+    },
+    {
+      "type": "color",
+      "id": "item_answer_divider",
+      "label": "Answer divider line",
+      "default": "#EAE8DA"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Frequently asked question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Your concise, helpful answer goes here. Keep it focused and clear.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CWC FAQ",
+      "category": "CWC Custom",
+      "blocks": [
+        {
+          "type": "faq_item"
+        },
+        {
+          "type": "faq_item"
+        },
+        {
+          "type": "faq_item"
+        },
+        {
+          "type": "faq_item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

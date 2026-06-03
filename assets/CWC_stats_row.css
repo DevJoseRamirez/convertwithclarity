@@ -37,6 +37,7 @@
   margin: auto;
   position: absolute;
   top: -25rem;
+  filter: blur(2px);
 }
 
 .cwc_stats-row_texture-bg {

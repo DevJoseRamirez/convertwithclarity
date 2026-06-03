@@ -40,6 +40,9 @@
 .cwc_final-cta-spotlight.cwc-left {
   top: -101px;
   left: -107px;
+  /*  */
+  top: 74px;
+  left: -160px;
 }
 
 .cwc_final-cta-spotlight.cwc-right {
@@ -88,6 +91,8 @@
   font-weight: 500;
   margin-bottom: 1.75rem;
   letter-spacing: -0.005em;
+  box-shadow: inset 2px 2px 0 -1px #fff6, inset -2px -2px 0 -1px #fff6, inset 20px 15px 40px -10px #0003, inset -10px -10px 20px -10px #ffffff1a;
+  background: #8080801a;
 }
 
 /* === Pulsing Dot === */

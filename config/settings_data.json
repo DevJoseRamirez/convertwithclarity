@@ -11,9 +11,9 @@
   "current": {
     "logo_width": 90,
     "favicon": "shopify://shop_images/convert_with_clarity_favicon.png",
-    "type_header_font": "assistant_n4",
+    "type_header_font": "montserrat_n6",
     "heading_scale": 100,
-    "type_body_font": "assistant_n4",
+    "type_body_font": "montserrat_n5",
     "body_scale": 100,
     "page_width": 1200,
     "spacing_sections": 0,

@@ -109,8 +109,9 @@
 
 .cwc_header__nav-link {
   display: inline-block;
-  font-size: 0.9375rem;
   font-size: 1rem;
+  font-size: 0.9375rem;
+  font-size: 0.9rem;
   font-weight: 500;
   color: var(--header-text);
   text-decoration: none;

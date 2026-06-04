@@ -1,0 +1,304 @@
+/* ==============================
+   CWC How We Win
+   ============================== */
+
+/* === Section Wrapper === */
+.cwc_how-we-win {
+  background-color: var(--section-bg);
+  color: var(--text-color);
+  padding-top: var(--padding-top);
+  padding-bottom: var(--padding-bottom);
+}
+
+.cwc_how-we-win__container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* === Section Header (centered, editorial) === */
+.cwc_how-we-win__content {
+  max-width: 900px;
+  margin: 0 auto 3.5rem auto;
+  width: 100%;
+  text-align: center;
+}
+
+.cwc_how-we-win__eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--highlight-color);
+  margin-bottom: 1.25rem;
+}
+
+.cwc_how-we-win__content-heading {
+  margin: 0 0 1.25rem 0;
+}
+
+.cwc_how-we-win__content-heading h1,
+.cwc_how-we-win__content-heading h2,
+.cwc_how-we-win__content-heading h3,
+.cwc_how-we-win__content-heading p {
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0;
+  color: inherit;
+}
+
+.cwc_how-we-win__content-heading>* strong {
+  color: var(--highlight-color);
+  font-weight: 700;
+}
+
+.cwc_how-we-win__content-subtext {
+  margin: 0 auto;
+  max-width: 720px;
+}
+
+.cwc_how-we-win__content-subtext p {
+  font-size: 1.0625rem;
+  font-style: italic;
+  line-height: 1.6;
+  margin: 0;
+  color: var(--subtext-color);
+}
+
+.cwc_how-we-win__content-subtext p+p {
+  margin-top: 0.5rem;
+}
+
+/* === Cards Grid === */
+.cwc_how-we-win__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+
+/* === Card === */
+.cwc_how-we-win__card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--card-bg);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* cwc_how-we-win__card-spotlight */
+/* === Card Spotlight Glow (bottom-right ambient) === */
+.cwc_how-we-win__card-spotlight {
+  position: absolute;
+  bottom: -43px;
+  right: -43px;
+  width: 145px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: var(--spotlight-color);
+  opacity: var(--spotlight-opacity);
+  background-color: #14a800d1;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* All card content sits above the spotlight */
+.cwc_how-we-win__card>*:not(.cwc_how-we-win__card-spotlight) {
+  position: relative;
+  z-index: 1;
+}
+
+/* === Card Icon (top-left) === */
+.cwc_how-we-win__card-icon {
+  margin-bottom: 1.5rem;
+  line-height: 0;
+}
+
+.cwc_how-we-win__card-icon-img {
+  display: block;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  object-fit: contain;
+}
+
+/* === Card Title === */
+.cwc_how-we-win__card-title {
+  margin: 0 0 0.875rem 0;
+}
+
+.cwc_how-we-win__card-title p {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--card-title-color);
+}
+
+.cwc_how-we-win__card-title>* strong {
+  color: var(--highlight-color);
+}
+
+/* === Card Body Text === */
+.cwc_how-we-win__card-text {
+  margin: 0 0 0 0;
+}
+
+.cwc_how-we-win__card-text p {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  margin: 0;
+  color: var(--card-text-color);
+}
+
+.cwc_how-we-win__card-text p+p {
+  margin-top: 0.75rem;
+}
+
+/* === Card Link (pushed to bottom via auto margin) === */
+.cwc_how-we-win__card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--link-color);
+  text-decoration: none;
+  letter-spacing: -0.005em;
+  transition: color 0.2s ease;
+  align-self: flex-start;
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.cwc_how-we-win__card-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 1.4rem;
+  bottom: 0;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s ease;
+}
+
+.cwc_how-we-win__card-link:hover {
+  color: var(--highlight-color);
+}
+
+.cwc_how-we-win__card-link:hover::after {
+  transform: scaleX(1);
+}
+
+.cwc_how-we-win__card-link:focus-visible {
+  outline: 2px solid var(--highlight-color);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.cwc_how-we-win__card-link-arrow {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.cwc_how-we-win__card-link:hover .cwc_how-we-win__card-link-arrow {
+  transform: translateX(3px);
+}
+
+/* ==============================
+   Tablet Responsive
+   ============================== */
+@media screen and (max-width: 991px) {
+  .cwc_how-we-win__container {
+    padding: 0 1.25rem;
+  }
+
+  .cwc_how-we-win__content {
+    margin-bottom: 2.75rem;
+  }
+
+  .cwc_how-we-win__content-heading h1,
+  .cwc_how-we-win__content-heading h2,
+  .cwc_how-we-win__content-heading h3,
+  .cwc_how-we-win__content-heading p {
+    font-size: 2.25rem;
+  }
+
+  .cwc_how-we-win__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .cwc_how-we-win__card-title p {
+    font-size: 1.1875rem;
+  }
+}
+
+/* ==============================
+   Mobile Responsive
+   ============================== */
+@media screen and (max-width: 768px) {
+  .cwc_how-we-win {
+    padding-top: var(--padding-top-mobile);
+    padding-bottom: var(--padding-bottom-mobile);
+  }
+
+  .cwc_how-we-win__container {
+    padding: 0 1rem;
+  }
+
+  .cwc_how-we-win__content {
+    margin-bottom: 2rem;
+  }
+
+  .cwc_how-we-win__eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 1rem;
+  }
+
+  .cwc_how-we-win__content-heading h1,
+  .cwc_how-we-win__content-heading h2,
+  .cwc_how-we-win__content-heading h3,
+  .cwc_how-we-win__content-heading p {
+    font-size: 1.875rem;
+    letter-spacing: -0.01em;
+  }
+
+  .cwc_how-we-win__content-subtext p {
+    font-size: 1rem;
+  }
+
+  .cwc_how-we-win__grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .cwc_how-we-win__card-title p {
+    font-size: 1.1875rem;
+  }
+}
+
+/* === Reduced Motion === */
+@media (prefers-reduced-motion: reduce) {
+
+  .cwc_how-we-win__card-link,
+  .cwc_how-we-win__card-link::after,
+  .cwc_how-we-win__card-link-arrow {
+    transition: none;
+  }
+
+  .cwc_how-we-win__card-link:hover .cwc_how-we-win__card-link-arrow {
+    transform: none;
+  }
+}

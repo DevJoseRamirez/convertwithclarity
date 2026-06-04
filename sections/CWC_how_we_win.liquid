@@ -1,0 +1,339 @@
+{% style %}
+  #cwc_how-we-win-{{ section.id }} {
+    --section-bg: {{ section.settings.bg_color | default: '#0A0A0A' }};
+    --text-color: {{ section.settings.text_color | default: '#FFFFFF' }};
+    --highlight-color: {{ section.settings.bold_color | default: '#FEC42D' }};
+    --subtext-color: {{ section.settings.subtext_color | default: '#D8D8D8' }};
+    --card-bg: {{ section.settings.card_bg | default: '#FFFEF5' }};
+    --card-text-color: {{ section.settings.card_text_color | default: '#0A0A0A' }};
+    --card-title-color: {{ section.settings.card_title_color | default: '#0A0A0A' }};
+    --card-padding: {{ section.settings.card_padding | default: 32 }}px;
+    --card-radius: {{ section.settings.card_radius | default: 14 }}px;
+    --icon-size: {{ section.settings.icon_size | default: 36 }}px;
+    --spotlight-color: {{ section.settings.spotlight_color | default: '#FEC42D' }};
+    --spotlight-opacity: {{ section.settings.spotlight_opacity | default: 60 | divided_by: 100.0 }};
+    --link-color: {{ section.settings.link_color | default: '#0A0A0A' }};
+    --padding-top: {{ section.settings.padding_top | default: 80 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 80 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | default: 80 | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 80 | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_how_we_win.css' | asset_url | stylesheet_tag }}
+
+<section id="cwc_how-we-win-{{ section.id }}" class="cwc_how-we-win">
+  <div class="cwc_how-we-win__container">
+    {% comment %} Section Header (centered) {% endcomment %}
+    <div class="cwc_how-we-win__content">
+      {% if section.settings.eyebrow != blank %}
+        <div class="cwc_how-we-win__eyebrow">{{ section.settings.eyebrow }}</div>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <div class="cwc_how-we-win__content-heading rte">
+          {{ section.settings.heading }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.subtext != blank %}
+        <div class="cwc_how-we-win__content-subtext rte">
+          {{ section.settings.subtext }}
+        </div>
+      {% endif %}
+    </div>
+
+    {% comment %} Cards Grid {% endcomment %}
+    {% if section.blocks.size > 0 %}
+      <div class="cwc_how-we-win__grid">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'reason' %}
+              <div class="cwc_how-we-win__card" {{ block.shopify_attributes }}>
+                {% if section.settings.show_spotlight %}
+                  <div class="cwc_how-we-win__card-spotlight" aria-hidden="true">d</div>
+                {% endif %}
+
+                {% if block.settings.icon != blank %}
+                  <div class="cwc_how-we-win__card-icon">
+                    {{
+                      block.settings.icon
+                      | image_url: width: 120
+                      | image_tag: loading: 'lazy', class: 'cwc_how-we-win__card-icon-img', alt: block.settings.icon.alt
+                      | default: ''
+                    }}
+                  </div>
+                {% endif %}
+
+                {% if block.settings.title != blank %}
+                  <div class="cwc_how-we-win__card-title rte">
+                    {{ block.settings.title }}
+                  </div>
+                {% endif %}
+
+                {% if block.settings.text != blank %}
+                  <div class="cwc_how-we-win__card-text rte">
+                    {{ block.settings.text }}
+                  </div>
+                {% endif %}
+
+                {% if block.settings.link_label != blank and block.settings.link_url != blank %}
+                  <a
+                    href="{{ block.settings.link_url }}"
+                    class="cwc_how-we-win__card-link"
+                    {% if block.settings.link_new_tab %}
+                      target="_blank" rel="noopener"
+                    {% endif %}
+                  >
+                    <span class="cwc_how-we-win__card-link-label">{{ block.settings.link_label }}</span>
+                    <svg
+                      class="cwc_how-we-win__card-link-arrow"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </a>
+                {% endif %}
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CWC How We Win",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Label",
+      "info": "Optional. Leave blank to hide."
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Section Heading",
+      "info": "Wrap accent words in <strong> tags.",
+      "default": "<p>Why Our System <strong>Delivers Results</strong> Others Can't</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Section Subtext",
+      "info": "Optional. Leave blank to hide.",
+      "default": "<p>Discover why our customers choose our proven system for results that actually scale without the typical struggles.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Card Layout"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card Padding",
+      "min": 16,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card Corner Radius",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon Size",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Card Spotlight Glow"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_spotlight",
+      "label": "Show spotlight glow on cards",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "spotlight_color",
+      "label": "Spotlight Color",
+      "default": "#FEC42D"
+    },
+    {
+      "type": "range",
+      "id": "spotlight_opacity",
+      "label": "Spotlight Opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Heading Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "bold_color",
+      "label": "Heading Highlight Color",
+      "default": "#FEC42D"
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Subtext Color",
+      "default": "#D8D8D8"
+    },
+    {
+      "type": "header",
+      "content": "Card Colors"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card Background",
+      "default": "#FFFEF5"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card Title Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card Body Text Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Card Link Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "reason",
+      "name": "Reason Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon",
+          "info": "Upload an SVG or PNG (already in the desired color). Sized via section setting."
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Card Title",
+          "default": "<p>Reason Title</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Card Description",
+          "default": "<p>Explain the specific benefit or differentiator here. Be concrete and outcome-focused.</p>"
+        },
+        {
+          "type": "header",
+          "content": "Optional Link"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link Label",
+          "info": "Leave blank to hide the link."
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        },
+        {
+          "type": "checkbox",
+          "id": "link_new_tab",
+          "label": "Open in new tab",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "max_blocks": 9,
+  "presets": [
+    {
+      "name": "CWC How We Win",
+      "category": "CWC Custom",
+      "blocks": [
+        { "type": "reason" },
+        { "type": "reason" },
+        { "type": "reason" },
+        { "type": "reason" },
+        { "type": "reason" },
+        { "type": "reason" }
+      ]
+    }
+  ]
+}
+{% endschema %}

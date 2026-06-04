@@ -50,6 +50,17 @@
         </div>
       {% endif %}
 
+      {% if section.settings.bullet_text != blank %}
+        <div class="cwc_final-cta__content-bullet_content rte">
+          <div class="cwc_final-cta__content-bullet_content-title rte">
+            {{ section.settings.bullet_title }}
+          </div>
+          <div class="cwc_final-cta__content-bullet_content-bullets rte">
+            {{ section.settings.bullet_text }}
+          </div>
+        </div>
+      {% endif %}
+
       {% if section.settings.cta_label != blank %}
         <a
           href="{{ section.settings.cta_url | default: '#' }}"
@@ -103,6 +114,16 @@
       "id": "subtext",
       "label": "Subtext",
       "default": "<p>Send me a message on Upwork. I'll take a look at your store, tell you straight whether I think I can help, and what I'd focus on first. No fluff, no upsell — just a real answer.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "bullet_title",
+      "label": "Bullet Title"
+    },
+    {
+      "type": "richtext",
+      "id": "bullet_text",
+      "label": "Bullet text"
     },
     {
       "type": "header",

@@ -47,10 +47,10 @@
                 </div>
                 {% if block.settings.text != blank %}
                   <div class="cwc_who-this-is-for__item-text rte">
+                    <div class="cwc_who-this-is-for__item-stage rte">
+                      Step {{ forloop.index | prepend: '0' | slice: -2, 2 }}
+                    </div>
                     {% comment %}
-                      <div class="cwc_who-this-is-for__item-stage rte">
-                        Step {{ forloop.index | prepend: '0' | slice: -2, 2 }}
-                      </div>
                     {% endcomment %}
                     {{ block.settings.text }}
                   </div>

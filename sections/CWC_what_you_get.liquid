@@ -1,0 +1,371 @@
+{% style %}
+  #cwc_what-you-get-{{ section.id }} {
+    --section-bg: {{ section.settings.bg_color | default: '#0A0A0A' }};
+    --text-color: {{ section.settings.text_color | default: '#FFFFFF' }};
+    --highlight-color: {{ section.settings.bold_color | default: '#FEC42D' }};
+    --subtext-color: {{ section.settings.subtext_color | default: '#D8D8D8' }};
+    --card-bg: {{ section.settings.card_bg | default: '#FFFEF5' }};
+    --card-title-color: {{ section.settings.card_title_color | default: '#0A0A0A' }};
+    --card-body-color: {{ section.settings.card_body_color | default: '#0A0A0A' }};
+    --card-bullet-color: {{ section.settings.card_bullet_color | default: '#0A0A0A' }};
+    --card-padding: {{ section.settings.card_padding | default: 32 }}px;
+    --card-radius: {{ section.settings.card_radius | default: 14 }}px;
+    --icon-size: {{ section.settings.icon_size | default: 32 }}px;
+    --spotlight-color: {{ section.settings.spotlight_color | default: '#FEC42D' }};
+    --spotlight-opacity: {{ section.settings.spotlight_opacity | default: 60 | divided_by: 100.0 }};
+    --cta-bg: {{ section.settings.cta_bg | default: '#E53935' }};
+    --cta-bg-hover: {{ section.settings.cta_bg_hover | default: '#C62828' }};
+    --cta-text: {{ section.settings.cta_text | default: '#FFFFFF' }};
+    --padding-top: {{ section.settings.padding_top | default: 80 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 80 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | default: 80 | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 80 | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_what_you_get.css' | asset_url | stylesheet_tag }}
+
+<section id="cwc_what-you-get-{{ section.id }}" class="cwc_what-you-get">
+  <div class="cwc_what-you-get__container">
+    {% comment %} Section Header (left-aligned) {% endcomment %}
+    {% if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.subtext != blank %}
+      <div class="cwc_what-you-get__content">
+        {% if section.settings.eyebrow != blank %}
+          <div class="cwc_what-you-get__eyebrow">{{ section.settings.eyebrow }}</div>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <div class="cwc_what-you-get__content-heading rte">
+            {{ section.settings.heading }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.subtext != blank %}
+          <div class="cwc_what-you-get__content-subtext rte">
+            {{ section.settings.subtext }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% comment %} Cards Grid {% endcomment %}
+    {% if section.blocks.size > 0 %}
+      <div class="cwc_what-you-get__grid">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'feature' %}
+              <div class="cwc_what-you-get__card" {{ block.shopify_attributes }}>
+                {% if section.settings.show_spotlight %}
+                  <div class="cwc_what-you-get__card-spotlight" aria-hidden="true">x</div>
+                {% endif %}
+
+                <div class="cwc_what-you-get__card-head">
+                  {% if block.settings.icon != blank %}
+                    <div class="cwc_what-you-get__card-icon">
+                      {{
+                        block.settings.icon
+                        | image_url: width: 120
+                        | image_tag:
+                          loading: 'lazy',
+                          class: 'cwc_what-you-get__card-icon-img',
+                          alt: block.settings.icon.alt
+                        | default: ''
+                      }}
+                    </div>
+                  {% endif %}
+
+                  {% if block.settings.title != blank %}
+                    <div class="cwc_what-you-get__card-title rte">
+                      {{ block.settings.title }}
+                    </div>
+                  {% endif %}
+                </div>
+
+                {% if block.settings.body != blank %}
+                  <div class="cwc_what-you-get__card-body rte">
+                    {{ block.settings.body }}
+                  </div>
+                {% endif %}
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% comment %} Bottom CTA Button {% endcomment %}
+    {% if section.settings.show_cta and section.settings.cta_label != blank %}
+      <div class="cwc_what-you-get__cta-wrap">
+        <a
+          href="{{ section.settings.cta_url | default: '#' }}"
+          class="cwc_what-you-get__cta"
+          {% if section.settings.cta_new_tab %}
+            target="_blank" rel="noopener"
+          {% endif %}
+        >
+          <span class="cwc_what-you-get__cta-label">{{ section.settings.cta_label }}</span>
+          <svg class="cwc_what-you-get__button-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          {% comment %}
+            <span class="cwc_what-you-get__cta-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          {% endcomment %}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CWC What You Get",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Label",
+      "info": "Optional. Leave blank to hide."
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Section Heading",
+      "info": "Wrap accent words in <strong> tags.",
+      "default": "<p>What You <strong>Get</strong></p>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Section Subtext",
+      "info": "Optional. Leave blank to hide."
+    },
+    {
+      "type": "header",
+      "content": "Card Layout"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card Padding",
+      "min": 16,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card Corner Radius",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon Size",
+      "min": 20,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Card Spotlight Glow"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_spotlight",
+      "label": "Show spotlight glow on cards",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "spotlight_color",
+      "label": "Spotlight Color",
+      "default": "#FEC42D"
+    },
+    {
+      "type": "range",
+      "id": "spotlight_opacity",
+      "label": "Spotlight Opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Bottom CTA Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA Label",
+      "default": "Get Started Today - Book Your Free Call"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "cta_new_tab",
+      "label": "Open in new tab",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "cta_bg",
+      "label": "CTA Background",
+      "default": "#E53935"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg_hover",
+      "label": "CTA Background (hover)",
+      "default": "#C62828"
+    },
+    {
+      "type": "color",
+      "id": "cta_text",
+      "label": "CTA Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Heading Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "bold_color",
+      "label": "Heading Highlight Color",
+      "default": "#FEC42D"
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Subtext Color",
+      "default": "#D8D8D8"
+    },
+    {
+      "type": "header",
+      "content": "Card Colors"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card Background",
+      "default": "#FFFEF5"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card Title Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "card_body_color",
+      "label": "Card Body Text Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "card_bullet_color",
+      "label": "Bullet Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon",
+          "info": "Upload an SVG or PNG (already in the desired color). Sized via section setting."
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Card Title",
+          "default": "<p>Feature Title</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Card Body",
+          "info": "Use the bullet list button to add bulleted items.",
+          "default": "<ul><li>First key benefit or deliverable</li><li>Second key benefit or deliverable</li><li>Third key benefit or deliverable</li></ul>"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "CWC What You Get",
+      "category": "CWC Custom",
+      "blocks": [{ "type": "feature" }, { "type": "feature" }, { "type": "feature" }, { "type": "feature" }]
+    }
+  ]
+}
+{% endschema %}

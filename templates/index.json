@@ -18,7 +18,7 @@
         "logo_width_mobile": 200,
         "menu": "main-menu",
         "cta_label": "Message Me",
-        "cta_url": "",
+        "cta_url": "https://www.upwork.com/freelancers/joseshopify",
         "cta_new_tab": true,
         "is_sticky": true,
         "show_border": true,
@@ -41,7 +41,7 @@
         "heading": "<p>Your Shopify store doesn't have a traffic problem. It has a <strong>conversion problem.</strong></p>",
         "subtext": "<p>High-converting landing pages, funnels, and Shopify CRO for DTC consumer goods brands — built to lift conversion rate, AOV, and revenue per visitor.</p>",
         "cta_label": "Message Me on Upwork",
-        "cta_url": "",
+        "cta_url": "https://www.upwork.com/freelancers/joseshopify",
         "cta_new_tab": false,
         "social_proof_image": "shopify://shop_images/profilt_social_iamge.png",
         "trust_text": "<p>400+ hours | 60+ Happy Clients</p>",
@@ -53,7 +53,7 @@
         "rule_color": "#e5e5e5",
         "button_bg": "#14a800",
         "button_text": "#ffffff",
-        "padding_top": 100,
+        "padding_top": 80,
         "padding_bottom": 60
       }
     },
@@ -196,7 +196,7 @@
         "bg_color": "#181818",
         "text_color": "#ffffff",
         "bold_color": "#14a800",
-        "padding_top": 40,
+        "padding_top": 20,
         "padding_bottom": 60
       }
     },
@@ -254,6 +254,218 @@
         "number_color": "#8a8a85",
         "link_color": "#0a0a0a",
         "padding_top": 80,
+        "padding_bottom": 0
+      }
+    },
+    "cwc_how_we_win_z97xND": {
+      "type": "CWC_how_we_win",
+      "blocks": {
+        "reason_E3UV3P": {
+          "type": "reason",
+          "settings": {
+            "title": "<p>Reason Title</p>",
+            "text": "<p>Explain the specific benefit or differentiator here. Be concrete and outcome-focused.</p>",
+            "link_label": "",
+            "link_url": "",
+            "link_new_tab": false
+          }
+        },
+        "reason_iedxaV": {
+          "type": "reason",
+          "settings": {
+            "title": "<p>Reason Title</p>",
+            "text": "<p>Explain the specific benefit or differentiator here. Be concrete and outcome-focused.</p>",
+            "link_label": "",
+            "link_url": "",
+            "link_new_tab": false
+          }
+        },
+        "reason_HPXHPy": {
+          "type": "reason",
+          "settings": {
+            "title": "<p>Reason Title</p>",
+            "text": "<p>Explain the specific benefit or differentiator here. Be concrete and outcome-focused.</p>",
+            "link_label": "",
+            "link_url": "",
+            "link_new_tab": false
+          }
+        },
+        "reason_mTdUGY": {
+          "type": "reason",
+          "settings": {
+            "title": "<p>Reason Title</p>",
+            "text": "<p>Explain the specific benefit or differentiator here. Be concrete and outcome-focused.</p>",
+            "link_label": "",
+            "link_url": "",
+            "link_new_tab": false
+          }
+        },
+        "reason_DyNRDR": {
+          "type": "reason",
+          "settings": {
+            "title": "<p>Reason Title</p>",
+            "text": "<p>Explain the specific benefit or differentiator here. Be concrete and outcome-focused.</p>",
+            "link_label": "",
+            "link_url": "",
+            "link_new_tab": false
+          }
+        },
+        "reason_grXWp4": {
+          "type": "reason",
+          "settings": {
+            "title": "<p>Reason Title</p>",
+            "text": "<p>Explain the specific benefit or differentiator here. Be concrete and outcome-focused.</p>",
+            "link_label": "",
+            "link_url": "",
+            "link_new_tab": false
+          }
+        }
+      },
+      "block_order": [
+        "reason_E3UV3P",
+        "reason_iedxaV",
+        "reason_HPXHPy",
+        "reason_mTdUGY",
+        "reason_DyNRDR",
+        "reason_grXWp4"
+      ],
+      "name": "CWC How We Win",
+      "settings": {
+        "bg_image": "shopify://shop_images/grid_texture.png",
+        "eyebrow": "",
+        "heading": "<p>Why Our System <strong>Delivers Results</strong> Others Can't</p>",
+        "subtext": "<p>Discover why our customers choose our proven system for results that actually scale without the typical struggles.</p>",
+        "card_padding": 32,
+        "card_radius": 14,
+        "icon_size": 36,
+        "show_spotlight": true,
+        "spotlight_color": "#fec42d",
+        "spotlight_opacity": 60,
+        "bg_color": "#0a0a0a",
+        "text_color": "#ffffff",
+        "bold_color": "#fec42d",
+        "subtext_color": "#d8d8d8",
+        "card_bg": "#fffef5",
+        "card_title_color": "#0a0a0a",
+        "card_text_color": "#0a0a0a",
+        "link_color": "#0a0a0a",
+        "padding_top": 180,
+        "padding_bottom": 80
+      }
+    },
+    "cwc_who_this_is_for_pMqhGw": {
+      "type": "CWC_who_this_is_for",
+      "blocks": {
+        "qualifier_8L7nCL": {
+          "type": "qualifier",
+          "settings": {
+            "text": "<p>You run a DTC consumer goods brand — skincare, supplements, food & beverage, wellness, home, accessories.</p>"
+          }
+        },
+        "qualifier_whTGPY": {
+          "type": "qualifier",
+          "settings": {
+            "text": "<p>You run a DTC consumer goods brand — skincare, supplements, food & beverage, wellness, home, accessories.</p>"
+          }
+        },
+        "qualifier_kPFBNY": {
+          "type": "qualifier",
+          "settings": {
+            "text": "<p>You run a DTC consumer goods brand — skincare, supplements, food & beverage, wellness, home, accessories.</p>"
+          }
+        },
+        "qualifier_kXMMKN": {
+          "type": "qualifier",
+          "settings": {
+            "text": "<p>You run a DTC consumer goods brand — skincare, supplements, food & beverage, wellness, home, accessories.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "qualifier_8L7nCL",
+        "qualifier_whTGPY",
+        "qualifier_kPFBNY",
+        "qualifier_kXMMKN"
+      ],
+      "name": "CWC Who This Is For",
+      "settings": {
+        "eyebrow": "",
+        "heading": "<p>We Eliminate</p><p><strong>Your Biggest Obstacle</strong></p><p>Knowing What To Sell</p>",
+        "subtext": "",
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
+        "bold_color": "#14a800",
+        "rule_color": "#e5e5e5",
+        "number_color": "#cfcfcf",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "cwc_what_you_get_GM6BBg": {
+      "type": "CWC_what_you_get",
+      "blocks": {
+        "feature_FWdJzQ": {
+          "type": "feature",
+          "settings": {
+            "title": "<p>Feature Title</p>",
+            "body": "<ul><li>First key benefit or deliverable</li><li>Second key benefit or deliverable</li><li>Third key benefit or deliverable</li></ul>"
+          }
+        },
+        "feature_3cd8ER": {
+          "type": "feature",
+          "settings": {
+            "title": "<p>Feature Title</p>",
+            "body": "<ul><li>First key benefit or deliverable</li><li>Second key benefit or deliverable</li><li>Third key benefit or deliverable</li></ul>"
+          }
+        },
+        "feature_FKHKgj": {
+          "type": "feature",
+          "settings": {
+            "title": "<p>Feature Title</p>",
+            "body": "<ul><li>First key benefit or deliverable</li><li>Second key benefit or deliverable</li><li>Third key benefit or deliverable</li></ul>"
+          }
+        },
+        "feature_pT4rXk": {
+          "type": "feature",
+          "settings": {
+            "title": "<p>Feature Title</p>",
+            "body": "<ul><li>First key benefit or deliverable</li><li>Second key benefit or deliverable</li><li>Third key benefit or deliverable</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_FWdJzQ",
+        "feature_3cd8ER",
+        "feature_FKHKgj",
+        "feature_pT4rXk"
+      ],
+      "name": "CWC What You Get",
+      "settings": {
+        "eyebrow": "",
+        "heading": "<p>What You <strong>Get</strong></p>",
+        "subtext": "",
+        "card_padding": 32,
+        "card_radius": 14,
+        "icon_size": 32,
+        "show_spotlight": true,
+        "spotlight_color": "#fec42d",
+        "spotlight_opacity": 60,
+        "show_cta": true,
+        "cta_label": "Get Started Today - Book Your Free Call",
+        "cta_url": "https://www.upwork.com/freelancers/joseshopify",
+        "cta_new_tab": false,
+        "cta_bg": "#e53935",
+        "cta_bg_hover": "#c62828",
+        "cta_text": "#ffffff",
+        "bg_color": "#0a0a0a",
+        "text_color": "#ffffff",
+        "bold_color": "#fec42d",
+        "subtext_color": "#d8d8d8",
+        "card_bg": "#fffef5",
+        "card_title_color": "#0a0a0a",
+        "card_body_color": "#0a0a0a",
+        "card_bullet_color": "#0a0a0a",
+        "padding_top": 80,
         "padding_bottom": 80
       }
     },
@@ -301,108 +513,6 @@
         "sublabel_color": "#6a6a6a",
         "padding_top": 20,
         "padding_bottom": 20
-      }
-    },
-    "cwc_who_this_is_for_pMqhGw": {
-      "type": "CWC_who_this_is_for",
-      "blocks": {
-        "qualifier_8L7nCL": {
-          "type": "qualifier",
-          "settings": {
-            "text": "<p>You run a DTC consumer goods brand — skincare, supplements, food & beverage, wellness, home, accessories.</p>"
-          }
-        },
-        "qualifier_whTGPY": {
-          "type": "qualifier",
-          "settings": {
-            "text": "<p>You run a DTC consumer goods brand — skincare, supplements, food & beverage, wellness, home, accessories.</p>"
-          }
-        },
-        "qualifier_kPFBNY": {
-          "type": "qualifier",
-          "settings": {
-            "text": "<p>You run a DTC consumer goods brand — skincare, supplements, food & beverage, wellness, home, accessories.</p>"
-          }
-        },
-        "qualifier_kXMMKN": {
-          "type": "qualifier",
-          "settings": {
-            "text": "<p>You run a DTC consumer goods brand — skincare, supplements, food & beverage, wellness, home, accessories.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "qualifier_8L7nCL",
-        "qualifier_whTGPY",
-        "qualifier_kPFBNY",
-        "qualifier_kXMMKN"
-      ],
-      "name": "CWC Who This Is For",
-      "settings": {
-        "eyebrow": "",
-        "heading": "<p>This is built for <strong>you if...</strong></p>",
-        "subtext": "",
-        "bg_color": "#000000",
-        "text_color": "#ffffff",
-        "bold_color": "#14a800",
-        "rule_color": "#e5e5e5",
-        "number_color": "#cfcfcf",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
-    "cwc_services_cards_9BLJha": {
-      "type": "CWC_services_cards",
-      "blocks": {
-        "service_FUGmap": {
-          "type": "service",
-          "settings": {
-            "title": "<p>Service Title</p>",
-            "text": "<p>Description of the service goes here. Keep it tight and focused on the outcome.</p>",
-            "link_label": "",
-            "link_url": "",
-            "link_new_tab": false
-          }
-        },
-        "service_K3BjeR": {
-          "type": "service",
-          "settings": {
-            "title": "<p>Service Title</p>",
-            "text": "<p>Description of the service goes here. Keep it tight and focused on the outcome.</p>",
-            "link_label": "",
-            "link_url": "",
-            "link_new_tab": false
-          }
-        },
-        "service_aQg9Py": {
-          "type": "service",
-          "settings": {
-            "title": "<p>Service Title</p>",
-            "text": "<p>Description of the service goes here. Keep it tight and focused on the outcome.</p>",
-            "link_label": "",
-            "link_url": "",
-            "link_new_tab": false
-          }
-        }
-      },
-      "block_order": [
-        "service_FUGmap",
-        "service_K3BjeR",
-        "service_aQg9Py"
-      ],
-      "name": "CWC Services Cards",
-      "settings": {
-        "eyebrow": "",
-        "heading": "<p>Three ways I help brands convert more.</p>",
-        "subtext": "",
-        "bg_color": "#000000",
-        "text_color": "#ffffff",
-        "bold_color": "#14a800",
-        "rule_color": "#e5e5e5",
-        "number_color": "#cfcfcf",
-        "link_color": "#0a0a0a",
-        "padding_top": 80,
-        "padding_bottom": 80
       }
     },
     "cwc_stats_row_kNGpqB": {
@@ -454,13 +564,61 @@
         "rule_color": "#e5e5e5",
         "stat_value_color": "#ffffff",
         "stat_label_color": "#e5e5e5",
-        "padding_top": 120,
+        "padding_top": 180,
         "padding_bottom": 80
       }
     },
     "cwc_testimonials_cards_aKXKGz": {
       "type": "CWC_testimonials_cards",
       "blocks": {
+        "testimonial_zfBAdU": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>Client testimonial goes here. Keep it tight and let the words do the work.</p>",
+            "author": "Client Name",
+            "role": ""
+          }
+        },
+        "testimonial_qaJee8": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>Client testimonial goes here. Keep it tight and let the words do the work.</p>",
+            "author": "Client Name",
+            "role": ""
+          }
+        },
+        "testimonial_rgqtWq": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>Client testimonial goes here. Keep it tight and let the words do the work.</p>",
+            "author": "Client Name",
+            "role": ""
+          }
+        },
+        "testimonial_rTr4dN": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>Client testimonial goes here. Keep it tight and let the words do the work.</p>",
+            "author": "Client Name",
+            "role": ""
+          }
+        },
+        "testimonial_whPiEx": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>Client testimonial goes here. Keep it tight and let the words do the work.</p>",
+            "author": "Client Name",
+            "role": ""
+          }
+        },
+        "testimonial_fNVjMc": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "<p>Client testimonial goes here. Keep it tight and let the words do the work.</p>",
+            "author": "Client Name",
+            "role": ""
+          }
+        },
         "testimonial_bGURfU": {
           "type": "testimonial",
           "settings": {
@@ -479,6 +637,12 @@
         }
       },
       "block_order": [
+        "testimonial_zfBAdU",
+        "testimonial_qaJee8",
+        "testimonial_rgqtWq",
+        "testimonial_rTr4dN",
+        "testimonial_whPiEx",
+        "testimonial_fNVjMc",
         "testimonial_bGURfU",
         "testimonial_WxiEeG"
       ],
@@ -496,6 +660,61 @@
         "attribution_color": "#6a6a6a",
         "padding_top": 80,
         "padding_bottom": 60
+      }
+    },
+    "cwc_services_cards_9BLJha": {
+      "type": "CWC_services_cards",
+      "blocks": {
+        "service_FUGmap": {
+          "type": "service",
+          "settings": {
+            "title": "<p>Service Title</p>",
+            "text": "<p>Description of the service goes here. Keep it tight and focused on the outcome.</p>",
+            "link_label": "",
+            "link_url": "",
+            "link_new_tab": false
+          }
+        },
+        "service_K3BjeR": {
+          "type": "service",
+          "settings": {
+            "title": "<p>Service Title</p>",
+            "text": "<p>Description of the service goes here. Keep it tight and focused on the outcome.</p>",
+            "link_label": "",
+            "link_url": "",
+            "link_new_tab": false
+          }
+        },
+        "service_aQg9Py": {
+          "type": "service",
+          "settings": {
+            "title": "<p>Service Title</p>",
+            "text": "<p>Description of the service goes here. Keep it tight and focused on the outcome.</p>",
+            "link_label": "",
+            "link_url": "",
+            "link_new_tab": false
+          }
+        }
+      },
+      "block_order": [
+        "service_FUGmap",
+        "service_K3BjeR",
+        "service_aQg9Py"
+      ],
+      "disabled": true,
+      "name": "CWC Services Cards",
+      "settings": {
+        "eyebrow": "",
+        "heading": "<p>Three ways I help brands convert more.</p>",
+        "subtext": "",
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
+        "bold_color": "#14a800",
+        "rule_color": "#e5e5e5",
+        "number_color": "#cfcfcf",
+        "link_color": "#0a0a0a",
+        "padding_top": 80,
+        "padding_bottom": 0
       }
     },
     "cwc_faq_PqgtL6": {
@@ -540,7 +759,7 @@
       "settings": {
         "bg_image": "shopify://shop_images/image_78.png",
         "eyebrow": "",
-        "heading": "<h2>Frequently Asked Questions</h2>",
+        "heading": "<h2>Frequently Asked <strong>Questions</strong></h2>",
         "subtext": "",
         "item_radius": 14,
         "item_padding_x": 24,
@@ -557,7 +776,7 @@
         "item_answer_color": "#121212",
         "item_chevron_color": "#8a8a85",
         "item_answer_divider": "#e5e5e5",
-        "padding_top": 140,
+        "padding_top": 180,
         "padding_bottom": 80
       }
     },
@@ -569,13 +788,15 @@
         "scarcity_text": "Currently taking on 2 new clients this month",
         "heading": "<p>Ready to see what your store is <strong>actually capable of?</strong></p>",
         "subtext": "<p>Send me a message on Upwork. I'll take a look at your store, tell you straight whether I think I can help, and what I'd focus on first. No fluff, no upsell — just a real answer.</p>",
-        "cta_label": "Message Me on Upwork",
-        "cta_url": "",
+        "bullet_title": "<h3>Here's what happens next:</h3>",
+        "bullet_text": "<ul><li>Click the button below to book your free strategy call </li><li>We'll assess your situation and show you exactly how our system works </li><li>If it's a good fit, we'll get you started immediately </li><li>This opportunity won't last forever. AI is moving fast, and the early movers will dominate their markets. </li></ul>",
+        "cta_label": "Get Started Today - Book Your Free Call",
+        "cta_url": "https://www.upwork.com/freelancers/joseshopify",
         "cta_new_tab": true,
         "bg_color": "#000000",
         "text_color": "#ffffff",
         "bold_color": "#14a800",
-        "subtext_color": "#b8b8b8",
+        "subtext_color": "#ffffff",
         "button_bg": "#14a800",
         "button_text": "#ffffff",
         "scarcity_bg": "#1a1a1a",
@@ -591,11 +812,13 @@
     "cwc_hero_vsl_UgrxRm",
     "cwc_logo_carousel_JcVN78",
     "cwc_problem_agitation_jFJxhg",
-    "cwc_upwork_badges_W8LABb",
+    "cwc_how_we_win_z97xND",
     "cwc_who_this_is_for_pMqhGw",
-    "cwc_services_cards_9BLJha",
+    "cwc_what_you_get_GM6BBg",
+    "cwc_upwork_badges_W8LABb",
     "cwc_stats_row_kNGpqB",
     "cwc_testimonials_cards_aKXKGz",
+    "cwc_services_cards_9BLJha",
     "cwc_faq_PqgtL6",
     "cwc_final_cta_MiW4cn"
   ]

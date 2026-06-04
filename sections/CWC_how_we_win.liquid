@@ -26,6 +26,28 @@
   <div class="cwc_how-we-win__container">
     {% comment %} Section Header (centered) {% endcomment %}
     <div class="cwc_how-we-win__content">
+      {% if section.settings.bg_image %}
+        <div class="cwc_how-we-win__bg-overlay">
+          <div class="cwc_how-we-win-spotlight cwc-top_center">head center</div>
+          {% comment %} <div class="cwc_stats-row-spotlight cwc-top_center-white">head center</div> {% endcomment %}
+
+          <div class="cwc_how-we-win__bg-overlay-img">
+            {{
+              section.settings.bg_image
+              | image_url: width: 600
+              | image_tag:
+                class: 'cwc_how-we-win_texture-bg',
+                widths: widths,
+                height: logo_height,
+                width: logo_width,
+                alt: logo_alt,
+                sizes: sizes,
+                preload: true
+            }}
+          </div>
+        </div>
+      {% endif %}
+
       {% if section.settings.eyebrow != blank %}
         <div class="cwc_how-we-win__eyebrow">{{ section.settings.eyebrow }}</div>
       {% endif %}
@@ -111,6 +133,11 @@
     {
       "type": "header",
       "content": "Section Header"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
     },
     {
       "type": "text",

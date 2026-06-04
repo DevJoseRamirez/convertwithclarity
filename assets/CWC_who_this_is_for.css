@@ -22,9 +22,11 @@
   grid-template-columns: 1fr 1.35fr;
   grid-template-columns: 1fr 1.5fr;
   grid-template-columns: .85fr 1.5fr;
+  gap: 2rem;
   gap: 3rem;
   /* testing */
   position: relative;
+  grid-template-columns: 1fr 1.4fr;
 }
 
 /* === Section Header (left-aligned, editorial) === */
@@ -46,6 +48,12 @@
   text-transform: uppercase;
   color: var(--highlight-color);
   margin-bottom: 1.25rem;
+}
+
+.cwc_who-this-is-for__item-stage {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: .5rem;
 }
 
 .cwc_who-this-is-for__content-heading {

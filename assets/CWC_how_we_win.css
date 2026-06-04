@@ -8,6 +8,8 @@
   color: var(--text-color);
   padding-top: var(--padding-top);
   padding-bottom: var(--padding-bottom);
+  /*  */
+  background: none;
 }
 
 .cwc_how-we-win__container {
@@ -16,12 +18,77 @@
   padding: 0 2rem;
 }
 
+/* textture backgournd */
+.cwc_how-we-win__bg-overlay {
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin: auto;
+  top: 0rem;
+  top: -1rem;
+  z-index: -1;
+}
+
+.cwc_how-we-win__bg-overlay-img {
+  max-width: 1000px;
+  z-index: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  top: -25rem;
+  filter: blur(2px);
+}
+
+.cwc_how-we-win_texture-bg {
+  height: 100%;
+  width: 100%;
+}
+
+.cwc_how-we-win-spotlight {
+  filter: blur(80px);
+  aspect-ratio: 1;
+  height: var(--framer-aspect-ratio-supported, 235px);
+  will-change: var(--framer-will-change-override, transform);
+  z-index: 1;
+  background-color: #fec42d99;
+  background-color: #14a80064;
+  border-radius: 290px;
+  flex-flow: row;
+  flex: none;
+  place-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 235px;
+  padding: 0;
+  display: flex;
+  position: absolute;
+  z-index: 0;
+  width: 235px;
+  max-width: 600px;
+  width: 100%;
+}
+
+.cwc_how-we-win-spotlight.cwc-top_center {
+  /* top: -101px; */
+  /* left: -107px; */
+  right: 0;
+  left: 0;
+  margin: auto;
+  top: 1rem;
+  z-index: 0;
+}
+
+.cwc-top_center-white {}
+
 /* === Section Header (centered, editorial) === */
 .cwc_how-we-win__content {
   max-width: 900px;
   margin: 0 auto 3.5rem auto;
   width: 100%;
   text-align: center;
+  position: relative;
+  overflow: visible;
 }
 
 .cwc_how-we-win__eyebrow {
@@ -52,6 +119,12 @@
 .cwc_how-we-win__content-heading>* strong {
   color: var(--highlight-color);
   font-weight: 700;
+
+  background: linear-gradient(90deg, #108401, #4df636 69.4%, #1e7c11);
+  margin: 0;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
 }
 
 .cwc_how-we-win__content-subtext {
@@ -61,9 +134,11 @@
 
 .cwc_how-we-win__content-subtext p {
   font-size: 1.0625rem;
+  font-size: 1.25rem;
   font-style: italic;
   line-height: 1.6;
   margin: 0;
+  font-weight: bold;
   color: var(--subtext-color);
 }
 
@@ -248,6 +323,21 @@
    Mobile Responsive
    ============================== */
 @media screen and (max-width: 768px) {
+  .cwc_how-we-win-spotlight.cwc-top_center {
+    top: -2rem
+  }
+
+  .cwc_how-we-win__bg-overlay-img {
+    max-width: 1000px;
+    z-index: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    top: -9rem;
+    filter: blur(0px);
+  }
+
   .cwc_how-we-win {
     padding-top: var(--padding-top-mobile);
     padding-bottom: var(--padding-bottom-mobile);

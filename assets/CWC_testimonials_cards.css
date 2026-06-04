@@ -124,6 +124,7 @@
   user-select: none;
   pointer-events: none;
   top: 0;
+  top: -1px;
 }
 
 /* === Quote === */

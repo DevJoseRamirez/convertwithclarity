@@ -717,6 +717,41 @@
         "padding_bottom": 0
       }
     },
+    "cwc_guarantee_8PLtY9": {
+      "type": "CWC_guarantee",
+      "name": "CWC Guarantee",
+      "settings": {
+        "eyebrow": "",
+        "heading": "<p>Our 60-Day <strong>Satisfaction Guarantee</strong></p>",
+        "subtext": "<p>We are so confident in your success that we offer a 60-day money-back satisfaction guarantee. Simply put: either you love it, or we refund your money.</p>",
+        "bullet_title": "Here's how it works:",
+        "bullets": "<ul><li>Commit to following our step-by-step system and taking consistent action</li><li>If, within 60 days, you're not satisfied and believe the program hasn't delivered the value we promise, request a full refund</li><li>Our guarantee removes any risk for you — your success is our success</li></ul>",
+        "show_cta": true,
+        "cta_label": "Book Your Free Strategy Call Now - Limited Spots Available",
+        "cta_url": "",
+        "cta_new_tab": false,
+        "cta_bg": "#14a800",
+        "cta_bg_hover": "#C62828",
+        "cta_text": "#FFFFFF",
+        "inner_radius": 24,
+        "inner_padding_y": 80,
+        "inner_max_width": 1200,
+        "show_spotlights": true,
+        "spotlight_color": "#FEC42D",
+        "spotlight_opacity": 35,
+        "bg_color": "#0A0A0A",
+        "inner_bg": "#0A0A0A",
+        "text_color": "#FFFFFF",
+        "bold_color": "#FEC42D",
+        "subtext_color": "#D8D8D8",
+        "check_color": "#FEC42D",
+        "card_bg": "#1a1a1a",
+        "card_title_color": "#FFFFFF",
+        "card_bullet_color": "#D8D8D8",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
     "cwc_faq_PqgtL6": {
       "type": "CWC_faq",
       "blocks": {
@@ -819,6 +854,7 @@
     "cwc_stats_row_kNGpqB",
     "cwc_testimonials_cards_aKXKGz",
     "cwc_services_cards_9BLJha",
+    "cwc_guarantee_8PLtY9",
     "cwc_faq_PqgtL6",
     "cwc_final_cta_MiW4cn"
   ]

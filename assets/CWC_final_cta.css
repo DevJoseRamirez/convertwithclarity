@@ -43,6 +43,8 @@
   /*  */
   top: 74px;
   left: -160px;
+  top: 234px;
+
 }
 
 .cwc_final-cta-spotlight.cwc-right {
@@ -226,8 +228,15 @@
   padding-left: 0;
 }
 
+.cwc_final-cta__content-bullet_content-bullets ul,
+.cwc_final-cta__content-bullet_content-bullets ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .cwc_final-cta__content-bullet_content-bullets li {
-  /* position: relative; */
+  position: relative;
   padding-left: 0;
   font-size: .9375rem;
   line-height: 1.5;
@@ -237,6 +246,9 @@
   font-weight: 500;
   line-height: 2;
   margin-bottom: .6rem;
+  /*  */
+  padding-left: 1.375rem;
+  padding-left: 1.5rem;
 }
 
 .cwc_final-cta__content-bullet_content-bullets li:before {

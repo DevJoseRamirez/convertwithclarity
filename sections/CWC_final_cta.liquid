@@ -60,6 +60,11 @@
           </div>
         </div>
       {% endif %}
+      {% if section.settings.ps_text != blank %}
+        <div class="cwc_final-cta__ps-text">
+          {{ section.settings.ps_text }}
+        </div>
+      {% endif %}
 
       {% if section.settings.cta_label != blank %}
         <a
@@ -145,6 +150,12 @@
       "id": "cta_new_tab",
       "label": "Open in new tab",
       "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "ps_text",
+      "label": "PS Text",
+      "default": "<p>I keep my client roster small on purpose — I'd rather move the number for a few brands than be average for many. If you're serious about fixing your conversion, now's the time to reach out.</p>"
     },
     {
       "type": "header",

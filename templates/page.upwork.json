@@ -39,8 +39,8 @@
         "bg_image": "shopify://shop_images/Group_39.png",
         "eyebrow": "",
         "heading": "<p>Your Shopify store doesn't have a traffic problem. It has a <strong>conversion problem.</strong></p>",
-        "subtext": "<p>High-converting landing pages, funnels, and Shopify CRO for DTC consumer brands — built to Lift Conversion Rates, Boost AOV,  LTV, and Revenue per visitor.</p>",
-        "cta_label": "Get Started Today - Message Me on Upwork",
+        "subtext": "<p>High-converting landing pages, funnels, and Shopify CRO for DTC consumer goods brands — built to lift conversion rate, AOV, and revenue per visitor.</p>",
+        "cta_label": "Message Me on Upwork",
         "cta_url": "https://www.upwork.com/freelancers/joseshopify",
         "cta_new_tab": false,
         "social_proof_image": "shopify://shop_images/profilt_social_iamge.png",
@@ -206,8 +206,8 @@
         "problem_3eHCUM": {
           "type": "problem",
           "settings": {
-            "title": "<p>Rising CAC, Flat CVR</p>",
-            "text": "<p>Ad costs go up every quarter. Conversion rates stay where they were last year. The math gets worse every month, even when traffic looks the same — and most brands try to solve it by buying more traffic instead of converting more of the traffic they already have.</p><p></p>",
+            "title": "<p>Pain Point Title</p>",
+            "text": "<p>Describe the specific pain point your customer is feeling. Make it concrete and recognizable so they nod along.</p>",
             "link_label": "",
             "link_url": "",
             "link_new_tab": false
@@ -216,8 +216,8 @@
         "problem_UfrhBT": {
           "type": "problem",
           "settings": {
-            "title": "<p>Data Everywhere, Answers Nowhere</p>",
-            "text": "<p>You've got GA4, Shopify analytics, maybe a heatmap tool and an attribution platform — and somehow still no clear answer on what's actually killing your conversion. Dashboards full of numbers don't tell you which fix matters most. </p>",
+            "title": "<p>Pain Point Title</p>",
+            "text": "<p>Describe the specific pain point your customer is feeling. Make it concrete and recognizable so they nod along.</p>",
             "link_label": "",
             "link_url": "",
             "link_new_tab": false
@@ -226,8 +226,8 @@
         "problem_dYfcpy": {
           "type": "problem",
           "settings": {
-            "title": "<p>No One Fully Owns Conversion</p>",
-            "text": "<p>Designers make it look right. Devs make it work. Marketers send traffic. The conversion rate sits between all of them and gets owned by no one — which is exactly where most of the revenue leaks happen.</p>",
+            "title": "<p>Pain Point Title</p>",
+            "text": "<p>Describe the specific pain point your customer is feeling. Make it concrete and recognizable so they nod along.</p>",
             "link_label": "",
             "link_url": "",
             "link_new_tab": false
@@ -263,8 +263,8 @@
         "reason_E3UV3P": {
           "type": "reason",
           "settings": {
-            "title": "<p>CRO-First, Not Design-First</p>",
-            "text": "<p>Every page, section, and test traces back to a metric: conversion rate, AOV, or revenue per visitor. Pretty is a side effect of good CRO — never the starting point.</p>",
+            "title": "<p>Reason Title</p>",
+            "text": "<p>Explain the specific benefit or differentiator here. Be concrete and outcome-focused.</p>",
             "link_label": "",
             "link_url": "",
             "link_new_tab": false
@@ -273,8 +273,8 @@
         "reason_iedxaV": {
           "type": "reason",
           "settings": {
-            "title": "<p>Built Mobile-First (Because That's Where The Money Is)</p>",
-            "text": "<p>70%+ of DTC traffic is mobile. Most stores still design desktop-first and shrink down. I build mobile-first by default — load speed, tap targets, thumb zones, scroll behavior — all dialed for the device your buyers actually use.</p>",
+            "title": "<p>Reason Title</p>",
+            "text": "<p>Explain the specific benefit or differentiator here. Be concrete and outcome-focused.</p>",
             "link_label": "",
             "link_url": "",
             "link_new_tab": false
@@ -283,8 +283,8 @@
         "reason_HPXHPy": {
           "type": "reason",
           "settings": {
-            "title": "<p>Battle-Tested Across 60+ DTC Builds</p>",
-            "text": "<p>I'm not starting from a blank canvas every project. Proven page structures, funnel patterns, and section templates — refined across 60+ DTC builds and adapted to your specific offer.</p>",
+            "title": "<p>Reason Title</p>",
+            "text": "<p>Explain the specific benefit or differentiator here. Be concrete and outcome-focused.</p>",
             "link_label": "",
             "link_url": "",
             "link_new_tab": false
@@ -293,8 +293,8 @@
         "reason_mTdUGY": {
           "type": "reason",
           "settings": {
-            "title": "<p>Message Matching: Ad → Page → Offer</p>",
-            "text": "<p>The ad makes a promise. The page has to keep it. Most stores send paid traffic to a generic homepage or PDP and watch CR die. We match the ad's message to the landing page to the offer — so every click lands somewhere designed for that visitor, not the average one.</p>",
+            "title": "<p>Reason Title</p>",
+            "text": "<p>Explain the specific benefit or differentiator here. Be concrete and outcome-focused.</p>",
             "link_label": "",
             "link_url": "",
             "link_new_tab": false
@@ -303,8 +303,8 @@
         "reason_DyNRDR": {
           "type": "reason",
           "settings": {
-            "title": "<p>Positioning & Offer, Not Just Pixels</p>",
-            "text": "<p>A great page selling a weak offer still loses. Often the bottleneck isn't the layout — it's how you're positioned against everyone else in the category, and whether the offer itself gives someone a reason to buy. We sharpen your positioning, your USP, and how the offer is framed.</p>",
+            "title": "<p>Reason Title</p>",
+            "text": "<p>Explain the specific benefit or differentiator here. Be concrete and outcome-focused.</p>",
             "link_label": "",
             "link_url": "",
             "link_new_tab": false
@@ -313,8 +313,8 @@
         "reason_grXWp4": {
           "type": "reason",
           "settings": {
-            "title": "<p>Designed To Be Tested, Not Just Launched</p>",
-            "text": "<p>Conversion isn't a one-shot project. Pages, sections, and funnels are built to be tested and iterated on — clean code, clear hierarchy, easy variants. We keep moving the number after launch, not just at it.</p>",
+            "title": "<p>Reason Title</p>",
+            "text": "<p>Explain the specific benefit or differentiator here. Be concrete and outcome-focused.</p>",
             "link_label": "",
             "link_url": "",
             "link_new_tab": false
@@ -333,8 +333,8 @@
       "settings": {
         "bg_image": "shopify://shop_images/grid_texture.png",
         "eyebrow": "",
-        "heading": "<p>Why Our Approach <strong>Moves The Number </strong>When Others Don't</p>",
-        "subtext": "<p>Every project pulls from a proven arsenal — the same CRO strategies, funnel structures, and conversion patterns powering the top DTC brands.</p>",
+        "heading": "<p>Why Our System <strong>Delivers Results</strong> Others Can't</p>",
+        "subtext": "<p>Discover why our customers choose our proven system for results that actually scale without the typical struggles.</p>",
         "card_padding": 32,
         "card_radius": 14,
         "icon_size": 36,
@@ -343,7 +343,7 @@
         "spotlight_opacity": 60,
         "bg_color": "#0a0a0a",
         "text_color": "#ffffff",
-        "bold_color": "#14a800",
+        "bold_color": "#fec42d",
         "subtext_color": "#d8d8d8",
         "card_bg": "#fffef5",
         "card_title_color": "#0a0a0a",
@@ -359,37 +359,25 @@
         "qualifier_8L7nCL": {
           "type": "qualifier",
           "settings": {
-            "text": "<p>We pull your analytics, traffic sources, and everything you've already tried, then map your full funnel end to end — so we start from data, not guesses.</p><p></p>"
+            "text": "<p>You run a DTC consumer goods brand — skincare, supplements, food & beverage, wellness, home, accessories.</p>"
           }
         },
         "qualifier_whTGPY": {
           "type": "qualifier",
           "settings": {
-            "text": "<p>We review every drop-off point — PDP, cart, checkout, navbar, post-purchase, and the landing pages your paid traffic hits — with heatmaps, session recordings, and funnel analysis. Every friction point gets documented.</p><p></p>"
+            "text": "<p>You run a DTC consumer goods brand — skincare, supplements, food & beverage, wellness, home, accessories.</p>"
           }
         },
         "qualifier_kPFBNY": {
           "type": "qualifier",
           "settings": {
-            "text": "<p>We turn the findings into a ranked roadmap, sorted by impact, effort, and speed to ship. You see exactly what we're fixing and why — no vague \"make it better.\"</p><p></p>"
+            "text": "<p>You run a DTC consumer goods brand — skincare, supplements, food & beverage, wellness, home, accessories.</p>"
           }
         },
         "qualifier_kXMMKN": {
           "type": "qualifier",
           "settings": {
-            "text": "<p>We write clean, custom code straight into your Shopify theme — sections, landing pages, funnel work, whatever the audit calls for. No third-party page builders, no app-bloat.</p><p></p>"
-          }
-        },
-        "qualifier_bd6Chj": {
-          "type": "qualifier",
-          "settings": {
-            "text": "<p>We set up proper measurement and watch the metrics that matter — CR, AOV, RPV — so you know what actually worked, not just what looks busy.</p><p></p>"
-          }
-        },
-        "qualifier_bQwFtJ": {
-          "type": "qualifier",
-          "settings": {
-            "text": "<p>We double down on winners, cut losers, and move to the next bottleneck — cycle after cycle. Conversion compounds; we keep it compounding.</p>"
+            "text": "<p>You run a DTC consumer goods brand — skincare, supplements, food & beverage, wellness, home, accessories.</p>"
           }
         }
       },
@@ -397,14 +385,12 @@
         "qualifier_8L7nCL",
         "qualifier_whTGPY",
         "qualifier_kPFBNY",
-        "qualifier_kXMMKN",
-        "qualifier_bd6Chj",
-        "qualifier_bQwFtJ"
+        "qualifier_kXMMKN"
       ],
       "name": "CWC Who This Is For",
       "settings": {
         "eyebrow": "",
-        "heading": "<p>We Eliminate</p><p><strong>Your Biggest Obstacle</strong></p><p>Knowing Where To Start</p>",
+        "heading": "<p>We Eliminate</p><p><strong>Your Biggest Obstacle</strong></p><p>Knowing What To Sell</p>",
         "subtext": "",
         "bg_color": "#000000",
         "text_color": "#ffffff",
@@ -421,29 +407,29 @@
         "feature_FWdJzQ": {
           "type": "feature",
           "settings": {
-            "title": "<p>Full Conversion Audit</p>",
-            "body": "<ul><li>Full funnel teardown: PDP, cart, checkout, landing pages</li><li>Every drop-off point identified and documented</li><li>Ranked fix roadmap before any code is written</li></ul>"
+            "title": "<p>Feature Title</p>",
+            "body": "<ul><li>First key benefit or deliverable</li><li>Second key benefit or deliverable</li><li>Third key benefit or deliverable</li></ul>"
           }
         },
         "feature_3cd8ER": {
           "type": "feature",
           "settings": {
-            "title": "<p>Custom Pages & Funnels</p>",
-            "body": "<ul><li>Built for your traffic source — Meta, Google, TikTok, email</li><li>Designed to convert that specific audience</li><li>Coded clean into your theme, no page builders</li></ul>"
+            "title": "<p>Feature Title</p>",
+            "body": "<ul><li>First key benefit or deliverable</li><li>Second key benefit or deliverable</li><li>Third key benefit or deliverable</li></ul>"
           }
         },
         "feature_FKHKgj": {
           "type": "feature",
           "settings": {
-            "title": "<p>Custom Shopify Implementation</p>",
-            "body": "<ul><li>Custom sections, PDP rebuilds, bundle logic</li><li>Checkout extensions and subscription flows</li><li>Clean code, no app-bloat shortcuts</li></ul>"
+            "title": "<p>Feature Title</p>",
+            "body": "<ul><li>First key benefit or deliverable</li><li>Second key benefit or deliverable</li><li>Third key benefit or deliverable</li></ul>"
           }
         },
         "feature_pT4rXk": {
           "type": "feature",
           "settings": {
-            "title": "<p>Measurement & Iteration</p>",
-            "body": "<ul><li>Track what matters: CR, AOV, RPV</li><li>No vanity metrics, no guesswork</li><li>Data-driven iteration past launch</li></ul>"
+            "title": "<p>Feature Title</p>",
+            "body": "<ul><li>First key benefit or deliverable</li><li>Second key benefit or deliverable</li><li>Third key benefit or deliverable</li></ul>"
           }
         }
       },
@@ -456,7 +442,7 @@
       "name": "CWC What You Get",
       "settings": {
         "eyebrow": "",
-        "heading": "<p><strong>Everything Included </strong>In Every CRO Engagement</p>",
+        "heading": "<p>What You <strong>Get</strong></p>",
         "subtext": "",
         "card_padding": 32,
         "card_radius": 14,
@@ -465,7 +451,7 @@
         "spotlight_color": "#fec42d",
         "spotlight_opacity": 60,
         "show_cta": true,
-        "cta_label": "Get Started Today - Message Me on Upwork",
+        "cta_label": "Get Started Today - Book Your Free Call",
         "cta_url": "https://www.upwork.com/freelancers/joseshopify",
         "cta_new_tab": false,
         "cta_bg": "#e53935",
@@ -571,7 +557,7 @@
       "settings": {
         "bg_image": "shopify://shop_images/grid_texture.png",
         "eyebrow": "",
-        "heading": "<p>Proven On <strong>Upwork</strong>. </p><p>Trusted By DTC Brands.</p>",
+        "heading": "<p>Backed by <strong>real numbers</strong>, not just nice work.</p>",
         "bg_color": "#000000",
         "text_color": "#ffffff",
         "bold_color": "#14a800",
@@ -736,32 +722,32 @@
       "name": "CWC Guarantee",
       "settings": {
         "eyebrow": "",
-        "heading": "<p>Our 30-Day <strong>Satisfaction Guarantee</strong></p>",
-        "subtext": "<p>We are so confident in your success that we offer a 30-day money-back satisfaction guarantee. Simply put: either you love it, or we refund your money.</p>",
+        "heading": "<p>Our 60-Day <strong>Satisfaction Guarantee</strong></p>",
+        "subtext": "<p>We are so confident in your success that we offer a 60-day money-back satisfaction guarantee. Simply put: either you love it, or we refund your money.</p>",
         "bullet_title": "Here's how it works:",
-        "bullets": "<ul><li>Provide the access and assets we need to do the work</li><li>Commit to the roadmap and ship the agreed changes</li><li>Send real traffic and give it the full 30 days to perform</li><li></li><li>Hold up your end and you're fully covered — your success is our success</li></ul>",
+        "bullets": "<ul><li>Commit to following our step-by-step system and taking consistent action</li><li>If, within 60 days, you're not satisfied and believe the program hasn't delivered the value we promise, request a full refund</li><li>Our guarantee removes any risk for you — your success is our success</li></ul>",
         "show_cta": true,
-        "cta_label": "Get Started Today - Message Me on Upwork",
+        "cta_label": "Book Your Free Strategy Call Now - Limited Spots Available",
         "cta_url": "",
         "cta_new_tab": false,
         "cta_bg": "#14a800",
-        "cta_bg_hover": "#c62828",
-        "cta_text": "#ffffff",
+        "cta_bg_hover": "#C62828",
+        "cta_text": "#FFFFFF",
         "inner_radius": 24,
         "inner_padding_y": 80,
         "inner_max_width": 1200,
         "show_spotlights": true,
-        "spotlight_color": "#fec42d",
+        "spotlight_color": "#FEC42D",
         "spotlight_opacity": 35,
-        "bg_color": "#0a0a0a",
-        "inner_bg": "#0a0a0a",
-        "text_color": "#ffffff",
-        "bold_color": "#fec42d",
-        "subtext_color": "#d8d8d8",
-        "check_color": "#fec42d",
+        "bg_color": "#0A0A0A",
+        "inner_bg": "#0A0A0A",
+        "text_color": "#FFFFFF",
+        "bold_color": "#FEC42D",
+        "subtext_color": "#D8D8D8",
+        "check_color": "#FEC42D",
         "card_bg": "#1a1a1a",
-        "card_title_color": "#ffffff",
-        "card_bullet_color": "#d8d8d8",
+        "card_title_color": "#FFFFFF",
+        "card_bullet_color": "#D8D8D8",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -772,50 +758,29 @@
         "faq_item_cWBrhX": {
           "type": "faq_item",
           "settings": {
-            "question": "How long does a typical engagement take?",
-            "answer": "<p>Most engagements run 4–8 weeks depending on scope. Smaller scopes (audit-only, single landing page) can wrap in 1–2 weeks. I'll give you a real timeline before we start — not a hopeful one.</p>"
+            "question": "Frequently asked question",
+            "answer": "<p>Your concise, helpful answer goes here. Keep it focused and clear.</p>"
           }
         },
         "faq_item_iRA66c": {
           "type": "faq_item",
           "settings": {
-            "question": "How does pricing work?",
-            "answer": "<p>Most engagements are fixed-fee — defined scope, defined timeline, defined deliverables. Ongoing CRO work and open-ended retainers can be hourly. I'll quote whichever makes more sense based on what you actually need.</p>"
+            "question": "Frequently asked question",
+            "answer": "<p>Your concise, helpful answer goes here. Keep it focused and clear.</p>"
           }
         },
         "faq_item_wbACph": {
           "type": "faq_item",
           "settings": {
-            "question": "Do you only work through Upwork?",
-            "answer": "<p>For new clients, yes. Upwork keeps payments, contracts, and reviews clean for both of us — and it's where my track record lives. Once we've worked together, we can move to direct contracts if that makes more sense.</p>"
+            "question": "Frequently asked question",
+            "answer": "<p>Your concise, helpful answer goes here. Keep it focused and clear.</p>"
           }
         },
         "faq_item_Lw7BP3": {
           "type": "faq_item",
           "settings": {
-            "question": "What kind of Shopify access do you need?",
-            "answer": "<p>Collaborator access with permissions for whatever scope we agree on — usually themes, apps, and sometimes orders/customers for advanced work. I never need your payment info or store owner login.</p>"
-          }
-        },
-        "faq_item_gLrTYU": {
-          "type": "faq_item",
-          "settings": {
-            "question": "What if my store isn't ready for CRO yet?",
-            "answer": "<p>I'll tell you. If you don't have enough traffic to test, or the offer itself is the problem, throwing CRO work at it is wasted money. I'd rather lose a project than take on work that won't move your numbers.</p>"
-          }
-        },
-        "faq_item_QdfDFt": {
-          "type": "faq_item",
-          "settings": {
-            "question": "What if my project is smaller than a full engagement?",
-            "answer": "<p>Most projects are full-scope, but the components are modular — audit, landing page, custom build, etc. If you're not sure what you need, message me and we'll figure out the right starting point. Sometimes the answer is \"start with the audit, expand from there.\"</p>"
-          }
-        },
-        "faq_item_miMcTV": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Do you work with brands outside the US?",
-            "answer": "<p>Yes. A lot of my clients are international. Communication is async-friendly, and Upwork handles the cross-border payment side.</p>"
+            "question": "Frequently asked question",
+            "answer": "<p>Your concise, helpful answer goes here. Keep it focused and clear.</p>"
           }
         }
       },
@@ -823,10 +788,7 @@
         "faq_item_cWBrhX",
         "faq_item_iRA66c",
         "faq_item_wbACph",
-        "faq_item_Lw7BP3",
-        "faq_item_gLrTYU",
-        "faq_item_QdfDFt",
-        "faq_item_miMcTV"
+        "faq_item_Lw7BP3"
       ],
       "name": "CWC FAQ",
       "settings": {
@@ -860,13 +822,12 @@
         "eyebrow": "",
         "scarcity_text": "Currently taking on 2 new clients this month",
         "heading": "<p>Ready to see what your store is <strong>actually capable of?</strong></p>",
-        "subtext": "<p>Send me a message on Upwork with a bit about your store. I'll get back to you within 24 hours, and we'll set up a quick call to talk through whether I can help — and exactly where I'd start.</p><p></p>",
+        "subtext": "<p>Send me a message on Upwork. I'll take a look at your store, tell you straight whether I think I can help, and what I'd focus on first. No fluff, no upsell — just a real answer.</p>",
         "bullet_title": "<h3>Here's what happens next:</h3>",
-        "bullet_text": "<ul><li>Message me on Upwork — share your store and what you're working on</li><li>I'll reply within 24 hours and we'll schedule a quick call</li><li>On the call, I'll assess whether I can help and where I'd focus first</li></ul>",
-        "cta_label": "Yes, I Want to Scale My Brand - Message Me on Upwork",
+        "bullet_text": "<ul><li>Click the button below to book your free strategy call </li><li>We'll assess your situation and show you exactly how our system works </li><li>If it's a good fit, we'll get you started immediately </li><li>This opportunity won't last forever. AI is moving fast, and the early movers will dominate their markets. </li></ul>",
+        "cta_label": "Get Started Today - Book Your Free Call",
         "cta_url": "https://www.upwork.com/freelancers/joseshopify",
         "cta_new_tab": true,
-        "ps_text": "<p><em>P.S. I keep my client roster small on purpose — I'd rather move the number for a few brands than be average for many. If you're serious about fixing your conversion, now's the time to reach out.</em></p>",
         "bg_color": "#000000",
         "text_color": "#ffffff",
         "bold_color": "#14a800",

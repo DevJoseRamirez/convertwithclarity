@@ -114,6 +114,8 @@
   color: var(--number-color);
   margin-bottom: 1.5rem;
   font-variant-numeric: tabular-nums;
+  /*  */
+  margin: 0 0 .875rem;
 }
 
 .cwc_problem-agitation__card-title {

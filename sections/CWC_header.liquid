@@ -1,22 +1,22 @@
 {% style %}
-    #cwc_header-{{ section.id }} {
-      --header-bg: {{ section.settings.bg_color | default: '#ffffff' }};
-      --header-text: {{ section.settings.text_color | default: '#0a0a0a' }};
-      --header-link-hover: {{ section.settings.link_hover_color | default: '#14a800' }};
-      --highlight-color: {{ section.settings.bold_color | default: '#14a800' }};
-      --button-bg: {{ section.settings.button_bg | default: '#14a800' }};
-      --button-text: {{ section.settings.button_text | default: '#ffffff' }};
-      --rule-color: {{ section.settings.rule_color | default: '#e5e5e5' }};
-      --logo-width: {{ section.settings.logo_width | default: 120 }}px;
-      --logo-width-mobile: {{ section.settings.logo_width_mobile | default: 100 }}px;
-      --header-padding-y: {{ section.settings.padding_y | default: 18 }}px;
-      --header-padding-y-mobile: {{ section.settings.padding_y | default: 18 | times: 0.85 }}px;
-    }
-      body, .gradient {
-      background: {{ section.settings.bg_color }} !important;
-      background-color: {{section.settings.bg_color }} !important;
-      overflow-x: hidden;
-    }
+  #cwc_header-{{ section.id }} {
+    --header-bg: {{ section.settings.bg_color | default: '#ffffff' }};
+    --header-text: {{ section.settings.text_color | default: '#0a0a0a' }};
+    --header-link-hover: {{ section.settings.link_hover_color | default: '#14a800' }};
+    --highlight-color: {{ section.settings.bold_color | default: '#14a800' }};
+    --button-bg: {{ section.settings.button_bg | default: '#14a800' }};
+    --button-text: {{ section.settings.button_text | default: '#ffffff' }};
+    --rule-color: {{ section.settings.rule_color | default: '#e5e5e5' }};
+    --logo-width: {{ section.settings.logo_width | default: 120 }}px;
+    --logo-width-mobile: {{ section.settings.logo_width_mobile | default: 100 }}px;
+    --header-padding-y: {{ section.settings.padding_y | default: 18 }}px;
+    --header-padding-y-mobile: {{ section.settings.padding_y | default: 18 | times: 0.85 }}px;
+  }
+    body, .gradient {
+    background: {{ section.settings.bg_color }} !important;
+    background-color: {{section.settings.bg_color }} !important;
+    overflow-x: hidden;
+  }
 {% endstyle %}
 
 {{ 'CWC_header.css' | asset_url | stylesheet_tag }}

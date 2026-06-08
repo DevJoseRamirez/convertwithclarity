@@ -208,6 +208,14 @@
   display: block;
 }
 
+/* === Override Image (temporary — shown in place of video when set) === */
+.cwc_hero-vsl__override-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .cwc_hero-vsl__play-button {
   position: absolute;
   top: 50%;

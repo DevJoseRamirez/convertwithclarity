@@ -31,6 +31,7 @@
   assign shopify_video = section.settings.shopify_video
   assign loom_url = section.settings.loom_url
   assign poster_image = section.settings.poster_image
+  assign override_image = section.settings.override_image
 
   assign has_shopify_video = false
   if video_provider == 'shopify' and shopify_video != blank
@@ -147,7 +148,29 @@
         {% comment %} <div>social prooff</div> {% endcomment %}
 
         <div class="cwc_hero-vsl__media-frame">
-          {% if has_shopify_video %}
+          {% if override_image != blank %}
+            {% comment %}
+              ====== TEMPORARY OVERRIDE ======
+              When an override image is set, render JUST the image inside the
+              media frame and skip the video setup entirely. Drop the image in
+              the schema to switch back to video behavior.
+            {% endcomment %}
+            <img
+              class="cwc_hero-vsl__override-image"
+              src="{{ override_image | image_url: width: 1200 }}"
+              srcset="
+                {{ override_image | image_url: width: 600 }} 600w,
+                {{ override_image | image_url: width: 900 }} 900w,
+                {{ override_image | image_url: width: 1200 }} 1200w,
+                {{ override_image | image_url: width: 1600 }} 1600w
+              "
+              sizes="(max-width: 991px) 100vw, 50vw"
+              alt="{{ override_image.alt | default: section.settings.heading | strip_html | escape }}"
+              width="{{ override_image.width }}"
+              height="{{ override_image.height }}"
+              loading="eager"
+            >
+          {% elsif has_shopify_video %}
             <div
               class="cwc_hero-vsl__video-trigger"
               data-provider="shopify"
@@ -313,6 +336,16 @@
       "label": "Trust Strip",
       "info": "Small text below the button. Good for credibility line (badges, hours, ratings).",
       "default": "<p>400+ hours | 60+ Happy Clients</p>"
+    },
+    {
+      "type": "header",
+      "content": "Image Override (Temporary)"
+    },
+    {
+      "type": "image_picker",
+      "id": "override_image",
+      "label": "Override Image",
+      "info": "When set, this image is shown in place of the video entirely (no poster, no play button). Use as a placeholder while filming. Leave blank to use the video settings below."
     },
     {
       "type": "header",

@@ -322,6 +322,11 @@
    Mobile Responsive
    ============================== */
 @media screen and (max-width: 768px) {
+  
+  .cwc_what-you-get__card {
+    padding-inline: 1.25rem;
+  }
+
   .cwc_what-you-get {
     padding-top: var(--padding-top-mobile);
     padding-bottom: var(--padding-bottom-mobile);
@@ -347,6 +352,7 @@
   .cwc_what-you-get__content-heading p {
     font-size: 1.875rem;
     letter-spacing: -0.015em;
+    line-height: 1.2;
   }
 
   .cwc_what-you-get__content-subtext p {
@@ -379,14 +385,14 @@
 
   .cwc_what-you-get__cta,
   .cwc_what-you-get__cta-arrow {
-    transition: none;
+    /* transition: none; */
   }
 
   .cwc_what-you-get__cta:hover {
-    transform: none;
+    /* transform: none; */
   }
 
   .cwc_what-you-get__cta:hover .cwc_what-you-get__cta-arrow {
-    transform: none;
+    /* transform: none; */
   }
 }

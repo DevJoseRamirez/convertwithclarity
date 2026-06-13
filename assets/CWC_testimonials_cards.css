@@ -108,6 +108,7 @@
   border-radius: 16px;
   box-shadow: inset 2px 2px 0 -1px hsla(0, 0%, 100%, .4), inset -2px -2px 0 -1px hsla(0, 0%, 100%, .4), inset 20px 15px 40px -10px rgba(0, 0, 0, .2), inset -10px -10px 20px -10px hsla(0, 0%, 100%, .1);
   background: #8080801a;
+  background: #8080804f;
 }
 
 /* === Quote Mark === */
@@ -279,11 +280,12 @@
   .cwc_testimonials-cards__grid[data-testimonial-count="3"] {
     grid-template-columns: 1fr;
     justify-content: stretch;
-    gap: 1rem;
+    gap: 2rem;
   }
 
   .cwc_testimonials-cards__card {
     padding: 2.25rem 1.5rem 1.75rem 1.5rem;
+    padding: 3rem 1.5rem 1.75rem 1.5rem;
   }
 
   .cwc_testimonials-cards__card-mark {

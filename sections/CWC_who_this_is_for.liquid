@@ -23,13 +23,13 @@
       {% endif %}
 
       {% if section.settings.heading != blank %}
-        <div class="cwc_who-this-is-for__content-heading rte">
+        <div class="cwc_who-this-is-for__content-heading cwc-rte">
           {{ section.settings.heading }}
         </div>
       {% endif %}
 
       {% if section.settings.subtext != blank %}
-        <div class="cwc_who-this-is-for__content-subtext rte">
+        <div class="cwc_who-this-is-for__content-subtext cwc-rte">
           {{ section.settings.subtext }}
         </div>
       {% endif %}
@@ -46,13 +46,17 @@
                   {{ forloop.index | prepend: '0' | slice: -2, 2 }}
                 </div>
                 {% if block.settings.text != blank %}
-                  <div class="cwc_who-this-is-for__item-text rte">
-                    <div class="cwc_who-this-is-for__item-stage rte">
-                      Step {{ forloop.index | prepend: '0' | slice: -2, 2 }}
+                  <div class="cwc_who-this-is-for__item-text-wrap cwc-rte">
+                    <div class="cwc_who-this-is-for__item-title cwc-rte">
+                      {% if block.settings.title != blank %}
+                        {{ block.settings.title }}
+                      {% else %}
+                        Eliminate {{ forloop.index | prepend: '0' | slice: -2, 2 }}
+                      {% endif %}
                     </div>
-                    {% comment %}
-                    {% endcomment %}
-                    {{ block.settings.text }}
+                    <div class="cwc_who-this-is-for__item-text cwc-rte">
+                      {{ block.settings.text }}
+                    </div>
                   </div>
                 {% endif %}
               </div>
@@ -158,6 +162,11 @@
       "type": "qualifier",
       "name": "Qualifier",
       "settings": [
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Qualifier Title"
+        },
         {
           "type": "richtext",
           "id": "text",

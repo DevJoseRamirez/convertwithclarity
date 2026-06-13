@@ -178,6 +178,8 @@
   flex: 1;
   font-weight: 500;
   font-weight: 600;
+  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 /* === Chevron === */
@@ -230,6 +232,7 @@
 
 .cwc_faq__answer-inner p {
   margin: 0 0 0.75em;
+  font-size: 1rem;
 }
 
 .cwc_faq__answer-inner p:last-child {
@@ -263,6 +266,16 @@
    Mobile (CWC standard 768px)
    ============================== */
 @media screen and (max-width: 768px) {
+
+  .cwc_faq__question-text {
+    font-size: 1rem;
+  }
+
+  .cwc_faq__answer-inner p {
+    font-size: .9rem;
+  }
+
+
   .cwc_faq {
     padding-top: var(--padding-top-mobile);
     padding-bottom: var(--padding-bottom-mobile);

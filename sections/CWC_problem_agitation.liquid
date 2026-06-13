@@ -7,6 +7,7 @@
     --number-color: {{ section.settings.number_color | default: '#8A8A85' }};
     --link-color: {{ section.settings.link_color | default: '#0A0A0A' }};
     --card-bg: {{ section.settings.card_bg | default: '#FFFFFF' }};
+    --icon-size: {{ section.settings.icon_size | default: 36 }}px;
     --card-padding: {{ section.settings.card_padding | default: 32 }}px;
     --card-radius: {{ section.settings.card_radius | default: 0 }}px;
     --padding-top: {{ section.settings.padding_top | default: 80 }}px;
@@ -46,9 +47,23 @@
           {% case block.type %}
             {% when 'problem' %}
               <div class="cwc_problem-agitation__card" {{ block.shopify_attributes }}>
-                <div class="cwc_problem-agitation__card-number">
-                  {{ forloop.index | prepend: '0' | slice: -2, 2 }}
-                </div>
+                {% if block.settings.icon != blank %}
+                  <div class="cwc_problem-agitation__card-icon">
+                    {{
+                      block.settings.icon
+                      | image_url: width: 120
+                      | image_tag:
+                        loading: 'lazy',
+                        class: 'cwc_problem-agitation__card-icon-img',
+                        alt: block.settings.icon.alt
+                      | default: ''
+                    }}
+                  </div>
+                {% else %}
+                  <div class="cwc_problem-agitation__card-number">
+                    {{ forloop.index | prepend: '0' | slice: -2, 2 }}
+                  </div>
+                {% endif %}
 
                 {% if block.settings.title != blank %}
                   <div class="cwc_problem-agitation__card-title rte">
@@ -144,6 +159,16 @@
       "default": 0
     },
     {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon Size",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
       "type": "header",
       "content": "Colors"
     },
@@ -219,6 +244,12 @@
       "type": "problem",
       "name": "Problem Card",
       "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon",
+          "info": "Upload an SVG or PNG (already in the desired color). Sized via section setting."
+        },
         {
           "type": "richtext",
           "id": "title",

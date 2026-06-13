@@ -50,7 +50,7 @@
   margin-bottom: 1.25rem;
 }
 
-.cwc_who-this-is-for__item-stage {
+.cwc_who-this-is-for__item-title {
   font-size: 1.6rem;
   font-weight: bold;
   margin-bottom: .5rem;
@@ -143,8 +143,15 @@
   box-shadow: rgb(69 89 65) -1.89225px 0px 0px 0px inset;
 }
 
-.cwc_who-this-is-for__item-text {
+.cwc_who-this-is-for__item-text-wrap {
+
   padding: 4rem 3rem;
+}
+
+.cwc_who-this-is-for__item-text {
+
+  margin: 0;
+  margin-bottom: 1.5rem;
 }
 
 .cwc_who-this-is-for__item-text p {
@@ -251,8 +258,9 @@
 
   }
 
-  .cwc_who-this-is-for__item-text {
+  .cwc_who-this-is-for__item-text-wrap {
     padding: 1.5rem 0rem 2rem;
+    padding-top: 0rem;
   }
 
   .cwc_who-this-is-for__item-number {
@@ -262,6 +270,7 @@
     border-bottom: #108401 solid;
     border-bottom: #455941 solid .5px;
     padding: 0rem;
+    border: none;
 
   }
 

@@ -344,6 +344,7 @@
         "subtext": "",
         "card_padding": 32,
         "card_radius": 0,
+        "icon_size": 36,
         "bg_color": "#0a0a0a",
         "card_bg": "#ffffff",
         "text_color": "#ffffff",
@@ -443,7 +444,7 @@
         "text_color": "#ffffff",
         "bold_color": "#14a800",
         "subtext_color": "#d8d8d8",
-        "card_bg": "#fffef5",
+        "card_bg": "#ffffff",
         "card_title_color": "#0a0a0a",
         "card_text_color": "#0a0a0a",
         "link_color": "#0a0a0a",
@@ -457,36 +458,42 @@
         "qualifier_8L7nCL": {
           "type": "qualifier",
           "settings": {
+            "title": "",
             "text": "<p>We pull your analytics, traffic sources, and everything you've already tried, then map your full funnel end to end — so we start from data, not guesses.</p><p></p>"
           }
         },
         "qualifier_whTGPY": {
           "type": "qualifier",
           "settings": {
+            "title": "",
             "text": "<p>We review every drop-off point — PDP, cart, checkout, navbar, post-purchase, and the landing pages your paid traffic hits — with heatmaps, session recordings, and funnel analysis. Every friction point gets documented.</p><p></p>"
           }
         },
         "qualifier_kPFBNY": {
           "type": "qualifier",
           "settings": {
+            "title": "",
             "text": "<p>We turn the findings into a ranked roadmap, sorted by impact, effort, and speed to ship. You see exactly what we're fixing and why — no vague \"make it better.\"</p><p></p>"
           }
         },
         "qualifier_kXMMKN": {
           "type": "qualifier",
           "settings": {
+            "title": "",
             "text": "<p>We write clean, custom code straight into your Shopify theme — sections, landing pages, funnel work, whatever the audit calls for. No third-party page builders, no app-bloat.</p><p></p>"
           }
         },
         "qualifier_bd6Chj": {
           "type": "qualifier",
           "settings": {
+            "title": "",
             "text": "<p>We set up proper measurement and watch the metrics that matter — CR, AOV, RPV — so you know what actually worked, not just what looks busy.</p><p></p>"
           }
         },
         "qualifier_bQwFtJ": {
           "type": "qualifier",
           "settings": {
+            "title": "",
             "text": "<p>We double down on winners, cut losers, and move to the next bottleneck — cycle after cycle. Conversion compounds; we keep it compounding.</p>"
           }
         }
@@ -563,7 +570,7 @@
         "spotlight_color": "#fec42d",
         "spotlight_opacity": 60,
         "show_cta": true,
-        "cta_label": "Get Started Today - Message Me on Upwork",
+        "cta_label": "Get Started Today",
         "cta_url": "https://www.upwork.com/freelancers/joseshopify",
         "cta_new_tab": false,
         "cta_bg": "#e53935",
@@ -839,7 +846,7 @@
         "bullet_title": "Here's how it works:",
         "bullets": "<ul><li>Provide the access and assets we need to do the work</li><li>Commit to the roadmap and ship the agreed changes</li><li>Send real traffic and give it the full 30 days to perform</li><li></li><li>Hold up your end and you're fully covered — your success is our success</li></ul>",
         "show_cta": true,
-        "cta_label": "Get Started Today - Message Me on Upwork",
+        "cta_label": "Get Started Today",
         "cta_url": "",
         "cta_new_tab": false,
         "cta_bg": "#14a800",
@@ -961,7 +968,7 @@
         "subtext": "<p>Send me a message on Upwork with a bit about your store. I'll get back to you within 24 hours, and we'll set up a quick call to talk through whether I can help — and exactly where I'd start.</p><p></p>",
         "bullet_title": "<h3>Here's what happens next:</h3>",
         "bullet_text": "<ul><li>Message me on Upwork — share your store and what you're working on</li><li>I'll reply within 24 hours and we'll schedule a quick call</li><li>On the call, I'll assess whether I can help and where I'd focus first</li></ul>",
-        "cta_label": "Yes, I Want to Scale My Brand - Message Me on Upwork",
+        "cta_label": "Message Me on Upwork Today",
         "cta_url": "https://www.upwork.com/freelancers/joseshopify",
         "cta_new_tab": true,
         "ps_text": "<p><em>P.S. I keep my client roster small on purpose — I'd rather move the number for a few brands than be average for many. If you're serious about fixing your conversion, now's the time to reach out.</em></p>",

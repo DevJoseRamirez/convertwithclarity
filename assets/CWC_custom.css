@@ -100,9 +100,11 @@ body,
     font-size: 1rem;
 }
 
+/* 
 .cwc-rte>*:last-child {
     margin-bottom: 0;
 }
+ */
 
 h1,
 h2,

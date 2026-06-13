@@ -240,7 +240,9 @@
   .cwc_logo-carousel__content-heading h2,
   .cwc_logo-carousel__content-heading h3,
   .cwc_logo-carousel__content-heading p {
-    font-size: 1rem;
+    font-size: 1.25rem;
+    max-width: 80%;
+    margin: auto;
   }
 
   /* Tighter spacing between logos on mobile */
@@ -255,6 +257,7 @@
   /* Slightly smaller logos on mobile */
   .cwc_logo-carousel__item {
     height: calc(var(--logo-height) * 0.85);
+    height: calc(var(--logo-height));
   }
 
   .cwc_logo-carousel__image {

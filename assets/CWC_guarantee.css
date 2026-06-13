@@ -350,6 +350,9 @@
   .cwc_guarantee__inner {
     padding: 2.5rem 1.25rem;
     border-radius: calc(var(--inner-radius) * 0.75);
+    box-shadow: none;
+    /*  */
+    /* padding: 2.5rem 1rem; */
   }
 
   .cwc_guarantee__spotlight {
@@ -390,6 +393,7 @@
 
   .cwc_guarantee__content-subtext p {
     font-size: 0.9375rem;
+    font-size: 1rem;
   }
 
   .cwc_guarantee__bullet-card {

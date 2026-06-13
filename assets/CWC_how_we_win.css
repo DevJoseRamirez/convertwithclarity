@@ -183,7 +183,7 @@
 }
 
 /* All card content sits above the spotlight */
-.cwc_how-we-win__card>*:not(.cwc_how-we-win__card-spotlight) {
+. cwc_how-we-win__card>*:not(.cwc_how-we-win__card-spotlight) {
   position: relative;
   z-index: 1;
 }
@@ -208,11 +208,19 @@
 
 .cwc_how-we-win__card-title p {
   font-size: 1.25rem;
+  font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: -0.01em;
   margin: 0;
   color: var(--card-title-color);
+  font-size: 1.375rem;
+
+  /*  */
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -.015em;
+  margin: 0;
 }
 
 .cwc_how-we-win__card-title>* strong {
@@ -222,13 +230,19 @@
 /* === Card Body Text === */
 .cwc_how-we-win__card-text {
   margin: 0 0 0 0;
+  margin-bottom: 1.5rem;
 }
 
 .cwc_how-we-win__card-text p {
   font-size: 0.9375rem;
+  font-size: 1rem;
   line-height: 1.55;
   margin: 0;
   color: var(--card-text-color);
+  /*  */
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
 }
 
 .cwc_how-we-win__card-text p+p {
@@ -323,6 +337,12 @@
    Mobile Responsive
    ============================== */
 @media screen and (max-width: 768px) {
+
+  .cwc_how-we-win__card {
+    padding-inline: 1.25rem;
+    ;
+  }
+
   .cwc_how-we-win-spotlight.cwc-top_center {
     top: -2rem
   }
@@ -385,10 +405,10 @@
   .cwc_how-we-win__card-link,
   .cwc_how-we-win__card-link::after,
   .cwc_how-we-win__card-link-arrow {
-    transition: none;
+    /* transition: none; */
   }
 
   .cwc_how-we-win__card-link:hover .cwc_how-we-win__card-link-arrow {
-    transform: none;
+    /* transform: none; */
   }
 }

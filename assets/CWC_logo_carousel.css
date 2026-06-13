@@ -257,8 +257,7 @@
   /* Slightly smaller logos on mobile */
   .cwc_logo-carousel__item {
     height: calc(var(--logo-height) * 0.85);
-    height: calc(var(--logo-height));
-  }
+    }
 
   .cwc_logo-carousel__image {
     max-height: calc(var(--logo-height) * 0.85);

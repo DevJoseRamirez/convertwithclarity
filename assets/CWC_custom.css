@@ -121,11 +121,30 @@ svg {
     height: 24px;
 }
 
+
+.cwc_mobile-view {
+    display: none;
+}
+
+.cwc_desktop-view {
+    display: inline-flex;
+
+}
+
 /* ================================
    Mobile Adjustments
    ================================ */
 
 @media (max-width: 768px) {
+
+    .cwc_mobile-view {
+        display: inline-flex;
+    }
+
+    .cwc_desktop-view {
+        display: none;
+    }
+
     .cwc-rte h1 {
         font-size: 2rem;
         /* 32px mobile */

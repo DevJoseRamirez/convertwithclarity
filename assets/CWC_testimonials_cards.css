@@ -239,6 +239,9 @@
    Mobile Responsive
    ============================== */
 @media screen and (max-width: 768px) {
+
+
+
   .cwc_testimonials-cards {
     padding-top: var(--padding-top-mobile);
     padding-bottom: var(--padding-bottom-mobile);
@@ -287,6 +290,8 @@
     font-size: 4rem;
     top: 0.375rem;
     left: 1.25rem;
+    line-height: normal;
+    top: -3px;
   }
 
   .cwc_testimonials-cards__card-quote p {

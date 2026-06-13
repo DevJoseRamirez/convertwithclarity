@@ -242,6 +242,11 @@
    Mobile Responsive
    ============================== */
 @media screen and (max-width: 768px) {
+
+  .cwc_stats-row__stat {
+    margin: .5rem;
+  }
+
   .cwc_stats-row {
     padding-top: var(--padding-top-mobile);
     padding-bottom: var(--padding-bottom-mobile);
@@ -295,7 +300,7 @@
   .cwc_stats-row__grid[data-stat-count="4"] .cwc_stats-row__stat:nth-child(-n+2),
   .cwc_stats-row__grid[data-stat-count="5"] .cwc_stats-row__stat:nth-child(-n+2),
   .cwc_stats-row__grid[data-stat-count="6"] .cwc_stats-row__stat:nth-child(-n+2) {
-    border-top: none;
+    /* border-top: none; */
   }
 
   /* Vertical divider on even-positioned cells (right column) */

@@ -29,6 +29,23 @@
 
 {{ 'CWC_hero_vertical_carousel.css' | asset_url | stylesheet_tag }}
 
+{% if section.settings.bg_image %}
+  <div class="cwc_hero-vertical-carousel_texture-wrap">
+    {{
+      section.settings.bg_image
+      | image_url: width: 600
+      | image_tag:
+        class: 'cwc_hero-vertical-carousel_texture-bg',
+        widths: widths,
+        height: logo_height,
+        width: logo_width,
+        alt: logo_alt,
+        sizes: sizes,
+        preload: true
+    }}
+  </div>
+{% endif %}
+
 <section id="cwc_hero-vertical-carousel-{{ section.id }}" class="cwc_hero-vertical-carousel">
   <div class="cwc_hero-vertical-carousel__container">
     <div class="cwc_hero-vertical-carousel__grid">
@@ -50,11 +67,23 @@
           </div>
         {% endif %}
 
+        {% render 'CWC_item-vertical-carousel',
+          section: section,
+          blocks: section.blocks,
+          view: 'cwc_mobile-view',
+          column_count: column_count,
+          skew_angle: skew_angle,
+          scroll_duration: scroll_duration,
+          image_radius: image_radius,
+          image_gap: image_gap,
+          opposing: opposing
+        %}
+
         {% if section.settings.cta_label != blank %}
           <div class="cwc_hero-vertical-carousel__cta">
             <a
               href="{{ section.settings.cta_url | default: '#' }}"
-              class="cwc_hero-vertical-carousel__button"
+              class="cwc_hero-vertical-carousel__button cwc_desktop-view"
               {% if section.settings.cta_new_tab %}
                 target="_blank" rel="noopener"
               {% endif %}
@@ -70,6 +99,25 @@
               </svg>
             </a>
 
+            <a
+              href="{{ section.settings.cta_url | default: '#' }}"
+              class="cwc_hero-vertical-carousel__button cwc_mobile-view"
+              {% if section.settings.cta_new_tab %}
+                target="_blank" rel="noopener"
+              {% endif %}
+            >
+              <span class="cwc_hero-vertical-carousel__button-label">Message Me on Upwork</span>
+              <svg
+                class="cwc_hero-vertical-carousel__button-arrow"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+
+            {% comment %} social proof {% endcomment %}
             <div class="cwc_hero-vertical-carousel__social-proof-container">
               {% if section.settings.social_proof_image %}
                 <div class="cwc_hero-vertical-carousel__social-proof-image">
@@ -86,6 +134,7 @@
                 </div>
               {% endif %}
 
+              {% comment %} upwork proof {% endcomment %}
               <div class="cwc_hero-vertical-carousel__social-proof_content-wrap">
                 <div class="cwc_hero-vertical-carousel__social-proof-stars">
                   {% render 'CWC_icon-upwork_5_star' %}
@@ -116,77 +165,17 @@
         {% endif %}
       </div>
 
-      {% comment %} ==== Vertical Carousel Column ==== {% endcomment %}
-      <div class="cwc_hero-vertical-carousel__media">
-        <div class="cwc_hero-vertical-carousel__stage">
-          <div class="cwc_hero-vertical-carousel__columns">
-            {%- comment -%}
-              Render up to 3 columns. For each, loop blocks twice:
-              once for the initial set, once duplicated (aria-hidden)
-              so the translateY(-50%) loop is seamless.
-            {%- endcomment -%}
-
-            {% for col_idx in (1..3) %}
-              {% if col_idx <= column_count %}
-                {%- assign col_str = col_idx | append: '' -%}
-
-                {%- assign col_has_images = false -%}
-                {% for block in section.blocks %}
-                  {% if block.type == 'image' and block.settings.column == col_str and block.settings.image %}
-                    {%- assign col_has_images = true -%}
-                    {%- break -%}
-                  {% endif %}
-                {% endfor %}
-
-                {% if col_has_images %}
-                  {%- assign direction_class = 'cwc_hero-vertical-carousel__column--up' -%}
-                  {% if opposing and col_idx == 2 %}
-                    {%- assign direction_class = 'cwc_hero-vertical-carousel__column--down' -%}
-                  {% endif %}
-
-                  <div class="cwc_hero-vertical-carousel__column {{ direction_class }}">
-                    {% comment %} First pass — visible images {% endcomment %}
-                    {% for block in section.blocks %}
-                      {% if block.type == 'image' and block.settings.column == col_str and block.settings.image %}
-                        <div class="cwc_hero-vertical-carousel__image-wrap" {{ block.shopify_attributes }}>
-                          {{
-                            block.settings.image
-                            | image_url: width: 600
-                            | image_tag:
-                              class: 'cwc_hero-vertical-carousel__image',
-                              widths: '300, 450, 600, 900',
-                              sizes: '(max-width: 768px) 40vw, 25vw',
-                              alt: block.settings.image.alt
-                            | default: '', loading: 'lazy'
-                          }}
-                        </div>
-                      {% endif %}
-                    {% endfor %}
-
-                    {% comment %} Second pass — duplicate set for seamless loop {% endcomment %}
-                    {% for block in section.blocks %}
-                      {% if block.type == 'image' and block.settings.column == col_str and block.settings.image %}
-                        <div class="cwc_hero-vertical-carousel__image-wrap" aria-hidden="true">
-                          {{
-                            block.settings.image
-                            | image_url: width: 600
-                            | image_tag:
-                              class: 'cwc_hero-vertical-carousel__image',
-                              widths: '300, 450, 600, 900',
-                              sizes: '(max-width: 768px) 40vw, 25vw',
-                              alt: '',
-                              loading: 'lazy'
-                          }}
-                        </div>
-                      {% endif %}
-                    {% endfor %}
-                  </div>
-                {% endif %}
-              {% endif %}
-            {% endfor %}
-          </div>
-        </div>
-      </div>
+      {% render 'CWC_item-vertical-carousel',
+        section: section,
+        blocks: section.blocks,
+        view: 'cwc_desktop-view',
+        column_count: column_count,
+        skew_angle: skew_angle,
+        scroll_duration: scroll_duration,
+        image_radius: image_radius,
+        image_gap: image_gap,
+        opposing: opposing
+      %}
     </div>
   </div>
 </section>
@@ -198,6 +187,11 @@
     {
       "type": "header",
       "content": "Text Content"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
     },
     {
       "type": "richtext",

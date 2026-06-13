@@ -246,6 +246,10 @@
    Mobile Responsive
    ============================== */
 @media screen and (max-width: 768px) {
+  .cwc_problem-agitation__card {
+    padding: 1.25rem;
+  }
+
   .cwc_problem-agitation {
     padding-top: var(--padding-top-mobile);
     padding-bottom: var(--padding-bottom-mobile);

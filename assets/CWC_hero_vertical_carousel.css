@@ -16,6 +16,26 @@
   padding: 0 2rem;
 }
 
+
+
+
+.cwc_hero-vertical-carousel_texture-wrap {
+  max-width: 100%;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+
+  top: -3rem;
+}
+
+.cwc_hero-vertical-carousel_texture-bg {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+
+
 /* === Grid === */
 .cwc_hero-vertical-carousel__grid {
   display: grid;
@@ -368,6 +388,35 @@
    Mobile Responsive
    ============================== */
 @media screen and (max-width: 768px) {
+
+
+  .cwc_hero-vertical-carousel__social-proof-img {
+    max-height: 30px;
+  }
+
+  .cwc_hero-vertical-carousel__social-proof-stars svg {
+    max-height: 16px;
+  }
+
+  .cwc_hero-vertical-carousel__trust p {
+    font-size: .8rem;
+  }
+
+  .cwc_hero-vertical-carousel__social-proof-stars {
+    width: auto;
+  }
+
+  .cwc_hero-vertical-carousel__upwork-badge--label {
+
+    font-size: .74rem;
+  }
+
+  .cwc_hero-vertical-carousel_texture-bg {
+    left: -29rem;
+    top: -3rem;
+    width: auto;
+  }
+
   .cwc_hero-vertical-carousel {
     padding-top: var(--padding-top-mobile);
     padding-bottom: var(--padding-bottom-mobile);
@@ -391,7 +440,7 @@
   .cwc_hero-vertical-carousel__content-heading h2,
   .cwc_hero-vertical-carousel__content-heading h3,
   .cwc_hero-vertical-carousel__content-heading p {
-    font-size: 2rem;
+    font-size: 2.25rem;
     letter-spacing: -0.015em;
   }
 
@@ -417,6 +466,7 @@
 
   .cwc_hero-vertical-carousel__media {
     aspect-ratio: 1 / 1;
+    aspect-ratio: 4 / 3;
   }
 
   .cwc_hero-vertical-carousel__columns {
@@ -432,5 +482,36 @@
   .cwc_hero-vertical-carousel__column--up,
   .cwc_hero-vertical-carousel__column--down {
     /* animation: none; */
+  }
+}
+
+
+
+.cwc_mobile-view {
+  display: none;
+}
+
+.cwc_desktop-view {
+  display: inline-flex;
+
+}
+
+/* ================================
+   Mobile Adjustments
+   ================================ */
+
+@media (max-width: 768px) {
+  .cwc_hero-vertical-carousel__media.cwc_mobile-view {
+    order: 0;
+    margin-bottom: 1.5rem;
+
+  }
+
+  .cwc_mobile-view {
+    display: inline-flex;
+  }
+
+  .cwc_desktop-view {
+    display: none;
   }
 }

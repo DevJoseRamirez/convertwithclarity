@@ -32,8 +32,106 @@
         "padding_y": 18
       }
     },
+    "cwc_hero_vertical_carousel_e3BmkC": {
+      "type": "CWC_hero_vertical_carousel",
+      "blocks": {
+        "image_hg4rci": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ollie-kids-toothpaste-min.png",
+            "column": "1"
+          }
+        },
+        "image_byMfB3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/anvanda-pdp-min.png",
+            "column": "1"
+          }
+        },
+        "image_PkcQtC": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Wellness-First-min.png",
+            "column": "1"
+          }
+        },
+        "image_ncXUnQ": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/ollie-toothpaste-fulll-mock-min.png",
+            "column": "1"
+          }
+        },
+        "image_txagH4": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/blocker-pdp-min.png",
+            "column": "2"
+          }
+        },
+        "image_P8aeyP": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/yoyo-home-min.png",
+            "column": "2"
+          }
+        },
+        "image_AMaab9": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/enzy-strips-pdp-min.png",
+            "column": "2"
+          }
+        },
+        "image_BQBRA3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/7-signs-your-hair-loss-min.png",
+            "column": "2"
+          }
+        }
+      },
+      "block_order": [
+        "image_hg4rci",
+        "image_byMfB3",
+        "image_PkcQtC",
+        "image_ncXUnQ",
+        "image_txagH4",
+        "image_P8aeyP",
+        "image_AMaab9",
+        "image_BQBRA3"
+      ],
+      "name": "Hero Carousel",
+      "settings": {
+        "bg_image": "shopify://shop_images/Group_39.png",
+        "eyebrow": "",
+        "heading": "<p>Your Shopify store doesn't have a traffic problem. It has a <strong>conversion problem.</strong></p>",
+        "subtext": "<p>High-converting landing pages, funnels, and Shopify CRO for DTC consumer brands — built to Lift Conversion Rates, Boost AOV,  LTV, and Revenue per visitor.</p>",
+        "cta_label": "Get Started Today - Message Me on Upwork",
+        "cta_url": "",
+        "cta_new_tab": false,
+        "social_proof_image": "shopify://shop_images/profile_social_proof.png",
+        "trust_text": "<p>400+ hours | 60+ Happy Clients</p>",
+        "column_count": 2,
+        "opposing_directions": true,
+        "skew_angle": 0,
+        "scroll_duration": 120,
+        "image_radius": 12,
+        "image_gap": 16,
+        "bg_color": "rgba(0,0,0,0)",
+        "text_color": "#ffffff",
+        "bold_color": "#14a800",
+        "button_bg": "#14a800",
+        "button_text": "#ffffff",
+        "media_bg": "rgba(0,0,0,0)",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
     "cwc_hero_vsl_UgrxRm": {
       "type": "CWC_hero_vsl",
+      "disabled": true,
       "name": "CWC Hero VSL",
       "settings": {
         "bg_image": "shopify://shop_images/Group_39.png",
@@ -883,6 +981,7 @@
   },
   "order": [
     "cwc_header_iCV6X8",
+    "cwc_hero_vertical_carousel_e3BmkC",
     "cwc_hero_vsl_UgrxRm",
     "cwc_logo_carousel_JcVN78",
     "cwc_problem_agitation_jFJxhg",

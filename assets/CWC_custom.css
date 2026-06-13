@@ -27,6 +27,7 @@ body,
     letter-spacing: normal !important;
 }
 
+
 [cwc_max-width] {
     max-width: 1400px;
     margin: auto;

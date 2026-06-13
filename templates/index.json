@@ -9,7 +9,7 @@
  */
 {
   "sections": {
-    "cwc_header_iCV6X8": {
+        "cwc_header_iCV6X8": {
       "type": "CWC_header",
       "name": "CWC Header",
       "settings": {
@@ -694,48 +694,48 @@
           "type": "testimonial",
           "settings": {
             "quote": "<p>His work ethic is unmatched — methodical, focused, and generous with his expertise. I'll be bringing Jose to more projects whenever possible. A pure pleasure for any marketing and sales team.</p><p></p>",
-            "author": "Client Name",
-            "role": "Marketing & sales team ·"
+            "author": "Marketing & sales team",
+            "role": "Upwork"
           }
         },
         "testimonial_qaJee8": {
           "type": "testimonial",
           "settings": {
             "quote": "<p>Jose was exceptional to work with. He worked quickly and consistently, and gave me a ton of confidence about the success of my project. I'd absolutely work with him again — and recommend you do too.</p><p></p>",
-            "author": "Client Name",
-            "role": ""
+            "author": "Brand Founder",
+            "role": "Upwork"
           }
         },
         "testimonial_rgqtWq": {
           "type": "testimonial",
           "settings": {
             "quote": "<p>We were hesitant to hire on Upwork for the first time. Jose was our first contact and right away was professional and attentive. Our project was complex and detailed — he went above and beyond. We already have future projects lined up for him.</p><p></p>",
-            "author": "Client Name",
-            "role": ""
+            "author": "Brighter Life Labs",
+            "role": "Upwork"
           }
         },
         "testimonial_rTr4dN": {
           "type": "testimonial",
           "settings": {
             "quote": "<p>Goes above and beyond. Very good at communicating and executing the job. Goes above and beyond to explain what he's done — even detailed video captures of completed work. Patient and personable. You won't be disappointed.</p>",
-            "author": "Client Name",
-            "role": ""
+            "author": "Supplements brand",
+            "role": "Upwork"
           }
         },
         "testimonial_whPiEx": {
           "type": "testimonial",
           "settings": {
             "quote": "<p>By far the best freelancer we've worked with And I've worked with several. Technically savvy, efficient, and a great communicator. He went above and beyond to help us end up with a great site. I'll only be working with him going forward.</p>",
-            "author": "Client Name",
-            "role": ""
+            "author": "DTC store owner",
+            "role": "Upwork"
           }
         },
         "testimonial_fNVjMc": {
           "type": "testimonial",
           "settings": {
-            "quote": "<p>Thorough and detailed — he knew how important it was to get everything bug-free before launch, and that's exactly what he delivered. </p>",
-            "author": "Client Name",
-            "role": ""
+            "quote": "<p>Thorough and detailed — he knew how important it was to get everything bug-free before launch, and that's exactly what he delivered.  </p>",
+            "author": "DTC brand",
+            "role": "Upwork"
           }
         },
         "testimonial_bGURfU": {
@@ -750,8 +750,8 @@
           "type": "testimonial",
           "settings": {
             "quote": "<p>Highly recommend his ability to go above and beyond on the solutions we needed. Fantastic communication, super helpful, and extremely respectful of time. We'll absolutely work with him again.</p><p></p>",
-            "author": "Upwork Client",
-            "role": "Fine Jewelry Brand"
+            "author": "Fine Jewelry Brand",
+            "role": "Upwork"
           }
         }
       },

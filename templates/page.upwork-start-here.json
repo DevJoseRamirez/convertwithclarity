@@ -1,0 +1,41 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "cwc_hero_vsl_UgrxRm": {
+      "type": "CWC_hero_vsl",
+      "name": "CWC Hero VSL",
+      "settings": {
+        "bg_image": "shopify://shop_images/Group_39.png",
+        "eyebrow": "",
+        "heading": "<p>Your Shopify store doesn't have a traffic problem. It has a <strong>conversion problem.</strong></p>",
+        "subtext": "<p>High-converting landing pages, funnels, and Shopify CRO for DTC consumer brands — built to Lift Conversion Rates, Boost AOV,  LTV, and Revenue per visitor.</p>",
+        "cta_label": "Get Started Today - Message Me on Upwork",
+        "cta_url": "https://www.upwork.com/freelancers/joseshopify",
+        "cta_new_tab": false,
+        "social_proof_image": "shopify://shop_images/profilt_social_iamge.png",
+        "trust_text": "<p>400+ hours | 60+ Happy Clients</p>",
+        "video_provider": "shopify",
+        "loom_url": "",
+        "bg_color": "#181818",
+        "text_color": "#ffffff",
+        "bold_color": "#14a800",
+        "rule_color": "#e5e5e5",
+        "button_bg": "#14a800",
+        "button_text": "#ffffff",
+        "padding_top": 80,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": [
+    "cwc_hero_vsl_UgrxRm"
+  ]
+}

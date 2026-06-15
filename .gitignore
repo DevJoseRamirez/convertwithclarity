@@ -1,0 +1,17 @@
+# Shopify CLI config — contains store URL and theme ID
+shopify.theme.toml
+*.toml
+
+config.yml
+*.yml
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Theme settings (store-specific, not portable)
+config/settings_data.json
+
+# Node
+node_modules/

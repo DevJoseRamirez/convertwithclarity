@@ -1,7 +1,10 @@
 # Shopify CLI config — contains store URL and theme ID
 shopify.theme.toml
+shopify.app.toml
+
 *.toml
 
+# Shopify Theme Kit
 config.yml
 *.yml
 
@@ -15,3 +18,7 @@ config/settings_data.json
 
 # Node
 node_modules/
+
+
+# Rails credentials key
+config/master.key

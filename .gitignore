@@ -8,6 +8,9 @@ shopify.app.toml
 config.yml
 *.yml
 
+# Assets
+assets/
+
 # Environment variables
 .env
 .env.*

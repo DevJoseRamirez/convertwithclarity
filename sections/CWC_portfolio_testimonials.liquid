@@ -1,0 +1,125 @@
+{% style %}
+  #cwc_portfolio_testimonials-{{ section.id }} {
+    --section-bg: {{ section.settings.bg_color | default: '#0A0A0A' }};
+    --accent-color: {{ section.settings.accent_color | default: '#4ade80' }};
+    --text-color: {{ section.settings.text_color | default: '#FFFFFF' }};
+    --card-bg: {{ section.settings.card_bg | default: '#111111' }};
+    --card-border: {{ section.settings.card_border | default: '#1E1E1E' }};
+    --quote-color: {{ section.settings.quote_color | default: '#CCCCCC' }};
+    --author-color: {{ section.settings.author_color | default: '#555555' }};
+    --star-color: {{ section.settings.star_color | default: '#4ade80' }};
+    --padding-top: {{ section.settings.padding_top | default: 72 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 72 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | default: 72 | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 72 | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_portfolio_testimonials.css' | asset_url | stylesheet_tag }}
+
+<section id="cwc_portfolio_testimonials-{{ section.id }}" class="cwc_portfolio_testimonials">
+  <div class="cwc_portfolio_testimonials__container">
+
+    <div class="cwc_portfolio_testimonials__header">
+      {% if section.settings.eyebrow != blank %}
+        <span class="cwc_portfolio_testimonials__eyebrow">{{ section.settings.eyebrow }}</span>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <div class="cwc_portfolio_testimonials__heading cwc-rte">
+          {{ section.settings.heading }}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div class="cwc_portfolio_testimonials__grid">
+        {% for block in section.blocks %}
+          {% if block.type == 'testimonial' %}
+            {%- assign rating = block.settings.rating | default: 5 | plus: 0 -%}
+            <div class="cwc_portfolio_testimonials__card" {{ block.shopify_attributes }}>
+              {% if rating > 0 %}
+                <div class="cwc_portfolio_testimonials__stars" aria-label="{{ rating }} out of 5 stars">
+                  {%- for i in (1..rating) -%}★{%- endfor -%}
+                </div>
+              {% endif %}
+
+              {% if block.settings.quote != blank %}
+                <p class="cwc_portfolio_testimonials__quote">{{ block.settings.quote }}</p>
+              {% endif %}
+
+              {% if block.settings.author != blank %}
+                <div class="cwc_portfolio_testimonials__author">{{ block.settings.author }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Portfolio Testimonials",
+  "settings": [
+    { "type": "header", "content": "Header" },
+    { "type": "text",     "id": "eyebrow", "label": "Eyebrow", "default": "Client Feedback" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<h2>What Clients <strong>Actually Say</strong></h2>" },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color",     "label": "Background",       "default": "#0A0A0A" },
+    { "type": "color", "id": "accent_color", "label": "Accent",           "default": "#4ade80" },
+    { "type": "color", "id": "text_color",   "label": "Heading Color",    "default": "#FFFFFF" },
+    { "type": "color", "id": "card_bg",      "label": "Card BG",          "default": "#111111" },
+    { "type": "color", "id": "card_border",  "label": "Card Border",      "default": "#1E1E1E" },
+    { "type": "color", "id": "quote_color",  "label": "Quote Text",       "default": "#CCCCCC" },
+    { "type": "color", "id": "author_color", "label": "Author Text",      "default": "#555555" },
+    { "type": "color", "id": "star_color",   "label": "Star Color",       "default": "#4ade80" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top",    "label": "Padding Top",    "min": 0, "max": 200, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding Bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 72 }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "Got the job done right the first time with very little input — listens well and executes on schedule."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "Upwork Client · 5.0 ★"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Portfolio Testimonials",
+      "category": "CWC Custom",
+      "blocks": [
+        { "type": "testimonial", "settings": { "quote": "Got the job done right the first time with very little input — listens well and executes on schedule.", "author": "Upwork Client · 5.0 ★" } },
+        { "type": "testimonial", "settings": { "quote": "Delivered work in a very short time. I'll be hiring him again.", "author": "Upwork Client · 5.0 ★" } },
+        { "type": "testimonial", "settings": { "quote": "[ Third Upwork review — to be added ]", "author": "Upwork Client · 5.0 ★" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

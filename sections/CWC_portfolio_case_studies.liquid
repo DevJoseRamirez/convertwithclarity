@@ -1,0 +1,362 @@
+{% style %}
+  #cwc_portfolio_case-studies-{{ section.id }} {
+    --section-bg: {{ section.settings.bg_color | default: '#0A0A0A' }};
+    --accent-color: {{ section.settings.accent_color | default: '#4ade80' }};
+    --text-color: {{ section.settings.text_color | default: '#FFFFFF' }};
+    --subtext-color: {{ section.settings.subtext_color | default: '#BBBBBB' }};
+    --card-bg: {{ section.settings.card_bg | default: '#111111' }};
+    --card-border: {{ section.settings.card_border | default: '#1E1E1E' }};
+    --tag-bg: {{ section.settings.tag_bg | default: '#1a2a1a' }};
+    --tab-border: {{ section.settings.tab_border | default: '#2A2A2A' }};
+    --padding-top: {{ section.settings.padding_top | default: 72 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 72 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | default: 72 | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 72 | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_portfolio_case_studies.css' | asset_url | stylesheet_tag }}
+
+<section
+  id="cwc_portfolio_case-studies-{{ section.id }}"
+  class="cwc_portfolio_case-studies"
+  data-section-id="{{ section.id }}"
+>
+  <div class="cwc_portfolio_case-studies__container">
+    {% comment %} Header {% endcomment %}
+    <div class="cwc_portfolio_case-studies__header">
+      {% if section.settings.eyebrow != blank %}
+        <span class="cwc_portfolio_case-studies__eyebrow">{{ section.settings.eyebrow }}</span>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <div class="cwc_portfolio_case-studies__heading cwc-rte">
+          {{ section.settings.heading }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.subtext != blank %}
+        <div class="cwc_portfolio_case-studies__subtext cwc-rte">
+          {{ section.settings.subtext }}
+        </div>
+      {% endif %}
+    </div>
+
+    {% comment %} Tab list — built from tab blocks {% endcomment %}
+    {%- assign has_tabs = false -%}
+    {% for block in section.blocks %}
+      {% if block.type == 'tab' %}
+        {%- assign has_tabs = true -%}
+        {%- break -%}
+      {% endif %}
+    {% endfor %}
+
+    {% if has_tabs %}
+      <div
+        class="cwc_portfolio_case-studies__tabs"
+        role="tablist"
+        aria-label="{{ section.settings.heading | strip_html | default: 'Filter case studies' }}"
+      >
+        <button
+          type="button"
+          class="cwc_portfolio_case-studies__tab is-active"
+          role="tab"
+          aria-selected="true"
+          data-filter="all"
+        >
+          {{ section.settings.all_tab_label | default: 'All Work' }}
+        </button>
+        {% for block in section.blocks %}
+          {% if block.type == 'tab' %}
+            <button
+              type="button"
+              class="cwc_portfolio_case-studies__tab"
+              role="tab"
+              aria-selected="false"
+              data-filter="{{ block.settings.slug | default: block.settings.label | handle }}"
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.label }}
+            </button>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% comment %} Cards grid {% endcomment %}
+    {%- assign has_cards = false -%}
+    {% for block in section.blocks %}
+      {% if block.type == 'card' %}
+        {%- assign has_cards = true -%}
+        {%- break -%}
+      {% endif %}
+    {% endfor %}
+
+    {% if has_cards %}
+      <div class="cwc_portfolio_case-studies__grid" data-case-grid>
+        {% for block in section.blocks %}
+          {% if block.type == 'card' %}
+            {%- assign card_slug = block.settings.tag_slug | default: block.settings.tag | handle -%}
+            <article
+              class="cwc_portfolio_case-studies__card{% if block.settings.featured %} cwc_portfolio_case-studies__card--featured{% endif %}"
+              data-case-card
+              data-tag="{{ card_slug }}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="cwc_portfolio_case-studies__card-img">
+                {% if block.settings.image != blank %}
+                  {{
+                    block.settings.image
+                    | image_url: width: 1000
+                    | image_tag:
+                      class: 'cwc_portfolio_case-studies__card-image',
+                      widths: '400, 600, 800, 1000',
+                      sizes: '(max-width: 991px) 100vw, 50vw',
+                      alt: block.settings.image.alt
+                    | default: block.settings.title, loading: 'lazy'
+                  }}
+                {% else %}
+                  <span class="cwc_portfolio_case-studies__card-placeholder">
+                    {{ block.settings.image_placeholder | default: 'Project Screenshot' }}
+                  </span>
+                {% endif %}
+              </div>
+
+              <div class="cwc_portfolio_case-studies__card-body">
+                {% if block.settings.tag != blank %}
+                  <span class="cwc_portfolio_case-studies__card-tag">{{ block.settings.tag }}</span>
+                {% endif %}
+
+                {% if block.settings.title != blank %}
+                  <h3 class="cwc_portfolio_case-studies__card-title">{{ block.settings.title }}</h3>
+                {% endif %}
+
+                {% if block.settings.description != blank %}
+                  <div class="cwc_portfolio_case-studies__card-desc cwc-rte">
+                    {{ block.settings.description }}
+                  </div>
+                {% endif %}
+
+                {% if block.settings.featured %}
+                  {%- assign stats_array = '' -%}
+                  {%- if block.settings.stat_1_val != blank -%}
+                    {%- assign stats_array = stats_array | append: '1,' -%}
+                  {%- endif -%}
+                  {%- if block.settings.stat_2_val != blank -%}
+                    {%- assign stats_array = stats_array | append: '2,' -%}
+                  {%- endif -%}
+                  {%- if block.settings.stat_3_val != blank -%}
+                    {%- assign stats_array = stats_array | append: '3,' -%}
+                  {%- endif -%}
+
+                  {% if stats_array != blank %}
+                    <div class="cwc_portfolio_case-studies__card-stats">
+                      {% if block.settings.stat_1_val != blank %}
+                        <div class="cwc_portfolio_case-studies__card-stat">
+                          <div class="cwc_portfolio_case-studies__card-stat-val">{{ block.settings.stat_1_val }}</div>
+                          <div class="cwc_portfolio_case-studies__card-stat-key">{{ block.settings.stat_1_key }}</div>
+                        </div>
+                      {% endif %}
+                      {% if block.settings.stat_2_val != blank %}
+                        <div class="cwc_portfolio_case-studies__card-stat">
+                          <div class="cwc_portfolio_case-studies__card-stat-val">{{ block.settings.stat_2_val }}</div>
+                          <div class="cwc_portfolio_case-studies__card-stat-key">{{ block.settings.stat_2_key }}</div>
+                        </div>
+                      {% endif %}
+                      {% if block.settings.stat_3_val != blank %}
+                        <div class="cwc_portfolio_case-studies__card-stat">
+                          <div class="cwc_portfolio_case-studies__card-stat-val">{{ block.settings.stat_3_val }}</div>
+                          <div class="cwc_portfolio_case-studies__card-stat-key">{{ block.settings.stat_3_key }}</div>
+                        </div>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                {% endif %}
+
+                {% if block.settings.cta_label != blank %}
+                  <a
+                    href="{{ block.settings.cta_url | default: '#' }}"
+                    class="cwc_portfolio_case-studies__card-link"
+                    {% if block.settings.cta_new_tab %}
+                      target="_blank" rel="noopener"
+                    {% endif %}
+                  >
+                    {{ block.settings.cta_label }} →
+                  </a>
+                {% endif %}
+              </div>
+            </article>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{{ 'CWC_portfolio_case_studies.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "Portfolio Case Studies",
+  "settings": [
+    { "type": "header", "content": "Header" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Case Studies" },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<h2>Projects That <strong>Moved The Number</strong></h2>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Each project below includes the problem, what was built, and the measurable result. Click any card to read the full breakdown.</p>"
+    },
+    { "type": "text", "id": "all_tab_label", "label": "All-work Tab Label", "default": "All Work" },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#0A0A0A" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#4ade80" },
+    { "type": "color", "id": "text_color", "label": "Heading Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "subtext_color", "label": "Subtext Color", "default": "#BBBBBB" },
+    { "type": "color", "id": "card_bg", "label": "Card BG", "default": "#111111" },
+    { "type": "color", "id": "card_border", "label": "Card Border", "default": "#1E1E1E" },
+    { "type": "color", "id": "tag_bg", "label": "Tag BG", "default": "#1a2a1a" },
+    { "type": "color", "id": "tab_border", "label": "Tab Border", "default": "#2A2A2A" },
+    { "type": "header", "content": "Spacing" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Filter Tab",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Tab Label", "default": "CRO & Optimization" },
+        {
+          "type": "text",
+          "id": "slug",
+          "label": "Filter Slug",
+          "info": "Auto-generated from label if blank. Match this to a card's 'Tag Slug' to filter."
+        }
+      ]
+    },
+    {
+      "type": "card",
+      "name": "Case Study Card",
+      "settings": [
+        { "type": "header", "content": "Card Content" },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Featured (spans 2 cols + shows stats row)",
+          "default": false
+        },
+        { "type": "image_picker", "id": "image", "label": "Project Image" },
+        {
+          "type": "text",
+          "id": "image_placeholder",
+          "label": "Image Placeholder Text",
+          "default": "Project Screenshot"
+        },
+        { "type": "text", "id": "tag", "label": "Category Tag", "default": "CRO & Optimization" },
+        {
+          "type": "text",
+          "id": "tag_slug",
+          "label": "Tag Slug",
+          "info": "For filter matching. Auto-generated from Tag if blank. Must match a filter tab's slug."
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Simply Revival — +31% CVR, +36% Revenue MoM" },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Full CRO and front-end engagement: theme updates, custom landing page, checkout-extension app, PDP additions.</p>"
+        },
+
+        { "type": "header", "content": "Featured Stats (only shown if featured)" },
+        { "type": "text", "id": "stat_1_val", "label": "Stat 1 Value", "default": "+31%" },
+        { "type": "text", "id": "stat_1_key", "label": "Stat 1 Label", "default": "Conversion Rate" },
+        { "type": "text", "id": "stat_2_val", "label": "Stat 2 Value", "default": "+36%" },
+        { "type": "text", "id": "stat_2_key", "label": "Stat 2 Label", "default": "Net Sales MoM" },
+        { "type": "text", "id": "stat_3_val", "label": "Stat 3 Value", "default": "1.64→2.15%" },
+        { "type": "text", "id": "stat_3_key", "label": "Stat 3 Label", "default": "CVR Before / After" },
+
+        { "type": "header", "content": "CTA" },
+        { "type": "text", "id": "cta_label", "label": "CTA Label", "default": "Read Full Case Study" },
+        { "type": "url", "id": "cta_url", "label": "CTA URL" },
+        { "type": "checkbox", "id": "cta_new_tab", "label": "Open in new tab", "default": false }
+      ]
+    }
+  ],
+  "max_blocks": 24,
+  "presets": [
+    {
+      "name": "Portfolio Case Studies",
+      "category": "CWC Custom",
+      "blocks": [
+        { "type": "tab", "settings": { "label": "CRO & Optimization", "slug": "cro" } },
+        { "type": "tab", "settings": { "label": "Full Store Builds", "slug": "store" } },
+        { "type": "tab", "settings": { "label": "Checkout Extensions", "slug": "checkout" } },
+        { "type": "tab", "settings": { "label": "Platform Migrations", "slug": "migration" } },
+        { "type": "tab", "settings": { "label": "Landing Pages", "slug": "landing" } },
+
+        {
+          "type": "card",
+          "settings": {
+            "featured": true,
+            "tag": "CRO & Optimization",
+            "tag_slug": "cro",
+            "title": "Simply Revival — +31% CVR, +36% Revenue MoM"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "featured": false,
+            "tag": "Full Store Build",
+            "tag_slug": "store",
+            "title": "Anvanda — Core Page Rebuild"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "featured": false,
+            "tag": "Checkout Extension",
+            "tag_slug": "checkout",
+            "title": "Custom Shopify Checkout UI Extension"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "featured": false,
+            "tag": "Platform Migration",
+            "tag_slug": "migration",
+            "title": "Wix / WooCommerce / Magento → Shopify"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

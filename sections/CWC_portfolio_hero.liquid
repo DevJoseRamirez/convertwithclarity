@@ -1,0 +1,219 @@
+{% style %}
+  #cwc_portfolio_hero-{{ section.id }} {
+    --section-bg: {{ section.settings.bg_color | default: '#0A0A0A' }};
+    --accent-color: {{ section.settings.accent_color | default: '#4ade80' }};
+    --text-color: {{ section.settings.text_color | default: '#FFFFFF' }};
+    --subtext-color: {{ section.settings.subtext_color | default: '#BBBBBB' }};
+    --mockup-bg: {{ section.settings.mockup_bg | default: '#141414' }};
+    --mockup-border: {{ section.settings.mockup_border | default: '#222222' }};
+    --padding-top: {{ section.settings.padding_top | default: 72 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 72 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | default: 72 | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 72 | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_portfolio_hero.css' | asset_url | stylesheet_tag }}
+
+<section id="cwc_portfolio_hero-{{ section.id }}" class="cwc_portfolio_hero">
+  <div class="cwc_portfolio_hero__container">
+    <div class="cwc_portfolio_hero__grid">
+      <div class="cwc_portfolio_hero__copy">
+        {% if section.settings.eyebrow != blank %}
+          <span class="cwc_portfolio_hero__eyebrow">{{ section.settings.eyebrow }}</span>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <div class="cwc_portfolio_hero__heading cwc-rte">
+            {{ section.settings.heading }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.show_divider %}
+          <div class="cwc_portfolio_hero__divider" aria-hidden="true"></div>
+        {% endif %}
+
+        {% if section.settings.subtext != blank %}
+          <div class="cwc_portfolio_hero__subtext cwc-rte">
+            {{ section.settings.subtext }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.cta_label != blank %}
+          <a
+            href="{{ section.settings.cta_url | default: '#' }}"
+            class="cwc_portfolio_hero__btn"
+            {% if section.settings.cta_new_tab %}
+              target="_blank" rel="noopener"
+            {% endif %}
+          >
+            {{ section.settings.cta_label }}
+          </a>
+        {% endif %}
+
+        {% if section.settings.show_scroll_indicator %}
+          <div class="cwc_portfolio_hero__scroll-indicator" aria-hidden="true">
+            <div class="cwc_portfolio_hero__scroll-arrow"></div>
+            {{ section.settings.scroll_indicator_text | default: 'Scroll to explore' }}
+          </div>
+        {% endif %}
+      </div>
+
+      {% if section.blocks.size > 0 %}
+        <div class="cwc_portfolio_hero__mockups">
+          {% for block in section.blocks %}
+            {% if block.type == 'mockup' %}
+              <div
+                class="cwc_portfolio_hero__mockup-card{% if block.settings.tall %} cwc_portfolio_hero__mockup-card--tall{% endif %}"
+                {{ block.shopify_attributes }}
+              >
+                {% if block.settings.image != blank %}
+                  {{
+                    block.settings.image
+                    | image_url: width: 800
+                    | image_tag:
+                      class: 'cwc_portfolio_hero__mockup-image',
+                      widths: '200, 400, 600, 800',
+                      sizes: '(max-width: 991px) 50vw, 25vw',
+                      alt: block.settings.image.alt
+                    | default: block.settings.label, loading: 'lazy'
+                  }}
+                {% else %}
+                  <span class="cwc_portfolio_hero__mockup-placeholder">{{ block.settings.label }}</span>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Portfolio Hero",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Label",
+      "default": "Portfolio"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Wrap accent words in <strong> tags.",
+      "default": "<h1>The Work.<br><strong>The Results.</strong><br>The Code.</h1>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show divider line under heading",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Shopify developer and CRO specialist with 60+ builds, Shopify Plus experience, and a track record of shipping code that moves revenue.</p>"
+    },
+    { "type": "header", "content": "CTA" },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button Label",
+      "default": "View Case Studies ↓"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "cta_new_tab",
+      "label": "Open in new tab",
+      "default": false
+    },
+    { "type": "header", "content": "Scroll Indicator" },
+    {
+      "type": "checkbox",
+      "id": "show_scroll_indicator",
+      "label": "Show scroll indicator",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "scroll_indicator_text",
+      "label": "Scroll Indicator Text",
+      "default": "Scroll to explore"
+    },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#0A0A0A" },
+    { "type": "color", "id": "accent_color", "label": "Accent (green)", "default": "#4ade80" },
+    { "type": "color", "id": "text_color", "label": "Heading Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "subtext_color", "label": "Subtext Color", "default": "#BBBBBB" },
+    { "type": "color", "id": "mockup_bg", "label": "Mockup Card BG", "default": "#141414" },
+    { "type": "color", "id": "mockup_border", "label": "Mockup Border", "default": "#222222" },
+    { "type": "header", "content": "Spacing" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    }
+  ],
+  "blocks": [
+    {
+      "type": "mockup",
+      "name": "Mockup Card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Placeholder Label",
+          "info": "Shown when no image is set.",
+          "default": "Featured Project"
+        },
+        {
+          "type": "checkbox",
+          "id": "tall",
+          "label": "Tall card (spans 2 rows)",
+          "info": "Use this for the featured mockup. Usually only one card.",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Portfolio Hero",
+      "category": "CWC Custom",
+      "blocks": [
+        { "type": "mockup", "settings": { "tall": true, "label": "Featured Project" } },
+        { "type": "mockup", "settings": { "label": "Project Two" } },
+        { "type": "mockup", "settings": { "label": "Project Three" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

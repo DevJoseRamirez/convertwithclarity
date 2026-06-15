@@ -1,0 +1,197 @@
+{% style %}
+  #cwc_portfolio_code-{{ section.id }} {
+    --section-bg: {{ section.settings.bg_color | default: '#0A0A0A' }};
+    --accent-color: {{ section.settings.accent_color | default: '#4ade80' }};
+    --text-color: {{ section.settings.text_color | default: '#FFFFFF' }};
+    --subtext-color: {{ section.settings.subtext_color | default: '#BBBBBB' }};
+    --card-bg: {{ section.settings.card_bg | default: '#111111' }};
+    --card-border: {{ section.settings.card_border | default: '#1E1E1E' }};
+    --tag-border: {{ section.settings.tag_border | default: '#2A2A2A' }};
+    --padding-top: {{ section.settings.padding_top | default: 72 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 72 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | default: 72 | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 72 | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_portfolio_code.css' | asset_url | stylesheet_tag }}
+
+<section id="cwc_portfolio_code-{{ section.id }}" class="cwc_portfolio_code">
+  <div class="cwc_portfolio_code__container">
+    <div class="cwc_portfolio_code__header">
+      {% if section.settings.eyebrow != blank %}
+        <span class="cwc_portfolio_code__eyebrow">{{ section.settings.eyebrow }}</span>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <div class="cwc_portfolio_code__heading cwc-rte">
+          {{ section.settings.heading }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.subtext != blank %}
+        <div class="cwc_portfolio_code__subtext cwc-rte">
+          {{ section.settings.subtext }}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div class="cwc_portfolio_code__grid">
+        {% for block in section.blocks %}
+          {% if block.type == 'repo' %}
+            {%- assign card_tag = block.settings.url -%}
+            {%- if card_tag != blank -%}
+              <a
+                class="cwc_portfolio_code__repo"
+                href="{{ block.settings.url }}"
+                target="_blank"
+                rel="noopener"
+                {{ block.shopify_attributes }}
+              >
+            {%- else -%}
+              <div class="cwc_portfolio_code__repo" {{ block.shopify_attributes }}>
+            {%- endif -%}
+
+            {% if block.settings.title != blank %}
+              <h4 class="cwc_portfolio_code__repo-title">{{ block.settings.title }}</h4>
+            {% endif %}
+
+            {% if block.settings.description != blank %}
+              <p class="cwc_portfolio_code__repo-desc">{{ block.settings.description }}</p>
+            {% endif %}
+
+            {% if block.settings.language != blank %}
+              <span class="cwc_portfolio_code__repo-lang">{{ block.settings.language }}</span>
+            {% endif %}
+
+            {%- if card_tag != blank -%}
+              </a>
+            {%- else -%}
+              </div>
+            {%- endif -%}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.cta_label != blank %}
+      <div class="cwc_portfolio_code__cta-wrap">
+        <a
+          href="{{ section.settings.cta_url | default: '#' }}"
+          class="cwc_portfolio_code__cta"
+          {% if section.settings.cta_new_tab %}
+            target="_blank" rel="noopener"
+          {% endif %}
+        >
+          {{ section.settings.cta_label }} →
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Portfolio Code & GitHub",
+  "settings": [
+    { "type": "header", "content": "Header" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Open Code" },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<h2>The Code <strong>Is Public</strong></h2>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Selected repositories showcasing custom Shopify development — from Checkout UI Extensions to custom theme sections and platform migrations.</p>"
+    },
+    { "type": "header", "content": "Bottom CTA" },
+    { "type": "text", "id": "cta_label", "label": "CTA Label", "default": "View All on GitHub" },
+    { "type": "url", "id": "cta_url", "label": "CTA URL" },
+    { "type": "checkbox", "id": "cta_new_tab", "label": "Open in new tab", "default": true },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#0A0A0A" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#4ade80" },
+    { "type": "color", "id": "text_color", "label": "Heading Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "subtext_color", "label": "Subtext Color", "default": "#BBBBBB" },
+    { "type": "color", "id": "card_bg", "label": "Card BG", "default": "#111111" },
+    { "type": "color", "id": "card_border", "label": "Card Border", "default": "#1E1E1E" },
+    { "type": "color", "id": "tag_border", "label": "Lang Tag Border", "default": "#2A2A2A" },
+    { "type": "header", "content": "Spacing" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    }
+  ],
+  "blocks": [
+    {
+      "type": "repo",
+      "name": "Repo Card",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Repo Title", "default": "shopify-checkout-extension" },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Custom Checkout UI Extension built with React. Adds conversion-focused functionality at checkout."
+        },
+        { "type": "text", "id": "language", "label": "Language(s)", "default": "JavaScript / React" },
+        { "type": "url", "id": "url", "label": "Repo URL" }
+      ]
+    }
+  ],
+  "max_blocks": 9,
+  "presets": [
+    {
+      "name": "Portfolio Code & GitHub",
+      "category": "CWC Custom",
+      "blocks": [
+        {
+          "type": "repo",
+          "settings": {
+            "title": "shopify-checkout-extension",
+            "description": "Custom Checkout UI Extension built with React.",
+            "language": "JavaScript / React"
+          }
+        },
+        {
+          "type": "repo",
+          "settings": {
+            "title": "custom-shopify-sections",
+            "description": "A collection of reusable, schema-driven Liquid sections for Shopify OS 2.0.",
+            "language": "Liquid / JSON"
+          }
+        },
+        {
+          "type": "repo",
+          "settings": {
+            "title": "shopify-migration-toolkit",
+            "description": "Scripts for migrating product catalogs and SEO metadata to Shopify.",
+            "language": "JavaScript / CSV"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,185 @@
+{% style %}
+  #cwc_portfolio_skills-{{ section.id }} {
+    --section-bg: {{ section.settings.bg_color | default: '#0A0A0A' }};
+    --accent-color: {{ section.settings.accent_color | default: '#4ade80' }};
+    --text-color: {{ section.settings.text_color | default: '#FFFFFF' }};
+    --subtext-color: {{ section.settings.subtext_color | default: '#BBBBBB' }};
+    --pill-bg: {{ section.settings.pill_bg | default: '#141414' }};
+    --pill-border: {{ section.settings.pill_border | default: '#2A2A2A' }};
+    --pill-text: {{ section.settings.pill_text | default: '#AAAAAA' }};
+    --padding-top: {{ section.settings.padding_top | default: 72 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 72 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | default: 72 | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 72 | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_portfolio_skills.css' | asset_url | stylesheet_tag }}
+
+<section id="cwc_portfolio_skills-{{ section.id }}" class="cwc_portfolio_skills">
+  <div class="cwc_portfolio_skills__container">
+    {% comment %} Header {% endcomment %}
+    <div class="cwc_portfolio_skills__header">
+      {% if section.settings.eyebrow != blank %}
+        <span class="cwc_portfolio_skills__eyebrow">{{ section.settings.eyebrow }}</span>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <div class="cwc_portfolio_skills__heading cwc-rte">
+          {{ section.settings.heading }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.subtext != blank %}
+        <div class="cwc_portfolio_skills__subtext cwc-rte">
+          {{ section.settings.subtext }}
+        </div>
+      {% endif %}
+    </div>
+
+    {% comment %} Groups: render each group block and its pills {% endcomment %}
+    {%- assign has_groups = false -%}
+    {% for block in section.blocks %}
+      {% if block.type == 'group' %}
+        {%- assign has_groups = true -%}
+        {%- break -%}
+      {% endif %}
+    {% endfor %}
+
+    {% if has_groups %}
+      <div class="cwc_portfolio_skills__grid">
+        {% for block in section.blocks %}
+          {% if block.type == 'group' %}
+            {%- assign group_slug = block.settings.slug | default: block.settings.title | handle -%}
+
+            <div class="cwc_portfolio_skills__group" {{ block.shopify_attributes }}>
+              {% if block.settings.title != blank %}
+                <h4 class="cwc_portfolio_skills__group-title">{{ block.settings.title }}</h4>
+              {% endif %}
+
+              <div class="cwc_portfolio_skills__pills">
+                {% for pill_block in section.blocks %}
+                  {% if pill_block.type == 'pill' and pill_block.settings.group == group_slug %}
+                    <span class="cwc_portfolio_skills__pill" {{ pill_block.shopify_attributes }}>
+                      {{ pill_block.settings.label }}
+                    </span>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Portfolio Skills",
+  "settings": [
+    { "type": "header", "content": "Header" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Technical Depth" },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<h2>The Stack <strong>Behind The Work</strong></h2>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Every project is built on a foundation of clean, performant code — no page builders, no shortcuts.</p>"
+    },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#0A0A0A" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#4ade80" },
+    { "type": "color", "id": "text_color", "label": "Heading Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "subtext_color", "label": "Subtext Color", "default": "#BBBBBB" },
+    { "type": "color", "id": "pill_bg", "label": "Pill BG", "default": "#141414" },
+    { "type": "color", "id": "pill_border", "label": "Pill Border", "default": "#2A2A2A" },
+    { "type": "color", "id": "pill_text", "label": "Pill Text", "default": "#AAAAAA" },
+    { "type": "header", "content": "Spacing" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    }
+  ],
+  "blocks": [
+    {
+      "type": "group",
+      "name": "Skill Group",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Group Title", "default": "Languages" },
+        {
+          "type": "text",
+          "id": "slug",
+          "label": "Group Slug",
+          "info": "Used to assign pills to this group. Auto-generated from title if blank."
+        }
+      ]
+    },
+    {
+      "type": "pill",
+      "name": "Skill Pill",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Skill Name", "default": "JavaScript" },
+        {
+          "type": "text",
+          "id": "group",
+          "label": "Assigned Group Slug",
+          "info": "Must match a Skill Group's slug. E.g. 'languages', 'platforms', 'workflow'.",
+          "default": "languages"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 50,
+  "presets": [
+    {
+      "name": "Portfolio Skills",
+      "category": "CWC Custom",
+      "blocks": [
+        { "type": "group", "settings": { "title": "Languages", "slug": "languages" } },
+        { "type": "pill", "settings": { "label": "JavaScript", "group": "languages" } },
+        { "type": "pill", "settings": { "label": "Liquid", "group": "languages" } },
+        { "type": "pill", "settings": { "label": "HTML", "group": "languages" } },
+        { "type": "pill", "settings": { "label": "CSS", "group": "languages" } },
+        { "type": "pill", "settings": { "label": "JSON", "group": "languages" } },
+        { "type": "pill", "settings": { "label": "React", "group": "languages" } },
+
+        { "type": "group", "settings": { "title": "Platforms", "slug": "platforms" } },
+        { "type": "pill", "settings": { "label": "Shopify Plus", "group": "platforms" } },
+        { "type": "pill", "settings": { "label": "Shopify", "group": "platforms" } },
+        { "type": "pill", "settings": { "label": "WordPress", "group": "platforms" } },
+        { "type": "pill", "settings": { "label": "Webflow", "group": "platforms" } },
+
+        { "type": "group", "settings": { "title": "Workflow", "slug": "workflow" } },
+        { "type": "pill", "settings": { "label": "Git / GitHub", "group": "workflow" } },
+        { "type": "pill", "settings": { "label": "Figma", "group": "workflow" } },
+        { "type": "pill", "settings": { "label": "Checkout UI Extensions", "group": "workflow" } },
+        { "type": "pill", "settings": { "label": "Responsive Design", "group": "workflow" } },
+        { "type": "pill", "settings": { "label": "CRO", "group": "workflow" } },
+        { "type": "pill", "settings": { "label": "Store Launch", "group": "workflow" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

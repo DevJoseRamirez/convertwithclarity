@@ -1,0 +1,104 @@
+{% style %}
+  #cwc_portfolio_clients-{{ section.id }} {
+    --section-bg: {{ section.settings.bg_color | default: '#0A0A0A' }};
+    --label-color: {{ section.settings.label_color | default: '#555555' }};
+    --logo-text-color: {{ section.settings.logo_text_color | default: '#333333' }};
+    --padding-top: {{ section.settings.padding_top | default: 48 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 48 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | default: 48 | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 48 | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_portfolio_clients.css' | asset_url | stylesheet_tag }}
+
+<section id="cwc_portfolio_clients-{{ section.id }}" class="cwc_portfolio_clients">
+  <div class="cwc_portfolio_clients__container">
+    {% if section.settings.heading != blank %}
+      <h4 class="cwc_portfolio_clients__heading">{{ section.settings.heading }}</h4>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="cwc_portfolio_clients__logos">
+        {% for block in section.blocks %}
+          {% if block.type == 'logo' %}
+            <div class="cwc_portfolio_clients__logo" {{ block.shopify_attributes }}>
+              {% if block.settings.image != blank %}
+                {{
+                  block.settings.image
+                  | image_url: width: 300
+                  | image_tag:
+                    class: 'cwc_portfolio_clients__logo-img',
+                    widths: '100, 150, 200, 300',
+                    sizes: '120px',
+                    alt: block.settings.image.alt
+                  | default: block.settings.label, loading: 'lazy'
+                }}
+              {% else %}
+                <span class="cwc_portfolio_clients__logo-text">{{ block.settings.label }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Portfolio Clients",
+  "settings": [
+    { "type": "header", "content": "Header" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Brands I've Worked With" },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#0A0A0A" },
+    { "type": "color", "id": "label_color", "label": "Heading Color", "default": "#555555" },
+    { "type": "color", "id": "logo_text_color", "label": "Logo Text (no img)", "default": "#333333" },
+    { "type": "header", "content": "Spacing" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Client Logo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Logo Image" },
+        { "type": "text", "id": "label", "label": "Brand Name (used if no logo)", "default": "Brand Name" }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Portfolio Clients",
+      "category": "CWC Custom",
+      "blocks": [
+        { "type": "logo", "settings": { "label": "Simply Revival" } },
+        { "type": "logo", "settings": { "label": "Anvanda" } },
+        { "type": "logo", "settings": { "label": "Iron Soldiers Coffee" } },
+        { "type": "logo", "settings": { "label": "+ More" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

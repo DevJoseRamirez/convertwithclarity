@@ -1,0 +1,172 @@
+{% style %}
+  #cwc_portfolio_marquee-{{ section.id }} {
+    --section-bg: {{ section.settings.bg_color | default: '#0A0A0A' }};
+    --item-bg: {{ section.settings.item_bg | default: '#141414' }};
+    --item-border: {{ section.settings.item_border | default: '#1E1E1E' }};
+    --item-text: {{ section.settings.item_text_color | default: '#333333' }};
+    --marquee-duration: {{ section.settings.scroll_duration | default: 40 }}s;
+    --item-width: {{ section.settings.item_width | default: 200 }}px;
+    --item-height: {{ section.settings.item_height | default: 120 }}px;
+    --item-gap: {{ section.settings.item_gap | default: 12 }}px;
+    --padding-top: {{ section.settings.padding_top | default: 32 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 32 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | default: 32 | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 32 | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_portfolio_marquee.css' | asset_url | stylesheet_tag }}
+
+<section id="cwc_portfolio_marquee-{{ section.id }}" class="cwc_portfolio_marquee">
+  {% if section.blocks.size > 0 %}
+    <div class="cwc_portfolio_marquee__viewport">
+      <div class="cwc_portfolio_marquee__track">
+        {% comment %} First pass — visible items {% endcomment %}
+        {% for block in section.blocks %}
+          {% if block.type == 'item' %}
+            <div class="cwc_portfolio_marquee__item" {{ block.shopify_attributes }}>
+              {% if block.settings.image != blank %}
+                {{
+                  block.settings.image
+                  | image_url: width: 600
+                  | image_tag:
+                    class: 'cwc_portfolio_marquee__image',
+                    widths: '200, 400, 600',
+                    sizes: '200px',
+                    alt: block.settings.image.alt
+                  | default: block.settings.label, loading: 'lazy'
+                }}
+              {% else %}
+                <span class="cwc_portfolio_marquee__placeholder">{{ block.settings.label | default: 'Project' }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+
+        {% comment %} Duplicate pass for seamless loop {% endcomment %}
+        {% for block in section.blocks %}
+          {% if block.type == 'item' %}
+            <div class="cwc_portfolio_marquee__item" aria-hidden="true">
+              {% if block.settings.image != blank %}
+                {{
+                  block.settings.image
+                  | image_url: width: 600
+                  | image_tag:
+                    class: 'cwc_portfolio_marquee__image',
+                    widths: '200, 400, 600',
+                    sizes: '200px',
+                    alt: '',
+                    loading: 'lazy'
+                }}
+              {% else %}
+                <span class="cwc_portfolio_marquee__placeholder">{{ block.settings.label | default: 'Project' }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Portfolio Marquee",
+  "settings": [
+    { "type": "header", "content": "Animation" },
+    {
+      "type": "range",
+      "id": "scroll_duration",
+      "label": "Loop Duration",
+      "info": "Lower = faster scroll.",
+      "min": 10,
+      "max": 120,
+      "step": 2,
+      "unit": "s",
+      "default": 40
+    },
+    { "type": "header", "content": "Item Sizing" },
+    {
+      "type": "range",
+      "id": "item_width",
+      "label": "Item Width",
+      "min": 100,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "default": 200
+    },
+    {
+      "type": "range",
+      "id": "item_height",
+      "label": "Item Height",
+      "min": 60,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "default": 120
+    },
+    { "type": "range", "id": "item_gap", "label": "Gap", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 12 },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#0A0A0A" },
+    { "type": "color", "id": "item_bg", "label": "Item Background", "default": "#141414" },
+    { "type": "color", "id": "item_border", "label": "Item Border", "default": "#1E1E1E" },
+    { "type": "color", "id": "item_text_color", "label": "Placeholder Text", "default": "#333333" },
+    { "type": "header", "content": "Spacing" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Marquee Item",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Placeholder Label",
+          "info": "Shown when no image is set.",
+          "default": "Project"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Portfolio Marquee",
+      "category": "CWC Custom",
+      "blocks": [
+        { "type": "item", "settings": { "label": "Store Screenshot 1" } },
+        { "type": "item", "settings": { "label": "Store Screenshot 2" } },
+        { "type": "item", "settings": { "label": "Landing Page 1" } },
+        { "type": "item", "settings": { "label": "PDP Design" } },
+        { "type": "item", "settings": { "label": "Checkout Extension" } },
+        { "type": "item", "settings": { "label": "Homepage Redesign" } },
+        { "type": "item", "settings": { "label": "Mobile View" } },
+        { "type": "item", "settings": { "label": "Store Screenshot 3" } },
+        { "type": "item", "settings": { "label": "Landing Page 2" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

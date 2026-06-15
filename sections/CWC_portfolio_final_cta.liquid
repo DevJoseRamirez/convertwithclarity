@@ -1,0 +1,138 @@
+{% style %}
+  #cwc_portfolio_final-cta-{{ section.id }} {
+    --section-bg: {{ section.settings.bg_color | default: '#0A0A0A' }};
+    --accent-color: {{ section.settings.accent_color | default: '#4ade80' }};
+    --text-color: {{ section.settings.text_color | default: '#FFFFFF' }};
+    --subtext-color: {{ section.settings.subtext_color | default: '#BBBBBB' }};
+    --ghost-border: {{ section.settings.ghost_border | default: '#333333' }};
+    --padding-top: {{ section.settings.padding_top | default: 96 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 96 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | default: 96 | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 96 | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_portfolio_final_cta.css' | asset_url | stylesheet_tag }}
+
+<section id="cwc_portfolio_final-cta-{{ section.id }}" class="cwc_portfolio_final-cta">
+  <div class="cwc_portfolio_final-cta__container">
+    <div class="cwc_portfolio_final-cta__inner">
+      {% if section.settings.eyebrow != blank %}
+        <span class="cwc_portfolio_final-cta__eyebrow">{{ section.settings.eyebrow }}</span>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <div class="cwc_portfolio_final-cta__heading cwc-rte">
+          {{ section.settings.heading }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.subtext != blank %}
+        <div class="cwc_portfolio_final-cta__subtext cwc-rte">
+          {{ section.settings.subtext }}
+        </div>
+      {% endif %}
+
+      {% if section.blocks.size > 0 %}
+        <div class="cwc_portfolio_final-cta__btn-row">
+          {% for block in section.blocks %}
+            {% if block.type == 'button' %}
+              {%- assign btn_style = block.settings.style | default: 'primary' -%}
+              <a
+                href="{{ block.settings.url | default: '#' }}"
+                class="cwc_portfolio_final-cta__btn cwc_portfolio_final-cta__btn--{{ btn_style }}"
+                {% if block.settings.new_tab %}
+                  target="_blank" rel="noopener"
+                {% endif %}
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.label }}
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Portfolio Final CTA",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Let's Talk" },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<h2>Looking for a Shopify developer<br>who <strong>ships and moves the number?</strong></h2>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Available for full-time, contract, and remote roles. Reach out directly or grab the resume.</p>"
+    },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#0A0A0A" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#4ade80" },
+    { "type": "color", "id": "text_color", "label": "Heading Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "subtext_color", "label": "Subtext Color", "default": "#BBBBBB" },
+    { "type": "color", "id": "ghost_border", "label": "Ghost Button Border", "default": "#333333" },
+    { "type": "header", "content": "Spacing" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Get In Touch →" },
+        { "type": "url", "id": "url", "label": "URL" },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Style",
+          "options": [
+            { "value": "primary", "label": "Primary (filled)" },
+            { "value": "ghost", "label": "Ghost (outlined)" }
+          ],
+          "default": "primary"
+        },
+        { "type": "checkbox", "id": "new_tab", "label": "Open in new tab", "default": false }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Portfolio Final CTA",
+      "category": "CWC Custom",
+      "blocks": [
+        { "type": "button", "settings": { "label": "Get In Touch →", "style": "primary" } },
+        { "type": "button", "settings": { "label": "Download Resume", "style": "ghost" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

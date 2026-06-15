@@ -107,7 +107,7 @@
                 {% if block.settings.image != blank %}
                   {{
                     block.settings.image
-                    | image_url: width: 1000
+                    | image_url: width: 600
                     | image_tag:
                       class: 'cwc_portfolio_case-studies__card-image',
                       widths: '400, 600, 800, 1000',
@@ -311,7 +311,7 @@
   "presets": [
     {
       "name": "Portfolio Case Studies",
-      "category": "CWC Custom",
+      "category": "Portfolio",
       "blocks": [
         { "type": "tab", "settings": { "label": "CRO & Optimization", "slug": "cro" } },
         { "type": "tab", "settings": { "label": "Full Store Builds", "slug": "store" } },

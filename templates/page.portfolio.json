@@ -33,975 +33,744 @@
         "padding_y": 18
       }
     },
-    "cwc_hero_vertical_carousel_e3BmkC": {
-      "type": "CWC_hero_vertical_carousel",
+    "rich_text_9XykrV": {
+      "type": "rich-text",
       "blocks": {
-        "image_hg4rci": {
-          "type": "image",
+        "text_WHaiQj": {
+          "type": "text",
           "settings": {
-            "image": "shopify://shop_images/ollie-kids-toothpaste-min.png",
-            "column": "1"
+            "text": "<h6>Under Construction Updates Loading....</h6>"
           }
-        },
-        "image_byMfB3": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/anvanda-pdp-min.png",
-            "column": "1"
-          }
-        },
-        "image_PkcQtC": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/Wellness-First-min.png",
-            "column": "1"
-          }
-        },
-        "image_ncXUnQ": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/ollie-toothpaste-fulll-mock-min.png",
-            "column": "1"
-          }
-        },
-        "image_txagH4": {
-          "type": "image",
+        }
+      },
+      "block_order": [
+        "text_WHaiQj"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-4",
+        "full_width": true,
+        "padding_top": 4,
+        "padding_bottom": 4
+      }
+    },
+    "cwc_portfolio_hero_FQYkjf": {
+      "type": "CWC_portfolio_hero",
+      "blocks": {
+        "mockup_KHyiYF": {
+          "type": "mockup",
           "settings": {
             "image": "shopify://shop_images/blocker-pdp-min.png",
-            "column": "2"
+            "label": "Featured Project",
+            "tall": true
           }
         },
-        "image_P8aeyP": {
-          "type": "image",
+        "mockup_gbzMpm": {
+          "type": "mockup",
           "settings": {
-            "image": "shopify://shop_images/yoyo-home-min.png",
-            "column": "2"
+            "image": "shopify://shop_images/briopdpmin.png",
+            "label": "Project Two",
+            "tall": false
           }
         },
-        "image_AMaab9": {
-          "type": "image",
+        "mockup_T6PjUB": {
+          "type": "mockup",
           "settings": {
-            "image": "shopify://shop_images/enzy-strips-pdp-min.png",
-            "column": "2"
-          }
-        },
-        "image_BQBRA3": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/7-signs-your-hair-loss-min.png",
-            "column": "2"
+            "image": "shopify://shop_images/ollie-kids-toothpaste-min.png",
+            "label": "Project Three",
+            "tall": false
           }
         }
       },
       "block_order": [
-        "image_hg4rci",
-        "image_byMfB3",
-        "image_PkcQtC",
-        "image_ncXUnQ",
-        "image_txagH4",
-        "image_P8aeyP",
-        "image_AMaab9",
-        "image_BQBRA3"
+        "mockup_KHyiYF",
+        "mockup_gbzMpm",
+        "mockup_T6PjUB"
       ],
-      "name": "Hero Carousel",
+      "name": "Portfolio Hero",
       "settings": {
-        "bg_image": "shopify://shop_images/Group_39.png",
-        "eyebrow": "",
-        "heading": "<p>Your Shopify store doesn't have a traffic problem. It has a <strong>conversion problem.</strong></p>",
-        "subtext": "<p>High-converting landing pages, funnels, and Shopify CRO for DTC consumer brands — built to Lift Conversion Rates, Boost AOV,  LTV, and Revenue per visitor.</p>",
-        "cta_label": "Get Started Today - Message Me on Upwork",
+        "eyebrow": "Portfolio",
+        "heading": "<h1>The Work.<br/><strong>The Results.</strong><br/>The Code.</h1>",
+        "show_divider": true,
+        "subtext": "<p>Shopify developer and CRO specialist with 60+ builds, Shopify Plus experience, and a track record of shipping code that moves revenue.</p>",
+        "cta_label": "View Case Studies ↓",
         "cta_url": "",
         "cta_new_tab": false,
-        "social_proof_image": "shopify://shop_images/profile_social_proof.png",
-        "trust_text": "<p>400+ hours | 60+ Happy Clients</p>",
-        "column_count": 2,
-        "opposing_directions": true,
-        "skew_angle": 0,
-        "scroll_duration": 120,
-        "image_radius": 12,
-        "image_gap": 16,
-        "bg_color": "rgba(0,0,0,0)",
-        "text_color": "#ffffff",
-        "bold_color": "#14a800",
-        "button_bg": "#14a800",
-        "button_text": "#ffffff",
-        "media_bg": "rgba(0,0,0,0)",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
-    "cwc_hero_vsl_UgrxRm": {
-      "type": "CWC_hero_vsl",
-      "disabled": true,
-      "name": "CWC Hero VSL",
-      "settings": {
-        "bg_image": "shopify://shop_images/Group_39.png",
-        "eyebrow": "",
-        "heading": "<p>Your Shopify store doesn't have a traffic problem. It has a <strong>conversion problem.</strong></p>",
-        "subtext": "<p>High-converting landing pages, funnels, and Shopify CRO for DTC consumer brands — built to Lift Conversion Rates, Boost AOV,  LTV, and Revenue per visitor.</p>",
-        "cta_label": "Get Started Today - Message Me on Upwork",
-        "cta_url": "https://www.upwork.com/freelancers/joseshopify",
-        "cta_new_tab": false,
-        "social_proof_image": "shopify://shop_images/profilt_social_iamge.png",
-        "trust_text": "<p>400+ hours | 60+ Happy Clients</p>",
-        "video_provider": "shopify",
-        "loom_url": "",
-        "bg_color": "#181818",
-        "text_color": "#ffffff",
-        "bold_color": "#14a800",
-        "rule_color": "#e5e5e5",
-        "button_bg": "#14a800",
-        "button_text": "#ffffff",
-        "padding_top": 80,
-        "padding_bottom": 60
-      }
-    },
-    "cwc_logo_carousel_JcVN78": {
-      "type": "CWC_logo_carousel",
-      "blocks": {
-        "logo_tdzVNT": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/logo-white-01.png",
-            "alt": "",
-            "url": "",
-            "url_new_tab": true
-          }
-        },
-        "logo_giQNJM": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/logo-white-02.png",
-            "alt": "",
-            "url": "",
-            "url_new_tab": true
-          }
-        },
-        "logo_9nYGFX": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/logo-white-03.png",
-            "alt": "",
-            "url": "",
-            "url_new_tab": true
-          }
-        },
-        "logo_qxgPih": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/logo-white-04.png",
-            "alt": "",
-            "url": "",
-            "url_new_tab": true
-          }
-        },
-        "logo_FYK88U": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/logo-white-05.png",
-            "alt": "",
-            "url": "",
-            "url_new_tab": true
-          }
-        },
-        "logo_6mXBcC": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/logo-white-06.png",
-            "alt": "",
-            "url": "",
-            "url_new_tab": true
-          }
-        },
-        "logo_pNWETi": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/logo-white-07.png",
-            "alt": "",
-            "url": "",
-            "url_new_tab": true
-          }
-        },
-        "logo_hMqFjA": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/logo-white-08.png",
-            "alt": "",
-            "url": "",
-            "url_new_tab": true
-          }
-        },
-        "logo_QapRMr": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/logo-white-09.png",
-            "alt": "",
-            "url": "",
-            "url_new_tab": true
-          }
-        },
-        "logo_DgBwx6": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/logo-white-10.png",
-            "alt": "",
-            "url": "",
-            "url_new_tab": true
-          }
-        },
-        "logo_QkMG8y": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/logo-white-11.png",
-            "alt": "",
-            "url": "",
-            "url_new_tab": true
-          }
-        },
-        "logo_dT7BUX": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify://shop_images/logo-white-12.png",
-            "alt": "",
-            "url": "",
-            "url_new_tab": true
-          }
-        }
-      },
-      "block_order": [
-        "logo_tdzVNT",
-        "logo_giQNJM",
-        "logo_9nYGFX",
-        "logo_qxgPih",
-        "logo_FYK88U",
-        "logo_6mXBcC",
-        "logo_pNWETi",
-        "logo_hMqFjA",
-        "logo_QapRMr",
-        "logo_DgBwx6",
-        "logo_QkMG8y",
-        "logo_dT7BUX"
-      ],
-      "name": "CWC Logo Carousel",
-      "settings": {
-        "eyebrow": "",
-        "heading": "<h3>Trusted by <strong>DTC brands</strong> you might know</h3>",
-        "scroll_speed": 190,
-        "pause_on_hover": true,
-        "fade_edges": true,
-        "logo_style": "white",
-        "logo_height": 48,
-        "logo_gap": 48,
-        "bg_color": "#181818",
-        "text_color": "#ffffff",
-        "bold_color": "#14a800",
-        "padding_top": 20,
-        "padding_bottom": 60
-      }
-    },
-    "cwc_problem_agitation_jFJxhg": {
-      "type": "CWC_problem_agitation",
-      "blocks": {
-        "problem_3eHCUM": {
-          "type": "problem",
-          "settings": {
-            "title": "<p>Rising CAC, Flat CVR</p>",
-            "text": "<p>Ad costs go up every quarter. Conversion rates stay where they were last year. The math gets worse every month, even when traffic looks the same — and most brands try to solve it by buying more traffic instead of converting more of the traffic they already have.</p><p></p>",
-            "link_label": "",
-            "link_url": "",
-            "link_new_tab": false
-          }
-        },
-        "problem_UfrhBT": {
-          "type": "problem",
-          "settings": {
-            "title": "<p>Data Everywhere, Answers Nowhere</p>",
-            "text": "<p>You've got GA4, Shopify analytics, maybe a heatmap tool and an attribution platform — and somehow still no clear answer on what's actually killing your conversion. Dashboards full of numbers don't tell you which fix matters most. </p>",
-            "link_label": "",
-            "link_url": "",
-            "link_new_tab": false
-          }
-        },
-        "problem_dYfcpy": {
-          "type": "problem",
-          "settings": {
-            "title": "<p>No One Fully Owns Conversion</p>",
-            "text": "<p>Designers make it look right. Devs make it work. Marketers send traffic. The conversion rate sits between all of them and gets owned by no one — which is exactly where most of the revenue leaks happen.</p>",
-            "link_label": "",
-            "link_url": "",
-            "link_new_tab": false
-          }
-        }
-      },
-      "block_order": [
-        "problem_3eHCUM",
-        "problem_UfrhBT",
-        "problem_dYfcpy"
-      ],
-      "name": "CWC Problem Agitation",
-      "settings": {
-        "eyebrow": "",
-        "heading": "<h2>The 3 Biggest Challenges</h2><h2>Growing DTC Brands Face.</h2>",
-        "subtext": "",
-        "card_padding": 32,
-        "card_radius": 0,
-        "icon_size": 36,
+        "show_scroll_indicator": true,
+        "scroll_indicator_text": "Scroll to explore",
         "bg_color": "#0a0a0a",
-        "card_bg": "#ffffff",
+        "accent_color": "#4ade80",
         "text_color": "#ffffff",
-        "bold_color": "#14a800",
-        "rule_color": "#e5e5e0",
-        "number_color": "#8a8a85",
-        "link_color": "#0a0a0a",
-        "padding_top": 80,
-        "padding_bottom": 0
+        "subtext_color": "#bbbbbb",
+        "mockup_bg": "#141414",
+        "mockup_border": "#222222",
+        "padding_top": 72,
+        "padding_bottom": 72
       }
     },
-    "cwc_how_we_win_z97xND": {
-      "type": "CWC_how_we_win",
+    "cwc_portfolio_stats_e6wGra": {
+      "type": "CWC_portfolio_stats",
       "blocks": {
-        "reason_E3UV3P": {
-          "type": "reason",
-          "settings": {
-            "title": "<p>CRO-First, Not Design-First</p>",
-            "text": "<p>Every page, section, and test traces back to a metric: conversion rate, AOV, or revenue per visitor. Pretty is a side effect of good CRO — never the starting point.</p>",
-            "link_label": "",
-            "link_url": "",
-            "link_new_tab": false
-          }
-        },
-        "reason_iedxaV": {
-          "type": "reason",
-          "settings": {
-            "title": "<p>Built Mobile-First (Because That's Where The Money Is)</p>",
-            "text": "<p>70%+ of DTC traffic is mobile. Most stores still design desktop-first and shrink down. I build mobile-first by default — load speed, tap targets, thumb zones, scroll behavior — all dialed for the device your buyers actually use.</p>",
-            "link_label": "",
-            "link_url": "",
-            "link_new_tab": false
-          }
-        },
-        "reason_HPXHPy": {
-          "type": "reason",
-          "settings": {
-            "title": "<p>Battle-Tested Across 60+ DTC Builds</p>",
-            "text": "<p>I'm not starting from a blank canvas every project. Proven page structures, funnel patterns, and section templates — refined across 60+ DTC builds and adapted to your specific offer.</p>",
-            "link_label": "",
-            "link_url": "",
-            "link_new_tab": false
-          }
-        },
-        "reason_mTdUGY": {
-          "type": "reason",
-          "settings": {
-            "title": "<p>Message Matching: Ad → Page → Offer</p>",
-            "text": "<p>The ad makes a promise. The page has to keep it. Most stores send paid traffic to a generic homepage or PDP and watch CR die. We match the ad's message to the landing page to the offer — so every click lands somewhere designed for that visitor, not the average one.</p>",
-            "link_label": "",
-            "link_url": "",
-            "link_new_tab": false
-          }
-        },
-        "reason_DyNRDR": {
-          "type": "reason",
-          "settings": {
-            "title": "<p>Positioning & Offer, Not Just Pixels</p>",
-            "text": "<p>A great page selling a weak offer still loses. Often the bottleneck isn't the layout — it's how you're positioned against everyone else in the category, and whether the offer itself gives someone a reason to buy. We sharpen your positioning, your USP, and how the offer is framed.</p>",
-            "link_label": "",
-            "link_url": "",
-            "link_new_tab": false
-          }
-        },
-        "reason_grXWp4": {
-          "type": "reason",
-          "settings": {
-            "title": "<p>Designed To Be Tested, Not Just Launched</p>",
-            "text": "<p>Conversion isn't a one-shot project. Pages, sections, and funnels are built to be tested and iterated on — clean code, clear hierarchy, easy variants. We keep moving the number after launch, not just at it.</p>",
-            "link_label": "",
-            "link_url": "",
-            "link_new_tab": false
-          }
-        }
-      },
-      "block_order": [
-        "reason_E3UV3P",
-        "reason_iedxaV",
-        "reason_HPXHPy",
-        "reason_mTdUGY",
-        "reason_DyNRDR",
-        "reason_grXWp4"
-      ],
-      "name": "CWC How We Win",
-      "settings": {
-        "bg_image": "shopify://shop_images/grid_texture.png",
-        "eyebrow": "",
-        "heading": "<p>Why Our Approach <strong>Moves The Number </strong>When Others Don't</p>",
-        "subtext": "<p>Every project pulls from a proven arsenal — the same CRO strategies, funnel structures, and conversion patterns powering the top DTC brands.</p>",
-        "card_padding": 32,
-        "card_radius": 14,
-        "icon_size": 36,
-        "show_spotlight": true,
-        "spotlight_color": "#fec42d",
-        "spotlight_opacity": 60,
-        "bg_color": "#0a0a0a",
-        "text_color": "#ffffff",
-        "bold_color": "#14a800",
-        "subtext_color": "#d8d8d8",
-        "card_bg": "#ffffff",
-        "card_title_color": "#0a0a0a",
-        "card_text_color": "#0a0a0a",
-        "link_color": "#0a0a0a",
-        "padding_top": 180,
-        "padding_bottom": 80
-      }
-    },
-    "cwc_who_this_is_for_pMqhGw": {
-      "type": "CWC_who_this_is_for",
-      "blocks": {
-        "qualifier_8L7nCL": {
-          "type": "qualifier",
-          "settings": {
-            "title": "",
-            "text": "<p>We pull your analytics, traffic sources, and everything you've already tried, then map your full funnel end to end — so we start from data, not guesses.</p><p></p>"
-          }
-        },
-        "qualifier_whTGPY": {
-          "type": "qualifier",
-          "settings": {
-            "title": "",
-            "text": "<p>We review every drop-off point — PDP, cart, checkout, navbar, post-purchase, and the landing pages your paid traffic hits — with heatmaps, session recordings, and funnel analysis. Every friction point gets documented.</p><p></p>"
-          }
-        },
-        "qualifier_kPFBNY": {
-          "type": "qualifier",
-          "settings": {
-            "title": "",
-            "text": "<p>We turn the findings into a ranked roadmap, sorted by impact, effort, and speed to ship. You see exactly what we're fixing and why — no vague \"make it better.\"</p><p></p>"
-          }
-        },
-        "qualifier_kXMMKN": {
-          "type": "qualifier",
-          "settings": {
-            "title": "",
-            "text": "<p>We write clean, custom code straight into your Shopify theme — sections, landing pages, funnel work, whatever the audit calls for. No third-party page builders, no app-bloat.</p><p></p>"
-          }
-        },
-        "qualifier_bd6Chj": {
-          "type": "qualifier",
-          "settings": {
-            "title": "",
-            "text": "<p>We set up proper measurement and watch the metrics that matter — CR, AOV, RPV — so you know what actually worked, not just what looks busy.</p><p></p>"
-          }
-        },
-        "qualifier_bQwFtJ": {
-          "type": "qualifier",
-          "settings": {
-            "title": "",
-            "text": "<p>We double down on winners, cut losers, and move to the next bottleneck — cycle after cycle. Conversion compounds; we keep it compounding.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "qualifier_8L7nCL",
-        "qualifier_whTGPY",
-        "qualifier_kPFBNY",
-        "qualifier_kXMMKN",
-        "qualifier_bd6Chj",
-        "qualifier_bQwFtJ"
-      ],
-      "name": "CWC Who This Is For",
-      "settings": {
-        "eyebrow": "",
-        "heading": "<p>We Eliminate</p><p><strong>Your Biggest Obstacle</strong></p><p>Knowing Where To Start</p>",
-        "subtext": "",
-        "bg_color": "#000000",
-        "text_color": "#ffffff",
-        "bold_color": "#14a800",
-        "rule_color": "#e5e5e5",
-        "number_color": "#cfcfcf",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
-    "cwc_what_you_get_GM6BBg": {
-      "type": "CWC_what_you_get",
-      "blocks": {
-        "feature_FWdJzQ": {
-          "type": "feature",
-          "settings": {
-            "title": "<p>Full Conversion Audit</p>",
-            "body": "<ul><li>Full funnel teardown: PDP, cart, checkout, landing pages</li><li>Every drop-off point identified and documented</li><li>Ranked fix roadmap before any code is written</li></ul>"
-          }
-        },
-        "feature_3cd8ER": {
-          "type": "feature",
-          "settings": {
-            "title": "<p>Custom Pages & Funnels</p>",
-            "body": "<ul><li>Built for your traffic source — Meta, Google, TikTok, email</li><li>Designed to convert that specific audience</li><li>Coded clean into your theme, no page builders</li></ul>"
-          }
-        },
-        "feature_FKHKgj": {
-          "type": "feature",
-          "settings": {
-            "title": "<p>Custom Shopify Implementation</p>",
-            "body": "<ul><li>Custom sections, PDP rebuilds, bundle logic</li><li>Checkout extensions and subscription flows</li><li>Clean code, no app-bloat shortcuts</li></ul>"
-          }
-        },
-        "feature_pT4rXk": {
-          "type": "feature",
-          "settings": {
-            "title": "<p>Measurement & Iteration</p>",
-            "body": "<ul><li>Track what matters: CR, AOV, RPV</li><li>No vanity metrics, no guesswork</li><li>Data-driven iteration past launch</li></ul>"
-          }
-        }
-      },
-      "block_order": [
-        "feature_FWdJzQ",
-        "feature_3cd8ER",
-        "feature_FKHKgj",
-        "feature_pT4rXk"
-      ],
-      "name": "CWC What You Get",
-      "settings": {
-        "eyebrow": "",
-        "heading": "<p><strong>Everything Included </strong>In Every CRO Engagement</p>",
-        "subtext": "",
-        "card_padding": 32,
-        "card_radius": 14,
-        "icon_size": 32,
-        "show_spotlight": true,
-        "spotlight_color": "#fec42d",
-        "spotlight_opacity": 60,
-        "show_cta": true,
-        "cta_label": "Get Started Today",
-        "cta_url": "https://www.upwork.com/freelancers/joseshopify",
-        "cta_new_tab": false,
-        "cta_bg": "#e53935",
-        "cta_bg_hover": "#c62828",
-        "cta_text": "#ffffff",
-        "bg_color": "#0a0a0a",
-        "text_color": "#ffffff",
-        "bold_color": "#fec42d",
-        "subtext_color": "#d8d8d8",
-        "card_bg": "#fffef5",
-        "card_title_color": "#0a0a0a",
-        "card_body_color": "#0a0a0a",
-        "card_bullet_color": "#0a0a0a",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
-    "cwc_upwork_badges_W8LABb": {
-      "type": "CWC_upwork_badges",
-      "blocks": {
-        "badge_Haj3zN": {
-          "type": "badge",
-          "settings": {
-            "icon_svg": "",
-            "label": "100% Job Success",
-            "sublabel": "",
-            "url": "",
-            "url_new_tab": true
-          }
-        },
-        "badge_mmeD96": {
-          "type": "badge",
-          "settings": {
-            "icon_svg": "",
-            "label": "Top Rated",
-            "sublabel": "",
-            "url": "",
-            "url_new_tab": true
-          }
-        }
-      },
-      "block_order": [
-        "badge_Haj3zN",
-        "badge_mmeD96"
-      ],
-      "disabled": true,
-      "name": "CWC Upwork Badges",
-      "settings": {
-        "eyebrow": "",
-        "heading": "",
-        "subtext": "",
-        "alignment": "center",
-        "bg_color": "#181818",
-        "text_color": "#ffffff",
-        "bold_color": "#14a800",
-        "badge_bg": "#ffffff",
-        "badge_border": "#e5e5e5",
-        "badge_text": "#ffffff",
-        "sublabel_color": "#6a6a6a",
-        "padding_top": 20,
-        "padding_bottom": 20
-      }
-    },
-    "cwc_stats_row_kNGpqB": {
-      "type": "CWC_stats_row",
-      "blocks": {
-        "stat_M9pLcU": {
+        "stat_PtczPV": {
           "type": "stat",
           "settings": {
-            "value": "605+",
-            "label": "Hours on Upwork"
+            "number": "60+",
+            "label": "DTC Builds"
           }
         },
-        "stat_t6xQkT": {
+        "stat_ycBrne": {
           "type": "stat",
           "settings": {
-            "value": "100%",
-            "label": "Job Success Score"
+            "number": "100%",
+            "label": "Job Success (Upwork)"
           }
         },
-        "stat_haaG3J": {
+        "stat_krgUiF": {
           "type": "stat",
           "settings": {
-            "value": "4.9★",
-            "label": "Across 31 Reviews"
+            "number": "+31%",
+            "label": "CVR Lift"
           }
         },
-        "stat_YcY7Ma": {
+        "stat_8hMPEY": {
           "type": "stat",
           "settings": {
-            "value": "Top Rated+",
-            "label": "Upwork Status"
+            "number": "+36%",
+            "label": "Revenue MoM"
+          }
+        },
+        "stat_htjfRT": {
+          "type": "stat",
+          "settings": {
+            "number": "5+",
+            "label": "Platform Migrations"
           }
         }
       },
       "block_order": [
-        "stat_M9pLcU",
-        "stat_t6xQkT",
-        "stat_haaG3J",
-        "stat_YcY7Ma"
+        "stat_PtczPV",
+        "stat_ycBrne",
+        "stat_krgUiF",
+        "stat_8hMPEY",
+        "stat_htjfRT"
       ],
-      "name": "CWC Stats Row",
+      "name": "Portfolio Stats",
       "settings": {
-        "bg_image": "shopify://shop_images/grid_texture.png",
-        "eyebrow": "",
-        "heading": "<p>Proven On <strong>Upwork</strong>. </p><p>Trusted By DTC Brands.</p>",
-        "bg_color": "#000000",
-        "text_color": "#ffffff",
-        "bold_color": "#14a800",
-        "rule_color": "#e5e5e5",
-        "stat_value_color": "#ffffff",
-        "stat_label_color": "#e5e5e5",
-        "padding_top": 180,
-        "padding_bottom": 80
+        "bg_color": "#0f0f0f",
+        "accent_color": "#4ade80",
+        "label_color": "#666666",
+        "padding_top": 32,
+        "padding_bottom": 32
       }
     },
-    "cwc_testimonials_cards_aKXKGz": {
-      "type": "CWC_testimonials_cards",
+    "cwc_portfolio_marquee_K3eLYP": {
+      "type": "CWC_portfolio_marquee",
       "blocks": {
-        "testimonial_zfBAdU": {
-          "type": "testimonial",
+        "item_ptpEdw": {
+          "type": "item",
           "settings": {
-            "quote": "<p>His work ethic is unmatched — methodical, focused, and generous with his expertise. I'll be bringing Jose to more projects whenever possible. A pure pleasure for any marketing and sales team.</p><p></p>",
-            "author": "Marketing & sales team",
-            "role": "Upwork"
+            "label": "Store Screenshot 1"
           }
         },
-        "testimonial_qaJee8": {
-          "type": "testimonial",
+        "item_AiU3yi": {
+          "type": "item",
           "settings": {
-            "quote": "<p>Jose was exceptional to work with. He worked quickly and consistently, and gave me a ton of confidence about the success of my project. I'd absolutely work with him again — and recommend you do too.</p><p></p>",
-            "author": "Brand Founder",
-            "role": "Upwork"
+            "label": "Store Screenshot 2"
           }
         },
-        "testimonial_rgqtWq": {
-          "type": "testimonial",
+        "item_UUkERT": {
+          "type": "item",
           "settings": {
-            "quote": "<p>We were hesitant to hire on Upwork for the first time. Jose was our first contact and right away was professional and attentive. Our project was complex and detailed — he went above and beyond. We already have future projects lined up for him.</p><p></p>",
-            "author": "Brighter Life Labs",
-            "role": "Upwork"
+            "label": "Landing Page 1"
           }
         },
-        "testimonial_rTr4dN": {
-          "type": "testimonial",
+        "item_N6mtxF": {
+          "type": "item",
           "settings": {
-            "quote": "<p>Goes above and beyond. Very good at communicating and executing the job. Goes above and beyond to explain what he's done — even detailed video captures of completed work. Patient and personable. You won't be disappointed.</p>",
-            "author": "Supplements brand",
-            "role": "Upwork"
+            "label": "PDP Design"
           }
         },
-        "testimonial_whPiEx": {
-          "type": "testimonial",
+        "item_QfGNqg": {
+          "type": "item",
           "settings": {
-            "quote": "<p>By far the best freelancer we've worked with And I've worked with several. Technically savvy, efficient, and a great communicator. He went above and beyond to help us end up with a great site. I'll only be working with him going forward.</p>",
-            "author": "DTC store owner",
-            "role": "Upwork"
+            "label": "Checkout Extension"
           }
         },
-        "testimonial_fNVjMc": {
-          "type": "testimonial",
+        "item_UdUMJM": {
+          "type": "item",
           "settings": {
-            "quote": "<p>Thorough and detailed — he knew how important it was to get everything bug-free before launch, and that's exactly what he delivered.  </p>",
-            "author": "DTC brand",
-            "role": "Upwork"
+            "label": "Homepage Redesign"
           }
         },
-        "testimonial_bGURfU": {
-          "type": "testimonial",
+        "item_matCUh": {
+          "type": "item",
           "settings": {
-            "quote": "<p><em>Hi Jose — yes, page looks great, thanks! </em></p><p><em>What should we fix next?</em></p>",
-            "author": "Eric S (OllieSmile)",
-            "role": "DTC Brand Founder"
+            "label": "Mobile View"
           }
         },
-        "testimonial_WxiEeG": {
-          "type": "testimonial",
+        "item_YcFCDE": {
+          "type": "item",
           "settings": {
-            "quote": "<p>Highly recommend his ability to go above and beyond on the solutions we needed. Fantastic communication, super helpful, and extremely respectful of time. We'll absolutely work with him again.</p><p></p>",
-            "author": "Fine Jewelry Brand",
-            "role": "Upwork"
+            "label": "Store Screenshot 3"
+          }
+        },
+        "item_L3BNV4": {
+          "type": "item",
+          "settings": {
+            "label": "Landing Page 2"
           }
         }
       },
       "block_order": [
-        "testimonial_zfBAdU",
-        "testimonial_qaJee8",
-        "testimonial_rgqtWq",
-        "testimonial_rTr4dN",
-        "testimonial_whPiEx",
-        "testimonial_fNVjMc",
-        "testimonial_bGURfU",
-        "testimonial_WxiEeG"
+        "item_ptpEdw",
+        "item_AiU3yi",
+        "item_UUkERT",
+        "item_N6mtxF",
+        "item_QfGNqg",
+        "item_UdUMJM",
+        "item_matCUh",
+        "item_YcFCDE",
+        "item_L3BNV4"
       ],
-      "name": "CWC Testimonials Cards",
+      "name": "Portfolio Marquee",
       "settings": {
-        "eyebrow": "",
-        "heading": "<p>What clients <strong>have said.</strong></p>",
-        "subtext": "",
-        "bg_color": "#000000",
-        "text_color": "#ffffff",
-        "bold_color": "#14a800",
-        "rule_color": "#e5e5e5",
-        "card_bg": "#f7f7f7",
-        "quote_mark_color": "#d4d4d4",
-        "attribution_color": "#6a6a6a",
-        "padding_top": 80,
-        "padding_bottom": 60
-      }
-    },
-    "cwc_services_cards_9BLJha": {
-      "type": "CWC_services_cards",
-      "blocks": {
-        "service_FUGmap": {
-          "type": "service",
-          "settings": {
-            "title": "<p>Service Title</p>",
-            "text": "<p>Description of the service goes here. Keep it tight and focused on the outcome.</p>",
-            "link_label": "",
-            "link_url": "",
-            "link_new_tab": false
-          }
-        },
-        "service_K3BjeR": {
-          "type": "service",
-          "settings": {
-            "title": "<p>Service Title</p>",
-            "text": "<p>Description of the service goes here. Keep it tight and focused on the outcome.</p>",
-            "link_label": "",
-            "link_url": "",
-            "link_new_tab": false
-          }
-        },
-        "service_aQg9Py": {
-          "type": "service",
-          "settings": {
-            "title": "<p>Service Title</p>",
-            "text": "<p>Description of the service goes here. Keep it tight and focused on the outcome.</p>",
-            "link_label": "",
-            "link_url": "",
-            "link_new_tab": false
-          }
-        }
-      },
-      "block_order": [
-        "service_FUGmap",
-        "service_K3BjeR",
-        "service_aQg9Py"
-      ],
-      "disabled": true,
-      "name": "CWC Services Cards",
-      "settings": {
-        "eyebrow": "",
-        "heading": "<p>Three ways I help brands convert more.</p>",
-        "subtext": "",
-        "bg_color": "#000000",
-        "text_color": "#ffffff",
-        "bold_color": "#14a800",
-        "rule_color": "#e5e5e5",
-        "number_color": "#cfcfcf",
-        "link_color": "#0a0a0a",
-        "padding_top": 80,
-        "padding_bottom": 0
-      }
-    },
-    "cwc_guarantee_8PLtY9": {
-      "type": "CWC_guarantee",
-      "name": "CWC Guarantee",
-      "settings": {
-        "eyebrow": "",
-        "heading": "<p>Our 30-Day <strong>Satisfaction Guarantee</strong></p>",
-        "subtext": "<p>We are so confident in your success that we offer a 30-day money-back satisfaction guarantee. Simply put: either you love it, or we refund your money.</p>",
-        "bullet_title": "Here's how it works:",
-        "bullets": "<ul><li>Provide the access and assets we need to do the work</li><li>Commit to the roadmap and ship the agreed changes</li><li>Send real traffic and give it the full 30 days to perform</li><li></li><li>Hold up your end and you're fully covered — your success is our success</li></ul>",
-        "show_cta": true,
-        "cta_label": "Get Started Today",
-        "cta_url": "",
-        "cta_new_tab": false,
-        "cta_bg": "#14a800",
-        "cta_bg_hover": "#c62828",
-        "cta_text": "#ffffff",
-        "inner_radius": 24,
-        "inner_padding_y": 80,
-        "inner_max_width": 1200,
-        "show_spotlights": true,
-        "spotlight_color": "#fec42d",
-        "spotlight_opacity": 35,
+        "scroll_duration": 40,
+        "item_width": 200,
+        "item_height": 120,
+        "item_gap": 12,
         "bg_color": "#0a0a0a",
-        "inner_bg": "#0a0a0a",
-        "text_color": "#ffffff",
-        "bold_color": "#fec42d",
-        "subtext_color": "#d8d8d8",
-        "check_color": "#fec42d",
-        "card_bg": "#1a1a1a",
-        "card_title_color": "#ffffff",
-        "card_bullet_color": "#d8d8d8",
-        "padding_top": 60,
-        "padding_bottom": 60
+        "item_bg": "#141414",
+        "item_border": "#1e1e1e",
+        "item_text_color": "#333333",
+        "padding_top": 32,
+        "padding_bottom": 32
       }
     },
-    "cwc_faq_PqgtL6": {
-      "type": "CWC_faq",
+    "cwc_portfolio_case_studies_FHe39C": {
+      "type": "CWC_portfolio_case_studies",
       "blocks": {
-        "faq_item_cWBrhX": {
-          "type": "faq_item",
+        "tab_8qt6jt": {
+          "type": "tab",
           "settings": {
-            "question": "How long does a typical engagement take?",
-            "answer": "<p>Most engagements run 4–8 weeks depending on scope. Smaller scopes (audit-only, single landing page) can wrap in 1–2 weeks. I'll give you a real timeline before we start — not a hopeful one.</p>"
+            "label": "CRO & Optimization",
+            "slug": "cro"
           }
         },
-        "faq_item_iRA66c": {
-          "type": "faq_item",
+        "tab_RJmJwQ": {
+          "type": "tab",
           "settings": {
-            "question": "How does pricing work?",
-            "answer": "<p>Most engagements are fixed-fee — defined scope, defined timeline, defined deliverables. Ongoing CRO work and open-ended retainers can be hourly. I'll quote whichever makes more sense based on what you actually need.</p>"
+            "label": "Full Store Builds",
+            "slug": "store"
           }
         },
-        "faq_item_wbACph": {
-          "type": "faq_item",
+        "tab_LdWaKt": {
+          "type": "tab",
           "settings": {
-            "question": "Do you only work through Upwork?",
-            "answer": "<p>For new clients, yes. Upwork keeps payments, contracts, and reviews clean for both of us — and it's where my track record lives. Once we've worked together, we can move to direct contracts if that makes more sense.</p>"
+            "label": "Checkout Extensions",
+            "slug": "checkout"
           }
         },
-        "faq_item_Lw7BP3": {
-          "type": "faq_item",
+        "tab_py7ym3": {
+          "type": "tab",
           "settings": {
-            "question": "What kind of Shopify access do you need?",
-            "answer": "<p>Collaborator access with permissions for whatever scope we agree on — usually themes, apps, and sometimes orders/customers for advanced work. I never need your payment info or store owner login.</p>"
+            "label": "Platform Migrations",
+            "slug": "migration"
           }
         },
-        "faq_item_gLrTYU": {
-          "type": "faq_item",
+        "tab_6MNKe9": {
+          "type": "tab",
           "settings": {
-            "question": "What if my store isn't ready for CRO yet?",
-            "answer": "<p>I'll tell you. If you don't have enough traffic to test, or the offer itself is the problem, throwing CRO work at it is wasted money. I'd rather lose a project than take on work that won't move your numbers.</p>"
+            "label": "Landing Pages",
+            "slug": "landing"
           }
         },
-        "faq_item_QdfDFt": {
-          "type": "faq_item",
+        "card_DxmEw3": {
+          "type": "card",
           "settings": {
-            "question": "What if my project is smaller than a full engagement?",
-            "answer": "<p>Most projects are full-scope, but the components are modular — audit, landing page, custom build, etc. If you're not sure what you need, message me and we'll figure out the right starting point. Sometimes the answer is \"start with the audit, expand from there.\"</p>"
+            "featured": true,
+            "image": "shopify://shop_images/blocker-pdp-min.png",
+            "image_placeholder": "Project Screenshot",
+            "tag": "CRO & Optimization",
+            "tag_slug": "cro",
+            "title": "Simply Revival — +31% CVR, +36% Revenue MoM",
+            "description": "<p>Full CRO and front-end engagement: theme updates, custom landing page, checkout-extension app, PDP additions.</p>",
+            "stat_1_val": "+31%",
+            "stat_1_key": "Conversion Rate",
+            "stat_2_val": "+36%",
+            "stat_2_key": "Net Sales MoM",
+            "stat_3_val": "1.64→2.15%",
+            "stat_3_key": "CVR Before / After",
+            "cta_label": "Read Full Case Study",
+            "cta_url": "shopify://blogs/portfolio/simply-revival-shopify-plus-checkout-ui-extension",
+            "cta_new_tab": false
           }
         },
-        "faq_item_miMcTV": {
-          "type": "faq_item",
+        "card_bi33HE": {
+          "type": "card",
           "settings": {
-            "question": "Do you work with brands outside the US?",
-            "answer": "<p>Yes. A lot of my clients are international. Communication is async-friendly, and Upwork handles the cross-border payment side.</p>"
+            "featured": false,
+            "image_placeholder": "Project Screenshot",
+            "tag": "Full Store Build",
+            "tag_slug": "store",
+            "title": "Anvanda — Core Page Rebuild",
+            "description": "<p>Full CRO and front-end engagement: theme updates, custom landing page, checkout-extension app, PDP additions.</p>",
+            "stat_1_val": "+31%",
+            "stat_1_key": "Conversion Rate",
+            "stat_2_val": "+36%",
+            "stat_2_key": "Net Sales MoM",
+            "stat_3_val": "1.64→2.15%",
+            "stat_3_key": "CVR Before / After",
+            "cta_label": "Read Full Case Study",
+            "cta_url": "",
+            "cta_new_tab": false
+          }
+        },
+        "card_dGLL6G": {
+          "type": "card",
+          "settings": {
+            "featured": false,
+            "image_placeholder": "Project Screenshot",
+            "tag": "Checkout Extension",
+            "tag_slug": "checkout",
+            "title": "Custom Shopify Checkout UI Extension",
+            "description": "<p>Full CRO and front-end engagement: theme updates, custom landing page, checkout-extension app, PDP additions.</p>",
+            "stat_1_val": "+31%",
+            "stat_1_key": "Conversion Rate",
+            "stat_2_val": "+36%",
+            "stat_2_key": "Net Sales MoM",
+            "stat_3_val": "1.64→2.15%",
+            "stat_3_key": "CVR Before / After",
+            "cta_label": "Read Full Case Study",
+            "cta_url": "",
+            "cta_new_tab": false
+          }
+        },
+        "card_gG6JFP": {
+          "type": "card",
+          "settings": {
+            "featured": false,
+            "image_placeholder": "Project Screenshot",
+            "tag": "Platform Migration",
+            "tag_slug": "migration",
+            "title": "Wix / WooCommerce / Magento → Shopify",
+            "description": "<p>Full CRO and front-end engagement: theme updates, custom landing page, checkout-extension app, PDP additions.</p>",
+            "stat_1_val": "+31%",
+            "stat_1_key": "Conversion Rate",
+            "stat_2_val": "+36%",
+            "stat_2_key": "Net Sales MoM",
+            "stat_3_val": "1.64→2.15%",
+            "stat_3_key": "CVR Before / After",
+            "cta_label": "Read Full Case Study",
+            "cta_url": "",
+            "cta_new_tab": false
           }
         }
       },
       "block_order": [
-        "faq_item_cWBrhX",
-        "faq_item_iRA66c",
-        "faq_item_wbACph",
-        "faq_item_Lw7BP3",
-        "faq_item_gLrTYU",
-        "faq_item_QdfDFt",
-        "faq_item_miMcTV"
+        "tab_8qt6jt",
+        "tab_RJmJwQ",
+        "tab_LdWaKt",
+        "tab_py7ym3",
+        "tab_6MNKe9",
+        "card_DxmEw3",
+        "card_bi33HE",
+        "card_dGLL6G",
+        "card_gG6JFP"
       ],
-      "name": "CWC FAQ",
+      "name": "Portfolio Case Studies",
       "settings": {
-        "bg_image": "shopify://shop_images/image_78.png",
-        "eyebrow": "",
-        "heading": "<h2>Frequently Asked <strong>Questions</strong></h2>",
-        "subtext": "",
-        "item_radius": 14,
-        "item_padding_x": 24,
-        "item_padding_y": 20,
-        "bg_color": "#000000",
-        "eyebrow_color": "#3f8060",
-        "heading_color": "#ffffff",
-        "bold_color": "#14a800",
-        "subtext_color": "#ffffff",
-        "item_bg": "#ffffff",
-        "item_border": "#e1e0d2",
-        "item_border_hover": "rgba(0,0,0,0)",
-        "item_question_color": "#0a0a0a",
-        "item_answer_color": "#121212",
-        "item_chevron_color": "#8a8a85",
-        "item_answer_divider": "#e5e5e5",
-        "padding_top": 180,
-        "padding_bottom": 80
+        "eyebrow": "Case Studies",
+        "heading": "<h2>Projects That <strong>Moved The Number</strong></h2>",
+        "subtext": "<p>Each project below includes the problem, what was built, and the measurable result. Click any card to read the full breakdown.</p>",
+        "all_tab_label": "All Work",
+        "bg_color": "#0a0a0a",
+        "accent_color": "#4ade80",
+        "text_color": "#ffffff",
+        "subtext_color": "#bbbbbb",
+        "card_bg": "#111111",
+        "card_border": "#1e1e1e",
+        "tag_bg": "#1a2a1a",
+        "tab_border": "#2a2a2a",
+        "padding_top": 72,
+        "padding_bottom": 72
       }
     },
-    "cwc_final_cta_MiW4cn": {
-      "type": "CWC_final_cta",
-      "name": "CWC Final CTA",
+    "cwc_portfolio_skills_rpGWqL": {
+      "type": "CWC_portfolio_skills",
+      "blocks": {
+        "group_gAK3hi": {
+          "type": "group",
+          "settings": {
+            "title": "Languages",
+            "slug": "languages"
+          }
+        },
+        "pill_XPANBb": {
+          "type": "pill",
+          "settings": {
+            "label": "JavaScript",
+            "group": "languages"
+          }
+        },
+        "pill_nJk7cn": {
+          "type": "pill",
+          "settings": {
+            "label": "Liquid",
+            "group": "languages"
+          }
+        },
+        "pill_kM4Wfg": {
+          "type": "pill",
+          "settings": {
+            "label": "HTML",
+            "group": "languages"
+          }
+        },
+        "pill_VyGqpr": {
+          "type": "pill",
+          "settings": {
+            "label": "CSS",
+            "group": "languages"
+          }
+        },
+        "pill_caVLyP": {
+          "type": "pill",
+          "settings": {
+            "label": "JSON",
+            "group": "languages"
+          }
+        },
+        "pill_TTgpQm": {
+          "type": "pill",
+          "settings": {
+            "label": "React",
+            "group": "languages"
+          }
+        },
+        "group_tgJtiJ": {
+          "type": "group",
+          "settings": {
+            "title": "Platforms",
+            "slug": "platforms"
+          }
+        },
+        "pill_76TJMG": {
+          "type": "pill",
+          "settings": {
+            "label": "Shopify Plus",
+            "group": "platforms"
+          }
+        },
+        "pill_Ct47yy": {
+          "type": "pill",
+          "settings": {
+            "label": "Shopify",
+            "group": "platforms"
+          }
+        },
+        "pill_yfiVQV": {
+          "type": "pill",
+          "settings": {
+            "label": "WordPress",
+            "group": "platforms"
+          }
+        },
+        "pill_fyz6bc": {
+          "type": "pill",
+          "settings": {
+            "label": "Webflow",
+            "group": "platforms"
+          }
+        },
+        "group_fB7hJK": {
+          "type": "group",
+          "settings": {
+            "title": "Workflow",
+            "slug": "workflow"
+          }
+        },
+        "pill_kdAY9J": {
+          "type": "pill",
+          "settings": {
+            "label": "Git / GitHub",
+            "group": "workflow"
+          }
+        },
+        "pill_fxNFgx": {
+          "type": "pill",
+          "settings": {
+            "label": "Figma",
+            "group": "workflow"
+          }
+        },
+        "pill_FMiyRe": {
+          "type": "pill",
+          "settings": {
+            "label": "Checkout UI Extensions",
+            "group": "workflow"
+          }
+        },
+        "pill_qqppzE": {
+          "type": "pill",
+          "settings": {
+            "label": "Responsive Design",
+            "group": "workflow"
+          }
+        },
+        "pill_8thReW": {
+          "type": "pill",
+          "settings": {
+            "label": "CRO",
+            "group": "workflow"
+          }
+        },
+        "pill_dWcCkz": {
+          "type": "pill",
+          "settings": {
+            "label": "Store Launch",
+            "group": "workflow"
+          }
+        }
+      },
+      "block_order": [
+        "group_gAK3hi",
+        "pill_XPANBb",
+        "pill_nJk7cn",
+        "pill_kM4Wfg",
+        "pill_VyGqpr",
+        "pill_caVLyP",
+        "pill_TTgpQm",
+        "group_tgJtiJ",
+        "pill_76TJMG",
+        "pill_Ct47yy",
+        "pill_yfiVQV",
+        "pill_fyz6bc",
+        "group_fB7hJK",
+        "pill_kdAY9J",
+        "pill_fxNFgx",
+        "pill_FMiyRe",
+        "pill_qqppzE",
+        "pill_8thReW",
+        "pill_dWcCkz"
+      ],
+      "name": "Portfolio Skills",
       "settings": {
-        "eyebrow": "",
-        "scarcity_text": "Currently taking on 2 new clients this month",
-        "heading": "<p>Ready to see what your store is <strong>actually capable of?</strong></p>",
-        "subtext": "<p>Send me a message on Upwork with a bit about your store. I'll get back to you within 24 hours, and we'll set up a quick call to talk through whether I can help — and exactly where I'd start.</p><p></p>",
-        "bullet_title": "<h3>Here's what happens next:</h3>",
-        "bullet_text": "<ul><li>Message me on Upwork — share your store and what you're working on</li><li>I'll reply within 24 hours and we'll schedule a quick call</li><li>On the call, I'll assess whether I can help and where I'd focus first</li></ul>",
-        "cta_label": "Message Me on Upwork Today",
-        "cta_url": "https://www.upwork.com/freelancers/joseshopify",
+        "eyebrow": "Technical Depth",
+        "heading": "<h2>The Stack <strong>Behind The Work</strong></h2>",
+        "subtext": "<p>Every project is built on a foundation of clean, performant code — no page builders, no shortcuts.</p>",
+        "bg_color": "#0a0a0a",
+        "accent_color": "#4ade80",
+        "text_color": "#ffffff",
+        "subtext_color": "#bbbbbb",
+        "pill_bg": "#141414",
+        "pill_border": "#2a2a2a",
+        "pill_text": "#aaaaaa",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "cwc_portfolio_code_reGTPc": {
+      "type": "CWC_portfolio_code",
+      "blocks": {
+        "repo_9FQdAt": {
+          "type": "repo",
+          "settings": {
+            "title": "shopify-checkout-extension",
+            "description": "Custom Checkout UI Extension built with React.",
+            "language": "JavaScript / React",
+            "url": ""
+          }
+        },
+        "repo_AQYBBP": {
+          "type": "repo",
+          "settings": {
+            "title": "custom-shopify-sections",
+            "description": "A collection of reusable, schema-driven Liquid sections for Shopify OS 2.0.",
+            "language": "Liquid / JSON",
+            "url": ""
+          }
+        },
+        "repo_Q9QDDP": {
+          "type": "repo",
+          "settings": {
+            "title": "shopify-migration-toolkit",
+            "description": "Scripts for migrating product catalogs and SEO metadata to Shopify.",
+            "language": "JavaScript / CSV",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "repo_9FQdAt",
+        "repo_AQYBBP",
+        "repo_Q9QDDP"
+      ],
+      "name": "Portfolio Code & GitHub",
+      "settings": {
+        "eyebrow": "Open Code",
+        "heading": "<h2>The Code <strong>Is Public</strong></h2>",
+        "subtext": "<p>Selected repositories showcasing custom Shopify development — from Checkout UI Extensions to custom theme sections and platform migrations.</p>",
+        "cta_label": "View All on GitHub",
+        "cta_url": "https://github.com/DevJoseRamirez/",
         "cta_new_tab": true,
-        "ps_text": "<p><em>P.S. I keep my client roster small on purpose — I'd rather move the number for a few brands than be average for many. If you're serious about fixing your conversion, now's the time to reach out.</em></p>",
-        "bg_color": "#000000",
+        "bg_color": "#0a0a0a",
+        "accent_color": "#4ade80",
         "text_color": "#ffffff",
-        "bold_color": "#14a800",
-        "subtext_color": "#ffffff",
-        "button_bg": "#14a800",
-        "button_text": "#ffffff",
-        "scarcity_bg": "#1a1a1a",
-        "scarcity_text_color": "#ffffff",
-        "scarcity_dot_color": "#14a800",
-        "padding_top": 60,
-        "padding_bottom": 80
+        "subtext_color": "#bbbbbb",
+        "card_bg": "#111111",
+        "card_border": "#1e1e1e",
+        "tag_border": "#2a2a2a",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "cwc_portfolio_clients_VbJeKH": {
+      "type": "CWC_portfolio_clients",
+      "blocks": {
+        "logo_XrFpPY": {
+          "type": "logo",
+          "settings": {
+            "label": "Simply Revival"
+          }
+        },
+        "logo_GXtd9x": {
+          "type": "logo",
+          "settings": {
+            "label": "Anvanda"
+          }
+        },
+        "logo_4CKhmg": {
+          "type": "logo",
+          "settings": {
+            "label": "Iron Soldiers Coffee"
+          }
+        },
+        "logo_dKtbzi": {
+          "type": "logo",
+          "settings": {
+            "label": "+ More"
+          }
+        }
+      },
+      "block_order": [
+        "logo_XrFpPY",
+        "logo_GXtd9x",
+        "logo_4CKhmg",
+        "logo_dKtbzi"
+      ],
+      "name": "Portfolio Clients",
+      "settings": {
+        "heading": "Brands I've Worked With",
+        "bg_color": "#0a0a0a",
+        "label_color": "#555555",
+        "logo_text_color": "#333333",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "cwc_portfolio_testimonials_E4VrFp": {
+      "type": "CWC_portfolio_testimonials",
+      "blocks": {
+        "testimonial_DjpV7Q": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "Got the job done right the first time with very little input — listens well and executes on schedule.",
+            "author": "Upwork Client · 5.0 ★"
+          }
+        },
+        "testimonial_RgdWMm": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "Delivered work in a very short time. I'll be hiring him again.",
+            "author": "Upwork Client · 5.0 ★"
+          }
+        },
+        "testimonial_6JymYb": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "[ Third Upwork review — to be added ]",
+            "author": "Upwork Client · 5.0 ★"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_DjpV7Q",
+        "testimonial_RgdWMm",
+        "testimonial_6JymYb"
+      ],
+      "name": "Portfolio Testimonials",
+      "settings": {
+        "eyebrow": "Client Feedback",
+        "heading": "<h2>What Clients <strong>Actually Say</strong></h2>",
+        "bg_color": "#0a0a0a",
+        "accent_color": "#4ade80",
+        "text_color": "#ffffff",
+        "card_bg": "#111111",
+        "card_border": "#1e1e1e",
+        "quote_color": "#cccccc",
+        "author_color": "#555555",
+        "star_color": "#4ade80",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "cwc_portfolio_final_cta_GFdCh4": {
+      "type": "CWC_portfolio_final_cta",
+      "blocks": {
+        "button_TAFh9A": {
+          "type": "button",
+          "settings": {
+            "label": "Get In Touch →",
+            "url": "",
+            "style": "primary",
+            "new_tab": false
+          }
+        },
+        "button_dtjEKL": {
+          "type": "button",
+          "settings": {
+            "label": "Download Resume",
+            "url": "",
+            "style": "ghost",
+            "new_tab": false
+          }
+        }
+      },
+      "block_order": [
+        "button_TAFh9A",
+        "button_dtjEKL"
+      ],
+      "name": "Portfolio Final CTA",
+      "settings": {
+        "eyebrow": "Let's Talk",
+        "heading": "<h2>Looking for a Shopify developer<br/>who <strong>ships and moves the number?</strong></h2>",
+        "subtext": "<p>Available for full-time, contract, and remote roles. Reach out directly or grab the resume.</p>",
+        "bg_color": "#0a0a0a",
+        "accent_color": "#4ade80",
+        "text_color": "#ffffff",
+        "subtext_color": "#bbbbbb",
+        "ghost_border": "#333333",
+        "padding_top": 96,
+        "padding_bottom": 96
       }
     }
   },
   "order": [
     "cwc_header_iCV6X8",
-    "cwc_hero_vertical_carousel_e3BmkC",
-    "cwc_hero_vsl_UgrxRm",
-    "cwc_logo_carousel_JcVN78",
-    "cwc_problem_agitation_jFJxhg",
-    "cwc_how_we_win_z97xND",
-    "cwc_who_this_is_for_pMqhGw",
-    "cwc_what_you_get_GM6BBg",
-    "cwc_upwork_badges_W8LABb",
-    "cwc_stats_row_kNGpqB",
-    "cwc_testimonials_cards_aKXKGz",
-    "cwc_services_cards_9BLJha",
-    "cwc_guarantee_8PLtY9",
-    "cwc_faq_PqgtL6",
-    "cwc_final_cta_MiW4cn"
+    "rich_text_9XykrV",
+    "cwc_portfolio_hero_FQYkjf",
+    "cwc_portfolio_stats_e6wGra",
+    "cwc_portfolio_marquee_K3eLYP",
+    "cwc_portfolio_case_studies_FHe39C",
+    "cwc_portfolio_skills_rpGWqL",
+    "cwc_portfolio_code_reGTPc",
+    "cwc_portfolio_clients_VbJeKH",
+    "cwc_portfolio_testimonials_E4VrFp",
+    "cwc_portfolio_final_cta_GFdCh4"
   ]
 }

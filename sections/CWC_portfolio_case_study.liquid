@@ -1,0 +1,433 @@
+{%- comment -%}
+  ============================================================
+   CWC Portfolio Case Study (detail page)
+  ============================================================
+
+  Renders one portfolio_case_study metaobject's content.
+
+  EXPECTED SETUP:
+  - Metaobject definition exists at handle: custom.portfolio_case_study
+  - Article (or Page) has a metafield of type "Metaobject reference"
+    pointing to a portfolio_case_study entry.
+  - Default metafield path:  article|page.metafields.custom.case_study
+
+  TO CHANGE THE METAFIELD PATH:
+  Edit the two `assign case_study = ...` lines below if your
+  metafield handle is something other than `custom.case_study`.
+{%- endcomment -%}
+
+{%- liquid
+  assign case_study = null
+
+  if article
+    assign case_study = article.metafields.custom.case_study.value
+  elsif page
+    assign case_study = page.metafields.custom.case_study.value
+  endif
+-%}
+
+{% style %}
+  #cwc_portfolio_case-study-{{ section.id }} {
+    --section-bg: {{ section.settings.bg_color | default: '#0A0A0A' }};
+    --accent-color: {{ section.settings.accent_color | default: '#4ade80' }};
+    --text-color: {{ section.settings.text_color | default: '#FFFFFF' }};
+    --subtext-color: {{ section.settings.subtext_color | default: '#BBBBBB' }};
+    --muted-color: {{ section.settings.muted_color | default: '#666666' }};
+    --card-bg: {{ section.settings.card_bg | default: '#111111' }};
+    --card-border: {{ section.settings.card_border | default: '#1E1E1E' }};
+    --rule-color: {{ section.settings.rule_color | default: '#1E1E1E' }};
+    --padding-top: {{ section.settings.padding_top | default: 72 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom | default: 96 }}px;
+    --padding-top-mobile: {{ section.settings.padding_top | default: 72 | times: 0.5 }}px;
+    --padding-bottom-mobile: {{ section.settings.padding_bottom | default: 96 | times: 0.5 }}px;
+  }
+{% endstyle %}
+
+{{ 'CWC_portfolio_case_study.css' | asset_url | stylesheet_tag }}
+
+{% comment %} give us the metaobject assocated in article {% endcomment %}
+{% assign case_study_item = article.metafields.custom.portfolio_case_study.value %}
+
+{% comment %} {{ case_study_item | json | escape }} {% endcomment %}
+
+<section id="cwc_portfolio_case-study-{{ section.id }}" class="cwc_portfolio_case-study">
+  <div class="cwc_portfolio_case-study__container">
+    {% if case_study_item == blank or case_study_item == null %}
+      {% comment %} No metaobject linked — admin-only empty state {% endcomment %}
+      {% if request.design_mode %}
+        <div class="cwc_portfolio_case-study__empty">
+          <p>
+            <strong>No case study linked.</strong> Open this {% if article %}article{% else %}page{% endif %} in the
+            admin and set the <code>custom.case_study</code> metafield to a portfolio_case_study metaobject entry.
+          </p>
+        </div>
+      {% endif %}
+
+    {% else %}
+      {%- comment -%}
+        =============================================
+          HEADER
+        ==============================================
+      {%- endcomment -%}
+      <div class="cwc_portfolio_case-study__header">
+        {% if section.settings.show_back_link and section.settings.back_url != blank %}
+          <a href="{{ section.settings.back_url }}" class="cwc_portfolio_case-study__back-link">
+            ← {{ section.settings.back_label | default: 'Back to Portfolio' }}
+          </a>
+        {% endif %}
+
+        {% if case_study_item.project_type != blank %}
+          <span class="cwc_portfolio_case-study__eyebrow">{{ case_study_item.project_type }}</span>
+        {% endif %}
+
+        {% if case_study_item.title != blank %}
+          <h1 class="cwc_portfolio_case-study__title">{{ case_study_item.title }}</h1>
+        {% endif %}
+
+        {% if case_study_item.client_name != blank %}
+          <div class="cwc_portfolio_case-study__client">
+            {{ section.settings.client_prefix | default: 'Client:' }}
+            <strong>{{ case_study_item.client_name }}</strong>
+          </div>
+        {% endif %}
+
+        {%- assign has_links = false -%}
+        {% if case_study_item.live_url != blank or case_study_item.github_url != blank %}
+          {%- assign has_links = true -%}
+        {% endif %}
+
+        {% if has_links %}
+          <div class="cwc_portfolio_case-study__header-links">
+            {% if case_study_item.live_url != blank %}
+              <a
+                href="{{ case_study_item.live_url }}"
+                class="cwc_portfolio_case-study__link cwc_portfolio_case-study__link--primary"
+                target="_blank"
+                rel="noopener"
+              >
+                View Live Site →
+              </a>
+            {% endif %}
+            {% if case_study_item.github_url != blank %}
+              <a
+                href="{{ case_study_item.github_url }}"
+                class="cwc_portfolio_case-study__link cwc_portfolio_case-study__link--ghost"
+                target="_blank"
+                rel="noopener"
+              >
+                View Code →
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      {%- comment -%}
+        =============================================
+          FEATURED IMAGE
+        ==============================================
+      {%- endcomment -%}
+      {% if case_study_item.featured_image != blank %}
+        <div class="cwc_portfolio_case-study__featured-img">
+          {{
+            case_study_item.featured_image
+            | image_url: width: 1600
+            | image_tag:
+              class: 'cwc_portfolio_case-study__featured-image',
+              widths: '600, 800, 1200, 1600, 2000',
+              sizes: '(max-width: 991px) 100vw, 1200px',
+              alt: case_study_item.title,
+              loading: 'eager',
+              fetchpriority: 'high'
+          }}
+        </div>
+      {% endif %}
+
+      {%- comment -%}
+        =============================================
+          OVERVIEW + SCOPE OF WORK (2-col on desktop)
+        ==============================================
+      {%- endcomment -%}
+      {% if case_study_item.overview != blank or case_study_item.scope_of_work != blank %}
+        <div class="cwc_portfolio_case-study__intro-grid">
+          {% if case_study_item.overview != blank %}
+            <div class="cwc_portfolio_case-study__block">
+              <h2 class="cwc_portfolio_case-study__block-label">Overview</h2>
+              <div class="cwc_portfolio_case-study__block-body cwc-rte">
+                {{ case_study_item.overview }}
+              </div>
+            </div>
+          {% endif %}
+
+          {% if case_study_item.scope_of_work != blank %}
+            <div class="cwc_portfolio_case-study__block">
+              <h2 class="cwc_portfolio_case-study__block-label">Scope of Work</h2>
+              <div class="cwc_portfolio_case-study__block-body cwc-rte">
+                {{ case_study_item.scope_of_work | metafield_tag }}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {%- comment -%}
+        =============================================
+          STATS ROW (only renders stats that exist)
+        ==============================================
+      {%- endcomment -%}
+      {%- assign has_stats = false -%}
+      {% if case_study_item.stat_1_value != blank
+        or case_study_item.stat_2_value != blank
+        or case_study_item.stat_3_value != blank
+      %}
+        {%- assign has_stats = true -%}
+      {% endif %}
+
+      {% if has_stats %}
+        <div class="cwc_portfolio_case-study__stats">
+          {% if case_study_item.stat_1_value != blank %}
+            <div class="cwc_portfolio_case-study__stat">
+              <div class="cwc_portfolio_case-study__stat-val">{{ case_study_item.stat_1_value }}</div>
+              {% if case_study_item.stat_1_label != blank %}
+                <div class="cwc_portfolio_case-study__stat-key">{{ case_study_item.stat_1_label }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+          {% if case_study_item.stat_2_value != blank %}
+            <div class="cwc_portfolio_case-study__stat">
+              <div class="cwc_portfolio_case-study__stat-val">{{ case_study_item.stat_2_value }}</div>
+              {% if case_study_item.stat_2_label != blank %}
+                <div class="cwc_portfolio_case-study__stat-key">{{ case_study_item.stat_2_label }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+          {% if case_study_item.stat_3_value != blank %}
+            <div class="cwc_portfolio_case-study__stat">
+              <div class="cwc_portfolio_case-study__stat-val">{{ case_study_item.stat_3_value }}</div>
+              {% if case_study_item.stat_3_label != blank %}
+                <div class="cwc_portfolio_case-study__stat-key">{{ case_study_item.stat_3_label }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {%- comment -%}
+        =============================================
+          PROBLEM / SOLUTION / RESULT (stacked with numbered labels)
+        ==============================================
+      {%- endcomment -%}
+      {% if case_study_item.the_problem != blank
+        or case_study_item.the_solution != blank
+        or case_study_item.the_result != blank
+      %}
+        <div class="cwc_portfolio_case-study__narrative">
+          {% if case_study_item.the_problem != blank %}
+            <div class="cwc_portfolio_case-study__chapter">
+              <div class="cwc_portfolio_case-study__chapter-num">01</div>
+              <div class="cwc_portfolio_case-study__chapter-content">
+                <h3 class="cwc_portfolio_case-study__chapter-title">The Problem</h3>
+                <div class="cwc_portfolio_case-study__chapter-body cwc-rte">
+                  {{ case_study_item.the_problem | metafield_tag }}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if case_study_item.the_solution != blank %}
+            <div class="cwc_portfolio_case-study__chapter">
+              <div class="cwc_portfolio_case-study__chapter-num">02</div>
+              <div class="cwc_portfolio_case-study__chapter-content">
+                <h3 class="cwc_portfolio_case-study__chapter-title">The Solution</h3>
+                <div class="cwc_portfolio_case-study__chapter-body cwc-rte">
+                  {{ case_study_item.the_solution | metafield_tag }}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if case_study_item.the_result != blank %}
+            <div class="cwc_portfolio_case-study__chapter">
+              <div class="cwc_portfolio_case-study__chapter-num">03</div>
+              <div class="cwc_portfolio_case-study__chapter-content">
+                <h3 class="cwc_portfolio_case-study__chapter-title">The Result</h3>
+                <div class="cwc_portfolio_case-study__chapter-body cwc-rte">
+                  {{ case_study_item.the_result | metafield_tag }}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {%- comment -%}
+        =============================================
+          BEFORE / AFTER COMPARISON
+        ==============================================
+      {%- endcomment -%}
+      {% if case_study_item.before_image != blank or case_study_item.after_image != blank %}
+        <div class="cwc_portfolio_case-study__compare">
+          {% if case_study_item.before_image != blank %}
+            <figure class="cwc_portfolio_case-study__compare-item">
+              {{
+                case_study_item.before_image
+                | image_url: width: 1200
+                | image_tag:
+                  class: 'cwc_portfolio_case-study__compare-image',
+                  widths: '400, 600, 800, 1200',
+                  sizes: '(max-width: 768px) 100vw, 50vw',
+                  alt: 'Before screenshot',
+                  loading: 'lazy'
+              }}
+              <figcaption class="cwc_portfolio_case-study__compare-label">Before</figcaption>
+            </figure>
+          {% endif %}
+
+          {% if case_study_item.after_image != blank %}
+            <figure class="cwc_portfolio_case-study__compare-item">
+              {{
+                case_study_item.after_image
+                | image_url: width: 1200
+                | image_tag:
+                  class: 'cwc_portfolio_case-study__compare-image',
+                  widths: '400, 600, 800, 1200',
+                  sizes: '(max-width: 768px) 100vw, 50vw',
+                  alt: 'After screenshot',
+                  loading: 'lazy'
+              }}
+              <figcaption class="cwc_portfolio_case-study__compare-label cwc_portfolio_case-study__compare-label--after">
+                After
+              </figcaption>
+            </figure>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {%- comment -%}
+        =============================================
+          TESTIMONIAL
+        ==============================================
+      {%- endcomment -%}
+      {% if case_study_item.testimonial != blank %}
+        <blockquote class="cwc_portfolio_case-study__testimonial">
+          <div class="cwc_portfolio_case-study__testimonial-quote cwc-rte">
+            {{ case_study_item.testimonial }}
+          </div>
+          {% if case_study_item.client_name != blank %}
+            <cite class="cwc_portfolio_case-study__testimonial-cite">— {{ case_study_item.client_name }}</cite>
+          {% endif %}
+        </blockquote>
+      {% endif %}
+
+      {%- comment -%}
+        =============================================
+          BOTTOM CTA — repeat live/code links if present + back nav
+        ==============================================
+      {%- endcomment -%}
+      {% if has_links or section.settings.show_back_link %}
+        <div class="cwc_portfolio_case-study__bottom-cta">
+          {% if has_links %}
+            <div class="cwc_portfolio_case-study__bottom-links">
+              {% if case_study_item.live_url != blank %}
+                <a
+                  href="{{ case_study_item.live_url }}"
+                  class="cwc_portfolio_case-study__link cwc_portfolio_case-study__link--primary"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  View Live Site →
+                </a>
+              {% endif %}
+              {% if case_study_item.github_url != blank %}
+                <a
+                  href="{{ case_study_item.github_url }}"
+                  class="cwc_portfolio_case-study__link cwc_portfolio_case-study__link--ghost"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  View Code →
+                </a>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {% if section.settings.show_back_link and section.settings.back_url != blank %}
+            <a href="{{ section.settings.back_url }}" class="cwc_portfolio_case-study__bottom-back">
+              ← {{ section.settings.back_label | default: 'Back to All Case Studies' }}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Portfolio Case Study",
+  "settings": [
+    { "type": "header", "content": "Navigation" },
+    {
+      "type": "checkbox",
+      "id": "show_back_link",
+      "label": "Show 'Back to Portfolio' link",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "back_url",
+      "label": "Back Link URL",
+      "info": "Usually points to /pages/portfolio"
+    },
+    {
+      "type": "text",
+      "id": "back_label",
+      "label": "Back Link Label",
+      "default": "Back to All Case Studies"
+    },
+    {
+      "type": "text",
+      "id": "client_prefix",
+      "label": "Client Label Prefix",
+      "info": "Text shown before the client name (e.g. 'Client:').",
+      "default": "Client:"
+    },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#0A0A0A" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#4ade80" },
+    { "type": "color", "id": "text_color", "label": "Body Text", "default": "#FFFFFF" },
+    { "type": "color", "id": "subtext_color", "label": "Subtext", "default": "#BBBBBB" },
+    { "type": "color", "id": "muted_color", "label": "Muted Text", "default": "#666666" },
+    { "type": "color", "id": "card_bg", "label": "Card BG", "default": "#111111" },
+    { "type": "color", "id": "card_border", "label": "Card Border", "default": "#1E1E1E" },
+    { "type": "color", "id": "rule_color", "label": "Divider Lines", "default": "#1E1E1E" },
+    { "type": "header", "content": "Spacing" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "Portfolio Case Study",
+      "category": "Portfolio"
+    }
+  ]
+}
+{% endschema %}

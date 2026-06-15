@@ -19,7 +19,6 @@
 
 <section id="cwc_portfolio_testimonials-{{ section.id }}" class="cwc_portfolio_testimonials">
   <div class="cwc_portfolio_testimonials__container">
-
     <div class="cwc_portfolio_testimonials__header">
       {% if section.settings.eyebrow != blank %}
         <span class="cwc_portfolio_testimonials__eyebrow">{{ section.settings.eyebrow }}</span>
@@ -40,7 +39,9 @@
             <div class="cwc_portfolio_testimonials__card" {{ block.shopify_attributes }}>
               {% if rating > 0 %}
                 <div class="cwc_portfolio_testimonials__stars" aria-label="{{ rating }} out of 5 stars">
-                  {%- for i in (1..rating) -%}★{%- endfor -%}
+                  {%- for i in (1..rating) -%}
+                    ★
+                  {%- endfor -%}
                 </div>
               {% endif %}
 
@@ -56,7 +57,6 @@
         {% endfor %}
       </div>
     {% endif %}
-
   </div>
 </section>
 
@@ -65,20 +65,43 @@
   "name": "Portfolio Testimonials",
   "settings": [
     { "type": "header", "content": "Header" },
-    { "type": "text",     "id": "eyebrow", "label": "Eyebrow", "default": "Client Feedback" },
-    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<h2>What Clients <strong>Actually Say</strong></h2>" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Client Feedback" },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<h2>What Clients <strong>Actually Say</strong></h2>"
+    },
     { "type": "header", "content": "Colors" },
-    { "type": "color", "id": "bg_color",     "label": "Background",       "default": "#0A0A0A" },
-    { "type": "color", "id": "accent_color", "label": "Accent",           "default": "#4ade80" },
-    { "type": "color", "id": "text_color",   "label": "Heading Color",    "default": "#FFFFFF" },
-    { "type": "color", "id": "card_bg",      "label": "Card BG",          "default": "#111111" },
-    { "type": "color", "id": "card_border",  "label": "Card Border",      "default": "#1E1E1E" },
-    { "type": "color", "id": "quote_color",  "label": "Quote Text",       "default": "#CCCCCC" },
-    { "type": "color", "id": "author_color", "label": "Author Text",      "default": "#555555" },
-    { "type": "color", "id": "star_color",   "label": "Star Color",       "default": "#4ade80" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#0A0A0A" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#4ade80" },
+    { "type": "color", "id": "text_color", "label": "Heading Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "card_bg", "label": "Card BG", "default": "#111111" },
+    { "type": "color", "id": "card_border", "label": "Card Border", "default": "#1E1E1E" },
+    { "type": "color", "id": "quote_color", "label": "Quote Text", "default": "#CCCCCC" },
+    { "type": "color", "id": "author_color", "label": "Author Text", "default": "#555555" },
+    { "type": "color", "id": "star_color", "label": "Star Color", "default": "#4ade80" },
     { "type": "header", "content": "Spacing" },
-    { "type": "range", "id": "padding_top",    "label": "Padding Top",    "min": 0, "max": 200, "step": 4, "unit": "px", "default": 72 },
-    { "type": "range", "id": "padding_bottom", "label": "Padding Bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 72 }
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    }
   ],
   "blocks": [
     {
@@ -113,11 +136,26 @@
   "presets": [
     {
       "name": "Portfolio Testimonials",
-      "category": "CWC Custom",
+      "category": "Portfolio",
       "blocks": [
-        { "type": "testimonial", "settings": { "quote": "Got the job done right the first time with very little input — listens well and executes on schedule.", "author": "Upwork Client · 5.0 ★" } },
-        { "type": "testimonial", "settings": { "quote": "Delivered work in a very short time. I'll be hiring him again.", "author": "Upwork Client · 5.0 ★" } },
-        { "type": "testimonial", "settings": { "quote": "[ Third Upwork review — to be added ]", "author": "Upwork Client · 5.0 ★" } }
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Got the job done right the first time with very little input — listens well and executes on schedule.",
+            "author": "Upwork Client · 5.0 ★"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Delivered work in a very short time. I'll be hiring him again.",
+            "author": "Upwork Client · 5.0 ★"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": { "quote": "[ Third Upwork review — to be added ]", "author": "Upwork Client · 5.0 ★" }
+        }
       ]
     }
   ]
